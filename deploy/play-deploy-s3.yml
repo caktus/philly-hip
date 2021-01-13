@@ -1,0 +1,12 @@
+
+---
+
+- hosts: k8s
+  vars:
+    ansible_connection: local
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+  tasks:
+    - name: configure Amazon S3 buckets
+      import_role:
+        name: caktus.django-k8s
+        tasks_from: aws_s3

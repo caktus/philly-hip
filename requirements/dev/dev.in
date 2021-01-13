@@ -1,0 +1,39 @@
+# Dev requirements
+-c ../base/base.in
+
+pyyaml
+black
+isort
+ipython
+jupyterlab
+
+# deploy
+-e git+https://github.com/caktus/invoke-kubesae@0.0.9#egg=invoke-kubesae
+troposphere
+
+# AWS tools
+awscli
+awslogs
+openshift
+kubernetes-validate
+
+pre-commit
+coverage
+flake8
+importlib-metadata
+
+# For better debugging
+appnope
+pudb
+django-debug-toolbar
+
+# For testing
+factory_boy
+
+
+pytest
+pytest-cov
+pytest-django
+
+
+

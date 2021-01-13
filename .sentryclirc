@@ -1,0 +1,5 @@
+[defaults]
+org = caktus
+project = hip
+[auth]
+token = <<FILL IN>>

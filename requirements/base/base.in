@@ -1,0 +1,31 @@
+# base.in
+
+django
+django-dotenv
+django_extensions
+django_model_utils
+django-webpack-loader
+dj-database-url
+django-webpack-loader
+django-model-utils
+django-storages
+django-compressor
+django-taggit
+
+django-sass-processor
+
+django-phonenumber-field
+django-honeypot
+whitenoise
+boto3
+libsass
+phonenumberslite
+
+# Postgres
+psycopg2-binary
+
+
+# Wagtail
+wagtail
+wagtailfontawesome
+wagtailmenus

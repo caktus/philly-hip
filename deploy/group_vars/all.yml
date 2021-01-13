@@ -1,0 +1,81 @@
+---
+
+# ----------------------------------------------------------------------------
+# Global: Common configuration variables for all environments being deployed
+#         to Kubernetes.
+# ----------------------------------------------------------------------------
+
+app_name: hip
+ansible_connection: local
+
+aws_region: <<FILL IN>>
+aws_profile: "hip"
+
+admin_database_password: <<FILL IN>>
+domain_name: caktus-built.com
+
+caktus_access_role_arn: <<FILL IN>> 
+
+# ----------------------------------------------------------------------------
+# caktus.aws-web-stacks: Ansible role to automate AWS CloudFormation stack
+#                        provisioning with aws-web-stacks.
+# ----------------------------------------------------------------------------
+
+stack_name: '{{ app_name }}-stack'
+
+cloudformation_stack:
+  region: "{{ aws_region }}"
+  stack_name: "{{ stack_name }}"
+  template_bucket: "aws-web-stacks-{{ app_name }}"
+  # Webstacks required variable
+  template_local_path: '{{ playbook_dir + "/stack/eks-no-nat.yml" }}'
+  create_changeset: true
+  termination_protection: true
+
+  template_parameters:
+    PrimaryAZ: "{{ aws_region }}a"
+    SecondaryAZ: "{{ aws_region }}b"
+    DesiredScale: 2
+    MaxScale: 4
+    UseAES256Encryption: "true"
+    CustomerManagedCmkArn: ""
+    ContainerInstanceType: t3a.medium
+    DatabaseClass: db.t3.micro
+    DatabaseEngineVersion: "11"
+    DatabaseParameterGroupFamily: postgres11
+    DatabaseMultiAZ: "true"
+    DatabaseUser: "{{ app_name }}_admin"
+    DatabasePassword: "{{ admin_database_password }}"
+    DatabaseName: "{{ app_name }}"
+    DomainName: "{{ app_name }}.{{ domain_name }}"
+    DomainNameAlternates: ""
+    AssetsUseCloudFront: "false"
+  tags:
+    Environment: "{{ app_name }}"
+
+# ----------------------------------------------------------------------------
+# caktus.k8s-web-cluster: An Ansible role to help configure Kubernetes
+#                         clusters for web apps.
+# ----------------------------------------------------------------------------
+
+k8s_cluster_name: "{{ cloudformation_stack.stack_name }}-cluster"
+k8s_context: "{{ caktus_access_rol_arn }}/{{ k8s_cluster_name }}"
+k8s_cluster_type: aws
+
+# Continuous integration:
+k8s_ci_aws_profile: "{{ aws_profile }}"
+k8s_ci_repository_arn: <<FILL IN>>
+k8s_ci_vault_password_arn: <<FILL IN>>
+
+k8s_letsencrypt_email: admin@caktusgroup.com
+# New Relic Infrastructure: Caktus Paid Account
+k8s_newrelic_license_key: <<FILL IN>>
+
+k8s_papertrail_logspout_destination: <<FILL IN>>
+k8s_papertrail_logspout_memory_limit: 128Mi
+
+# Users are automatically granted access via the CaktusAccessRole. The below user
+# is a backup user in case something goes wrong and cluster access must be
+# restored.
+k8s_iam_users:
+  - <<FILL IN>>

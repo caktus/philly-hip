@@ -1,0 +1,16 @@
+version: "3.4"
+
+volumes:
+  dev_hip_data: {}
+
+services:
+  db:
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_DB: hip
+      DATABASE_URL: postgres://postgres@127.0.01:5433/hip
+    image: postgres:12-alpine
+    ports:
+      - "5433:5432"
+    volumes:
+      - dev_hip_data:/var/lib/postgresql/data

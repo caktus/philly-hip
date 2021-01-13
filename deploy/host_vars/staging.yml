@@ -1,0 +1,38 @@
+env_name: "staging"
+
+# Basic auth
+k8s_container_htpasswd: ""
+
+k8s_domain_names:
+        - hip.caktus-built.com
+
+k8s_auth_api_key: <<NEEDS TO BE FILLED IN>>
+
+database_password: <<NEEDS TO BE FILLED IN>>
+
+
+k8s_environment_variables:
+        DATABASE_URL: "{{ env_database_url }}"
+        DJANGO_SETTINGS_MODULE: "{{ env_django_settings }}"
+        DJANGO_DEBUG: "False"
+        # DOMAIN is the ALLOWED_HOST
+        DOMAIN: "{{ k8s_domain_names[0] }}"
+        ALLOWED_HOSTS: "{{ k8s_domain_names[0] }}"
+        ENVIRONMENT: "{{ env_name }}"
+        CACHE_HOST: "{{ env_cache_host }}"
+        # *** Uploaded media
+        DEFAULT_FILE_STORAGE: "{{ env_default_file_storage }}"
+        MEDIA_STORAGE_BUCKET_NAME: "{{ env_media_storage_bucket_name }}"
+        AWS_DEFAULT_ACL: "{{ env_aws_default_acl }}"
+        AWS_DEFAULT_REGION: "{{ aws_region }}"
+        MEDIA_LOCATION: "{{ env_media_location }}"
+        # *** Email
+        EMAIL_HOST: <<FILL IN>>
+        EMAIL_HOST_USER: <<FILL IN>>
+        EMAIL_HOST_PASSWORD: <<FILL IN>>
+        EMAIL_USE_TLS: "true"
+        # *** New Relic APM
+        NEW_RELIC_APP_NAME: "{{ env_new_relic_app_name }}"
+        NEW_RELIC_LICENSE_KEY: "{{ env_new_relic_license_key }}"
+        SENTRY_DSN: "{{ env_sentry_dsn }}"
+        DJANGO_SECRET_KEY:

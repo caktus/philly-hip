@@ -1,0 +1,5 @@
+- name: kubernetes cluster management
+  hosts: cluster
+  gather_facts: false
+  roles:
+    - role: caktus.k8s-web-cluster

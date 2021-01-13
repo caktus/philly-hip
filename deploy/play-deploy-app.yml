@@ -1,0 +1,11 @@
+
+---
+# Playbook to run every time we need to update the app.
+# The cluster_setup.yaml playbook should be run at least once
+# before running this one.
+- hosts: k8s
+  vars:
+    ansible_connection: local
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+  roles:
+  - role: caktus.django-k8s
