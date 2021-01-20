@@ -111,7 +111,7 @@ jobs:
 
             inv project.ci-build
       - when:
-        # If this test is not being run on master or develop, then we should
+        # If this test is not being run on main or develop, then we should
         # check to see if this branch will trigger a merge migration, and check
         # pre-commit
           condition:
@@ -119,7 +119,7 @@ jobs:
               - not:
                   equal: [ develop, << pipeline.git.branch >> ]
               - not:
-                  equal: [ master, << pipeline.git.branch >> ]
+                  equal: [ main, << pipeline.git.branch >> ]
           steps:
             - run:
                 name: Check migrations
@@ -165,4 +165,4 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - main
