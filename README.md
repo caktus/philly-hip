@@ -5,13 +5,13 @@
 To begin you should have the following applications installed on your local development system:
 
 - Python >= 3.8
-- NodeJS == 12.16.x
+- NodeJS == 12.20.x
 - npm == 6.14.x (comes with node 12)
 - [nvm](https://github.com/nvm-sh/nvm/blob/master/README.md) is not strictly _required_, but will almost certainly be necessary unless you just happen to have Node.js 12.x installed on your machine.
 - [pip](http://www.pip-installer.org/) >= 20
 - [virtualenv](http://www.virtualenv.org/) >= 1.10
 - [virtualenvwrapper](http://pypi.python.org/pypi/virtualenvwrapper) >= 3.0
-- Postgres >= 12
+- Postgres >= 11
 - git >= 2.26
 
 
@@ -63,7 +63,7 @@ First clone the repository from Github and switch to the new directory:
 
 ```linux
     $ git clone git@github.com:caktus/philly-hip.git
-    $ cd hip
+    $ cd philly-hip
 ```
 
 **2. Set up virtual environment**
