@@ -125,11 +125,12 @@ workflow is to:
 
 pre-commit is used to enforce a variety of community standards. CI runs it,
 so it's useful to setup the pre-commit hook to catch any issues before pushing
-to GitHub.
+to GitHub and reset your pre-commit cache to make sure that you're starting fresh.
 
 To install, run:
 
 ```linux
+    (hip)$ pre-commit clean
     (hip)$ pre-commit install
 ```
 
