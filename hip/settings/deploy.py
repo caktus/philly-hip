@@ -89,7 +89,9 @@ for backend in TEMPLATES:
             ]
 
 ### ADMINS and MANAGERS
-ADMINS = (("PDPH Health Information Portal Dev Team", "hip-team@caktusgroup.com"),)
+ADMINS = (
+    ("PDPH Health Information Portal Dev Team", "hip-philly-team@caktusgroup.com"),
+)
 
 ### 3rd-party appplications
 
