@@ -1,45 +1,72 @@
 ---
 
 # ----------------------------------------------------------------------------
-# Global: Common configuration variables for all environments being deployed
-#         to Kubernetes.
+# Global: Common configuration variables for all inventory groups
 # ----------------------------------------------------------------------------
 
 app_name: hip
 ansible_connection: local
 
-aws_region: <<FILL IN>>
-aws_profile: "hip"
+aws_region: us-east-1
+aws_profile: saguaro-cluster
 
-admin_database_password: <<FILL IN>>
-domain_name: caktus-built.com
-
-caktus_access_role_arn: <<FILL IN>> 
+ClusterEndpoint: https://A9ED894F5721970831AED9882203CA29.gr7.us-east-1.eks.amazonaws.com
+RepositoryURL: 472354598015.dkr.ecr.us-east-1.amazonaws.com
+DatabaseAddress: cdxeo4fjae7bwu.ckpm6k1hp413.us-east-1.rds.amazonaws.com
 
 # ----------------------------------------------------------------------------
-# caktus.aws-web-stacks: Ansible role to automate AWS CloudFormation stack
-#                        provisioning with aws-web-stacks.
+# caktus.django-k8s: Shared configuration variables for staging and production
+#                    environments.
 # ----------------------------------------------------------------------------
 
 
-k8s_cluster_name: "{{ cloudformation_stack.stack_name }}-cluster"
-k8s_context: "{{ caktus_access_rol_arn }}/{{ k8s_cluster_name }}"
-k8s_cluster_type: aws
+k8s_auth_host: "{{ ClusterEndpoint }}"
+k8s_auth_ssl_ca_cert: "k8s_auth_ssl_ca_cert.txt"
+k8s_namespace: "{{ app_name }}-{{ env_name }}"
 
-# Continuous integration:
-k8s_ci_aws_profile: "{{ aws_profile }}"
-k8s_ci_repository_arn: <<FILL IN>>
-k8s_ci_vault_password_arn: <<FILL IN>>
+# App pod configuration:
+k8s_container_name: app
+k8s_container_port: 8000
+k8s_container_image: "{{ RepositoryURL }}/{{ app_name }}"
+k8s_container_image_pull_policy: Always
+k8s_container_replicas: 2
+k8s_migrations_enabled: true
+k8s_collectstatic_enabled: false
+k8s_container_ingress_annotations:
+  nginx.ingress.kubernetes.io/proxy-body-size: 100m
+  # These are in seconds, but need to be specified without the trailing 's'
+  # usually seen in nginx.conf proper.
+  nginx.ingress.kubernetes.io/proxy-connect-timeout: 1800
+  nginx.ingress.kubernetes.io/proxy-send-timeout: 1800
+  nginx.ingress.kubernetes.io/proxy-read-timeout: 1800
+  # Workaround for lack of annotation for send_timeout parameter:
+  # https://github.com/kubernetes/ingress-nginx/issues/2441#issuecomment-419714384
+  nginx.ingress.kubernetes.io/configuration-snippet: |
+    send_timeout 1800s;
 
-k8s_letsencrypt_email: admin@caktusgroup.com
-# New Relic Infrastructure: Caktus Paid Account
-k8s_newrelic_license_key: <<FILL IN>>
+# Shared environment variables:
+env_database_url: "postgres://{{ app_name }}_{{ env_name }}:{{ database_password }}@{{ DatabaseAddress }}:5432/{{ app_name }}_{{ env_name }}"
+env_django_settings: "{{ app_name }}.settings.deploy"
+env_cache_host: memcached:11211
+env_default_file_storage: "{{ app_name }}.storages.MediaBoto3Storage"
+env_media_storage_bucket_name: "{{ app_name }}-{{ env_name }}-assets"
+env_aws_default_acl: ""
+env_media_location: media/
+# New Relic APM: Caktus Free Account
+env_new_relic_app_name: "{{ k8s_namespace }}"
+env_new_relic_license_key: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          32643438396439386334333135393064663563363438666530653064623238653031666366363232
+          6137373831303130353761343930346634613136646362310a633666393463633835333934316532
+          62643265666362643364323135346161346433323037616363323434363031663735393232326539
+          6462306135653738640a626663346439666636353665653936353837623235633362393434303933
+          35373734396564363166613564303332663635643639323935336338613436393937363235353165
+          6636616130373563383234333230656538613365653737346236
+env_sentry_dsn: https://405bfdc63a414dd88ef44d3fd2633982@o168020.ingest.sentry.io/5599363
 
-k8s_papertrail_logspout_destination: <<FILL IN>>
-k8s_papertrail_logspout_memory_limit: 128Mi
+# Auxillary pod configuration:
+k8s_memcached_enabled: true
 
-# Users are automatically granted access via the CaktusAccessRole. The below user
-# is a backup user in case something goes wrong and cluster access must be
-# restored.
-k8s_iam_users:
-  - <<FILL IN>>
+# S3 bucket configuration:
+k8s_s3_region: "{{ aws_region }}"
+k8s_s3_cluster_name: "{{ k8s_cluster_name }}"

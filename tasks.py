@@ -123,13 +123,11 @@ ns.add_task(production)
 
 ns.configure(
     {
-        "app": "hip_app",
-        "aws": {
-            "region": "us-east-2",
-        },
-        "cluster": "hip-stack-cluster",
+        "app": "hip",
+        "aws": {"region": "us-east-1"},
+        "cluster": "caktus-saguaro-cluster",
         "container_name": "app",
-        "repository": "<<Container Repository Here>>",
+        "repository": "472354598015.dkr.ecr.us-east-1.amazonaws.com/hip",
         "run": {
             "echo": True,
             "pty": True,
