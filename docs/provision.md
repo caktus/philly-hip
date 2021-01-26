@@ -220,6 +220,17 @@ https://docs.aws.amazon.com/ses/latest/DeveloperGuide/smtp-credentials.html
 	memcached-797d6b546c-fn862   1/1     Running   0          7m
 	```
 
+### Create S3 buckets for media and assets
+
+This role creates a private bucket for media, a public bucket for assets, and the
+accompanying security roles so that all of the EKS nodes can properly access those
+buckets. Note that at the time of provisioning, the settings are not using the static
+assets bucket, but are instead storing files on each instance.
+
+```sh
+inv deploy.playbook play-deploy-s3.yml
+```
+
 ## Production
 
 To be filled out once we provision production.

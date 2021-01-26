@@ -49,7 +49,7 @@ env_database_url: "postgres://{{ app_name }}_{{ env_name }}:{{ database_password
 env_django_settings: "{{ app_name }}.settings.deploy"
 env_cache_host: memcached:11211
 env_default_file_storage: "{{ app_name }}.storages.MediaBoto3Storage"
-env_media_storage_bucket_name: "{{ app_name }}-{{ env_name }}-assets"
+env_media_storage_bucket_name: "{{ app_name }}-{{ env_name }}-private-assets"
 env_aws_default_acl: ""
 env_media_location: media/
 # New Relic APM: Caktus Free Account
@@ -69,4 +69,4 @@ k8s_memcached_enabled: true
 
 # S3 bucket configuration:
 k8s_s3_region: "{{ aws_region }}"
-k8s_s3_cluster_name: "{{ k8s_cluster_name }}"
+k8s_s3_cluster_name: "caktus-saguaro-cluster"
