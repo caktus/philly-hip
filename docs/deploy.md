@@ -3,8 +3,7 @@
 HIP is configured with continuous deployment, but here are the steps to perform a manual
 deployment from your laptop.
 
-** If this is your first time, please see the [Local Deployment Environment
-	Setup](#local-deployment-environment-setup) section before continuing.**
+**If this is your first time, please see the [Local Deployment Environment Setup](#local-deployment-environment-setup) section before continuing.**
 
 ## Build
 
@@ -36,7 +35,7 @@ You should now see the built and tagged image in ``docker images``.
 You can test the deployable image locally with:
 
 ```sh
-$ inv image.up
+(hip)$ inv image.up
 ```
 
 You should see all the supporting containers come up. Then navigate to
@@ -49,13 +48,16 @@ If you've just built the image above, the easiest way to deploy it is by running
 finding the latest image tagged with develop it should look something like this:
 
 ```sh
-$ 1234567890.dkr.ecr.us-east-1.amazonaws.com/caktu-appli-7ockisoxzjzu   develop-bf47d7b                    ddd65535d290        9 minutes ago       539MB
+(hip)$ docker images
+...
+1234567890.dkr.ecr.us-east-1.amazonaws.com/caktu-appli-7ockisoxzjzu   develop-bf47d7b                    ddd65535d290        9 minutes ago       539MB
+...
 ```
 
 So in the case of the above line you would then run the following to complete a deploy to `staging`:
 
 ```sh
-$ inv staging deploy --tag=develop-bf47d7b
+(hip)$ inv staging deploy --tag=develop-bf47d7b
 ```
 
 
@@ -102,14 +104,11 @@ command to do that.
 ```sh
 (hip)$ inv staging pod.shell
 appuser@app-84f486b849-pfp7k:/code$ python manage.py createsuperuser
-manage.py:9: UserWarning: Not reading .env - it doesn't exist.
-  dotenv.read_dotenv()
 Email: me@example.com
 Password:
 Password (again):
 Superuser created successfully.
 appuser@app-84f486b849-pfp7k:/code$ exit
-(
 ```
 
 ## Local Deployment Environment Setup
