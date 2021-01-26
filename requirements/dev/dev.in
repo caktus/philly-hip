@@ -8,7 +8,7 @@ ipython
 jupyterlab
 
 # deploy
--e git+https://github.com/caktus/invoke-kubesae@0.0.9#egg=invoke-kubesae
+-e git+https://github.com/caktus/invoke-kubesae@0.0.10#egg=invoke-kubesae
 troposphere
 
 # AWS tools
@@ -34,6 +34,3 @@ factory_boy
 pytest
 pytest-cov
 pytest-django
-
-
-

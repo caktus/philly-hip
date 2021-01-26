@@ -178,13 +178,7 @@ appuser@app-84f486b849-pfp7k:/code$ exit
 To see configured ansible variable like ``k8s_environment_variables`` you can use the following invoke command.
 
 ```sh
-$ inv staging print-ansible-vars
-```
-
-To inspect a single variable issue:
-
-```sh
-$ inv staging project.print-ansible-vars --var="DATABASE_URL"
+(hip)$ inv staging info.get-ansible-vars
 ```
 
 There are many other useful commands built into `invoke-kubesae` itself, so check out
