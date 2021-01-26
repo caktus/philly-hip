@@ -21,42 +21,6 @@ caktus_access_role_arn: <<FILL IN>>
 #                        provisioning with aws-web-stacks.
 # ----------------------------------------------------------------------------
 
-stack_name: '{{ app_name }}-stack'
-
-cloudformation_stack:
-  region: "{{ aws_region }}"
-  stack_name: "{{ stack_name }}"
-  template_bucket: "aws-web-stacks-{{ app_name }}"
-  # Webstacks required variable
-  template_local_path: '{{ playbook_dir + "/stack/eks-no-nat.yml" }}'
-  create_changeset: true
-  termination_protection: true
-
-  template_parameters:
-    PrimaryAZ: "{{ aws_region }}a"
-    SecondaryAZ: "{{ aws_region }}b"
-    DesiredScale: 2
-    MaxScale: 4
-    UseAES256Encryption: "true"
-    CustomerManagedCmkArn: ""
-    ContainerInstanceType: t3a.medium
-    DatabaseClass: db.t3.micro
-    DatabaseEngineVersion: "11"
-    DatabaseParameterGroupFamily: postgres11
-    DatabaseMultiAZ: "true"
-    DatabaseUser: "{{ app_name }}_admin"
-    DatabasePassword: "{{ admin_database_password }}"
-    DatabaseName: "{{ app_name }}"
-    DomainName: "{{ app_name }}.{{ domain_name }}"
-    DomainNameAlternates: ""
-    AssetsUseCloudFront: "false"
-  tags:
-    Environment: "{{ app_name }}"
-
-# ----------------------------------------------------------------------------
-# caktus.k8s-web-cluster: An Ansible role to help configure Kubernetes
-#                         clusters for web apps.
-# ----------------------------------------------------------------------------
 
 k8s_cluster_name: "{{ cloudformation_stack.stack_name }}-cluster"
 k8s_context: "{{ caktus_access_rol_arn }}/{{ k8s_cluster_name }}"
