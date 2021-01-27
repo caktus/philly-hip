@@ -16,21 +16,20 @@ commands:
     steps:
       - restore_cache:
           keys:
-              - v6-pip-dependencies-{{ checksum "requirements/dev/dev.txt" }}
-              # fallback to using the latest cache if no exact match is found
-              - v6-pip-dependencies-
+            - v1-pip-{{ checksum "requirements/dev/dev.txt" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-pip-
   save_cache_cmd:
     steps:
       - save_cache:
           paths:
             - "env"
-          key: v6-pip-dependencies-{{ checksum "requirements/dev/dev.txt" }}
+          key: v1-pip-{{ checksum "requirements/dev/dev.txt" }}
 
 orbs:
-  docker: circleci/docker@1.0.1
   slack: circleci/slack@3.4.2
-jobs:
 
+jobs:
   deploy:
     parameters:
       environment:
@@ -77,68 +76,35 @@ jobs:
           include_visit_job_action: false
 
   test:
-    executor: docker/docker
-    working_directory: ~/hip
+    docker:
+      - image: circleci/python:3.8-buster
+        environment:
+          DJANGO_SETTINGS_MODULE: hip.settings.dev
+          DATABASE_URL: postgres://ubuntu@127.0.0.1:5432/hip_ci
+      - image: circleci/postgres:11-alpine-ram
+        environment:
+          POSTGRES_USER: ubuntu
+          POSTGRES_DB: hip_ci
     steps:
       - checkout
-      - setup_remote_docker
       - restore_cache_cmd
-      - run:
-          name: Which branch
-          command: |
-            echo "<< pipeline.git.branch >>"
       - run:
           name: install dependencies
           command: |
             python3 -m venv env
             . env/bin/activate
-
             pip install -r requirements/dev/dev.txt
-      - save_cache_cmd
       - run:
-        # This step is necessary to do the merge check in the
-        # when condition below. Without it the local git cannot
-        # access the repo to complete the merge.
-          name: Fetch branches
-          command: |
-            git fetch
-            git config user.email "you@example.com"
-            git config user.name "Your Name"
-      - run:
-          name: Build docker images
+          name: run pre-commit
           command: |
             . env/bin/activate
-
-            inv project.ci-build
-      - when:
-        # If this test is not being run on main or develop, then we should
-        # check to see if this branch will trigger a merge migration, and check
-        # pre-commit
-          condition:
-            and:
-              - not:
-                  equal: [ develop, << pipeline.git.branch >> ]
-              - not:
-                  equal: [ main, << pipeline.git.branch >> ]
-          steps:
-            - run:
-                name: Check migrations
-                command: |
-                  . env/bin/activate
-
-                  inv project.ci-run --command="git merge --no-ff --no-commit develop && python manage.py makemigrations --check --dry-run"
-            - run:
-                name: Run pre-commit
-                command: |
-                  . env/bin/activate
-
-                  inv project.ci-run --command='pre-commit run --all'
+            pre-commit run -v -a
       - run:
           name: Run tests
           command: |
             . env/bin/activate
 
-            inv project.ci-run --command='pytest'
+            pytest
       - slack/status:
           success_message: ":caktus: ${CIRCLE_BRANCH} tests passed. <${CIRCLE_BUILD_URL}|Build> :successful:"
           failure_message: ":sadcactus: ${CIRCLE_BRANCH} tests failed. <${CIRCLE_BUILD_URL}|Build> :failed:"
