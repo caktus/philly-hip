@@ -1,4 +1,6 @@
 
+{% load sass_tags %}
+
 {% load static wagtailuserbar %}
 
 {% load render_bundle from webpack_loader %}
@@ -33,20 +35,21 @@
     {# favicon #}
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
 
-    {# Base stylesheets #}
-    <link href="JT_BASE_STYLESHEET" rel="stylesheet" type="text/css" />
-
-
+    {# sass Stylesheets #}
+    <link href="{% sass_src 'styles/init.scss' %}" rel="stylesheet" type="text/css" />
+    
     {% block extra_css %}
     {% endblock %}
 </head>
 
-<body class="JT_BODY_CLASS">
-
+<body>
     {% include 'includes/header.html' %}
-
-    {% block content %}{% endblock %}
-
+    <div class="columns">
+        {% include 'includes/sidebar.html' %}
+        <div class="column content">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
     {% include 'includes/footer.html' %}
 
     {% block extra_js %}{% endblock %}

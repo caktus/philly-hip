@@ -1,0 +1,12 @@
+/* Initialization File
+
+This file will manage all scss file imports.
+*/
+
+// ------- bulma.io css framework ----------------- //
+
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css";
+
+// ----------------- Page Imports ---------------- //
+
+@import "./pages/base.scss"; 
