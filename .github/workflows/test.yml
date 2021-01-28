@@ -1,7 +1,6 @@
 name: lint-test
 
 on:
-  push:
   pull_request:
   schedule:
     # run once a week on early monday mornings
