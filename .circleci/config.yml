@@ -50,11 +50,20 @@ jobs:
       - checkout
       - restore_cache_cmd
       - slack/notify:
-          message: ":deploying: ${CIRCLE_BRANCH} branch"
-          color: "#3346FF"
-          include_project_field: false
-          include_job_number_field: false
-          include_visit_job_action: false
+          channel: C01J4MFMH9S
+          event: always
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":deploying: ${CIRCLE_BRANCH} branch"
+                  }
+                }
+              ]
+            }
       - run:
           name: Install Dependencies
           command: |
@@ -76,12 +85,36 @@ jobs:
 
             inv deploy.install
             inv "<< parameters.environment >>" project.build-deploy
-      - slack/status:
-          success_message: ":rocket: Deployed ${CIRCLE_BRANCH} branch. <${CIRCLE_BUILD_URL}|Deploy Status> :success:"
-          failure_message: ":sadpanda: Failed to deploy ${CIRCLE_BRANCH} branch. <${CIRCLE_BUILD_URL}|Deploy Status> :red_circle:"
-          include_project_field: false
-          include_job_number_field: false
-          include_visit_job_action: false
+      - slack/notify:
+          channel: C01J4MFMH9S
+          event: pass
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":rocket: Deployed ${CIRCLE_BRANCH} branch. [Deploy Status](${CIRCLE_BUILD_URL})> :success:"
+                  }
+                }
+              ]
+            }
+      - slack/notify:
+          channel: C01J4MFMH9S
+          event: fail
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":sadpanda: Failed to deploy ${CIRCLE_BRANCH} branch. [Deploy Status](${CIRCLE_BUILD_URL})> :red_circle:"
+                  }
+                }
+              ]
+            }
 
   test:
     docker:
@@ -114,12 +147,36 @@ jobs:
             . env/bin/activate
             python manage.py makemigrations --dry-run --check
             pytest
-      - slack/status:
-          success_message: ":caktus: ${CIRCLE_BRANCH} tests passed. <${CIRCLE_BUILD_URL}|Build> :successful:"
-          failure_message: ":sadcactus: ${CIRCLE_BRANCH} tests failed. <${CIRCLE_BUILD_URL}|Build> :failed:"
-          include_project_field: false
-          include_job_number_field: false
-          include_visit_job_action: false
+      - slack/notify:
+          channel: C01J4MFMH9S
+          event: pass
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":caktus: ${CIRCLE_BRANCH} tests passed. [Deploy Status](${CIRCLE_BUILD_URL})> :successful:"
+                  }
+                }
+              ]
+            }
+      - slack/notify:
+          channel: C01J4MFMH9S
+          event: fail
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":sadcactus: ${CIRCLE_BRANCH} tests failed. [Deploy Status](${CIRCLE_BUILD_URL})> :failed:"
+                  }
+                }
+              ]
+            }
 
 workflows:
   version: 2
