@@ -16,7 +16,7 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - v1-pip-{{ checksum "requirements/dev/dev.txt" }}
+            - v1-pip-{{ checksum "requirements/dev/dev.txt" }}-{{ checksum "requirements/base/base.txt" }}
             # fallback to using the latest cache if no exact match is found
             - v1-pip-
   save_cache_cmd:
@@ -24,7 +24,7 @@ commands:
       - save_cache:
           paths:
             - "env"
-          key: v1-pip-{{ checksum "requirements/dev/dev.txt" }}
+          key: v1-pip-{{ checksum "requirements/dev/dev.txt" }}-{{ checksum "requirements/base/base.txt" }}
 
 orbs:
   docker: circleci/docker@1.0.1
@@ -94,7 +94,8 @@ jobs:
           command: |
             python3 -m venv env
             . env/bin/activate
-            pip install -r requirements/dev/dev.txt
+            pip install -U -q pip-tools pip wheel
+            pip-sync requirements/base/base.txt requirements/dev/dev.txt
       - run:
           name: run pre-commit
           command: |
@@ -104,7 +105,7 @@ jobs:
           name: Run tests
           command: |
             . env/bin/activate
-
+            python manage.py makemigrations --dry-run --check
             pytest
       - slack/status:
           success_message: ":caktus: ${CIRCLE_BRANCH} tests passed. <${CIRCLE_BUILD_URL}|Build> :successful:"
