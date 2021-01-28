@@ -19,12 +19,19 @@ commands:
             - v1-pip-{{ checksum "requirements/dev/dev.txt" }}-{{ checksum "requirements/base/base.txt" }}
             # fallback to using the latest cache if no exact match is found
             - v1-pip-
+      - restore_cache:
+          keys:
+            - v1-precommit-{{ checksum ".pre-commit-config.yaml" }}
   save_cache_cmd:
     steps:
       - save_cache:
           paths:
             - "env"
           key: v1-pip-{{ checksum "requirements/dev/dev.txt" }}-{{ checksum "requirements/base/base.txt" }}
+      - save_cache:
+          paths:
+            - "~/.cache/pre-commit"
+          key: v1-precommit-{{ checksum ".pre-commit-config.yaml" }}
 
 orbs:
   docker: circleci/docker@1.0.1
