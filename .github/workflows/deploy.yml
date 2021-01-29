@@ -29,7 +29,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip wheel pip-tools
-          pip-sync requirements/base/base.txt requirements/deploy/deploy.txt
+          pip-sync requirements/base/base.txt requirements/dev/dev.txt
       - name: Login to Docker
         run: |
           inv aws.docker-login
