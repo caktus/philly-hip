@@ -1,6 +1,4 @@
-
 ---
-
 - hosts: k8s
   vars:
     ansible_connection: local
