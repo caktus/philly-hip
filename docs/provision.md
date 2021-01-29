@@ -228,8 +228,35 @@ buckets. Note that at the time of provisioning, the settings are not using the s
 assets bucket, but are instead storing files on each instance.
 
 ```sh
-inv deploy.playbook play-deploy-s3.yml
+inv deploy.playbook deploy-s3.yml
 ```
+
+Like other provisioning tasks, this only needs to be done once for each environment.
+
+### Create a special IAM user for CI deploys
+
+In order to deploy the application from CI/CD, we need to create an AWS IAM user that
+has limited permissions. We only want it to be able to push docker images to our AWS ECR
+repository and to read the Ansible vault password from AWS SecretsManager. All of the
+other information need to do the deploy is encrypted in the code.
+
+We create this user by using a special role in django-k8s, just like we did for creating
+the S3 buckets.
+
+Unforunately due to an [Ansible/Boto
+bug](https://github.com/caktus/ansible-role-django-k8s/issues/29), this is not as
+straightforward as just applying the role. Instead, you have to run the
+boto-temporary-creds.py script which will print out some credentials to your console.
+Copy/paste those statement into your console and then run the role below.
+
+```sh
+cd deploy
+python boto-temporary-creds.py
+<copy paste the output into the console>
+ansible-playbook deploy-ci.yml
+```
+
+Like other provisioning tasks, this only needs to be done once for each environment.
 
 ## Production
 
