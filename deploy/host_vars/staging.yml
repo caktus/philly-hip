@@ -3,6 +3,14 @@ env_name: "staging"
 k8s_domain_names:
   - hip.caktus-built.com
 
+aws_region: us-east-1
+aws_profile: saguaro-cluster
+
+ClusterEndpoint: https://A9ED894F5721970831AED9882203CA29.gr7.us-east-1.eks.amazonaws.com
+ClusterName: caktus-saguaro-cluster
+RepositoryURL: 472354598015.dkr.ecr.us-east-1.amazonaws.com
+DatabaseAddress: cdxeo4fjae7bwu.ckpm6k1hp413.us-east-1.rds.amazonaws.com
+
 k8s_auth_api_key: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           33376234613730376536353665306139333131613735646232346539393663666437373132636236

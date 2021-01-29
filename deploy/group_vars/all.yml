@@ -7,13 +7,6 @@
 app_name: hip
 ansible_connection: local
 
-aws_region: us-east-1
-aws_profile: saguaro-cluster
-
-ClusterEndpoint: https://A9ED894F5721970831AED9882203CA29.gr7.us-east-1.eks.amazonaws.com
-RepositoryURL: 472354598015.dkr.ecr.us-east-1.amazonaws.com
-DatabaseAddress: cdxeo4fjae7bwu.ckpm6k1hp413.us-east-1.rds.amazonaws.com
-
 # ----------------------------------------------------------------------------
 # caktus.django-k8s: Shared configuration variables for staging and production
 #                    environments.
@@ -69,4 +62,4 @@ k8s_memcached_enabled: true
 
 # S3 bucket configuration:
 k8s_s3_region: "{{ aws_region }}"
-k8s_s3_cluster_name: "caktus-saguaro-cluster"
+k8s_s3_cluster_name: "{{ ClusterName }}"

@@ -38,8 +38,8 @@ You can test the deployable image locally with:
 (hip)$ inv image.up
 ```
 
-You should see all the supporting containers come up. Then navigate to
-http://localhost:8000 you should see the site in it's current state.
+You should see all the supporting containers come up. When you navigate to
+http://localhost:8000, you should see the site in its current state.
 
 
 ## Deploy
@@ -110,6 +110,10 @@ Password (again):
 Superuser created successfully.
 appuser@app-84f486b849-pfp7k:/code$ exit
 ```
+
+If you get a `namespaces "hip-staging" not found` error, check out the "Configure access
+to the kubernetes cluster" section below to configure your local machine to have access
+to the cluster.
 
 ## Local Deployment Environment Setup
 
