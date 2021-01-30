@@ -1,4 +1,4 @@
-name: lint-test
+name: Lint and Test code
 
 on:
   pull_request:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
@@ -33,5 +33,5 @@ jobs:
           python -m pip install --upgrade pip wheel pip-tools
           pip-sync requirements/base/base.txt requirements/dev/dev.txt
       - uses: pre-commit/action@v2.0.0
-      - name: Test with pytest
-        run: pytest
+      - name: Run Tests
+        run: make run-tests
