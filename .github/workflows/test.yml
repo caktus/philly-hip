@@ -11,6 +11,19 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       DJANGO_SETTINGS_MODULE: hip.settings.dev
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: hip_ci
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
@@ -37,3 +50,5 @@ jobs:
       - uses: pre-commit/action@v2.0.0
       - name: Run Tests
         run: make run-tests
+        env:
+          DATABASE_URL: postgres://postgres@localhost:5432/hip_ci
