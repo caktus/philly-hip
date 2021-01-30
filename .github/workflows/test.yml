@@ -51,4 +51,4 @@ jobs:
       - name: Run Tests
         run: make run-tests
         env:
-          DATABASE_URL: postgres://postgres@localhost:5432/hip_ci
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/hip_ci
