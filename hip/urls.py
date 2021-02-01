@@ -3,6 +3,7 @@ from django.conf.urls import include
 from django.contrib import admin
 from django.urls import path
 
+from apps.hip import views as hip_views
 from apps.search import views as search_views
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
@@ -10,6 +11,7 @@ from wagtail.documents import urls as wagtaildocs_urls
 
 
 urlpatterns = [
+    path("home/", hip_views.home, name="home"),
     path("search/", search_views.search, name="search"),
     path("admin/", admin.site.urls),
 ]
