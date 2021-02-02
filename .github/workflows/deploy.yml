@@ -13,6 +13,8 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+      # https://github.com/marketplace/actions/slack-github-actions-slack-integration
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
@@ -32,10 +34,16 @@ jobs:
       - name: Login to Docker
         run: |
           inv aws.docker-login
-      - name: Build tag, push, and deploy image
+      - name: Build, tag, push, and deploy image
         run: |
           [ "$GITHUB_REF" = refs/heads/main ] &&
             ENVIRONMENT="production" ||
             ENVIRONMENT="staging"
           echo "env is $ENVIRONMENT"
           inv $ENVIRONMENT image deploy
+      - uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status }}
+          steps: ${{ toJson(steps) }}
+        # always() means to notify regardless of status
+        if: always()
