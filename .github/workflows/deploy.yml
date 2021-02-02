@@ -1,0 +1,41 @@
+name: Deploy to k8s cluster
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements/**.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip wheel pip-tools
+          pip-sync requirements/base/base.txt requirements/dev/dev.txt
+      - name: Login to Docker
+        run: |
+          inv aws.docker-login
+      - name: Build tag, push, and deploy image
+        run: |
+          [ "$GITHUB_REF" = refs/heads/main ] &&
+            ENVIRONMENT="production" ||
+            ENVIRONMENT="staging"
+          echo "env is $ENVIRONMENT"
+          inv $ENVIRONMENT image deploy

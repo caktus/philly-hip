@@ -119,3 +119,8 @@ k8s_environment_variables:
     3863343139656532380a623139313462363562383533653736333236373639363837376139653134
     37356366663365366265373739326138643064343630333462346138303535656462303661643432
     6663663566663833313234316336306435656563306330653362
+
+# Set up an AWS IAM user with limited perms for CI deploys
+k8s_ci_username: hip-staging-ci-user
+k8s_ci_repository_arn: "arn:aws:ecr:us-east-1:472354598015:repository/hip"
+k8s_ci_vault_password_arn: "arn:aws:secretsmanager:us-east-1:472354598015:secret:hip-ansible-vault-password-KxkJpW"
