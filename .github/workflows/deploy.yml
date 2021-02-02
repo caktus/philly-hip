@@ -38,4 +38,4 @@ jobs:
             ENVIRONMENT="production" ||
             ENVIRONMENT="staging"
           echo "env is $ENVIRONMENT"
-          inv $ENVIRONMENT image deploy
+          inv $ENVIRONMENT image deploy --verbosity=0
