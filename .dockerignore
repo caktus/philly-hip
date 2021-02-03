@@ -1,0 +1,9 @@
+.circleci
+docker-compose*.yml
+Dockerfile
+.envrc
+.git
+.github
+htmlcov
+node_modules
+.pytest_cache
