@@ -37,10 +37,10 @@ jobs:
       - name: Build, tag, push, and deploy image
         run: |
           [ "$GITHUB_REF" = refs/heads/main ] &&
-            ENVIRONMENT="production" ||
-            ENVIRONMENT="staging"
-          echo "env is $ENVIRONMENT"
-          inv $ENVIRONMENT image deploy
+            ENV="production" ||
+            ENV="staging"
+          echo "env is $ENV"
+          inv $ENV image deploy --verbosity=0
       - uses: act10ns/slack@v1
         with:
           status: ${{ job.status }}
