@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block title %}
+  Title
+{% endblock %}
+
+{% block content %}
+  <div>
+    <h2>{{ page.title }}</h2>
+
+    <div class="columns">
+      <div class="column is-three-quarters">
+        {% for block in page.body %}
+          <section id="section-{{block.value.nav_heading|slugify}}">
+            {{ block.value.body }}
+          </section>
+        {% endfor %}
+      </div>
+
+      <div class="column is-one-quarter">
+        <div>Nav titles:</div>
+        {% for block in page.body %}
+          <div><a href="#section-{{block.value.nav_heading|slugify}}">{{ block.value.nav_heading }}</a></div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+{% endblock %}
