@@ -1,60 +1,71 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="https://bulma.io">
-      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
-    </a>
+{% load static %}
 
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+<nav class="navbar navbar-hip" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <div class="navbar-item">
+      <a class="button logo-hip" href="/home">
+        <strong>Logo</strong>
+      </a>
+    </div>
+
+    <a role="button" id="navbar-burger" class="navbar-burger is-size-5 mr-2 mt-4" aria-label="menu" aria-expanded="false" data-target="navbarMainContent">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
     </a>
   </div>
 
-  <div id="navbarBasicExample" class="navbar-menu">
+  <div id="navbarMainContent" class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item">
-        Home
-      </a>
-
-      <a class="navbar-item">
-        Documentation
-      </a>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More
-        </a>
-
-        <div class="navbar-dropdown">
-          <a class="navbar-item">
-            About
-          </a>
-          <a class="navbar-item">
-            Jobs
-          </a>
-          <a class="navbar-item">
-            Contact
-          </a>
-          <hr class="navbar-divider">
-          <a class="navbar-item">
-            Report an issue
-          </a>
+      <div class="navbar-item">
+        <div class="control has-icons-left">
+          <span class="icon is-left has-background-link search-border-radius-hip">
+            <img class="search-img-hip" src="{% static 'search.svg' %}" />
+          </span>
+          <input class="input is-info is-normal search-input-hip is-flex" type="text" placeholder="Search">
         </div>
       </div>
     </div>
-
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <a class="button is-primary">
-            <strong>Sign up</strong>
+          <a class="button is-size-7-touch is-link" href="#">
+            <strong>Report Disease</strong>
           </a>
-          <a class="button is-light">
-            Log in
+        </div>
+      </div>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link is-size-7-touch" href="#">
+          <strong>PODS Login</strong>
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item is-size-7-touch" href="#">
+            Sign In
+          </a>
+          <a class="navbar-item is-size-7-touch" href="#">
+            Sign Out
+          </a>
+          <a class="navbar-item is-size-7-touch" href="#">
+            Placeholder
           </a>
         </div>
       </div>
     </div>
   </div>
 </nav>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const navbarBurger = document.querySelector("#navbar-burger");
+    navbarBurger.addEventListener("click", function () {
+      const dataTarget = this.dataset.target;
+      const target = document.getElementById(dataTarget);
+      if (target.classList.contains("is-active")) {
+        target.classList.remove("is-active");
+      } else {
+        target.classList.add("is-active");
+      }
+    });
+  });
+</script>
