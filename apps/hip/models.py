@@ -1,13 +1,43 @@
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
-from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.core import blocks
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Page
 
 
+class TableRow(blocks.StructBlock):
+    column_1 = blocks.RichTextBlock(
+        max_length=255,
+        required=False,
+        help_text=("Text for column 1"),
+    )
+    column_2 = blocks.RichTextBlock(
+        max_length=255,
+        required=False,
+        help_text=("Text for column 2"),
+    )
+
+    class Meta:
+        label = "Table row"
+        form_classname = "two-column-table__row"
+
+
+class TableRowStreamBlock(blocks.StreamBlock):
+    rows = TableRow()
+
+
+class TwoColumnBlock(blocks.StructBlock):
+    is_first_row_header = blocks.BooleanBlock(
+        required=False, help_text="Should the first row be displayed as a header?"
+    )
+    rows = TableRowStreamBlock()
+
+    class Meta:
+        template = "hip/text_or_table_stream.html"
+
+
 class TextOrTableStreamBlock(blocks.StreamBlock):
     rich_text = blocks.RichTextBlock()
-    table = TableBlock()
+    two_column_table = TwoColumnBlock()
 
 
 class StreamAndNavHeadingBlock(blocks.StructBlock):
