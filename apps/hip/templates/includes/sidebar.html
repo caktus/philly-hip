@@ -1,46 +1,46 @@
-<div class="column is-2 sidebar-border-scss pr-0">
+<div class="column is-2 sidebar-border-hip pr-0">
   <ul class="my-4">
-    <li class="pl-4 pb-2 sidenav-link-scss is-active-scss" data-href="/home">Home</li>
-    <li class="pl-4 pb-2 sidenav-link-scss" data-href="#health-alerts">Health Alerts</li>
-    <li class="pl-4 pb-2 sidenav-link-scss" data-href="#health-topics">Emergent Health Topics</li>
-    <li class="pl-4 pb-2 sidenav-link-scss" data-href="#data-and-reports">Data and Reports</li>
-    <li class="pl-4 pb-2 sidenav-link-scss" data-href="#disease-control-guidance">Disease Control Guidance</li>
-    <li class="pl-4 pb-2 sidenav-link-scss" data-href="#emergency-response">Emergency Response</li>
+    <li class="pl-4 pb-2 sidenav-link-hip is-active-hip" data-href="/home">Home</li>
+    <li class="pl-4 pb-2 sidenav-link-hip" data-href="#health-alerts">Health Alerts</li>
+    <li class="pl-4 pb-2 sidenav-link-hip" data-href="#health-topics">Emergent Health Topics</li>
+    <li class="pl-4 pb-2 sidenav-link-hip" data-href="#data-and-reports">Data and Reports</li>
+    <li class="pl-4 pb-2 sidenav-link-hip" data-href="#disease-control-guidance">Disease Control Guidance</li>
+    <li class="pl-4 pb-2 sidenav-link-hip" data-href="#emergency-response">Emergency Response</li>
   </ul>
   <div class="pl-2 pb-4 is-flex is-justify-content-flex-start is-align-items-center">
     <h5 class="is-size-7">Archives</h5>
-    <div class="ml-2 mr-6 sidebar-divider-scss"></div>
+    <div class="ml-2 mr-6 sidebar-divider-hip"></div>
   </div>
   <ul class="mb-4">
-    <li class="pl-4 pb-2 sidenav-link-scss" data-href="#newsletter">Newsletter</li>
-    <li class="pl-4 pb-2 sidenav-link-scss" data-href="#conferences">Conferences</li>
-    <li class="pl-4 pb-2 sidenav-link-scss" data-href="#resources">Resources</li>
+    <li class="pl-4 pb-2 sidenav-link-hip" data-href="#newsletter">Newsletter</li>
+    <li class="pl-4 pb-2 sidenav-link-hip" data-href="#conferences">Conferences</li>
+    <li class="pl-4 pb-2 sidenav-link-hip" data-href="#resources">Resources</li>
   </ul>
   <div class="pl-2 pb-4 is-flex is-justify-content-flex-start is-align-items-center">
     <h5 class="is-size-7">Authenticated</h5>
-    <div class="ml-2 mr-6 sidebar-divider-scss"></div>
+    <div class="ml-2 mr-6 sidebar-divider-hip"></div>
   </div>
   <ul class="mb-4">
-    <li class="pl-4 pb-2 sidenav-link-scss" data-href="#closed-pod-login">Log in to closed POD</li>
+    <li class="pl-4 pb-2 sidenav-link-hip" data-href="#closed-pod-login">Log in to closed POD</li>
   </ul>
 </div>
 
 <script>
   document.addEventListener("DOMContentLoaded", function(){
-    const sideNavLinks = document.querySelectorAll(".sidenav-link-scss");
+    const sideNavLinks = document.querySelectorAll(".sidenav-link-hip");
 
     function removeIsActive() {
-      /* Find the active sidebar element and remove the is-active-scss class
+      /* Find the active sidebar element and remove the is-active-hip class
       */
-      const isActiveEl = document.querySelector(".is-active-scss");
-      isActiveEl.classList.remove("is-active-scss")
+      const isActiveEl = document.querySelector(".is-active-hip");
+      isActiveEl.classList.remove("is-active-hip")
     }
 
     // Event Listener for when sidebar nav elements are clicked.
     sideNavLinks.forEach(sideNavLink => sideNavLink.addEventListener("click", function () {
       removeIsActive()
       // now make the clicked element display as being active
-      this.classList.add("is-active-scss");
+      this.classList.add("is-active-hip");
       // relocate the user
       window.location.href = this.dataset.href;
     }));

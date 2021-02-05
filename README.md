@@ -23,7 +23,8 @@ A template is one of:
 1. page
   - these should be named `[page_name]_page.html`, lives in the templates/pages directory
 2. include
-  - no naming convention, lives in the  templates/includes directory
+  - no naming convention, a good place for html components, lives in the  templates/includes directory
+  - these should be named `[component].html`
 3. base
   - these are for high-level layout base-templates
 
@@ -32,8 +33,13 @@ A template is one of:
 #### To include a **new scss file** in a template, do the following:
 
 Name your file according to the following convention:
-1. If your scss file is going to be linked to directly from a template, as below, name the file `[template_name].scss`
-2. If your scss file is only going to be imported by another scss file using the `@import` directive, prepend the filename with an underscore: `_[my_sass_file].scss` then link to it in your template using the django-sass-processor provided `sass_tags`.
+1. If your scss file is for a html component add the file to `styles/includes` in the `static` directory in the `hip` project folder. If the scss file is for a html page add the file to `styles/pages` in the `static` directory in the `hip` project folder.
+1. If your scss file is going to be linked to directly from a template, as below, name the file `[template_name].scss`. If styling for a component, name the file `[component].scss`.
+2. If your scss file is only going to be imported by another scss file using the `@import` directive, prepend the filename with an underscore: `_[my_sass_file].scss`. Otherwise, all scss files that will provide styling for DOM elements need to imported into `hip/static/bundle.scss`.  `bundle.scss` is imported into `hip/templates/base.html` using django-sass-processor provided `sass_tags`.
+
+#### Naming convention for individual scss classes
+
+All styles in the scss file should have `-hip` appended to the end of their name. This is so developers can easily distinguish between any frameworks/style guides in use and our own custom scss.
 
 
 ```html
