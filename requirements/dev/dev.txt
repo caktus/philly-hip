@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file=requirements/dev/dev.txt requirements/dev/dev.in
 #
--e git+https://github.com/caktus/invoke-kubesae@0.0.9#egg=invoke-kubesae
+-e git+https://github.com/caktus/invoke-kubesae@0.0.11#egg=invoke-kubesae
     # via -r requirements/dev/dev.in
 ansible-base==2.10.4
     # via ansible

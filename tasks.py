@@ -3,7 +3,6 @@ from pathlib import Path
 
 import invoke
 import kubesae
-import yaml
 from colorama import init
 
 
@@ -105,71 +104,30 @@ def reset_local_db(c, dump_file=None):
     )
 
 
-@invoke.task
-def print_ansible_vars(c, var=None):
-    """A command to inspect any ansible varible by environment. If no variable is specified then it will
-    print out the current k8s environment variables.
-
-    Args:
-        var (string): [description]
-    """
-    if not var:
-        var = "k8s_environment_variables"
-    with c.cd("deploy/"):
-        c.run(
-            f"ansible {c.config.env} -m debug -a var='{var}' -e '@host_vars/{c.config.env}.yml'"
-        )
-
-
-@invoke.task
-def ansible_playbook(c, name, extra="", verbosity=1):
-    with c.cd("deploy/"):
-        c.run(f"ansible-playbook {name} {extra} -{'v'*verbosity}")
-
-
-@invoke.task
-def pod_stats(c):
-    """Report total pods vs pod capacity."""
-    nodes = yaml.safe_load(c.run("kubectl get nodes -o yaml", hide="out").stdout)
-    pod_capacity = sum(
-        [int(item["status"]["capacity"]["pods"]) for item in nodes["items"]]
-    )
-    pod_total = c.run(
-        "kubectl get pods --all-namespaces | grep Running | wc -l", hide="out"
-    ).stdout.strip()
-    print(f"Running pods: {pod_total}")
-    print(f"Maximum pods: {pod_capacity}")
-    print(f"Total nodes: {len(nodes['items'])}")
-
-
 project = invoke.Collection("project")
 project.add_task(build_ci_images, name="ci-build")
 project.add_task(run_in_ci_image, name="ci-run")
 project.add_task(build_deploy)
 project.add_task(reset_local_media)
 project.add_task(reset_local_db)
-project.add_task(print_ansible_vars)
-project.add_task(pod_stats)
-project.add_task(ansible_playbook, name="playbook")
 
 ns = invoke.Collection()
 ns.add_collection(kubesae.image)
 ns.add_collection(kubesae.aws)
 ns.add_collection(kubesae.deploy)
 ns.add_collection(kubesae.pod)
+ns.add_collection(kubesae.info)
 ns.add_collection(project)
 ns.add_task(staging)
 ns.add_task(production)
 
 ns.configure(
     {
-        "app": "hip_app",
-        "aws": {
-            "region": "us-east-2",
-        },
-        "cluster": "hip-stack-cluster",
+        "app": "hip",
+        "aws": {"region": "us-east-1"},
+        "cluster": "caktus-saguaro-cluster",
         "container_name": "app",
-        "repository": "<<Container Repository Here>>",
+        "repository": "472354598015.dkr.ecr.us-east-1.amazonaws.com/hip",
         "run": {
             "echo": True,
             "pty": True,
