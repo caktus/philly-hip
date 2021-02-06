@@ -6,22 +6,24 @@ import JQuery from "jquery";
 
 
  /** Sentry Init
-  * 
+  *
   * This import, if you choose to use sentry logging for javascript, should stay at the top of this file.
-  * 
+  *
  */
 // import '../../../apps/home/static/js/sentryInit';
 
 /** App imports
-  * 
+  *
   * Import javascript for your apps here
-  * 
+  *
  */
 
 import Header from "../../../apps/hip/static/js/header";
 import SideBar from "../../../apps/hip/static/js/sidebar";
+import RightScrollNav from "../../../apps/hip/static/js/rightScrollNav";
 
 document.addEventListener("DOMContentLoaded", function() {
   Header();
   SideBar();
+  RightScrollNav();
 });

@@ -1,5 +1,13 @@
 @import "../colors.scss";
 
+.is-fixed {
+  position: fixed;
+}
+
+.is-active {
+  font-weight: 700;
+}
+
 .footer-section-hip {
   background-color: $grey;
   height: 50px;
