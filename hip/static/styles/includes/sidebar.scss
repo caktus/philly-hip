@@ -1,0 +1,24 @@
+@import "../colors";
+
+.sidebar-border-hip {
+  border-right: 1px solid $grey;
+}
+
+.sidebar-divider-hip {
+  border: 1px solid $grey;
+  width: 100%;
+  height: 0px;
+}
+
+.is-active-hip {
+  color: $blue;
+  font-weight: bolder;
+  border-right: 0.25rem solid $blue;
+}
+
+.sidenav-link-hip {
+  cursor: pointer;
+  &:hover {
+    font-weight: bolder;
+  }
+}

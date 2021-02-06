@@ -1,3 +1,4 @@
+import JQuery from "jquery";
 /**
  * Javascript files must be imported here.
  * Webpack uses this file as the entry-point for bundling.
@@ -16,4 +17,11 @@
   * Import javascript for your apps here
   * 
  */
-// import ../../../apps/hip/static/js/YOUR_CUSTOM_JS.js
+
+import Header from "../../../apps/hip/static/js/header";
+import SideBar from "../../../apps/hip/static/js/sidebar";
+
+document.addEventListener("DOMContentLoaded", function() {
+  Header();
+  SideBar();
+});

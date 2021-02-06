@@ -1,0 +1,28 @@
+@import "../colors";
+@import "../mixins";
+
+.navbar-hip {
+  height: 6rem;
+  background-color: $light-grey;
+}
+
+.logo-hip {
+  background-color: $grey;
+  height: 4rem;
+  width: 12rem;
+  @include links;
+}
+
+.search-input-hip {
+  min-width: 30rem;
+  text-indent: 1rem;
+}
+
+.search-img-hip {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.search-border-radius-hip {
+  border-radius: 6.25px 0px 0px 6.25px;
+}
