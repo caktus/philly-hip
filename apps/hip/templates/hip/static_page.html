@@ -10,7 +10,11 @@
     <div class="columns">
       <div class="column">
         {% for block in page.body %}
-          <section class="page-section-hip mx-4" id="section-{{block.value.nav_heading|slugify}}">
+          {% if block.value.is_card %}
+            <section class="page-section-hip card-hip my-4 mx-4" id="section-{{block.value.nav_heading|slugify}}">
+          {% else %}
+            <section class="page-section-hip mx-4" id="section-{{block.value.nav_heading|slugify}}">
+          {% endif %}
             {{ block.value.body }}
           </section>
         {% endfor %}

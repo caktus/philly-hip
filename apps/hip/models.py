@@ -56,6 +56,9 @@ class StreamAndNavHeadingBlock(blocks.StructBlock):
             "navigation on the side of the page."
         ),
     )
+    is_card = blocks.BooleanBlock(
+        required=False, help_text=("Is this content block a card?")
+    )
     body = TextOrTableStreamBlock()
 
 

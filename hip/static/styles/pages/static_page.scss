@@ -1,6 +1,28 @@
 @import "../mixins";
+@import "../colors";
 
 .page-section-hip {
-  @include wagtail-headers;
-  @include wagtail-paragraphs;
+  @include headers;
+  @include paragraphs;
+  @include tables;
+}
+
+.card-hip {
+  border: 1px solid $grey;
+  h4:first-child {
+    font-size: $is-size-4;
+    padding: 1rem;
+    background-color: $dark-grey;
+    color: $white;
+    font-weight: bold;
+  }
+  
+  table {
+    p {
+      padding: 0;
+    }
+  }
+  p {
+    padding: 0 1rem;
+  }
 }
