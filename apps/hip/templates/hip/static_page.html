@@ -2,30 +2,21 @@
 {% load wagtailcore_tags %}
 
 {% block title %}
-  Title
+  Philadelphia Department of Public Health - {{ page.title }}
 {% endblock %}
 
 {% block content %}
   <div>
-    <h2>{{ page.title }}</h2>
-
     <div class="columns">
-      <div class="column is-three-quarters">
+      <div class="column">
         {% for block in page.body %}
-          <section class="page-section" id="section-{{block.value.nav_heading|slugify}}">
+          <section class="page-section-hip mx-4" id="section-{{block.value.nav_heading|slugify}}">
             {{ block.value.body }}
           </section>
         {% endfor %}
       </div>
 
-      <div class="column is-one-quarter">
-        <div class="is-fixed">
-          <div>Nav titles:</div>
-          {% for block in page.body %}
-            <div class="nav-title" data-ref="section-{{block.value.nav_heading|slugify}}"><a href="#section-{{block.value.nav_heading|slugify}}">{{ block.value.nav_heading }}</a></div>
-          {% endfor %}
-        </div>
-      </div>
+      {% include 'includes/right_scroll_nav.html' with page=page %}
 
     </div>
   </div>

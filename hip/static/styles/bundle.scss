@@ -11,8 +11,11 @@ This file will manage all scss file imports.
 
 @import "./pages/base.scss";
 @import "./pages/home.scss";
+@import "./pages/static_page.scss";
+@import "./pages/text_or_table_stream.scss";
 
 // ----------------- Includes Imports ---------------- //
 
 @import "./includes/header.scss";
 @import "./includes/sidebar.scss";
+@import "./includes/right_scroll_nav.scss";

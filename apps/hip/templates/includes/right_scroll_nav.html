@@ -1,0 +1,25 @@
+{% load wagtailcore_tags %}
+<!-- Right Scroll Navigation for Anchor Links on desktop only
+
+  Example use:
+  <div class="columns">
+    <div class="column">other content column container</div>
+    {# {% include 'right_scroll_nav.html' %} #}
+  </div>
+
+  The column for the 'other content' div will
+  default to being is-two-quarter
+-->
+<div class="column is-one-quarter right-scroll-container-hip is-desktop">
+  <div class="is-fixed">
+    {% for block in page.body %}
+      <div class="nav-title" data-ref="section-{{block.value.nav_heading|slugify}}">
+          <a href="#section-{{block.value.nav_heading|slugify}}">
+            <h4 class="is-size-4 my-3 ml-4">
+              <strong>{{ block.value.nav_heading }}</strong>
+            </h4>
+          </a>
+      </div>
+    {% endfor %}
+  </div>
+</div>

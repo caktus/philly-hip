@@ -1,0 +1,6 @@
+@import "../mixins";
+
+.page-section-hip {
+  @include wagtail-headers;
+  @include wagtail-paragraphs;
+}

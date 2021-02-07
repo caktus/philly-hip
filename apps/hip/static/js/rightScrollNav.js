@@ -3,7 +3,7 @@ export default function () {
    * the user's view; when it is, add a CSS class to its respective nav title.
    */
 
-  const pageSections = document.querySelectorAll("section.page-section");
+  const pageSections = document.querySelectorAll("section.page-section-hip");
   const config = {
     threshold: [0, 0.25, 0.5, 0.75, 1]
   };
