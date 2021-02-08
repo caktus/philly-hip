@@ -1,15 +1,18 @@
 {% load wagtailcore_tags %}
-<!-- Right Scroll Navigation for Anchor Links on desktop only
+
+{% comment %}
+  Right Scroll Navigation for Anchor Links on desktop only
 
   Example use:
   <div class="columns">
     <div class="column">other content column container</div>
-    {# {% include 'right_scroll_nav.html' %} #}
+    {% include 'right_scroll_nav.html' %}
   </div>
 
   The column for the 'other content' div will
-  default to being is-two-quarter
--->
+  default to being is-three-quarter
+{% endcomment %}
+
 <div class="column is-one-quarter right-scroll-container-hip is-desktop">
   <div class="is-fixed">
     {% for block in page.body %}
