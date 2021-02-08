@@ -22,12 +22,8 @@ chardet==4.0.0
     # via requests
 dj-database-url==0.5.0
     # via -r requirements/base/base.in
-django-appconf==1.0.4
-    # via django-compressor
 django-cogwheels==0.3
     # via wagtailmenus
-django-compressor==2.4
-    # via -r requirements/base/base.in
 django-dotenv==1.4.2
     # via -r requirements/base/base.in
 django-extensions==3.1.0
@@ -57,7 +53,6 @@ django-webpack-loader==0.7.0
 django==3.1.5
     # via
     #   -r requirements/base/base.in
-    #   django-appconf
     #   django-filter
     #   django-model-utils
     #   django-phonenumber-field
@@ -85,8 +80,6 @@ jmespath==0.10.0
     #   botocore
 l18n==2020.6.1
     # via wagtail
-libsass==0.20.1
-    # via -r requirements/base/base.in
 openpyxl==3.0.5
     # via tablib
 phonenumberslite==8.12.16
@@ -102,20 +95,14 @@ pytz==2020.5
     #   django
     #   django-modelcluster
     #   l18n
-rcssmin==1.0.6
-    # via django-compressor
 requests==2.25.1
     # via wagtail
-rjsmin==1.1.0
-    # via django-compressor
 s3transfer==0.3.4
     # via boto3
 six==1.15.0
     # via
-    #   django-compressor
     #   html5lib
     #   l18n
-    #   libsass
     #   python-dateutil
 soupsieve==2.1
     # via beautifulsoup4
