@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block title %}
+  Philadelphia Department of Public Health - {{ page.title }}
+{% endblock %}
+
+{% block content %}
+  <div>
+    <div class="columns">
+      <div class="column">
+        {% for block in page.body %}
+          {% if block.value.is_card %}
+            <section class="page-section-hip card-hip my-4 mx-4" id="section-{{block.value.nav_heading|slugify}}">
+          {% else %}
+            <section class="page-section-hip mx-4" id="section-{{block.value.nav_heading|slugify}}">
+          {% endif %}
+            {{ block.value.body }}
+          </section>
+        {% endfor %}
+      </div>
+
+      {% include 'includes/right_scroll_nav.html' with page=page %}
+
+    </div>
+  </div>
+{% endblock %}

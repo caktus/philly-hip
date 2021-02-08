@@ -1,8 +1,39 @@
 @import "./colors";
+@import "./variables";
 
 @mixin links {
   outline: none;
   text-decoration: none;
   color: inherit;
   cursor: pointer;
+}
+
+@mixin headers {
+  h2 {
+    font-size: $is-size-2;
+    padding: 1.5rem 0 0.25rem 0;
+    color: $very-dark-grey;
+  };
+  h3 {
+    font-size: $is-size-4;
+    margin: 1rem 0;
+    font-weight: bold;
+    color: $very-dark-grey;
+  };
+  h4 {
+    font-size: $is-size-5;
+    color: $very-dark-grey;
+  };
+}
+
+@mixin paragraphs {
+  p {
+    padding: 0.5rem 0;
+  }
+}
+
+@mixin tables {
+  table {
+    width: 100%;
+  }
 }

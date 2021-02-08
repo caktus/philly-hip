@@ -1,4 +1,12 @@
-@import "../colors.scss";
+@import "../colors";
+
+.is-fixed {
+  position: fixed;
+}
+
+.is-active {
+  font-weight: 700;
+}
 
 .footer-section-hip {
   background-color: $grey;

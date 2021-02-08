@@ -29,7 +29,7 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <a class="button is-size-7-touch is-link" href="#">
+          <a class="button is-size-7-touch is-link" href="/report-a-disease">
             <strong>Report Disease</strong>
           </a>
         </div>
@@ -54,18 +54,3 @@
     </div>
   </div>
 </nav>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const navbarBurger = document.querySelector("#navbar-burger");
-    navbarBurger.addEventListener("click", function () {
-      const dataTarget = this.dataset.target;
-      const target = document.getElementById(dataTarget);
-      if (target.classList.contains("is-active")) {
-        target.classList.remove("is-active");
-      } else {
-        target.classList.add("is-active");
-      }
-    });
-  });
-</script>

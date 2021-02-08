@@ -1,0 +1,31 @@
+{% if value.has_grid_pattern %}
+  <table class="table-grid-pattern-hip my-4 is-fullwidth">
+{% else %}
+  <table class="my-4">
+{% endif %}
+  {# If the first row should be a header, then include it in the <thead> #}
+  {% if value.is_first_row_header %}
+  <thead>
+    <tr class="py-2">
+      <th class="py-4 pl-4">{{ value.rows.0.value.column_1 }}</th>
+      <th class="py-4 pl-4">{{ value.rows.0.value.column_2 }}</th>
+    </tr>
+  </thead>
+  {% endif %}
+  <tbody>
+    {# Loop through the rows, and show their value, except for the header row. #}
+    {% for row in value.rows %}
+      {% if forloop.counter != 1 or not value.is_first_row_header %}
+        <tr>
+          {% if value.has_grid_pattern %}
+            <td class="py-4 pl-4 pr-2">{{ row.value.column_1 }}</td>
+            <td class="py-4 pl-4 pr-2">{{ row.value.column_2 }}</td>
+          {% else %}
+            <td class="py-4 pr-2">{{ row.value.column_1 }}</td>
+            <td class="py-4 pr-2">{{ row.value.column_2 }}</td>
+          {% endif %}
+        </tr>
+      {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
