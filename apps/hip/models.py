@@ -6,10 +6,14 @@ from wagtail.core.models import Page
 
 class TableRow(blocks.StructBlock):
     column_1 = blocks.RichTextBlock(
-        max_length=255, required=False, help_text=("Text for column 1"),
+        max_length=255,
+        required=False,
+        help_text=("Text for column 1"),
     )
     column_2 = blocks.RichTextBlock(
-        max_length=255, required=False, help_text=("Text for column 2"),
+        max_length=255,
+        required=False,
+        help_text=("Text for column 2"),
     )
 
     class Meta:
@@ -65,7 +69,11 @@ class StreamAndNavHeadingBlock(blocks.StructBlock):
 class StaticPage(Page):
     """A Page with only sections of static content."""
 
-    body = StreamField([("section", StreamAndNavHeadingBlock()),])
+    body = StreamField(
+        [
+            ("section", StreamAndNavHeadingBlock()),
+        ]
+    )
 
     content_panels = [
         FieldPanel("title"),
