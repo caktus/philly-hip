@@ -9,6 +9,7 @@ dj-database-url
 django-webpack-loader
 django-model-utils
 django-storages
+django-compressor
 django-taggit
 
 django-sass-processor
@@ -17,6 +18,7 @@ django-phonenumber-field
 django-honeypot
 whitenoise
 boto3
+libsass
 phonenumberslite
 
 # Postgres

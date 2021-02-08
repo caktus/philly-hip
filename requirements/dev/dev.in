@@ -7,11 +7,6 @@ isort
 ipython
 jupyterlab
 
-# only needed for offline compilation
-# https://github.com/jrief/django-sass-processor#installation
-django-compressor
-libsass
-
 # deploy
 -e git+https://github.com/caktus/invoke-kubesae@0.0.11#egg=invoke-kubesae
 troposphere
