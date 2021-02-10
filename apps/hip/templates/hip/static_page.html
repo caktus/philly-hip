@@ -5,7 +5,17 @@
   Philadelphia Department of Public Health - {{ page.title }}
 {% endblock %}
 
+{% block sidebar %}
+  {# disable left sidebar but preserve the space that it occupies #}
+  <div class="column is-2 pr-0">
+  </div>
+{% endblock %}
+
 {% block content %}
+  <div class="pt-5 px-5">
+    <a href="javascript:history.back()">< Back</a>
+  </div>
+
   <div>
     <div class="columns">
       <div class="column">
