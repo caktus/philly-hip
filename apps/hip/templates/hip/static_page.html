@@ -12,13 +12,13 @@
 {% endblock %}
 
 {% block content %}
-  <div class="pt-5 px-5">
-    <a href="javascript:history.back()">< Back</a>
-  </div>
-
   <div>
     <div class="columns">
       <div class="column">
+	<div class="pt-5 px-5">
+	  <a href="javascript:history.back()">< Back</a>
+	</div>
+
         {% for block in page.body %}
           {% if block.value.is_card %}
             <section class="page-section-hip card-hip my-4 mx-4" id="section-{{block.value.nav_heading|slugify}}">
