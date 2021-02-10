@@ -43,7 +43,9 @@
     {% wagtailuserbar 'bottom-left' %}
     {% include 'includes/header.html' %}
     <div class="columns">
+      {% block sidebar %}
         {% include 'includes/sidebar.html' %}
+      {% endblock %}
         <div class="column">
             {% block content %}{% endblock %}
         </div>
