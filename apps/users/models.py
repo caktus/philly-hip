@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.postgres.fields import CIEmailField
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -7,7 +8,9 @@ from apps.users.managers import UserManager
 
 
 class User(AbstractBaseUser, PermissionsMixin, IndexedTimeStampedModel):
-    email = models.EmailField(max_length=255, unique=True)
+    # use special Postgres-only Case Insensitive Email Field
+    # https://docs.djangoproject.com/en/dev/ref/contrib/postgres/fields/#django.contrib.postgres.fields.CIEmailField
+    email = CIEmailField(max_length=255, unique=True)
     is_staff = models.BooleanField(
         default=False,
         help_text=_("Designates whether the user can log into this admin site."),
