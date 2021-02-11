@@ -11,6 +11,8 @@ class User(AbstractBaseUser, PermissionsMixin, IndexedTimeStampedModel):
     # use special Postgres-only Case Insensitive Email Field
     # https://docs.djangoproject.com/en/dev/ref/contrib/postgres/fields/#django.contrib.postgres.fields.CIEmailField
     email = CIEmailField(max_length=255, unique=True)
+    first_name = models.CharField(_("first name"), max_length=150, blank=True)
+    last_name = models.CharField(_("last name"), max_length=150, blank=True)
     is_staff = models.BooleanField(
         default=False,
         help_text=_("Designates whether the user can log into this admin site."),
