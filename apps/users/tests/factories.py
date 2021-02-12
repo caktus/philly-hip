@@ -11,6 +11,8 @@ class UserFactory(factory.django.DjangoModelFactory):
         model = get_user_model()
 
     email = factory.faker.Faker("email")
+    first_name = factory.faker.Faker("first_name")
+    last_name = factory.faker.Faker("last_name")
     password = DEFAULT_PASSWORD
 
     # From factory boy docs
