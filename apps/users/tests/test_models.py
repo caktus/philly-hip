@@ -2,7 +2,15 @@ from apps.users.tests.factories import DEFAULT_PASSWORD, UserFactory
 from pytest_factoryboy import register
 
 
+# This registers User as a fixture (defaults to lowercase-underscored representation of
+# the factory's Meta.model attribute). It also registers user_factory as a fixture, but
+# we currently don't use that in this test file.
 register(UserFactory)
+# This registers another fixture, names it explicitly "superuser" and passes a kwarg to
+# the factory to customize the instance returned. NOTE: the kwarg you provide must be
+# specified in the factory class and not just only in the underlying Django model class,
+# so I had to explicitly add a `is_superuser` attribute to UserFactory.
+register(UserFactory, "superuser", is_superuser=True)
 
 
 def test_user_get_full_name(db, user):
@@ -32,9 +40,8 @@ def test_str_method(db, user):
     assert str(user) == user.email
 
 
-def test_superuser(db, user_factory):
-    superuser = user_factory(is_superuser=True)
-    assert superuser.is_superuser
+def test_superuser(db, superuser):
+    assert superuser.is_superuser is True
 
 
 def test_case_insensitive_login(client, db, user):
