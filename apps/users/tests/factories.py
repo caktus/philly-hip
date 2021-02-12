@@ -14,6 +14,7 @@ class UserFactory(factory.django.DjangoModelFactory):
     first_name = factory.faker.Faker("first_name")
     last_name = factory.faker.Faker("last_name")
     password = DEFAULT_PASSWORD
+    is_superuser = False
 
     # From factory boy docs
     # https://factoryboy.readthedocs.io/en/stable/recipes.html#custom-manager-methods
