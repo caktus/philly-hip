@@ -7,12 +7,27 @@ pytestmark = pytest.mark.django_db
 
 def test_user_get_full_name():
     user = UserFactory()
-    assert user.get_full_name() == user.email
+    assert user.get_full_name() == f"{user.first_name} {user.last_name}"
+
+
+def test_user_get_full_name_if_first_name_empty():
+    user = UserFactory(first_name="")
+    assert user.get_full_name() == user.last_name
+
+
+def test_user_get_full_name_if_last_name_empty():
+    user = UserFactory(first_name="", last_name="")
+    assert user.get_full_name() == user.first_name
+
+
+def test_user_get_full_name_if_name_fields_empty():
+    user = UserFactory(first_name="", last_name="")
+    assert user.get_full_name() == ""
 
 
 def test_user_get_short_name():
     user = UserFactory()
-    assert user.get_short_name() == user.email
+    assert user.get_short_name() == user.first_name
 
 
 def test_str_method():
