@@ -8,15 +8,15 @@
 2) Create a mixin for the type of icon if the mixin for
 that icon type does not already exists (see: @mixin solid-icon)
 3) Create a class for the icon. Add a short descriptor for the
-class (see: .search-icon-white)
+class (see: .search-icon-hip)
 4) For the newly created class, include the icon type mixin and add the 
-psuedo selector "::before". (see: .search-icon-white)
+psuedo selector "::before". (see: .search-icon-hip)
 5) Note: The icon you have chosen most likely follows this pattern
   $fa-<icon_name> (ex: $fa-search)
 To select that icon, do:
   $fa-var-<icon_name> (ex: $fa-var-search)
 6) Use the class you created. example:
-  <i class="search-icon-white"></i>
+  <i class="search-icon-hip"></i>
 */
 
 @mixin solid-icon {
@@ -29,5 +29,21 @@ To select that icon, do:
   @include solid-icon;
   &::before {
     content: fa-content($fa-var-search);
+  }
+}
+
+.bullhorn-icon-hip {
+  color: $white;
+  @include solid-icon;
+  &::before {
+    content: fa-content($fa-var-bullhorn);
+  }
+}
+
+.signin-icon-hip {
+  color: $white;
+  @include solid-icon;
+  &::before {
+    content: fa-content($fa-var-sign-in-alt);
   }
 }

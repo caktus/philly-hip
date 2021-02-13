@@ -37,3 +37,18 @@
     width: 100%;
   }
 }
+
+@mixin dark-blue-bg {
+  background-color: $dark-blue;
+  color: $white;
+}
+
+@mixin light-blue-bg {
+  background-color: $light-blue;
+  color: $black;
+}
+
+@mixin black-bg {
+  background-color: $black;
+  color: $white;
+}

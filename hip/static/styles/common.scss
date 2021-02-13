@@ -1,0 +1,15 @@
+@import "./mixins";
+
+// ---------------- Background Colors ----------- //
+
+.dark-blue-bg-hip {
+  @include dark-blue-bg;
+};
+
+.light-blue-bg-hip {
+  @include light-blue-bg;
+}
+
+.black-bg-hip {
+  @include black-bg;
+}
