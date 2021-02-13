@@ -82,3 +82,35 @@ class StaticPage(Page):
     promote_panels = [
         FieldPanel("slug"),
     ]
+
+
+class QuickLinkCard(blocks.StructBlock):
+    title = blocks.CharBlock(
+        max_length=255,
+        required=True,
+        help_text=("The linked text that will be visible to the reader"),
+    )
+    link_url = blocks.URLBlock(
+        max_length=255,
+        required=True,
+        help_text=("The URL to link to"),
+    )
+    text = blocks.CharBlock(
+        max_length=255,
+        required=True,
+        help_text=("Text below the title "),
+    )
+
+
+class HomePage(Page):
+    quick_links = StreamField(
+        [
+            ("quick_links", QuickLinkCard()),
+        ],
+        blank=True,
+    )
+
+    content_panels = [
+        FieldPanel("title"),
+        StreamFieldPanel("quick_links"),
+    ]

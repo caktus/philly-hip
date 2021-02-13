@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block title %}
+  Philadelphia Department of Public Health - {{ page.title }}
+{% endblock %}
+
+{% block content %}
+  <div class="homepage-padding-hip">
+    <section class="columns">
+      {% for quick_link in page.quick_links %}
+        <div class="column is-relative has-text-centered quicklink-padding-hip">
+          <div class="arrow-right-hip ml-4 mt-4"></div>
+          <div class="p-4 is-fullheight-hip quicklink-color-hip">
+            <a href="{{ quick_link.value.link_url }}">
+              <div class="pt-0 pr-4 pb-4 pl-4">{{ quick_link.value.title }}</div>
+            </a>
+            <div>{{ quick_link.value.text }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    </section>
+  </div>
+{% endblock %}
