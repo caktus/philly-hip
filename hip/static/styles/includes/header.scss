@@ -2,12 +2,11 @@
 @import "../mixins";
 
 .navbar-hip {
+  border-bottom: 2px solid $grey;
   height: 6rem;
-  background-color: $light-grey;
 }
 
 .logo-hip {
-  background-color: $grey;
   height: 4rem;
   width: 12rem;
   @include links;
@@ -24,5 +23,15 @@
 }
 
 .search-border-radius-hip {
-  border-radius: 6.25px 0px 0px 6.25px;
+  border-radius: 0px 6.25px 6.25px 0px;
+}
+
+.header-btn-hip {
+  @include light-blue-bg;
+  border-radius: 0;
+}
+
+.header-icon-hip {
+  @include black-bg;
+  border-radius: 0;
 }
