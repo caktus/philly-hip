@@ -24,8 +24,7 @@ To select that icon, do:
   @extend .fas; // solid icon
 }
 
-// Search Icons
-.search-icon-white {
+.search-icon-hip {
   color: $white;
   @include solid-icon;
   &::before {
