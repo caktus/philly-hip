@@ -227,39 +227,33 @@ The basic command for resetting your local media is this:
 
 
 ```sh
-    (hip)$ inv staging reset-local-media
+    (hip)$ inv staging aws.sync-media  --sync-to="local"
 ```
 
-If you wish to make sure you need to reset you can issue the command with a ``dry-run`` argument.
+Use the ``dry-run`` argument to see what would be done, without actually doing it.
 
 
 ```sh
-    (hip)$ inv staging reset-local-media --dry-run
+    (hip)$ inv staging aws.sync-media  --sync-to="local" --dry-run
 ```
 
-If you wish to clean out your local media tree before reset you can issue the command with a ``clean-local`` argument.
+If you wish to clean out your local media tree before reset you can issue the command with a ``delete`` argument.
 
 
 ```sh
-    (hip)$ inv staging reset-local-media --clean-local
+    (hip)$ inv staging aws.sync-media  --sync-to="local" --delete
 ```
 
 
 **Database Reset**
 
-If you need to reset your local database from a deployed environment there is an invoke command for that as well.
-
-The basic command for resetting your local database is this:
+To reset your local database from a deployed environment:
 
 
 ```sh
-    (hip)$ inv staging reset-local-db
-```
-
-If you have already retrieved a database file, for example from a backup server, you can restore that dump using the
-``dump-file`` argument.
-
-
-```sh
-    (hip)$ inv reset-local-db --dump-file="<PATH_TO_BACKUPFILE>"
+    (hip)$ inv staging pod.get-db-dump --db-var=DATABASE_URL
+    (hip)$ # make sure your local docker DB is running and configured in DATABASE_URL
+    (hip)$ echo $DATABASE_URL
+    postgres://postgres@127.0.0.1:5433/hip
+	(hip)$ pg_restore --no-owner --no-acl --clean --if-exists --dbname ${DATABASE_URL} hip-staging_database.dump
 ```

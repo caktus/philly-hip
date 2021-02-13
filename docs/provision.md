@@ -120,6 +120,16 @@ repo, but a copy has also been placed in the LastPass entry, "HIP Staging Secret
 	=> GRANT ALL PRIVILEGES ON DATABASE hip_staging TO hip_staging;
 	```
 
+3. Once the DB is created, run a similar command to connect to it as the RDS superuser
+   so that we can install the Postgresql citext extension:
+
+   ```sh
+	(hip)$ inv pod.debian
+	root@debian:/# apt update && apt install postgresql-client -y
+	root@debian:/# psql postgres://{MasterUsername}:{MasterPassword}@{Endpoint.Address}:5432/hip_staging
+	=> CREATE EXTENSION citext;
+   ```
+
 ### Point your desired domain at the load balancer
 
 1. Find the load balancer URL:
