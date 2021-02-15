@@ -1,4 +1,5 @@
 @import "../colors";
+@import "../mixins";
 
 .is-fixed {
   position: fixed;
@@ -11,4 +12,13 @@
 .footer-section-hip {
   background-color: $grey;
   height: 50px;
+}
+
+.bg-lt-grey {
+  background-color: $light-grey;
+}
+
+.richtext-area-hip {
+  @include headers;
+  @include paragraphs;
 }

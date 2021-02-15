@@ -1,6 +1,6 @@
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core import blocks
-from wagtail.core.fields import StreamField
+from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
 
 
@@ -109,8 +109,10 @@ class HomePage(Page):
         ],
         blank=True,
     )
+    about = RichTextField(blank=True)
 
     content_panels = [
         FieldPanel("title"),
         StreamFieldPanel("quick_links"),
+        FieldPanel("about"),
     ]

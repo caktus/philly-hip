@@ -20,5 +20,14 @@
         </div>
       {% endfor %}
     </section>
+
+    <section class="columns">
+      <div class="column"></div>
+      <div class="column">
+        <div class="bg-lt-grey p-4 richtext-area-hip">
+          {{ page.about|richtext }}
+        </div>
+      </div>
+    </section>
   </div>
 {% endblock %}
