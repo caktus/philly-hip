@@ -96,7 +96,9 @@ docutils==0.15.2
 entrypoints==0.3
     # via nbconvert
 factory-boy==3.2.0
-    # via -r requirements/dev/dev.in
+    # via
+    #   -r requirements/dev/dev.in
+    #   pytest-factoryboy
 faker==5.5.1
     # via factory-boy
 filelock==3.0.12
@@ -113,6 +115,8 @@ idna==2.10
     #   requests
 importlib-metadata==3.4.0
     # via -r requirements/dev/dev.in
+inflection==0.5.1
+    # via pytest-factoryboy
 iniconfig==1.1.1
     # via pytest
 invoke==1.5.0
@@ -277,11 +281,14 @@ pytest-cov==2.10.1
     # via -r requirements/dev/dev.in
 pytest-django==4.1.0
     # via -r requirements/dev/dev.in
+pytest-factoryboy==2.1.0
+    # via -r requirements/dev/dev.in
 pytest==6.2.1
     # via
     #   -r requirements/dev/dev.in
     #   pytest-cov
     #   pytest-django
+    #   pytest-factoryboy
 python-dateutil==2.8.1
     # via
     #   awslogs
