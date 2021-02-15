@@ -251,9 +251,5 @@ To reset your local database from a deployed environment:
 
 
 ```sh
-    (hip)$ inv staging pod.get-db-dump --db-var=DATABASE_URL
-    (hip)$ # make sure your local docker DB is running and configured in DATABASE_URL
-    (hip)$ echo $DATABASE_URL
-    postgres://postgres@127.0.0.1:5433/hip
-	(hip)$ pg_restore --no-owner --no-acl --clean --if-exists --dbname ${DATABASE_URL} hip-staging_database.dump
+    (hip)$ inv staging project.reset-local-db
 ```
