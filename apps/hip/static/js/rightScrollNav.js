@@ -1,17 +1,17 @@
 export default function () {
   /* Use IntersectionObserver to determine when a section of the page is within
-   * the user's view; when it is, add a CSS class to its respective nav title.
+   * the user's view; when it is, add a CSS class to its respective anchor tag.
+   * Docs: https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
+   *       https://codepen.io/mishunov/pen/opeRdL
    */
 
-  const pageSections = document.querySelectorAll("section.page-section-hip");
-  const config = {
-    threshold: [0, 0.25, 0.5, 0.75, 1]
-  };
+  const pageSections = document.querySelectorAll("div.nav-heading-hip");
+  const config = {};
 
   // Define the IntersectionObserver.
   let observer = new IntersectionObserver(function (entries, self) {
     entries.forEach(entry => {
-      if (entry.isIntersecting && entry.intersectionRect.top > 0) {
+      if (entry.isIntersecting) {
         intersectionHandler(entry);
       }
     });
@@ -23,22 +23,33 @@ export default function () {
   });
 
   function intersectionHandler(entry) {
-    /* When an entry is being intersected, add the 'is-active' CSS class to its
-     * respective nav title (with the 'nav-title' CSS class). Remove the 'is-active'
-     * CSS class from other 'nav-title' elements.
+    /* When an entry is being intersected, add the 'is-current-hip' CSS class to its
+     * respective anchor tag (with the 'nav-title>a' CSS class). Remove the 'is-current-hip'
+     * CSS class from other 'nav-title>a' elements.
      */
 
     const id = entry.target.id;
-    const elementCurrentlyActive = document.querySelector(".nav-title.is-active");
-    const elementBecomingActive = document.querySelector(".nav-title[data-ref=" + id + "]");
+    const elementCurrentlyActive = document.querySelector(".nav-title a.is-current-hip");
+    const elementBecomingActive = document.querySelector(".nav-title[data-ref=" + id + "] a");
 
-    // Give the 'is-active' CSS class from the nav title that is becoming non-active.
+    // Give the 'is-current-hip' CSS class from the nav title that is becoming non-active.
     if (elementCurrentlyActive) {
-      elementCurrentlyActive.classList.remove("is-active");
+      elementCurrentlyActive.classList.remove("is-current-hip");
     }
-    // Give the 'is-active' CSS class to the nav title that is becoming active.
+    // Give the 'is-current-hip' CSS class to the nav title that is becoming active.
     if (elementBecomingActive) {
-      elementBecomingActive.classList.add("is-active");
+      elementBecomingActive.classList.add("is-current-hip");
     }
   }
+
+  // smooth scroll to #targets
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
 };

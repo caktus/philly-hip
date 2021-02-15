@@ -16,7 +16,7 @@
     color: $white;
     font-weight: bold;
   }
-  
+
   table {
     p {
       padding: 0;
@@ -24,5 +24,14 @@
   }
   p {
     padding: 0 1rem;
+  }
+}
+
+.right-scroll-link-hip {
+  // links are grey unless they are current
+  color: $grey;
+
+  &.is-current-hip {
+    color: $blue;
   }
 }

@@ -17,11 +17,11 @@
   <div class="is-fixed">
     {% for block in page.body %}
       <div class="nav-title" data-ref="section-{{block.value.nav_heading|slugify}}">
-          <a href="#section-{{block.value.nav_heading|slugify}}">
-            <h4 class="is-size-4 my-3 ml-4">
-              <strong>{{ block.value.nav_heading }}</strong>
-            </h4>
-          </a>
+        <a class="right-scroll-link-hip" href="#section-{{block.value.nav_heading|slugify}}">
+          <h4 class="is-size-4 my-3 ml-4">
+            <strong>{{ block.value.nav_heading }}</strong>
+          </h4>
+        </a>
       </div>
     {% endfor %}
   </div>
