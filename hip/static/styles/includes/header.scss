@@ -13,11 +13,7 @@
     height: 70%;
     width: 90%;
     @media screen and (max-width: $breakpoint-tablet) {
-      height: 35%;
-      width: 100%;
-    }
-    @media screen and (max-width: $breakpoint-mobile) {
-      height: 45%;
+      height: 65%;
       width: 100%;
     }
   }

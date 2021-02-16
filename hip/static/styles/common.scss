@@ -20,6 +20,15 @@
   border: none;
 }
 
+// -------------------- Show/Hide ------------- //
+
+.mobile-hidden-hip {
+  display: inline-block;
+  @media screen and (max-width: $breakpoint-tablet) {
+    display: none;
+  }
+}
+
 // -------------------- Height & Width ------------- //
 
 .is-full-height-hip {
