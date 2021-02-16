@@ -7,23 +7,23 @@
 }
 
 .logo-hip {
-  height: 4rem;
-  width: 12rem;
   @include links;
+  img {
+    height: 70%;
+    width: 90%;
+  }
 }
 
 .search-input-hip {
-  min-width: 30rem;
+  width: auto;
   text-indent: 1rem;
+  border-radius: 0px;
+  border: 2px solid $dark-blue;
 }
 
 .search-img-hip {
   height: 1.5rem;
   width: 1.5rem;
-}
-
-.search-border-radius-hip {
-  border-radius: 0px 6.25px 6.25px 0px;
 }
 
 .header-btn-hip {

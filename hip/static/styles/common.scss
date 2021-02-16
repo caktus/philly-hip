@@ -13,3 +13,13 @@
 .black-bg-hip {
   @include black-bg;
 }
+
+// -------------------- Height & Width ------------- //
+
+.is-full-height-hip {
+  height: 100%;
+}
+
+.is-full-width-hip {
+  width: 100%;
+}

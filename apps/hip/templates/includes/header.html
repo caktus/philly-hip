@@ -1,13 +1,10 @@
 {% load static %}
 
-<nav class="navbar navbar-hip" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <div class="navbar-item">
-      <a class="button logo-hip" href="/home">
-        <strong>Logo</strong>
-      </a>
-    </div>
-
+<nav class="navbar columns navbar-hip" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand is-desktop column is-one-fifth">
+    <a class="logo-hip" href="https://www.phila.gov/">
+        <img class="mt-2" src="{% static 'images/city-of-philadelphia.svg' %}" alt="City of Philadelphia">
+    </a>
     <a role="button" id="navbar-burger" class="navbar-burger is-size-5 mr-2 mt-4" aria-label="menu" aria-expanded="false" data-target="navbarMainContent">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
@@ -15,19 +12,21 @@
     </a>
   </div>
 
-  <div id="navbarMainContent" class="navbar-menu">
-    <div class="navbar-start">
-      <div class="navbar-item">
-        <div class="control has-icons-right">
-          <span class="icon is-right dark-blue-bg-hip search-border-radius-hip">
+  <div id="navbarMainContent" class="navbar-menu column is-four-fifths columns is-desktop">
+    <div class="column is-6">
+      <div class="navbar-item is-full-height-hip">
+        <div class="control is-inline-block has-icons-right is-full-width-hip">
+          <span class="icon is-right dark-blue-bg-hip">
             <i class="search-icon-hip"></i>
           </span>
-          <input class="input is-info is-normal search-input-hip is-flex" type="text" placeholder="Search">
+            <input class="input is-normal search-input-hip is-full-width-hip" type="text" placeholder="Enter Search Terms...">
         </div>
       </div>
     </div>
-    <div class="navbar-end">
-      <div class="navbar-item">
+    <div class="column is-6">
+      <!-- WideScreen and Higher Breakpoint-->
+      <div class="is-flex is-justify-content-flex-end is-align-content-center is-full-height-hip is-hidden-touch is-hidden-desktop-only">
+        <div class="navbar-item">
           <a href="/report-a-disease" class="is-block">
             <span class="button is-size-7-touch header-icon-hip ml-0">
               <i class="bullhorn-icon-hip"></i>
@@ -36,31 +35,38 @@
               <strong>Report Disease</strong>
             </span>
           </a>
-      </div>
-      <div class="navbar-item">
-        <a href="#" class="is-block">
-          <span class="button is-size-7-touch header-icon-hip ml-0">
-            <i class="signin-icon-hip"></i>
-          </span>
-          <span class="button is-size-7-touch header-btn-hip ml-0">
-            <strong>Partner Log In</strong>
-          </span>
-        </a>
-      </div>
-      <div class="navbar-item has-dropdown is-hoverable is-hidden-desktop">
-        <a class="navbar-link is-size-7-touch" href="#">
-          <strong>PODS Login</strong>
-        </a>
-
-        <div class="navbar-dropdown">
-          <a class="navbar-item is-size-7-touch" href="#">
-            Sign In
+        </div>
+        <div class="navbar-item">
+          <a href="#" class="is-block">
+            <span class="button is-size-7-touch header-icon-hip ml-0">
+              <i class="signin-icon-hip"></i>
+            </span>
+            <span class="button is-size-7-touch header-btn-hip ml-0">
+              <strong>Partner Log In</strong>
+            </span>
           </a>
-          <a class="navbar-item is-size-7-touch" href="#">
-            Sign Out
+        </div>
+      </div>
+      <!-- Desktop Breakpoint-->
+      <div class="is-flex is-justify-content-space-around is-align-content-center is-full-height-hip is-hidden-touch is-hidden-widescreen">
+        <div class="navbar-item">
+          <a href="/report-a-disease" class="is-block">
+            <span class="button is-size-7-touch header-icon-hip ml-0">
+              <i class="bullhorn-icon-hip"></i>
+            </span>
+            <span class="button is-size-7-touch header-btn-hip ml-0">
+              <strong>Report Disease</strong>
+            </span>
           </a>
-          <a class="navbar-item is-size-7-touch" href="#">
-            Placeholder
+        </div>
+        <div class="navbar-item">
+          <a href="#" class="is-block">
+            <span class="button is-size-7-touch header-icon-hip ml-0">
+              <i class="signin-icon-hip"></i>
+            </span>
+            <span class="button is-size-7-touch header-btn-hip ml-0">
+              <strong>Partner Log In</strong>
+            </span>
           </a>
         </div>
       </div>
