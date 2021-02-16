@@ -12,9 +12,13 @@
   img {
     height: 70%;
     width: 90%;
+    @media screen and (max-width: $breakpoint-tablet) {
+      height: 35%;
+      width: 100%;
+    }
     @media screen and (max-width: $breakpoint-mobile) {
-      height: 20%;
-      width: 30%;
+      height: 45%;
+      width: 100%;
     }
   }
 }
