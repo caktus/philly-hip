@@ -55,3 +55,27 @@ To select that icon, do:
     content: fa-content($fa-var-sign-in-alt);
   }
 }
+
+.signin-icon-blue-hip {
+  color: $dark-blue;
+  @include solid-icon;
+  &::before {
+    content: fa-content($fa-var-sign-in-alt);
+  }
+}
+
+.signin-icon-blue-hip {
+  color: $dark-blue;
+  @include solid-icon;
+  &::before {
+    content: fa-content($fa-var-sign-in-alt);
+  }
+}
+
+.close-icon-hip {
+  color: $dark-blue;
+  @include solid-icon;
+  &::before {
+    content: fa-content($fa-var-times);
+  }
+}

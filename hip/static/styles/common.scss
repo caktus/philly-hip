@@ -29,6 +29,13 @@
   }
 }
 
+.desktop-hidden-hip {
+  display: block;
+  @media screen and (min-width: $breakpoint-tablet) {
+    display: none;
+  }
+}
+
 // -------------------- Height & Width ------------- //
 
 .is-full-height-hip {
