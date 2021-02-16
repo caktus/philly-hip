@@ -2,18 +2,23 @@
 
 <nav class="navbar columns navbar-hip" role="navigation" aria-label="main navigation">
   <div class="navbar-brand is-desktop column is-one-fifth">
-    <a class="logo-hip" href="https://www.phila.gov/">
-        <img class="mt-2" src="{% static 'images/city-of-philadelphia.svg' %}" alt="City of Philadelphia">
-    </a>
-    <a role="button" id="navbar-burger" class="navbar-burger is-size-5 mr-2 mt-4" aria-label="menu" aria-expanded="false" data-target="navbarMainContent">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
+    <div class="navbar-item is-hidden-desktop">
+      <a class="logo-hip" href="https://www.phila.gov/">
+          <img class="mt-3" src="{% static 'images/city-of-philadelphia.svg' %}" alt="City of Philadelphia">
+      </a>
+      <a role="button" id="navbar-burger" class="navbar-burger is-size-5 mr-2 mt-4 is-mobile" aria-label="menu" aria-expanded="false" data-target="navbarMainContent">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <a class="is-hidden-touch logo-hip" href="https://www.phila.gov/">
+      <img class="mt-3" src="{% static 'images/city-of-philadelphia.svg' %}" alt="City of Philadelphia">
     </a>
   </div>
 
-  <div id="navbarMainContent" class="navbar-menu column is-four-fifths columns is-desktop">
-    <div class="column is-6">
+  <div class="column is-four-fifths columns is-desktop">
+    <div class="column is-desktop is-hidden-touch is-6 pt-5">
       <div class="navbar-item is-full-height-hip">
         <div class="control is-inline-block has-icons-right is-full-width-hip">
           <span class="icon is-right dark-blue-bg-hip">
@@ -23,7 +28,7 @@
         </div>
       </div>
     </div>
-    <div class="column is-6">
+    <div class="column is-desktop is-hidden-touch is-6 pt-5">
       <!-- WideScreen and Higher Breakpoint-->
       <div class="is-flex is-justify-content-flex-end is-align-content-center is-full-height-hip is-hidden-touch is-hidden-desktop-only">
         <div class="navbar-item">

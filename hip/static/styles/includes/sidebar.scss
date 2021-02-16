@@ -1,6 +1,6 @@
 @import "../colors";
 
-.sidebar-border-hip {
+.sidebar-hip {
   border-right: 1px solid $grey;
 }
 
@@ -10,15 +10,18 @@
   height: 0px;
 }
 
-.is-active-hip {
-  color: $dark-blue;
-  font-weight: bolder;
-  border-right: 0.25rem solid $dark-blue;
-}
-
 .sidenav-link-hip {
+  color: $dark-blue;
   cursor: pointer;
   &:hover {
     font-weight: bolder;
   }
+}
+
+.sidenav-link-hip.is-active-hip {
+  color: $white;
+  background-color: $dark-grey;
+  font-weight: bolder;
+  margin: 0 0.5rem;
+  padding: 0.5rem 0.25rem;
 }
