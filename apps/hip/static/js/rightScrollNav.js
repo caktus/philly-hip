@@ -5,22 +5,45 @@ export default function () {
    *       https://codepen.io/mishunov/pen/opeRdL
    */
 
-  const pageSections = document.querySelectorAll("div.nav-heading-hip");
-  const config = {};
+  let pageSections = Array.from(document.querySelectorAll("div.nav-heading-hip"));
+  const lastSection = pageSections.pop();
+  const options = {
+    // shrink root element that we're monitoring by 80% from the bottom so that we
+    // monitor when elements intersect the top 20% of the page
+    rootMargin: "0% 0% -80% 0%"
+  };
+  const lastSectionOptions = {
+    // since the last section might be short, its header may never get to the top 20% of
+    // the page, so we'll add a second observer that only observes whether the last
+    // section intersects the top 50% of the page
+    rootMargin: "0% 0% -50% 0%"
+  };
 
-  // Define the IntersectionObserver.
+  // Define the IntersectionObservers
   let observer = new IntersectionObserver(function (entries, self) {
+    // main observer that observes all but the last section
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         intersectionHandler(entry);
       }
     });
-  }, config);
+  }, options);
 
-  // Observe each of the page pageSections.
+  let lastSectionObserver = new IntersectionObserver(function (entries, self) {
+    // observer for the last section
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        intersectionHandler(entry);
+      }
+    });
+  }, lastSectionOptions);
+
+  // Observe each of the pageSections (except the last one)
   pageSections.forEach(section => {
     observer.observe(section);
   });
+  // Observe the last section
+  lastSectionObserver.observe(lastSection);
 
   function intersectionHandler(entry) {
     /* When an entry is being intersected, add the 'is-current-hip' CSS class to its
