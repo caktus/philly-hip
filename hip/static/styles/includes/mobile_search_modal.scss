@@ -1,0 +1,15 @@
+@import "../colors";
+
+.mobile-search-modal {
+  position: absolute;
+  background-color: $white;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100%;
+  z-index: 1000;
+  .no-results-hip {
+    height: 100rem;
+    padding-top: 10rem; 
+  }
+}

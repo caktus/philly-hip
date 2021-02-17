@@ -15,9 +15,9 @@
         </a>
       </div>
       <div class="column is-2 mt-4">
-        <button class="button btn-no-border-hip pt-5 pb-5">
-          <i class="search-icon-reverse-hip"></i>
-        </button>
+        <a role="button" id="search-mobile-btn" aria-label="search" aria-expanded="false" data-target="searchMobileContainer" class="button btn-no-border-hip pt-5 pb-5">
+          <span class="search-icon-reverse-hip"></span>
+        </a>
       </div>
     </div>
     <div class="navbar-brand column is-one-fifth mobile-hidden-hip">
@@ -88,3 +88,5 @@
     </div>
   </div>
 </nav>
+
+{% include 'includes/mobile_search_modal.html' %}
