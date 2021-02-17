@@ -23,14 +23,21 @@
       {% if num_of_results %}{{ num_of_results }}{% else %}0{% endif %} results
     </h6>
   </div>
-  {% if filters %}
-  <div>
-
+  {% if True %}
+  <div class="pt-4 px-4">
+    {% for i in '01234'|make_list %}
+      <button class="button is-small is-rounded mx-2 my-2 btn-no-border-hip filter-btn-hip filters-hip" data-filter="filter_name">
+        filter name
+      </button>
+    {% endfor %}
+    <button class="button is-small btn-no-border-hip mx-2 my-2 clear-filters-btn-hip">Clear all filters</button>
   </div>
   {% endif %}
-  {% if results %}
-  <div>
-
+  {% if True %}
+  <div class="py-4 px-4">
+    {% for i in '0123'|make_list %}
+      {% include 'includes/search_result_card.html' %}
+    {% endfor%}
   </div>
   {% else %}
     <div class="px-6 has-text-centered no-results-hip">
