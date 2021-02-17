@@ -7,8 +7,7 @@
 
 {% block sidebar %}
   {# disable left sidebar but preserve the space that it occupies #}
-  <div class="column is-2 pr-0">
-  </div>
+  {% include 'includes/sidebar.html' with hidden_desktop=True %}
 {% endblock %}
 
 {% block content %}
