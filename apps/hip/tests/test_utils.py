@@ -11,6 +11,31 @@ def test_get_most_recent_objects_zero():
     assert [] == get_most_recent_objects(object_count=0)
 
 
+def test_get_most_recent_objects_pages_draft_excluded(db):
+    """Calling get_most_recent_objects() returns only live Pages."""
+    datetime_now = now()
+
+    # Some live pages
+    live_pages = [
+        HomePageFactory(latest_revision_created_at=now()),
+        StaticPageFactory(latest_revision_created_at=now()),
+    ]
+
+    # Some draft pages.
+    draft_pages = [
+        HomePageFactory(latest_revision_created_at=now(), live=False),
+        StaticPageFactory(latest_revision_created_at=now(), live=False),
+    ]
+
+    # The results only include live (non-draft) Pages.
+    results = get_most_recent_objects()
+    assert len(live_pages) == len(results)
+    for page in live_pages:
+        assert page.page_ptr in results
+    for page in draft_pages:
+        assert page.page_ptr not in results
+
+
 def test_get_most_recent_objects_pages_correct_order(db):
     """Calling get_most_recent_objects() returns Pages in correct order."""
     datetime_now = now()

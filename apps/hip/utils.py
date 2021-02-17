@@ -25,12 +25,16 @@ def get_most_recent_objects(object_count=10):
     a list.
     """
     # Get the most recent Page objects.
-    pages = Page.objects.exclude(latest_revision_created_at__isnull=True).annotate(
-        name=F("title"),
-        updated_at=F("latest_revision_created_at"),
-        type_of_object=Value("PAGE", output_field=CharField()),
-        model_name=Value("page", output_field=CharField()),
-    )[:object_count]
+    pages = (
+        Page.objects.live()
+        .exclude(latest_revision_created_at__isnull=True)
+        .annotate(
+            name=F("title"),
+            updated_at=F("latest_revision_created_at"),
+            type_of_object=Value("PAGE", output_field=CharField()),
+            model_name=Value("page", output_field=CharField()),
+        )[:object_count]
+    )
     # Get the most recent Document objects.
     documents = Document.objects.annotate(
         name=F("title"),
