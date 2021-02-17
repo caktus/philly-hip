@@ -25,11 +25,11 @@ import RightScrollNav from "../../../apps/hip/static/js/rightScrollNav";
 document.addEventListener("DOMContentLoaded", function() {
   Header();
   SideBar();
-  lazyLoad()
+  lazyLoad();
 
   function lazyLoad() {
     return lazyLoadRightScrollNav()
-  }
+  };
   function lazyLoadRightScrollNav() {
     /* Lazy Load Right Scroll Nav Component Javascript
     This javascript should only run on pages that use the right scroll nav component 
@@ -40,5 +40,5 @@ document.addEventListener("DOMContentLoaded", function() {
     if (isRightScrollPage) {
       return RightScrollNav();
     }
-  }
+  };
 });
