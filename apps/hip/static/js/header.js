@@ -23,13 +23,16 @@ export default function() {
       - view mobile_search_modal.html for the content that is being shown/hidden
     */
     const searchMobileBtn = document.querySelector("#search-mobile-btn");
+    
     searchMobileBtn.addEventListener("click", function () {
       const dataTarget = this.dataset.target;
       const target = document.getElementById(dataTarget);
       if (target.classList.contains("is-hidden-touch")) {
         target.classList.remove("is-hidden-touch");
+        document.body.classList.add('modal-is-open-hip')
       } else {
         target.classList.add("is-hidden-touch");
+        document.body.classList.remove('modal-is-open-hip')
       }
     });
   }

@@ -45,3 +45,11 @@
 .is-full-width-hip {
   width: 100%;
 }
+
+// -------------------- Modals ------------- //
+
+body.modal-is-open-hip {
+  height: 100vh;
+  overflow-y: hidden;
+  padding-right: 15px;
+}
