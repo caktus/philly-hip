@@ -31,6 +31,10 @@
   width: 1.5rem;
 }
 
+.search-border-radius-hip {
+  border-radius: 0px 6.25px 6.25px 0px;
+}
+
 .header-btn-hip {
   @include light-blue-bg;
   border-radius: 0;

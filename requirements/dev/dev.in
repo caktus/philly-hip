@@ -1,5 +1,5 @@
 # Dev requirements
--c ../base/base.in
+-c ../base/base.txt
 
 pyyaml
 black
@@ -34,3 +34,5 @@ factory_boy
 pytest
 pytest-cov
 pytest-django
+pytest-factoryboy
+wagtail-factories

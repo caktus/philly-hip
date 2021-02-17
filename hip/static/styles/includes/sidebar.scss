@@ -10,6 +10,12 @@
   height: 0px;
 }
 
+.is-active-hip {
+  color: $dark-blue;
+  font-weight: bolder;
+  border-right: 0.25rem solid $dark-blue;
+}
+
 .sidenav-link-hip {
   color: $dark-blue;
   cursor: pointer;
