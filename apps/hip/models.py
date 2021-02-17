@@ -1,3 +1,5 @@
+from django.urls import reverse
+
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core import blocks
 from wagtail.core.fields import RichTextField, StreamField
@@ -82,6 +84,13 @@ class StaticPage(Page):
     promote_panels = [
         FieldPanel("slug"),
     ]
+
+    def get_context(self, request):
+        """
+        Add the HTTP_REFERER to the context so that we can show a back button.
+        """
+        context = super().get_context(request)
+        context["prev_url"] = request.META.get("HTTP_REFERER", reverse("home"))
 
 
 class QuickLinkStructValue(blocks.StructValue):

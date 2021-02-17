@@ -8,8 +8,8 @@
   "scripts": {
     "test": "jest",
     "dev": "webpack -w --progress --colors --config  webpack.local.config.js",
-    "build": "NODE_ENV=production ./node_modules/.bin/webpack -p --progress --colors --config webpack.prod.config.js --bail",
-    "build-test": "NODE_ENV=development ./node_modules/.bin/webpack -p --progress --colors --config webpack.local.config.js --bail",
+    "build": "NODE_ENV=production ./node_modules/.bin/webpack --progress --colors --config webpack.prod.config.js --bail",
+    "build-test": "NODE_ENV=development ./node_modules/.bin/webpack --progress --colors --config webpack.local.config.js --bail",
     "coverage": "jest --coverage"
   },
   "dependencies": {
