@@ -91,6 +91,7 @@ class StaticPage(Page):
         """
         context = super().get_context(request)
         context["prev_url"] = request.META.get("HTTP_REFERER", reverse("home"))
+        return context
 
 
 class QuickLinkStructValue(blocks.StructValue):
