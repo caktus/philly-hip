@@ -3,10 +3,10 @@ export default function() {
   navbarBurger.addEventListener("click", function () {
     const dataTarget = this.dataset.target;
     const target = document.getElementById(dataTarget);
-    if (target.classList.contains("is-active")) {
-      target.classList.remove("is-active");
+    if (target.classList.contains("is-hidden-touch")) {
+      target.classList.remove("is-hidden-touch");
     } else {
-      target.classList.add("is-active");
+      target.classList.add("is-hidden-touch");
     }
   });
 };
