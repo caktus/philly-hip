@@ -12,10 +12,10 @@
         <div class="column is-relative has-text-centered quicklink-padding-hip">
           <div class="arrow-right-hip ml-4 mt-4"></div>
           <div class="p-4 is-fullheight-hip quicklink-color-hip">
-            <a href="{{ quick_link.value.link_url }}">
+            <a href="{{ quick_link.value.link }}">
               <div class="pt-0 pr-4 pb-4 pl-4">{{ quick_link.value.title }}</div>
             </a>
-            <div>{{ quick_link.value.text }}</div>
+            <div>Updated {{ quick_link.value.updated_datetime | date:"M j, Y" }}</div>
           </div>
         </div>
       {% endfor %}

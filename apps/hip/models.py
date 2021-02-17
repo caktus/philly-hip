@@ -84,22 +84,48 @@ class StaticPage(Page):
     ]
 
 
+class QuickLinkStructValue(blocks.StructValue):
+    def link(self):
+        """Determine the link based on "link_page" or "link_url"."""
+        if self.get("link_page", None):
+            return self["link_page"].url
+        else:
+            return self.get("link_url", None)
+
+    def updated_datetime(self):
+        """Determine the updated datetime based on "link_page" or "updated_at"."""
+        # If the link_page is not None, then use its latest_revision_created_at.
+        if self.get("link_page", None):
+            return self["link_page"].latest_revision_created_at
+        else:
+            return self.get("updated_at", "")
+
+
 class QuickLinkCard(blocks.StructBlock):
     title = blocks.CharBlock(
         max_length=255,
         required=True,
         help_text=("The linked text that will be visible to the reader"),
     )
+    link_page = blocks.PageChooserBlock(
+        required=False,
+        help_text=("An internal page"),
+    )
     link_url = blocks.URLBlock(
         max_length=255,
-        required=True,
-        help_text=("The URL to link to"),
+        required=False,
+        help_text=("An external URL (if not linking to an internal page)"),
     )
-    text = blocks.CharBlock(
-        max_length=255,
-        required=True,
-        help_text=("Text below the title "),
+    updated_at = blocks.DateTimeBlock(
+        required=False,
+        help_text=(
+            "If the link is to an external URL, this will be the displayed as the "
+            "updated date"
+        ),
     )
+
+    class Meta:
+        value_class = QuickLinkStructValue
 
 
 class HomePage(Page):
