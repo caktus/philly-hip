@@ -12,17 +12,17 @@
   h2 {
     font-size: $is-size-2;
     padding: 1.5rem 0 0.25rem 0;
-    color: $very-dark-grey;
+    color: $black;
   };
   h3 {
     font-size: $is-size-4;
     margin: 1rem 0;
     font-weight: bold;
-    color: $very-dark-grey;
+    color: $dark-grey;
   };
   h4 {
     font-size: $is-size-5;
-    color: $very-dark-grey;
+    color: $black;
   };
 }
 
@@ -36,4 +36,19 @@
   table {
     width: 100%;
   }
+}
+
+@mixin dark-blue-bg {
+  background-color: $dark-blue;
+  color: $white;
+}
+
+@mixin light-blue-bg {
+  background-color: $light-blue;
+  color: $black;
+}
+
+@mixin black-bg {
+  background-color: $black;
+  color: $white;
 }

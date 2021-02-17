@@ -2,7 +2,7 @@ from django.urls import reverse
 
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core import blocks
-from wagtail.core.fields import StreamField
+from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
 
 
@@ -91,4 +91,72 @@ class StaticPage(Page):
         """
         context = super().get_context(request)
         context["prev_url"] = request.META.get("HTTP_REFERER", reverse("home"))
+        return context
+
+
+class QuickLinkStructValue(blocks.StructValue):
+    def link(self):
+        """Determine the link based on "link_page" or "link_url"."""
+        if self.get("link_page", None):
+            return self["link_page"].url
+        else:
+            return self.get("link_url", None)
+
+    def updated_datetime(self):
+        """Determine the updated datetime based on "link_page" or "updated_at"."""
+        # If the link_page is not None, then use its latest_revision_created_at.
+        if self.get("link_page", None):
+            return self["link_page"].latest_revision_created_at
+        else:
+            return self.get("updated_at", "")
+
+
+class QuickLinkCard(blocks.StructBlock):
+    title = blocks.CharBlock(
+        max_length=255,
+        required=True,
+        help_text=("The linked text that will be visible to the reader"),
+    )
+    link_page = blocks.PageChooserBlock(
+        required=False,
+        help_text=("An internal page"),
+    )
+    link_url = blocks.URLBlock(
+        max_length=255,
+        required=False,
+        help_text=("An external URL (if not linking to an internal page)"),
+    )
+    updated_at = blocks.DateTimeBlock(
+        required=False,
+        help_text=(
+            "If the link is to an external URL, this will be the displayed as the "
+            "updated date"
+        ),
+    )
+
+    class Meta:
+        value_class = QuickLinkStructValue
+
+
+class HomePage(Page):
+    quick_links = StreamField(
+        [
+            ("quick_links", QuickLinkCard()),
+        ],
+        blank=True,
+    )
+    about = RichTextField(blank=True)
+
+    content_panels = [
+        FieldPanel("title"),
+        StreamFieldPanel("quick_links"),
+        FieldPanel("about"),
+    ]
+
+    def get_context(self, request):
+        """Add recent_updates to context."""
+        from .utils import get_most_recent_objects
+
+        context = super().get_context(request)
+        context["recent_updates"] = get_most_recent_objects(object_count=10)
         return context

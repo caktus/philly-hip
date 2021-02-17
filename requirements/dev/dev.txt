@@ -6,11 +6,15 @@
 #
 -e git+https://github.com/caktus/invoke-kubesae@0.0.11#egg=invoke-kubesae
     # via -r requirements/dev/dev.in
-ansible-base==2.10.4
+ansible-base==2.10.5
     # via ansible
-ansible==2.10.5
+ansible==2.10.7
     # via invoke-kubesae
-anyio==2.0.2
+anyascii==0.1.7
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   wagtail
+anyio==2.1.0
     # via jupyter-server
 appdirs==1.4.4
     # via
@@ -21,14 +25,16 @@ appnope==0.1.2
 argon2-cffi==20.1.0
     # via notebook
 asgiref==3.3.1
-    # via django
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   django
 async-generator==1.10
     # via nbclient
 attrs==20.3.0
     # via
     #   jsonschema
     #   pytest
-awscli==1.18.213
+awscli==1.19.9
     # via -r requirements/dev/dev.in
 awslogs==0.14.0
     # via -r requirements/dev/dev.in
@@ -36,26 +42,32 @@ babel==2.9.0
     # via jupyterlab-server
 backcall==0.2.0
     # via ipython
+beautifulsoup4==4.8.2
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   wagtail
 black==20.8b1
     # via -r requirements/dev/dev.in
-bleach==3.2.1
+bleach==3.3.0
     # via nbconvert
-boto3==1.16.53
+boto3==1.17.9
     # via
-    #   -c requirements/dev/../base/base.in
+    #   -c requirements/dev/../base/base.txt
     #   awslogs
-botocore==1.19.53
+botocore==1.20.9
     # via
+    #   -c requirements/dev/../base/base.txt
     #   awscli
     #   boto3
     #   s3transfer
-cachetools==4.2.0
+cachetools==4.2.1
     # via google-auth
 certifi==2020.12.5
     # via
+    #   -c requirements/dev/../base/base.txt
     #   kubernetes
     #   requests
-cffi==1.14.4
+cffi==1.14.5
     # via
     #   argon2-cffi
     #   cryptography
@@ -64,7 +76,9 @@ cfgv==3.2.0
 cfn-flip==1.2.3
     # via troposphere
 chardet==4.0.0
-    # via requests
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   requests
 click==7.1.2
     # via
     #   black
@@ -73,11 +87,11 @@ colorama==0.4.3
     # via
     #   awscli
     #   invoke-kubesae
-coverage==5.3.1
+coverage==5.4
     # via
     #   -r requirements/dev/dev.in
     #   pytest-cov
-cryptography==3.3.1
+cryptography==3.4.6
     # via ansible-base
 decorator==4.4.2
     # via ipython
@@ -87,30 +101,69 @@ distlib==0.3.1
     # via virtualenv
 django-debug-toolbar==3.2
     # via -r requirements/dev/dev.in
-django==3.1.5
+django-filter==2.4.0
     # via
-    #   -c requirements/dev/../base/base.in
+    #   -c requirements/dev/../base/base.txt
+    #   wagtail
+django-modelcluster==5.1
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   wagtail
+django-taggit==1.3.0
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   wagtail
+django-treebeard==4.4
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   wagtail
+django==3.1.6
+    # via
+    #   -c requirements/dev/../base/base.txt
     #   django-debug-toolbar
+    #   django-filter
+    #   django-taggit
+    #   django-treebeard
+    #   djangorestframework
+    #   wagtail
+djangorestframework==3.12.2
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   wagtail
 docutils==0.15.2
     # via awscli
+draftjs-exporter==2.1.7
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   wagtail
 entrypoints==0.3
     # via nbconvert
+et-xmlfile==1.0.1
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   openpyxl
 factory-boy==3.2.0
     # via
     #   -r requirements/dev/dev.in
     #   pytest-factoryboy
-faker==5.5.1
+    #   wagtail-factories
+faker==6.2.0
     # via factory-boy
 filelock==3.0.12
     # via virtualenv
 flake8==3.8.4
     # via -r requirements/dev/dev.in
-google-auth==1.24.0
+google-auth==1.26.1
     # via kubernetes
-identify==1.5.12
+html5lib==1.1
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   wagtail
+identify==1.5.13
     # via pre-commit
 idna==2.10
     # via
+    #   -c requirements/dev/../base/base.txt
     #   anyio
     #   requests
 importlib-metadata==3.4.0
@@ -129,16 +182,20 @@ ipython-genutils==0.2.0
     #   nbformat
     #   notebook
     #   traitlets
-ipython==7.19.0
+ipython==7.20.0
     # via
     #   -r requirements/dev/dev.in
     #   ipykernel
     #   jupyterlab
 isort==5.7.0
     # via -r requirements/dev/dev.in
+jdcal==1.4.1
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   openpyxl
 jedi==0.18.0
     # via ipython
-jinja2==2.11.2
+jinja2==2.11.3
     # via
     #   ansible-base
     #   jupyter-server
@@ -149,6 +206,7 @@ jinja2==2.11.2
     #   openshift
 jmespath==0.10.0
     # via
+    #   -c requirements/dev/../base/base.txt
     #   awslogs
     #   boto3
     #   botocore
@@ -165,7 +223,7 @@ jupyter-client==6.1.11
     #   jupyter-server
     #   nbclient
     #   notebook
-jupyter-core==4.7.0
+jupyter-core==4.7.1
     # via
     #   jupyter-client
     #   jupyter-server
@@ -173,21 +231,25 @@ jupyter-core==4.7.0
     #   nbconvert
     #   nbformat
     #   notebook
-jupyter-server==1.2.1
+jupyter-server==1.3.0
     # via
     #   jupyterlab
     #   jupyterlab-server
     #   nbclassic
 jupyterlab-pygments==0.1.2
     # via nbconvert
-jupyterlab-server==2.1.2
+jupyterlab-server==2.2.1
     # via jupyterlab
-jupyterlab==3.0.3
+jupyterlab==3.0.7
     # via -r requirements/dev/dev.in
 kubernetes-validate==1.19.0
     # via -r requirements/dev/dev.in
 kubernetes==11.0.0
     # via openshift
+l18n==2020.6.1
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   wagtail
 markupsafe==1.1.1
     # via jinja2
 mccabe==0.6.1
@@ -198,29 +260,33 @@ mypy-extensions==0.4.3
     # via black
 nbclassic==0.2.6
     # via jupyterlab
-nbclient==0.5.1
+nbclient==0.5.2
     # via nbconvert
 nbconvert==6.0.7
     # via
     #   jupyter-server
     #   notebook
-nbformat==5.0.8
+nbformat==5.1.2
     # via
     #   jupyter-server
     #   nbclient
     #   nbconvert
     #   notebook
-nest-asyncio==1.4.3
+nest-asyncio==1.5.1
     # via nbclient
 nodeenv==1.5.0
     # via pre-commit
-notebook==6.1.6
+notebook==6.2.0
     # via nbclassic
 oauthlib==3.1.0
     # via requests-oauthlib
+openpyxl==3.0.6
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   tablib
 openshift==0.11.2
     # via -r requirements/dev/dev.in
-packaging==20.8
+packaging==20.9
     # via
     #   ansible-base
     #   bleach
@@ -237,15 +303,19 @@ pexpect==4.8.0
     # via ipython
 pickleshare==0.7.5
     # via ipython
+pillow==8.1.0
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   wagtail
 pluggy==0.13.1
     # via pytest
-pre-commit==2.9.3
+pre-commit==2.10.1
     # via -r requirements/dev/dev.in
 prometheus-client==0.9.0
     # via
     #   jupyter-server
     #   notebook
-prompt-toolkit==3.0.10
+prompt-toolkit==3.0.16
     # via ipython
 ptyprocess==0.7.0
     # via
@@ -267,7 +337,7 @@ pycparser==2.20
     # via cffi
 pyflakes==2.2.0
     # via flake8
-pygments==2.7.4
+pygments==2.8.0
     # via
     #   ipython
     #   jupyterlab-pygments
@@ -277,13 +347,13 @@ pyparsing==2.4.7
     # via packaging
 pyrsistent==0.17.3
     # via jsonschema
-pytest-cov==2.10.1
+pytest-cov==2.11.1
     # via -r requirements/dev/dev.in
 pytest-django==4.1.0
     # via -r requirements/dev/dev.in
 pytest-factoryboy==2.1.0
     # via -r requirements/dev/dev.in
-pytest==6.2.1
+pytest==6.2.2
     # via
     #   -r requirements/dev/dev.in
     #   pytest-cov
@@ -291,6 +361,7 @@ pytest==6.2.1
     #   pytest-factoryboy
 python-dateutil==2.8.1
     # via
+    #   -c requirements/dev/../base/base.txt
     #   awslogs
     #   botocore
     #   faker
@@ -298,10 +369,13 @@ python-dateutil==2.8.1
     #   kubernetes
 python-string-utils==1.0.0
     # via openshift
-pytz==2020.5
+pytz==2021.1
     # via
+    #   -c requirements/dev/../base/base.txt
     #   babel
     #   django
+    #   django-modelcluster
+    #   l18n
 pyyaml==5.3.1
     # via
     #   -r requirements/dev/dev.in
@@ -311,7 +385,7 @@ pyyaml==5.3.1
     #   kubernetes
     #   kubernetes-validate
     #   pre-commit
-pyzmq==20.0.0
+pyzmq==22.0.3
     # via
     #   jupyter-client
     #   jupyter-server
@@ -322,9 +396,11 @@ requests-oauthlib==1.3.0
     # via kubernetes
 requests==2.25.1
     # via
+    #   -c requirements/dev/../base/base.txt
     #   jupyterlab-server
     #   kubernetes
     #   requests-oauthlib
+    #   wagtail
 rsa==4.5
     # via
     #   awscli
@@ -333,6 +409,7 @@ ruamel.yaml==0.16.12
     # via openshift
 s3transfer==0.3.4
     # via
+    #   -c requirements/dev/../base/base.txt
     #   awscli
     #   boto3
 send2trash==1.5.0
@@ -341,23 +418,34 @@ send2trash==1.5.0
     #   notebook
 six==1.15.0
     # via
+    #   -c requirements/dev/../base/base.txt
     #   argon2-cffi
     #   bleach
     #   cfn-flip
-    #   cryptography
     #   google-auth
+    #   html5lib
     #   jsonschema
     #   kubernetes
+    #   l18n
     #   openshift
     #   python-dateutil
     #   virtualenv
     #   websocket-client
 sniffio==1.2.0
     # via anyio
+soupsieve==2.2
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   beautifulsoup4
 sqlparse==0.4.1
     # via
+    #   -c requirements/dev/../base/base.txt
     #   django
     #   django-debug-toolbar
+tablib[xls,xlsx]==3.0.0
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   wagtail
 termcolor==1.1.0
     # via awslogs
 terminado==0.9.2
@@ -398,21 +486,47 @@ typed-ast==1.4.2
     # via black
 typing-extensions==3.7.4.3
     # via black
-urllib3==1.26.2
+urllib3==1.26.3
     # via
+    #   -c requirements/dev/../base/base.txt
     #   botocore
     #   kubernetes
     #   requests
 urwid==2.1.2
     # via pudb
-virtualenv==20.3.0
+virtualenv==20.4.2
     # via pre-commit
+wagtail-factories==2.0.1
+    # via -r requirements/dev/dev.in
+wagtail==2.12.1
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   wagtail-factories
 wcwidth==0.2.5
     # via prompt-toolkit
 webencodings==0.5.1
-    # via bleach
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   bleach
+    #   html5lib
 websocket-client==0.57.0
     # via kubernetes
+willow==1.4
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   wagtail
+xlrd==2.0.1
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   tablib
+xlsxwriter==1.3.7
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   wagtail
+xlwt==1.3.0
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   tablib
 zipp==3.4.0
     # via importlib-metadata
 

@@ -18,9 +18,9 @@
   <div id="navbarMainContent" class="navbar-menu">
     <div class="navbar-start">
       <div class="navbar-item">
-        <div class="control has-icons-left">
-          <span class="icon is-left has-background-link search-border-radius-hip">
-            <img class="search-img-hip" src="{% static 'search.svg' %}" />
+        <div class="control has-icons-right">
+          <span class="icon is-right dark-blue-bg-hip search-border-radius-hip">
+            <i class="search-icon-hip"></i>
           </span>
           <input class="input is-info is-normal search-input-hip is-flex" type="text" placeholder="Search">
         </div>
@@ -28,13 +28,26 @@
     </div>
     <div class="navbar-end">
       <div class="navbar-item">
-        <div class="buttons">
-          <a class="button is-size-7-touch is-link" href="/report-a-disease">
-            <strong>Report Disease</strong>
+          <a href="/report-a-disease" class="is-block">
+            <span class="button is-size-7-touch header-icon-hip ml-0">
+              <i class="bullhorn-icon-hip"></i>
+            </span>
+            <span class="button is-size-7-touch header-btn-hip ml-0">
+              <strong>Report Disease</strong>
+            </span>
           </a>
-        </div>
       </div>
-      <div class="navbar-item has-dropdown is-hoverable">
+      <div class="navbar-item">
+        <a href="#" class="is-block">
+          <span class="button is-size-7-touch header-icon-hip ml-0">
+            <i class="signin-icon-hip"></i>
+          </span>
+          <span class="button is-size-7-touch header-btn-hip ml-0">
+            <strong>Partner Log In</strong>
+          </span>
+        </a>
+      </div>
+      <div class="navbar-item has-dropdown is-hoverable is-hidden-desktop">
         <a class="navbar-link is-size-7-touch" href="#">
           <strong>PODS Login</strong>
         </a>

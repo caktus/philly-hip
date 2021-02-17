@@ -1,4 +1,13 @@
 
+/* Font Awesome Config Variable
+
+Points to location of webfonts directory
+for font awesome. The path to this
+directory is relative to bundle.css
+in ROOT_DIR/static/
+*/
+$fa-font-path: "../webfonts";
+
 // SIZES - Corresponding to Bulma.io sizes
 // https://bulma.io/documentation/helpers/typography-helpers/#size
 

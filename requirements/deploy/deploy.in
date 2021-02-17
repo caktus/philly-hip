@@ -1,5 +1,5 @@
 # Deploy.in
--c ../base/base.in
+-c ../base/base.txt
 
 python-memcached
 newrelic

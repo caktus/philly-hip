@@ -1,10 +1,11 @@
 @import "../colors";
 
 .table-grid-pattern-hip {
-  th {
-    background-color: $light-grey;
-  }
   tr:nth-child(even) {
     background-color: $light-grey;
   }
+}
+
+.table-grid-pattern-hip__th {
+  background-color: $light-grey;
 }
