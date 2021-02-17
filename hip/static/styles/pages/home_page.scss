@@ -21,3 +21,12 @@
   left: 0;
   position: absolute;
 }
+
+.recently-updated-hip {
+  @include headers;
+}
+
+.table-space-between-cells-hip {
+  border-spacing: 2px;
+  border-collapse: separate;
+}

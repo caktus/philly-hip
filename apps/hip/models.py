@@ -116,3 +116,11 @@ class HomePage(Page):
         StreamFieldPanel("quick_links"),
         FieldPanel("about"),
     ]
+
+    def get_context(self, request):
+        """Add recent_updates to context."""
+        from .utils import get_most_recent_objects
+
+        context = super().get_context(request)
+        context["recent_updates"] = get_most_recent_objects(object_count=10)
+        return context

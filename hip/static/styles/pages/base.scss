@@ -18,7 +18,19 @@
   background-color: $light-grey;
 }
 
+.is-white-hip {
+  color: $white;
+}
+
+.bg-very-dark-grey-hip {
+  background-color: $very-dark-grey;
+}
+
 .richtext-area-hip {
   @include headers;
   @include paragraphs;
+}
+
+.full-width-hip {
+  width: 100%;
 }

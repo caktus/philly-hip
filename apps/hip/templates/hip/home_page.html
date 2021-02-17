@@ -29,5 +29,40 @@
         </div>
       </div>
     </section>
+
+    <section class="recently-updated-hip">
+      <h3>Recently Updated</h3>
+      <table class="table-grid-pattern-hip table-space-between-cells-hip full-width-hip">
+        <thead>
+          <tr class="py-2">
+            <th class="py-4 pl-4 is-white-hip bg-very-dark-grey-hip">Name</th>
+            <th class="py-4 pl-4 is-white-hip bg-very-dark-grey-hip">Type</th>
+            <th class="py-4 pl-4 is-white-hip bg-very-dark-grey-hip">Updated</th>
+          </tr>
+        </thead>
+        {% for recent_update in recent_updates %}
+          <tr class="py-2">
+            <td class="py-4 pl-4 pr-2">
+              {% if recent_update.model_name == "page" %}
+                <a href="{% pageurl recent_update %}">
+              {% elif recent_update.model_name == "document"%}
+                <a href="{{ recent_update.url }}">
+              {% endif %}
+                {{ recent_update.name }}
+              </a>
+            </td>
+            <td class="py-4 pl-4 pr-2">
+              {% if recent_update.model_name == "page" %}
+                <i class="fa fa-link " aria-hidden="true"></i>
+              {% elif recent_update.model_name == "document"%}
+                <i class="fa fa-download" aria-hidden="true"></i>
+              {% endif %}
+              {{ recent_update.type_of_object }}
+            </td>
+            <td class="py-4 pl-4 pr-2">{{ recent_update.updated_at | date:"M j, Y" }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    </section>
   </div>
 {% endblock %}
