@@ -27,23 +27,5 @@ document.addEventListener("DOMContentLoaded", function() {
   Header();
   SideBar();
   MobileSearchModal();
-  lazyLoad()
-
-  function lazyLoad() {
-    return lazyLoadRightScrollNav()
-  }
-
-  function lazyLoadRightScrollNav() {
-    /* Lazy Load Right Scroll Nav Component Javascript
-    
-    This javascript should only run on pages that use the right scroll nav component 
-    */
-    const rightScrollNavPages = ["report-a-disease"];
-    const pathName = window.location.pathname;
-    const isRightScrollPage = rightScrollNavPages.some((path) => pathName.includes(path));
-
-    if (isRightScrollPage) {
-      return RightScrollNav();
-    }
-  }
+  RightScrollNav();
 });
