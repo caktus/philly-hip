@@ -42,10 +42,10 @@
   <body>
     {% wagtailuserbar 'bottom-left' %}
     {% include 'includes/header.html' %}
-    <div class="columns">
-      {% block sidebar %}
-        {% include 'includes/sidebar.html' %}
-      {% endblock %}
+    <div class="columns is-desktop">
+        {% block sidebar %}
+          {% include 'includes/sidebar.html' with hidden_desktop=False %}
+        {% endblock %}
         <div class="column">
             {% block content %}{% endblock %}
         </div>

@@ -13,3 +13,43 @@
 .black-bg-hip {
   @include black-bg;
 }
+
+// ---------------- Button No Border ----------- //
+
+.btn-no-border-hip {
+  border: none;
+}
+
+// -------------------- Show/Hide ------------- //
+
+.mobile-hidden-hip {
+  display: inline-block;
+  @media screen and (max-width: $breakpoint-tablet) {
+    display: none;
+  }
+}
+
+.desktop-hidden-hip {
+  display: block;
+  @media screen and (min-width: $breakpoint-tablet) {
+    display: none;
+  }
+}
+
+// -------------------- Height & Width ------------- //
+
+.is-full-height-hip {
+  height: 100%;
+}
+
+.is-full-width-hip {
+  width: 100%;
+}
+
+// -------------------- Modals ------------- //
+
+body.modal-is-open-hip {
+  height: 100vh;
+  overflow-y: hidden;
+  padding-right: 15px;
+}

@@ -32,6 +32,14 @@ To select that icon, do:
   }
 }
 
+.search-icon-reverse-hip {
+  color: $dark-blue;
+  @include solid-icon;
+  &::before {
+    content: fa-content($fa-var-search);
+  }
+}
+
 .bullhorn-icon-hip {
   color: $white;
   @include solid-icon;
@@ -45,5 +53,29 @@ To select that icon, do:
   @include solid-icon;
   &::before {
     content: fa-content($fa-var-sign-in-alt);
+  }
+}
+
+.signin-icon-blue-hip {
+  color: $dark-blue;
+  @include solid-icon;
+  &::before {
+    content: fa-content($fa-var-sign-in-alt);
+  }
+}
+
+.signin-icon-blue-hip {
+  color: $dark-blue;
+  @include solid-icon;
+  &::before {
+    content: fa-content($fa-var-sign-in-alt);
+  }
+}
+
+.close-icon-hip {
+  color: $dark-blue;
+  @include solid-icon;
+  &::before {
+    content: fa-content($fa-var-times);
   }
 }
