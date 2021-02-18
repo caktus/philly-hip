@@ -1,6 +1,6 @@
 export default function () {
   manageSideBarLinks();
-  closeButtonClicked();
+  manageCloseButtonClicked();
 
   function manageSideBarLinks () {
     const sideNavLinks = document.querySelectorAll(".sidenav-link-hip");
@@ -22,7 +22,7 @@ export default function () {
     }));
   };
 
-  function closeButtonClicked () {
+  function manageCloseButtonClicked () {
     /* Hides sidebar on mobile when clicked
     */
     const closeBtn = document.querySelector(".sidebar-close-btn-hip");

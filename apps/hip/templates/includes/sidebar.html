@@ -1,5 +1,5 @@
-<div id="sidebarContent" class="column is-2-desktop sidebar-hip pr-0 my-0 is-hidden-touch {% if hidden_desktop %}is-hidden-desktop{% endif %}">
-  <div class="desktop-hidden-hip my-0">
+<div id="sidebarContent" class="column is-2-desktop {% if not hidden_desktop %}sidebar-hip{% endif %} pr-0 my-0 is-hidden-touch">
+  <div class="desktop-hidden-hip my-0 {% if hidden_desktop %}is-hidden-desktop{% endif %}">
     <div class="is-flex is-justify-content-space-between pr-2 is-vcentered">
       <h6 class="is-size-6 pl-3 is-block"><strong>Menu</strong></h6>
       <span class="is-block">
@@ -9,7 +9,7 @@
       </span>
     </div>
   </div>
-  <ul class="mb-4">
+  <ul class="mb-4 {% if hidden_desktop %}is-hidden-desktop{% endif %}">
     <li class="desktop-hidden-hip my-4 pl-4 is-vcentered my-0">
       <a href="/report-a-disease" class="is-block">
         <span class="control is-inline-block has-icons-left is-size-7-touch">
@@ -29,21 +29,21 @@
     <li class="pl-4 pb-2 sidenav-link-hip" data-href="#health-topics">Emergent Health Topics</li>
     <li class="pl-4 pb-2 sidenav-link-hip" data-href="#emergency-response">Emergency Response</li>
   </ul>
-  <div class="pl-2 pb-4 is-flex is-justify-content-flex-start is-align-items-center">
+  <div class="pl-2 pb-4 is-flex is-justify-content-flex-start is-align-items-center {% if hidden_desktop %}is-hidden-desktop{% endif %}">
     <h5 class="is-size-7">Resources</h5>
     <div class="ml-2 mr-6 sidebar-divider-hip"></div>
   </div>
-  <ul class="mb-4">
+  <ul class="mb-4 {% if hidden_desktop %}is-hidden-desktop{% endif %}">
     <li class="pl-4 pb-2 sidenav-link-hip" data-href="#posters">Posters</li>
     <li class="pl-4 pb-2 sidenav-link-hip" data-href="#related-websites">Related Websites</li>
     <li class="pl-4 pb-2 sidenav-link-hip" data-href="#conferences">Conferences</li>
     <li class="pl-4 pb-2 sidenav-link-hip" data-href="#newsletter">Newsletter</li>
   </ul>
-  <div class="pl-2 pb-4 is-flex is-justify-content-flex-start is-align-items-center desktop-hidden-hip">
+  <div class="pl-2 pb-4 is-flex is-justify-content-flex-start is-align-items-center desktop-hidden-hip {% if hidden_desktop %}is-hidden-desktop{% endif %}">
     <h5 class="is-size-7 desktop-hidden-hip">Response Partners</h5>
     <div class="ml-2 mr-6 sidebar-divider-hip desktop-hidden-hip"></div>
   </div>
-  <ul class="mb-4 desktop-hidden-hip">
+  <ul class="mb-4 desktop-hidden-hip {% if hidden_desktop %}is-hidden-desktop{% endif %}">
     <li class="pl-4 pb-2 sidenav-link-hip" data-href="#closed-pod-login">
       <span class="signin-icon-blue-hip"></span>
       Partner Log In
