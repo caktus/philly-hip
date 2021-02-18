@@ -1,5 +1,6 @@
 @import "../colors";
 @import "../mixins";
+@import "../variables";
 
 .navbar-hip {
   border-bottom: 2px solid $grey;
@@ -7,14 +8,22 @@
 }
 
 .logo-hip {
-  height: 4rem;
-  width: 12rem;
   @include links;
+  img {
+    height: 70%;
+    width: 90%;
+    @media screen and (max-width: $breakpoint-tablet) {
+      height: 65%;
+      width: 100%;
+    }
+  }
 }
 
 .search-input-hip {
-  min-width: 30rem;
+  width: auto;
   text-indent: 1rem;
+  border-radius: 0px;
+  border: 2px solid $dark-blue;
 }
 
 .search-img-hip {
