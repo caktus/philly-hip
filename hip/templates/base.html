@@ -26,9 +26,6 @@
       </script>
     {% endif %}
 
-    {# Global javascript #}
-    {% render_bundle 'main' %}
-
     {# favicon #}
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
 
@@ -43,16 +40,18 @@
     {% wagtailuserbar 'bottom-left' %}
     {% include 'includes/header.html' %}
     <div class="columns is-desktop">
-        {% block sidebar %}
-          {% include 'includes/sidebar.html' with hidden_desktop=False %}
-        {% endblock %}
-        <div class="column">
-            {% block content %}{% endblock %}
-        </div>
+      {% block sidebar %}
+        {% include 'includes/sidebar.html' with hidden_desktop=False %}
+      {% endblock %}
+      <div class="column">
+        {% block content %}{% endblock %}
+      </div>
     </div>
     {% include 'includes/footer.html' %}
 
+    {# Global javascript #}
+    {% render_bundle 'main' %}
+
     {% block extra_js %}{% endblock %}
-    <script src="{% static 'js/bundles/main.js' %}"></script>
 </body>
 </html>
