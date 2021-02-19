@@ -10,8 +10,8 @@
 }
 
 .footer-section-hip {
-  background-color: $grey;
-  height: 50px;
+  @include dark-blue-bg;
+  height: 75px;
 }
 
 .bg-lt-grey {
