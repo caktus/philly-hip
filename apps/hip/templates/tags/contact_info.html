@@ -1,0 +1,33 @@
+{% for info in contact_info %}
+  <div>
+    <div class="columns is-mobile">
+      <div class="column">
+        <span class="is-block">biz hours icon</span>
+        <h6 class="is-size-6">Business Hours</h6>
+      </div>
+      <div class="column">
+        <div class="columns">
+          <span class="column is-block">phone icon</span>
+          <h6 class="column is-10 is-size-6">Call <strong>{{ info.business_hours_call_number }}</strong></h6>
+        </div>
+        <div class="columns is-mobile">
+          <span class="column is-block">fax icon</span>
+          <h6 class="column is-10 is-size-6">Fax a report to <strong>{{ info.business_hours_fax_number }}</strong></h6>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-mobile">
+      <div class="column columns is-mobile">
+        <span class="column is-block">after hours icon</span>
+        <h6 class=" column is-10 is-size-6">After Hours</h6>
+      </div>
+      <div class="column columns is-mobile">
+        <span class="column is-block">phone icon</span>
+        <h6 class="column is-10 is-size-6">
+          Call <strong>{{ info.after_hours_call_number}}</strong> for the Division of Disease 
+          Control on-call personnel at City Hall
+        </h6>
+      </div>
+    </div>
+  </div>
+{% endfor %}
