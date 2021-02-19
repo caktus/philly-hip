@@ -18,12 +18,14 @@ import JQuery from "jquery";
   *
  */
 
+import Common from "./common";
 import Header from "../../../apps/hip/static/js/header";
 import SideBar from "../../../apps/hip/static/js/sidebar";
 import RightScrollNav from "../../../apps/hip/static/js/rightScrollNav";
 import MobileSearchModal from "../../../apps/hip/static/js/mobileSearchModal";
 
 document.addEventListener("DOMContentLoaded", function() {
+  Common();
   Header();
   SideBar();
   MobileSearchModal();

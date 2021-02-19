@@ -111,3 +111,11 @@ To select that icon, do:
     content: fa-content($fa-var-phone-alt);
   }
 }
+
+.external-link-icon-hip {
+  color: $dark-blue;
+  @include solid-icon;
+  &::before {
+    content: fa-content($fa-var-external-link-alt);
+  }
+}
