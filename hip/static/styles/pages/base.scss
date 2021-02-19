@@ -9,8 +9,13 @@
   font-weight: 700;
 }
 
-.footer-section-hip {
+.footer-section-blue-hip {
   @include dark-blue-bg;
+  height: 75px;
+}
+
+.footer-section-black-hip {
+  @include black-bg;
   height: 75px;
 }
 

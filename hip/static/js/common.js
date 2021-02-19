@@ -22,7 +22,7 @@ export default function () {
     documentLinks.forEach(link => {
       const documentIcon = link.parentElement.nextElementSibling;
       if (documentIcon) {
-        link.classList.add("is-dark-blue");
+        link.classList.add("is-dark-blue-hip");
         documentIcon.classList.remove("is-hidden");
       }
     });
