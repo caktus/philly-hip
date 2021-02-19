@@ -1,4 +1,5 @@
 @import "./mixins";
+@import "./colors";
 
 // ---------------- Background Colors ----------- //
 
@@ -12,6 +13,16 @@
 
 .black-bg-hip {
   @include black-bg;
+}
+
+.light-grey-bg-hip {
+  @include light-grey-bg;
+}
+
+// ---------------- Background Colors ----------- //
+
+.is-dark-blue {
+  color: $dark-blue;
 }
 
 // ---------------- Button No Border ----------- //

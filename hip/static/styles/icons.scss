@@ -79,3 +79,35 @@ To select that icon, do:
     content: fa-content($fa-var-times);
   }
 }
+
+.sun-icon-hip {
+  color: $dark-blue;
+  @include solid-icon;
+  &::before {
+    content: fa-content($fa-var-sun);
+  }
+}
+
+.moon-icon-hip {
+  color: $white;
+  @include solid-icon;
+  &::before {
+    content: fa-content($fa-var-moon);
+  }
+}
+
+.fax-icon-hip {
+  color: $dark-blue;
+  @include solid-icon;
+  &::before {
+    content: fa-content($fa-var-fax);
+  }
+}
+
+.phone-icon-hip {
+  color: $dark-blue;
+  @include solid-icon;
+  &::before {
+    content: fa-content($fa-var-phone-alt);
+  }
+}

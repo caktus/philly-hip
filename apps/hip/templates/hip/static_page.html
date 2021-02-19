@@ -29,7 +29,10 @@
             <section class="page-section-hip mx-4">
               {{ block.value.body }}
               {% if block.value.contact_info %}
-                {% contact_info %}
+                <div class="columns is-desktop">
+                  {% contact_info %}
+                  <div class="column"></div>
+                </div>
               {% endif %}
             </section>
           {% endif %}
