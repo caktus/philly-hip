@@ -54,6 +54,11 @@
   color: $white;
 }
 
+@mixin dark-grey-bg {
+  background-color: $dark-grey;
+  color: $white;
+}
+
 @mixin light-grey-bg {
   background-color: $light-grey;
   color: $black;
