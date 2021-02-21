@@ -14,10 +14,7 @@ SECRET_KEY = "m-u!e0jum^(+nt1+6@31+jl_zwc6yltugtv7%!2k(6l!c@=0n@"
 # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
 INSTALLED_APPS.remove("django.contrib.staticfiles")
 INSTALLED_APPS.extend(
-    [
-        "whitenoise.runserver_nostatic",
-        "django.contrib.staticfiles",
-    ]
+    ["whitenoise.runserver_nostatic", "django.contrib.staticfiles",]
 )
 
 # SECURITY WARNING: define the correct hosts in production!
