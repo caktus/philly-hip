@@ -1,7 +1,13 @@
 @import "../colors";
+@import "../mixins";
+@import "../variables";
 
 .sidebar-hip {
   border-right: 1px solid $grey;
+  @media screen and (max-width: $breakpoint-tablet) {
+    border-right: none;
+    @include modals;
+  }
 }
 
 .sidebar-divider-hip {
