@@ -91,6 +91,13 @@ class StaticPage(Page):
         """
         context = super().get_context(request)
         context["prev_url"] = request.META.get("HTTP_REFERER", reverse("home"))
+
+        # right nav uses the `nav_heading` variable in the template to create links
+        right_nav_headings = []
+        for block in self.body:
+            if block.value["nav_heading"]:
+                right_nav_headings.append(block.value["nav_heading"])
+        context["right_nav_headings"] = right_nav_headings
         return context
 
 

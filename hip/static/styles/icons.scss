@@ -9,7 +9,7 @@
 that icon type does not already exists (see: @mixin solid-icon)
 3) Create a class for the icon. Add a short descriptor for the
 class (see: .search-icon-hip)
-4) For the newly created class, include the icon type mixin and add the 
+4) For the newly created class, include the icon type mixin and add the
 psuedo selector "::before". (see: .search-icon-hip)
 5) Note: The icon you have chosen most likely follows this pattern
   $fa-<icon_name> (ex: $fa-search)
@@ -77,5 +77,13 @@ To select that icon, do:
   @include solid-icon;
   &::before {
     content: fa-content($fa-var-times);
+  }
+}
+
+.email-icon-hip {
+  color: $white;
+  @include solid-icon;
+  &::before {
+    content: fa-content($fa-var-envelope-open);
   }
 }
