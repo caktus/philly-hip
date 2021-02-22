@@ -1,10 +1,14 @@
 from apps.hip.models import StaticPage
 
-from .factories import HomePageFactory
 
-
-def test_static_page_sets_prev_to_referer(db, rf):
+def test_static_page_sets_prev_to_referer(db, rf, mocker):
     """If a request has an HTTP_REFERER, the prev_url is the HTTP_REFERER."""
+    # Mock the apps.common.utils.get_home_page_url function to verify that it
+    # does not get called.
+    mock_get_home_page_url = mocker.patch("apps.common.utils.get_home_page_url")
+    mock_url = "/the_home_page_url/"
+    mock_get_home_page_url.return_value = mock_url
+
     sp = StaticPage()
     # make a fake request and set HTTP_REFERER
     request = rf.get("/foo")
@@ -13,27 +17,24 @@ def test_static_page_sets_prev_to_referer(db, rf):
 
     context = sp.get_context(request)
     assert context["prev_url"] == referring_url
+    # The get_home_page_url() function was not called.
+    assert mock_get_home_page_url.called is False
 
 
-def test_static_page_prev_defaults_to_slash(db, rf):
-    """If a HomePage does not exist, and the HTTP_REFERER is None, prev_url is '/'."""
+def test_static_page_prev_defaults_to_util_function(db, rf, mocker):
+    """If a request does not have an HTTP_REFERER, the prev_url use get_home_page_url()."""
+    # Mock the apps.common.utils.get_home_page_url function to verify that it
+    # gets called.
+    mock_get_home_page_url = mocker.patch("apps.common.utils.get_home_page_url")
+    mock_url = "/the_home_page_url/"
+    mock_get_home_page_url.return_value = mock_url
+
     s = StaticPage()
     # make a fake request and leave HTTP_REFERER unset
     request = rf.get("/foo")
     assert request.META.get("HTTP_REFERER") is None
 
     context = s.get_context(request)
-    assert context["prev_url"] == "/"
 
-
-def test_static_page_prev_defaults_to_home(db, rf):
-    """If a HomePage exists, and the HTTP_REFERER is None, prev_url is the HomePage URL."""
-    home_page = HomePageFactory()
-    s = StaticPage()
-
-    # make a fake request and leave HTTP_REFERER unset
-    request = rf.get("/foo")
-    assert request.META.get("HTTP_REFERER") is None
-
-    context = s.get_context(request)
-    assert context["prev_url"] == home_page.url
+    assert 1 == mock_get_home_page_url.call_count
+    assert context["prev_url"] == mock_url
