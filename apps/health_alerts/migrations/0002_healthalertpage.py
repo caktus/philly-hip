@@ -9,7 +9,6 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0061_auto_20210219_1641'),
         ('wagtaildocs', '0012_uploadeddocument'),
         ('health_alerts', '0001_initial'),
     ]
