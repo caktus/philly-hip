@@ -79,8 +79,11 @@ class HealthAlertPage(Page):
         return ""
 
 
-# Override superclass fields for the editor: https://stackoverflow.com/a/57498309/347942
-HealthAlertPage._meta.get_field(
-    "title"
-).help_text = "Please enter the Topic for this Health Alert."
-HealthAlertPage._meta.get_field("title").verbose_name = "topic"
+# hmm, this messes with migrations. I might need to think of a better way, but for now
+# we'll tell them to put 'topic' in the 'title' field.
+
+# # Override superclass fields for the editor: https://stackoverflow.com/a/57498309/347942
+# HealthAlertPage._meta.get_field(
+#     "title"
+# ).help_text = "Please enter the Topic for this Health Alert."
+# HealthAlertPage._meta.get_field("title").verbose_name = "topic"
