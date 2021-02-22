@@ -1,6 +1,6 @@
 from django.conf import settings
 
-from apps.hip.models import HomePage
+from .utils import get_home_page_url
 
 
 def sentry_dsn(request):
@@ -13,5 +13,4 @@ def commit_sha(request):
 
 def home_page_url(request):
     """Return the URL for the home page."""
-    home_page = HomePage.objects.live().first()
-    return {"home_page_url": home_page.url if home_page else "/"}
+    return {"home_page_url": get_home_page_url()}
