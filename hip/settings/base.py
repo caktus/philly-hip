@@ -93,6 +93,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "wagtailmenus.context_processors.wagtailmenus",
+                "apps.common.context_processors.home_page_url",
             ],
         },
     },

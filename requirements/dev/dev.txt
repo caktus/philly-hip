@@ -21,7 +21,10 @@ appdirs==1.4.4
     #   black
     #   virtualenv
 appnope==0.1.2
-    # via -r requirements/dev/dev.in
+    # via
+    #   -r requirements/dev/dev.in
+    #   ipykernel
+    #   ipython
 argon2-cffi==20.1.0
     # via notebook
 asgiref==3.3.1
@@ -353,12 +356,15 @@ pytest-django==4.1.0
     # via -r requirements/dev/dev.in
 pytest-factoryboy==2.1.0
     # via -r requirements/dev/dev.in
+pytest-mock==3.5.1
+    # via -r requirements/dev/dev.in
 pytest==6.2.2
     # via
     #   -r requirements/dev/dev.in
     #   pytest-cov
     #   pytest-django
     #   pytest-factoryboy
+    #   pytest-mock
 python-dateutil==2.8.1
     # via
     #   -c requirements/dev/../base/base.txt
