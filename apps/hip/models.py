@@ -1,5 +1,3 @@
-from django.urls import reverse
-
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core import blocks
 from wagtail.core.fields import RichTextField, StreamField
@@ -90,7 +88,13 @@ class StaticPage(Page):
         Add the HTTP_REFERER to the context so that we can show a back button.
         """
         context = super().get_context(request)
-        context["prev_url"] = request.META.get("HTTP_REFERER", reverse("home"))
+
+        # Use the HTTP_REFERER, or the home page URL, or "/".
+        home_page = HomePage.objects.live().first()
+        context["prev_url"] = request.META.get(
+            "HTTP_REFERER", home_page.url if home_page else "/"
+        )
+
         return context
 
 
