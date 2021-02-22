@@ -35,4 +35,5 @@ pytest
 pytest-cov
 pytest-django
 pytest-factoryboy
+pytest-mock
 wagtail-factories
