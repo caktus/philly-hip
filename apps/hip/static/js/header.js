@@ -1,3 +1,13 @@
+function mobileModalOpen (target) {
+  target.classList.remove("is-hidden-touch");
+  document.body.classList.add('modal-is-open-hip')
+};
+
+function mobileModalClosed (target) {
+  target.classList.add("is-hidden-touch");
+  document.body.classList.remove('modal-is-open-hip')
+};
+
 export default function() {
   navbarBurger();
   showHideMobileSearchModal();
@@ -9,9 +19,9 @@ export default function() {
       const dataTarget = this.dataset.target;
       const target = document.getElementById(dataTarget);
       if (target.classList.contains("is-hidden-touch")) {
-        target.classList.remove("is-hidden-touch");
+        mobileModalOpen(target);
       } else {
-        target.classList.add("is-hidden-touch");
+        mobileModalClosed(target);
       }
     });
   }
@@ -28,11 +38,9 @@ export default function() {
       const dataTarget = this.dataset.target;
       const target = document.getElementById(dataTarget);
       if (target.classList.contains("is-hidden-touch")) {
-        target.classList.remove("is-hidden-touch");
-        document.body.classList.add('modal-is-open-hip')
+        mobileModalOpen(target);
       } else {
-        target.classList.add("is-hidden-touch");
-        document.body.classList.remove('modal-is-open-hip')
+        mobileMobileClosed(target);
       }
     });
   }
