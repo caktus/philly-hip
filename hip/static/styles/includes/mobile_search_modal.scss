@@ -1,16 +1,8 @@
 @import "../colors";
+@import "../mixins";
 
 .mobile-search-modal {
-  position: absolute;
-  background-color: $white;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  min-height: 100%;
-  max-height: auto;
-  z-index: 1000;
+  @include modals;
   .no-results-hip {
     height: 100rem;
     padding-top: 10rem; 

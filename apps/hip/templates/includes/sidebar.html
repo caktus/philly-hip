@@ -1,12 +1,12 @@
-<div id="sidebarContent" class="column is-2-desktop {% if not hidden_desktop %}sidebar-hip{% endif %} pr-0 my-0 is-hidden-touch">
+<div id="sidebarContent" class="column is-2-desktop sidebar-hip pr-0 my-0 is-hidden-touch">
   <div class="desktop-hidden-hip my-0 {% if hidden_desktop %}is-hidden-desktop{% endif %}">
-    <div class="is-flex is-justify-content-space-between pr-2 is-vcentered">
-      <h6 class="is-size-6 pl-3 is-block"><strong>Menu</strong></h6>
-      <span class="is-block">
+    <div class="is-flex is-justify-content-space-between is-vcentered">
+      <h6 class="is-size-6 pt-2 pl-4"><strong>Menu</strong></h6>
+      <div class="is-vcentered">
         <button class="button btn-no-border-hip sidebar-close-btn-hip">
           <i class="close-icon-hip"></i>
         </button>
-      </span>
+      </div>
     </div>
   </div>
   <ul class="mb-4 {% if hidden_desktop %}is-hidden-desktop{% endif %}">
@@ -22,7 +22,7 @@
         </span>
       </a>
     </li>
-    <li class="pl-4 pb-2 sidenav-link-hip is-active-hip" data-href="/home">Home</li>
+    <li class="pl-4 pb-2 sidenav-link-hip is-active-hip" data-href="{{ home_page_url }}">Home</li>
     <li class="pl-4 pb-2 sidenav-link-hip" data-href="#health-alerts">Health Alerts</li>
     <li class="pl-4 pb-2 sidenav-link-hip" data-href="#data-and-reports">Data and Reports</li>
     <li class="pl-4 pb-2 sidenav-link-hip" data-href="#disease-control-guidance">Disease Control</li>
