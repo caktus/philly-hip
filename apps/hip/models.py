@@ -131,6 +131,13 @@ class StaticPage(Page):
         except KeyError:
             context["prev_url"] = get_home_page_url()
 
+        # right nav uses the `nav_heading` variable in the template to create links
+        right_nav_headings = []
+        for block in self.body:
+            if block.value["nav_heading"]:
+                right_nav_headings.append(block.value["nav_heading"])
+        context["right_nav_headings"] = right_nav_headings
+
         return context
 
 
