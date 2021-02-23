@@ -1,4 +1,4 @@
-import { mobileModalClosed } from "./common";
+import { closeMobileModal } from "./common";
 
 export default function() {
   closeMobileSearchModal();
@@ -9,7 +9,7 @@ export default function() {
     const closeBtn = document.querySelector(".mobile-search-close-btn-hip");
     closeBtn.addEventListener("click", function () {
       const target = document.getElementById("searchMobileContainer");
-      mobileModalClosed(target);
+      closeMobileModal(target);
     });
   }
 };

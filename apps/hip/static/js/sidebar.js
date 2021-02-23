@@ -1,4 +1,4 @@
-import { mobileModalClosed } from "./common";
+import { closeMobileModal } from "./common";
 
 export default function () {
   manageSideBarLinks();
@@ -36,7 +36,7 @@ export default function () {
     const closeBtn = document.querySelector(".sidebar-close-btn-hip");
     closeBtn.addEventListener("click", function () {
       const target = document.getElementById("sidebarContent");
-      mobileModalClosed(target);
+      closeMobileModal(target);
     });
   }
 };

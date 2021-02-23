@@ -1,4 +1,4 @@
-import { mobileModalOpen, mobileModalClosed } from "./common";
+import { openMobileModal, closeMobileModal } from "./common";
 
 export default function() {
   navbarBurger();
@@ -11,9 +11,9 @@ export default function() {
       const dataTarget = this.dataset.target;
       const target = document.getElementById(dataTarget);
       if (target.classList.contains("is-hidden-touch")) {
-        mobileModalOpen(target);
+        openMobileModal(target);
       } else {
-        mobileModalClosed(target);
+        closeMobileModal(target);
       }
     });
   }
@@ -30,9 +30,9 @@ export default function() {
       const dataTarget = this.dataset.target;
       const target = document.getElementById(dataTarget);
       if (target.classList.contains("is-hidden-touch")) {
-        mobileModalOpen(target);
+        openMobileModal(target);
       } else {
-        mobileMobileClosed(target);
+        closeMobileModal(target);
       }
     });
   }
