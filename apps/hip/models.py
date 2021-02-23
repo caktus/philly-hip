@@ -163,7 +163,7 @@ class QuickLinkStructValue(blocks.StructValue):
 
 class QuickLinkCard(blocks.StructBlock):
     title = blocks.CharBlock(
-        max_length=255,
+        max_length=80,
         required=True,
         help_text=("The linked text that will be visible to the reader"),
     )
