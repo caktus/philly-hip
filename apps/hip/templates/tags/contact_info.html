@@ -1,0 +1,33 @@
+{% for info in contact_info %}
+  <div class="column contact-info-hip">
+    <div class="columns is-vcentered is-mobile py-2 px-4 contact-container-hip">
+      <div class="column is-3 has-text-centered light-grey-bg-hip mr-1 is-full-height-hip">
+        <span class="is-block sun-icon-hip is-size-3 pt-4"></span>
+        <h6 class="is-size-6">Business Hours</h6>
+      </div>
+      <div class="column is-9 ml-1 is-full-height-hip">
+        <div class="columns is-mobile is-vcentered mb-2 light-grey-bg-hip biz-info-hip pl-2">
+          <span class="column is-1 is-block phone-icon-hip"></span>
+          <h6 class="column is-11 is-size-6">Call <strong>{{ info.business_hours_call_number }}</strong></h6>
+        </div>
+        <div class="columns is-mobile is-vcentered mt-2 light-grey-bg-hip biz-info-hip pl-2">
+          <span class="column is-1 is-block fax-icon-hip"></span>
+          <h6 class="column is-11 is-size-6">Fax a report to <strong>{{ info.business_hours_fax_number }}</strong></h6>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-vcentered is-mobile py-2 px-4 contact-container-hip">
+      <div class="column is-3 is-mobile dark-blue-bg-hip has-text-centered mr-1 is-full-height-hip">
+        <span class="is-block moon-icon-hip is-size-3 pt-4"></span>
+        <h6 class=" column is-size-6">After Hours</h6>
+      </div>
+      <div class="column is-9 columns is-mobile light-grey-bg-hip ml-1 is-full-height-hip">
+        <span class="column is-1 is-block phone-icon-hip"></span>
+        <h6 class="column is-11 is-size-6">
+          Call <strong>{{ info.after_hours_call_number }}</strong> for the Division of Disease 
+          Control on-call personnel at City Hall
+        </h6>
+      </div>
+    </div>
+  </div>
+{% endfor %}

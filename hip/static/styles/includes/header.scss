@@ -9,13 +9,20 @@
 
 .logo-hip {
   @include links;
-  img {
-    height: 70%;
-    width: 90%;
-    @media screen and (max-width: $breakpoint-tablet) {
-      height: 65%;
-      width: 100%;
-    }
+  height: 100%;
+  width: 300px;
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+  text-align: none;
+  margin-left: 1rem;
+  @media screen and (min-width: $breakpoint-mobile) and (max-width: $breakpoint-tablet) {
+    margin-left: 0rem;
+    text-align: none;
+    float: right;
+  }
+  @media screen and (max-width: $breakpoint-mobile) {
+    margin-left: 0rem;
   }
 }
 

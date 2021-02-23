@@ -1,7 +1,38 @@
+from phonenumber_field.modelfields import PhoneNumberField
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core import blocks
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
+from wagtail.snippets.blocks import SnippetChooserBlock
+from wagtail.snippets.models import register_snippet
+
+from ..common.models import IndexedTimeStampedModel
+
+
+@register_snippet
+class Contact(IndexedTimeStampedModel):
+    business_hours_call_number = PhoneNumberField(
+        help_text="Business Hours Call Number",
+    )
+    business_hours_fax_number = PhoneNumberField(
+        help_text="Business Hours Fax Number",
+    )
+    after_hours_call_number = PhoneNumberField(
+        help_text="After Hours Call Number",
+    )
+
+    panels = [
+        FieldPanel("business_hours_call_number"),
+        FieldPanel("business_hours_fax_number"),
+        FieldPanel("after_hours_call_number"),
+    ]
+
+    class Meta:
+        verbose_name = "Contact Us"
+        verbose_name_plural = "Contact Us"
+
+    def __str__(self):
+        return f'Contact Us - Created: {self.created.strftime("%b %d %Y %H:%M:%S")}'
 
 
 class TableRow(blocks.StructBlock):
@@ -64,6 +95,7 @@ class StreamAndNavHeadingBlock(blocks.StructBlock):
         required=False, help_text=("Is this content block a card?")
     )
     body = TextOrTableStreamBlock()
+    contact_info = SnippetChooserBlock(Contact, required=False)
 
 
 class StaticPage(Page):
@@ -117,13 +149,13 @@ class QuickLinkStructValue(blocks.StructValue):
         else:
             return self.get("link_url", None)
 
-    def updated_datetime(self):
-        """Determine the updated datetime based on "link_page" or "updated_at"."""
+    def updated_date(self):
+        """Return updated date based on either "link_page" or "updated_on"."""
         # If the link_page is not None, then use its latest_revision_created_at.
         if self.get("link_page", None):
-            return self["link_page"].latest_revision_created_at
+            return self["link_page"].latest_revision_created_at.date
         else:
-            return self.get("updated_at", "")
+            return self.get("updated_on", "")
 
 
 class QuickLinkCard(blocks.StructBlock):
@@ -141,7 +173,7 @@ class QuickLinkCard(blocks.StructBlock):
         required=False,
         help_text=("An external URL (if not linking to an internal page)"),
     )
-    updated_at = blocks.DateTimeBlock(
+    updated_on = blocks.DateBlock(
         required=False,
         help_text=(
             "If the link is to an external URL, this will be the displayed as the "

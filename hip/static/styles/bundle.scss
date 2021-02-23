@@ -23,6 +23,10 @@ This file will manage all scss file imports.
 @import "./includes/right_scroll_nav";
 @import "./includes/mobile_search_modal.scss";
 
+// ----------------- Includes Imports ---------------- //
+
+@import "./tags/contact_info";
+
 // ----------------- Misc ---------------- //
 
 @import "./common.scss";

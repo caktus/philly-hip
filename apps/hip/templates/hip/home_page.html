@@ -15,7 +15,7 @@
             <a href="{{ quick_link.value.link }}">
               <div class="pt-0 pr-4 pb-4 pl-4">{{ quick_link.value.title }}</div>
             </a>
-            <div>Updated {{ quick_link.value.updated_datetime | date:"M j, Y" }}</div>
+            <div>Updated {{ quick_link.value.updated_date | date:"M j, Y" }}</div>
           </div>
         </div>
       {% endfor %}
