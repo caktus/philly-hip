@@ -1,3 +1,5 @@
+@import "../variables";
+
 .homepage-padding-hip {
   padding: 0.75rem 2rem;
 }
@@ -29,4 +31,10 @@
 .table-space-between-cells-hip {
   border-spacing: 2px;
   border-collapse: separate;
+}
+
+.th-mobile-hip {
+  @media screen and (max-width: $breakpoint-mobile) {
+    padding-right: 1rem;
+  }
 }
