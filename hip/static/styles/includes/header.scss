@@ -45,6 +45,8 @@
 .header-btn-hip {
   @include light-blue-bg;
   border-radius: 0;
+  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .header-icon-hip {

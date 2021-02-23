@@ -1,6 +1,10 @@
 @import "../colors";
 @import "../mixins";
 
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
 .is-fixed {
   position: fixed;
 }

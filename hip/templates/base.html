@@ -32,6 +32,11 @@
     {# sass Stylesheets #}
     <link href="{% sass_src 'styles/bundle.scss' %}" rel="stylesheet" type="text/css" />
 
+    {# OpenSans font for text, Montserrat for buttons #}
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+
     {% block extra_css %}
     {% endblock %}
   </head>
