@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags hip_tags %}
 
 {% block title %}
   Philadelphia Department of Public Health - {{ page.title }}
@@ -16,21 +16,24 @@
         <div class="pt-5 px-5">
           <a href="{{ prev_url }}">< Back</a>
         </div>
-
         {% for block in page.body %}
           {% if block.value.nav_heading %}
 	    {# This is the div that the IntersectionObserver observes #}
 	    <div class="nav-heading-hip" id="section-{{block.value.nav_heading|slugify}}"></div>
 	  {% endif %}
           {% if block.value.is_card %}
-            <section class="page-section-hip card-hip my-4 mx-4">
-              {{ block.value.body }}
-            </section>
+            <section class="page-section-hip card-hip mt-4 mb-6 mx-4">
           {% else %}
             <section class="page-section-hip mx-4">
-              {{ block.value.body }}
-            </section>
           {% endif %}
+              {{ block.value.body }}
+              {% if block.value.contact_info %}
+                <div class="columns is-desktop">
+                  {% contact_info %}
+                  <div class="column is-5"></div>
+                </div>
+              {% endif %}
+            </section>
         {% endfor %}
       </div>
 

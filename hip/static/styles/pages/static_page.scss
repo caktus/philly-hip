@@ -12,12 +12,19 @@
   h4:first-child {
     font-size: $is-size-4;
     padding: 1rem;
-    background-color: $dark-grey;
-    color: $white;
+    @include dark-grey-bg;
     font-weight: bold;
   }
-
+  p {
+    max-width: 100%;
+  }
   table {
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 2rem 0;
+    td {
+      vertical-align: middle;
+    }
     p {
       padding: 0;
     }

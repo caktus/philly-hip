@@ -1,19 +1,42 @@
+from phonenumber_field.modelfields import PhoneNumberField
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core import blocks
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
+from wagtail.snippets.blocks import SnippetChooserBlock
+from wagtail.snippets.models import register_snippet
+
+from ..common.models import IndexedTimeStampedModel
+
+
+@register_snippet
+class Contact(IndexedTimeStampedModel):
+    business_hours_call_number = PhoneNumberField(
+        help_text="Business Hours Call Number",
+    )
+    business_hours_fax_number = PhoneNumberField(help_text="Business Hours Fax Number",)
+    after_hours_call_number = PhoneNumberField(help_text="After Hours Call Number",)
+
+    panels = [
+        FieldPanel("business_hours_call_number"),
+        FieldPanel("business_hours_fax_number"),
+        FieldPanel("after_hours_call_number"),
+    ]
+
+    class Meta:
+        verbose_name = "Contact Us"
+        verbose_name_plural = "Contact Us"
+
+    def __str__(self):
+        return f'Contact Us - Created: {self.created.strftime("%b %d %Y %H:%M:%S")}'
 
 
 class TableRow(blocks.StructBlock):
     column_1 = blocks.RichTextBlock(
-        max_length=255,
-        required=False,
-        help_text=("Text for column 1"),
+        max_length=255, required=False, help_text=("Text for column 1"),
     )
     column_2 = blocks.RichTextBlock(
-        max_length=255,
-        required=False,
-        help_text=("Text for column 2"),
+        max_length=255, required=False, help_text=("Text for column 2"),
     )
 
     class Meta:
@@ -64,16 +87,13 @@ class StreamAndNavHeadingBlock(blocks.StructBlock):
         required=False, help_text=("Is this content block a card?")
     )
     body = TextOrTableStreamBlock()
+    contact_info = SnippetChooserBlock(Contact, required=False)
 
 
 class StaticPage(Page):
     """A Page with only sections of static content."""
 
-    body = StreamField(
-        [
-            ("section", StreamAndNavHeadingBlock()),
-        ]
-    )
+    body = StreamField([("section", StreamAndNavHeadingBlock()),])
 
     content_panels = [
         FieldPanel("title"),
@@ -125,10 +145,7 @@ class QuickLinkCard(blocks.StructBlock):
         required=True,
         help_text=("The linked text that will be visible to the reader"),
     )
-    link_page = blocks.PageChooserBlock(
-        required=False,
-        help_text=("An internal page"),
-    )
+    link_page = blocks.PageChooserBlock(required=False, help_text=("An internal page"),)
     link_url = blocks.URLBlock(
         max_length=255,
         required=False,
@@ -147,12 +164,7 @@ class QuickLinkCard(blocks.StructBlock):
 
 
 class HomePage(Page):
-    quick_links = StreamField(
-        [
-            ("quick_links", QuickLinkCard()),
-        ],
-        blank=True,
-    )
+    quick_links = StreamField([("quick_links", QuickLinkCard()),], blank=True,)
     about = RichTextField(blank=True)
 
     content_panels = [

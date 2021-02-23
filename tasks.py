@@ -77,9 +77,7 @@ ns.configure(
         "run": {
             "echo": True,
             "pty": True,
-            "env": {
-                "COMPOSE_FILE": "docker-compose.yml:docker-compose-deploy.yml",
-            },
+            "env": {"COMPOSE_FILE": "docker-compose.yml:docker-compose-deploy.yml",},
         },
     }
 )

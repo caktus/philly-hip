@@ -1,28 +1,28 @@
 {% load static %}
 
 <nav class="navbar columns is-desktop navbar-hip" role="navigation" aria-label="main navigation">
-    <div class="is-hidden-desktop is-full-width-hip is-full-height-hip columns push-to-back-hip is-mobile">
-      <div class="column is-2 is-jusify-content-flex-start">
-        <a role="button" id="navbar-burger" class="navbar-burger is-block is-size-5 mr-2 mt-4 is-mobile" aria-label="menu" aria-expanded="false" data-target="sidebarContent">
+    <div class="is-hidden-desktop is-full-width-hip columns push-to-back-hip is-mobile">
+      <div class="column is-3 is-jusify-content-flex-start">
+        <a role="button" id="navbar-burger" class="is-pulled-left navbar-burger is-block is-size-5 ml-2 mt-4 is-mobile" aria-label="menu" aria-expanded="false" data-target="sidebarContent">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
         </a>
       </div>
-      <div class="column is-8">
-        <a class="logo-hip" href="{{ home_page_url }}">
-          <img class="mt-3" src="{% static 'images/city-of-philadelphia.svg' %}" alt="City of Philadelphia" height="10rem" width="10rem">
+      <div class="column is-6">
+        <a class="logo-hip" href="/home">
+          <img class="mt-3" src="{% static 'images/city-of-philadelphia-pdph.png' %}" alt="City of Philadelphia Department of Public Health">
         </a>
       </div>
-      <div class="column is-2 mt-4">
-        <a role="button" id="search-mobile-btn" aria-label="search" aria-expanded="false" data-target="searchMobileContainer" class="button btn-no-border-hip pt-5 pb-5">
+      <div class="column is-3 mt-4">
+        <a role="button" id="search-mobile-btn" aria-label="search" aria-expanded="false" data-target="searchMobileContainer" class="button btn-no-border-hip pt-5 pb-5 is-pulled-right">
           <span class="search-icon-reverse-hip"></span>
         </a>
       </div>
     </div>
     <div class="navbar-brand column is-one-fifth mobile-hidden-hip">
-      <a class="is-hidden-touch logo-hip" href="{{ home_page_url }}">
-        <img class="mt-3" src="{% static 'images/city-of-philadelphia.svg' %}" alt="City of Philadelphia">
+      <a class="is-hidden-touch logo-hip" href="/home">
+        <img class="mt-3" src="{% static 'images/city-of-philadelphia-pdph.png' %}" alt="City of Philadelphia Department of Public health">
       </a>
     </div>
   </div>
@@ -30,7 +30,7 @@
   <div class="column is-four-fifths columns is-desktop mobile-hidden-hip">
     <div class="column is-desktop is-hidden-touch is-6 pt-5">
       <div class="navbar-item is-full-height-hip">
-        <div class="control is-inline-block has-icons-right is-full-width-hip">
+        <div class="control is-inline-block has-icons-right is-full-width-hip pl-6">
           <span class="icon is-right dark-blue-bg-hip">
             <i class="search-icon-hip"></i>
           </span>

@@ -1,4 +1,5 @@
 @import "./mixins";
+@import "./colors";
 
 // ---------------- Background Colors ----------- //
 
@@ -14,10 +15,31 @@
   @include black-bg;
 }
 
-// ---------------- Button No Border ----------- //
+.light-grey-bg-hip {
+  @include light-grey-bg;
+}
+
+.dark-grey-bg-hip {
+  @include dark-grey-bg;
+}
+
+// ---------------- Colors ----------- //
+
+.is-dark-blue-hip {
+  color: $dark-blue;
+}
+
+// ---------------- Button/Links----------- //
 
 .btn-no-border-hip {
   border: none;
+}
+
+.btn-footer {
+  color: $white;
+  &:hover {
+    color: $white;
+  }
 }
 
 // -------------------- Show/Hide ------------- //
