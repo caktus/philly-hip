@@ -23,7 +23,9 @@ website_bucket = template.add_resource(
         AccessControl="PublicRead",
         VersioningConfiguration=s3.VersioningConfiguration(Status="Enabled"),
         DeletionPolicy="Retain",
-        WebsiteConfiguration=s3.WebsiteConfiguration(IndexDocument="index.html",),
+        WebsiteConfiguration=s3.WebsiteConfiguration(
+            IndexDocument="index.html",
+        ),
     )
 )
 
