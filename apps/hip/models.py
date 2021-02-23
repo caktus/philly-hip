@@ -14,8 +14,12 @@ class Contact(IndexedTimeStampedModel):
     business_hours_call_number = PhoneNumberField(
         help_text="Business Hours Call Number",
     )
-    business_hours_fax_number = PhoneNumberField(help_text="Business Hours Fax Number",)
-    after_hours_call_number = PhoneNumberField(help_text="After Hours Call Number",)
+    business_hours_fax_number = PhoneNumberField(
+        help_text="Business Hours Fax Number",
+    )
+    after_hours_call_number = PhoneNumberField(
+        help_text="After Hours Call Number",
+    )
 
     panels = [
         FieldPanel("business_hours_call_number"),
@@ -33,10 +37,14 @@ class Contact(IndexedTimeStampedModel):
 
 class TableRow(blocks.StructBlock):
     column_1 = blocks.RichTextBlock(
-        max_length=255, required=False, help_text=("Text for column 1"),
+        max_length=255,
+        required=False,
+        help_text=("Text for column 1"),
     )
     column_2 = blocks.RichTextBlock(
-        max_length=255, required=False, help_text=("Text for column 2"),
+        max_length=255,
+        required=False,
+        help_text=("Text for column 2"),
     )
 
     class Meta:
@@ -93,7 +101,11 @@ class StreamAndNavHeadingBlock(blocks.StructBlock):
 class StaticPage(Page):
     """A Page with only sections of static content."""
 
-    body = StreamField([("section", StreamAndNavHeadingBlock()),])
+    body = StreamField(
+        [
+            ("section", StreamAndNavHeadingBlock()),
+        ]
+    )
 
     content_panels = [
         FieldPanel("title"),
@@ -130,13 +142,13 @@ class QuickLinkStructValue(blocks.StructValue):
         else:
             return self.get("link_url", None)
 
-    def updated_datetime(self):
-        """Determine the updated datetime based on "link_page" or "updated_at"."""
+    def updated_date(self):
+        """Return updated date based on either "link_page" or "updated_on"."""
         # If the link_page is not None, then use its latest_revision_created_at.
         if self.get("link_page", None):
-            return self["link_page"].latest_revision_created_at
+            return self["link_page"].latest_revision_created_at.date
         else:
-            return self.get("updated_at", "")
+            return self.get("updated_on", "")
 
 
 class QuickLinkCard(blocks.StructBlock):
@@ -145,13 +157,16 @@ class QuickLinkCard(blocks.StructBlock):
         required=True,
         help_text=("The linked text that will be visible to the reader"),
     )
-    link_page = blocks.PageChooserBlock(required=False, help_text=("An internal page"),)
+    link_page = blocks.PageChooserBlock(
+        required=False,
+        help_text=("An internal page"),
+    )
     link_url = blocks.URLBlock(
         max_length=255,
         required=False,
         help_text=("An external URL (if not linking to an internal page)"),
     )
-    updated_at = blocks.DateTimeBlock(
+    updated_on = blocks.DateBlock(
         required=False,
         help_text=(
             "If the link is to an external URL, this will be the displayed as the "
@@ -164,7 +179,12 @@ class QuickLinkCard(blocks.StructBlock):
 
 
 class HomePage(Page):
-    quick_links = StreamField([("quick_links", QuickLinkCard()),], blank=True,)
+    quick_links = StreamField(
+        [
+            ("quick_links", QuickLinkCard()),
+        ],
+        blank=True,
+    )
     about = RichTextField(blank=True)
 
     content_panels = [

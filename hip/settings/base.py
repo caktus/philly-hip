@@ -82,7 +82,9 @@ AUTH_USER_MODEL = "users.User"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(PROJECT_DIR, "templates"),],
+        "DIRS": [
+            os.path.join(PROJECT_DIR, "templates"),
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -118,7 +120,8 @@ if os.getenv("DATABASE_URL"):
     import dj_database_url
 
     db_from_env = dj_database_url.config(
-        conn_max_age=500, ssl_require=os.getenv("DATABASE_SSL", False),
+        conn_max_age=500,
+        ssl_require=os.getenv("DATABASE_SSL", False),
     )
     DATABASES["default"].update(db_from_env)
 
@@ -130,9 +133,15 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
 ]
 
 
@@ -219,9 +228,16 @@ LOGGING = {
             "level": "ERROR",
             "propagate": True,
         },
-        "apps": {"level": "DEBUG", "handlers": ["console"], "propagate": False,},
+        "apps": {
+            "level": "DEBUG",
+            "handlers": ["console"],
+            "propagate": False,
+        },
     },
-    "root": {"handlers": ["console"], "level": "INFO",},
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
+    },
 }
 
 # django-sass-processor
@@ -264,7 +280,15 @@ PHONENUMBER_DEFAULT_FORMAT = "NATIONAL"
 PHONENUMBER_DEFAULT_REGION = "US"
 
 SEARCH_PAGE_SIZE = 10
-ADMINS = os.getenv("ADMINS", [("caktus-hip-team", "hip-team@caktusgroup.com",)],)
+ADMINS = os.getenv(
+    "ADMINS",
+    [
+        (
+            "caktus-hip-team",
+            "hip-team@caktusgroup.com",
+        )
+    ],
+)
 
 GENERAL_INQUIRY_EMAIL_RECIPIENTS = [e[1] for e in ADMINS]
 EVENT_SIGNUP_FORM_SUBMISSION_RECIPIENTS = GENERAL_INQUIRY_EMAIL_RECIPIENTS
