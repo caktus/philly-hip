@@ -1,9 +1,12 @@
+from django.db import models
+
 from phonenumber_field.modelfields import PhoneNumberField
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core import blocks
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
 from wagtail.snippets.blocks import SnippetChooserBlock
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
 from ..common.models import IndexedTimeStampedModel
@@ -186,9 +189,13 @@ class HomePage(Page):
         blank=True,
     )
     about = RichTextField(blank=True)
+    contact_info = models.ForeignKey(
+        "Contact", null=True, blank=True, on_delete=models.SET_NULL, related_name="+"
+    )
 
     content_panels = [
         FieldPanel("title"),
+        SnippetChooserPanel("contact_info"),
         StreamFieldPanel("quick_links"),
         FieldPanel("about"),
     ]

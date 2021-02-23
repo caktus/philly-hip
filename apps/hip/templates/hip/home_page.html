@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags hip_tags %}
 
 {% block title %}
   Philadelphia Department of Public Health - {{ page.title }}
@@ -22,7 +22,9 @@
     </section>
 
     <section class="columns">
-      <div class="column"></div>
+      <div class="column">
+        {% contact_info %}
+      </div>
       <div class="column">
         <div class="bg-lt-grey p-4 richtext-area-hip">
           {{ page.about|richtext }}
