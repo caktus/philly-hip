@@ -1,5 +1,3 @@
-from django.db import models
-
 from phonenumber_field.modelfields import PhoneNumberField
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core import blocks
@@ -18,7 +16,6 @@ class Contact(IndexedTimeStampedModel):
     )
     business_hours_fax_number = PhoneNumberField(help_text="Business Hours Fax Number",)
     after_hours_call_number = PhoneNumberField(help_text="After Hours Call Number",)
-    created_at = models.DateTimeField(auto_now_add=True)
 
     panels = [
         FieldPanel("business_hours_call_number"),
