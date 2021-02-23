@@ -1,0 +1,31 @@
+@import "../mixins";
+@import "../colors";
+
+.filter-widget-hip {
+  background-color: $light-grey;
+  .tag {
+    background-color: $grey-300;
+  }
+}
+
+.alert-table-hip {
+  width: 100%;
+  th {
+    background-color: #323232;
+    color: #ffffff;
+  }
+
+  // Priority icon colors
+  .update-hip {
+    color: #3a833c;
+  }
+  .notification-hip {
+    color: #9400c6;
+  }
+  .advisory-hip {
+    color: #f99300;
+  }
+  .alert-hip {
+    color: #cc3000;
+  }
+}

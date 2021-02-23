@@ -1,9 +1,12 @@
+from django.db import models
+
 from phonenumber_field.modelfields import PhoneNumberField
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core import blocks
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
 from wagtail.snippets.blocks import SnippetChooserBlock
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
 from ..common.models import IndexedTimeStampedModel
@@ -131,6 +134,13 @@ class StaticPage(Page):
         except KeyError:
             context["prev_url"] = get_home_page_url()
 
+        # right nav uses the `nav_heading` variable in the template to create links
+        right_nav_headings = []
+        for block in self.body:
+            if block.value["nav_heading"]:
+                right_nav_headings.append(block.value["nav_heading"])
+        context["right_nav_headings"] = right_nav_headings
+
         return context
 
 
@@ -146,7 +156,7 @@ class QuickLinkStructValue(blocks.StructValue):
         """Return updated date based on either "link_page" or "updated_on"."""
         # If the link_page is not None, then use its latest_revision_created_at.
         if self.get("link_page", None):
-            return self["link_page"].latest_revision_created_at.date
+            return self["link_page"].latest_revision_created_at.date()
         else:
             return self.get("updated_on", "")
 
@@ -186,9 +196,13 @@ class HomePage(Page):
         blank=True,
     )
     about = RichTextField(blank=True)
+    contact_info = models.ForeignKey(
+        "Contact", null=True, blank=True, on_delete=models.SET_NULL, related_name="+"
+    )
 
     content_panels = [
         FieldPanel("title"),
+        SnippetChooserPanel("contact_info"),
         StreamFieldPanel("quick_links"),
         FieldPanel("about"),
     ]
