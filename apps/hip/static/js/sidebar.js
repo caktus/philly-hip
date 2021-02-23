@@ -1,3 +1,5 @@
+import { closeMobileModal } from "./common";
+
 export default function () {
   manageSideBarLinks();
   manageCloseButtonClicked();
@@ -34,11 +36,7 @@ export default function () {
     const closeBtn = document.querySelector(".sidebar-close-btn-hip");
     closeBtn.addEventListener("click", function () {
       const target = document.getElementById("sidebarContent");
-      if (target.classList.contains("is-hidden-touch")) {
-        target.classList.remove("is-hidden-touch");
-      } else {
-        target.classList.add("is-hidden-touch");
-      }
+      closeMobileModal(target);
     });
   }
 };
