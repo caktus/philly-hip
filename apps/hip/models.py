@@ -1,6 +1,6 @@
-from django.core.validators import RegexValidator
 from django.db import models
 
+from phonenumber_field.modelfields import PhoneNumberField
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core import blocks
 from wagtail.core.fields import RichTextField, StreamField
@@ -8,22 +8,16 @@ from wagtail.core.models import Page
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import register_snippet
 
+from ..common.models import IndexedTimeStampedModel
+
 
 @register_snippet
-class Contact(models.Model):
-    phone_regex = RegexValidator(
-        regex=r"^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$",
-        message="Please provide a valid phone number",
+class Contact(IndexedTimeStampedModel):
+    business_hours_call_number = PhoneNumberField(
+        help_text="Business Hours Call Number",
     )
-    business_hours_call_number = models.CharField(
-        validators=[phone_regex], max_length=12, help_text="Business Hours Call Number",
-    )
-    business_hours_fax_number = models.CharField(
-        validators=[phone_regex], max_length=12, help_text="Business Hours Fax Number",
-    )
-    after_hours_call_number = models.CharField(
-        validators=[phone_regex], max_length=12, help_text="After Hours Call Number",
-    )
+    business_hours_fax_number = PhoneNumberField(help_text="Business Hours Fax Number",)
+    after_hours_call_number = PhoneNumberField(help_text="After Hours Call Number",)
     created_at = models.DateTimeField(auto_now_add=True)
 
     panels = [
@@ -37,7 +31,7 @@ class Contact(models.Model):
         verbose_name_plural = "Contact Us"
 
     def __str__(self):
-        return f'Contact - Created: {self.created_at.strftime("%b %d %Y %H:%M:%S")}'
+        return f'Contact Us - Created: {self.created.strftime("%b %d %Y %H:%M:%S")}'
 
 
 class TableRow(blocks.StructBlock):
