@@ -156,7 +156,7 @@ class QuickLinkStructValue(blocks.StructValue):
         """Return updated date based on either "link_page" or "updated_on"."""
         # If the link_page is not None, then use its latest_revision_created_at.
         if self.get("link_page", None):
-            return self["link_page"].latest_revision_created_at.date
+            return self["link_page"].latest_revision_created_at.date()
         else:
             return self.get("updated_on", "")
 
