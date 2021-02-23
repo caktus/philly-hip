@@ -7,9 +7,9 @@
 
 {% block content %}
   <div class="homepage-padding-hip">
-    <section class="columns">
+    <section class="columns is-multiline">
       {% for quick_link in page.quick_links %}
-        <div class="column is-relative has-text-centered quicklink-padding-hip">
+        <div class="column is-relative is-one-quarter has-text-centered quicklink-padding-hip">
           <div class="arrow-right-hip ml-4 mt-4"></div>
           <div class="p-4 is-fullheight-hip quicklink-color-hip">
             <a href="{{ quick_link.value.link }}">
