@@ -7,18 +7,29 @@
 
 {% block content %}
   <div class="homepage-padding-hip">
-    <section class="columns">
-      {% for quick_link in page.quick_links %}
-        <div class="column is-relative has-text-centered quicklink-padding-hip">
-          <div class="arrow-right-hip ml-4 mt-4"></div>
-          <div class="p-4 is-fullheight-hip quicklink-color-hip">
-            <a href="{{ quick_link.value.link }}">
-              <div class="pt-0 pr-4 pb-4 pl-4">{{ quick_link.value.title }}</div>
-            </a>
-            <div>Updated {{ quick_link.value.updated_date | date:"M j, Y" }}</div>
+    <section>
+      <div class="columns">
+        {% for quick_link in page.quick_links %}
+
+          {# Start a new line for every 4 cards #}
+          {% if forloop.counter0|divisibleby:"4" %}
+            {% if forloop.counter0 != 0 %}
+              </div>
+              <div class="columns">
+            {% endif %}
+          {% endif %}
+
+          <div class="column is-relative has-text-centered quicklink-padding-hip">
+            <div class="arrow-right-hip ml-4 mt-4"></div>
+            <div class="p-4 is-fullheight-hip quicklink-color-hip">
+              <a href="{{ quick_link.value.link }}">
+                <div class="pt-0 pr-4 pb-4 pl-4">{{ quick_link.value.title }}</div>
+              </a>
+              <div>Updated {{ quick_link.value.updated_date | date:"M j, Y" }}</div>
+            </div>
           </div>
-        </div>
-      {% endfor %}
+        {% endfor %}
+      </div>
     </section>
 
     <section class="columns">
