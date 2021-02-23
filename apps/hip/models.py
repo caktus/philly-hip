@@ -142,13 +142,13 @@ class QuickLinkStructValue(blocks.StructValue):
         else:
             return self.get("link_url", None)
 
-    def updated_datetime(self):
-        """Determine the updated datetime based on "link_page" or "updated_at"."""
+    def updated_date(self):
+        """Return updated date based on either "link_page" or "updated_on"."""
         # If the link_page is not None, then use its latest_revision_created_at.
         if self.get("link_page", None):
-            return self["link_page"].latest_revision_created_at
+            return self["link_page"].latest_revision_created_at.date
         else:
-            return self.get("updated_at", "")
+            return self.get("updated_on", "")
 
 
 class QuickLinkCard(blocks.StructBlock):
@@ -166,7 +166,7 @@ class QuickLinkCard(blocks.StructBlock):
         required=False,
         help_text=("An external URL (if not linking to an internal page)"),
     )
-    updated_at = blocks.DateTimeBlock(
+    updated_on = blocks.DateBlock(
         required=False,
         help_text=(
             "If the link is to an external URL, this will be the displayed as the "
