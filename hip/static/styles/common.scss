@@ -23,6 +23,10 @@
   @include dark-grey-bg;
 }
 
+.bg-very-dark-grey-hip {
+  @include very-dark-grey-bg;
+}
+
 // ---------------- Colors ----------- //
 
 .is-dark-blue-hip {
@@ -71,6 +75,14 @@
 
 .is-full-width-hip {
   width: 100%;
+}
+
+// -------------------- Tables ------------- //
+
+.th-mobile-hip {
+  @media screen and (max-width: $breakpoint-mobile) {
+    padding-right: 1rem;
+  }
 }
 
 // -------------------- Modals ------------- //
