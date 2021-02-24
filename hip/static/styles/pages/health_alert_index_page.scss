@@ -10,8 +10,22 @@
 
 .alert-table-hip {
   width: 100%;
+  border: 0;
+  border-spacing: 2px 0;
+  border-collapse: separate;
   th {
-    background-color: #323232;
-    color: #ffffff;
+    background-color: $dark-grey;
+    color: $white;
+    border-width: 0;
+  }
+  td {
+    border-width: 0;
+  }
+
+  .row-bg-white-hip {
+    background-color: $white;
+  }
+  .row-bg-grey-hip {
+    background-color: $light-grey;
   }
 }
