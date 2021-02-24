@@ -38,9 +38,9 @@
       <table class="table-grid-pattern-hip table-space-between-cells-hip full-width-hip">
         <thead>
           <tr class="py-2">
-            <th class="py-4 pl-4 is-white-hip bg-very-dark-grey-hip">Name</th>
-            <th class="py-4 pl-4 is-white-hip bg-very-dark-grey-hip th-mobile-hip">Type</th>
-            <th class="py-4 pl-4 is-white-hip bg-very-dark-grey-hip th-mobile-hip">Updated</th>
+            <th class="py-4 pl-4 is-white-hip dark-grey-bg-hip th-mobile-hip">Name</th>
+            <th class="py-4 pl-4 is-white-hip dark-grey-bg-hip th-mobile-hip">Type</th>
+            <th class="py-4 pl-4 is-white-hip dark-grey-bg-hip th-mobile-hip">Updated</th>
           </tr>
         </thead>
         {% for recent_update in recent_updates %}
@@ -54,13 +54,23 @@
                 {{ recent_update.name }}
               </a>
             </td>
-            <td class="py-4 pl-4 pr-2">
-              {% if recent_update.model_name == "page" %}
-                <i class="fa fa-link " aria-hidden="true"></i>
+            {% if recent_update.healthalertpage %}
+              <td class="py-4 pl-4 pr-2 {{ recent_update.healthalertpage.get_priority_color }}">
+            {% else %}
+              <td class="py-4 pl-4 pr-2">
+            {% endif %}
+              {% if recent_update.model_name == "page" and not recent_update.healthalertpage %}
+                <i class="fa fa-link" aria-hidden="true"></i>
+              {% elif recent_update.healthalertpage %}
+                <i class="fa {{ recent_update.healthalertpage.get_priority_icon }}"></i>
               {% elif recent_update.model_name == "document"%}
                 <i class="fa fa-download" aria-hidden="true"></i>
               {% endif %}
-              {{ recent_update.type_of_object }}
+              {% if recent_update.healthalertpage %}
+                {{ recent_update.healthalertpage.get_priority_display|upper }}
+              {% else %}
+                {{ recent_update.type_of_object }}
+              {% endif %}
             </td>
             <td class="py-4 pl-4 pr-2">{{ recent_update.updated_at | date:"M j, Y" }}</td>
           </tr>

@@ -32,9 +32,3 @@
   border-spacing: 2px;
   border-collapse: separate;
 }
-
-.th-mobile-hip {
-  @media screen and (max-width: $breakpoint-mobile) {
-    padding-right: 1rem;
-  }
-}

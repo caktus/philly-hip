@@ -27,10 +27,6 @@
   color: $white;
 }
 
-.bg-very-dark-grey-hip {
-  background-color: $very-dark-grey;
-}
-
 .richtext-area-hip {
   @include headers;
   @include paragraphs;

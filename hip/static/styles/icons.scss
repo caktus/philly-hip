@@ -127,3 +127,17 @@ To select that icon, do:
     content: fa-content($fa-var-external-link-alt);
   }
 }
+
+// ------------------ Health Alert Priority icon colors --------- //
+  .update-hip {
+    color: #3a833c;
+  }
+  .notification-hip {
+    color: #9400c6;
+  }
+  .advisory-hip {
+    color: #f99300;
+  }
+  .alert-hip {
+    color: #cc3000;
+  }
