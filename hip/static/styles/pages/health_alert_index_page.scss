@@ -10,22 +10,22 @@
 
 .alert-table-hip {
   width: 100%;
+  border: 0;
+  border-spacing: 2px 0;
+  border-collapse: separate;
   th {
-    background-color: #323232;
-    color: #ffffff;
+    background-color: $dark-grey;
+    color: $white;
+    border-width: 0;
+  }
+  td {
+    border-width: 0;
   }
 
-  // Priority icon colors
-  .update-hip {
-    color: #3a833c;
+  .row-bg-white-hip {
+    background-color: $white;
   }
-  .notification-hip {
-    color: #9400c6;
-  }
-  .advisory-hip {
-    color: #f99300;
-  }
-  .alert-hip {
-    color: #cc3000;
+  .row-bg-grey-hip {
+    background-color: $light-grey;
   }
 }

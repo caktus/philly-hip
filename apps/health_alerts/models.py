@@ -78,6 +78,18 @@ class HealthAlertPage(Page):
             return "fa-exclamation-triangle"
         return ""
 
+    def get_priority_color(self):
+        """Get the proper color for the priority."""
+        if self.priority == self.Priority.UPDATE:
+            return "update-hip"
+        elif self.priority == self.Priority.NOTIFICATION:
+            return "notification-hip"
+        elif self.priority == self.Priority.ADVISORY:
+            return "advisory-hip"
+        elif self.priority == self.Priority.ALERT:
+            return "alert-hip"
+        return ""
+
 
 # hmm, this messes with migrations. I might need to think of a better way, but for now
 # we'll tell them to put 'topic' in the 'title' field.
