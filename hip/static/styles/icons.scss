@@ -130,14 +130,14 @@ To select that icon, do:
 
 // ------------------ Health Alert Priority icon colors --------- //
   .update-hip {
-    color: #3a833c;
+    color: $update;
   }
   .notification-hip {
-    color: #9400c6;
+    color: $notification;
   }
   .advisory-hip {
-    color: #f99300;
+    color: $advisory;
   }
   .alert-hip {
-    color: #cc3000;
+    color: $alert;
   }
