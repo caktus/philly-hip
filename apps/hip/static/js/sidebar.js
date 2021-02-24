@@ -26,8 +26,10 @@ export default function () {
     // Activate the sidebar link matching the current path
     const currentPath = window.location.pathname;
     const sidebarEl = document.querySelector(`[data-href="${currentPath}"]`);
-    removeIsActive()
-    sidebarEl.classList.add("is-active-hip");
+    if (sidebarEl) {
+      removeIsActive()
+      sidebarEl.classList.add("is-active-hip");
+    }
   };
 
   function manageCloseButtonClicked () {
