@@ -6,7 +6,7 @@ from ..utils import get_most_recent_objects
 from .factories import HomePageFactory, StaticPageFactory
 
 
-def test_get_most_recent_objects_zero():
+def test_get_most_recent_objects_zero(db):
     """Calling get_most_recent_objects() for object_count==0 returns an empty list."""
     assert [] == get_most_recent_objects(object_count=0)
 
@@ -100,6 +100,30 @@ def test_get_most_recent_objects_different_objects_correct_order(db):
         static_page_yesterday.page_ptr,
     ]
     assert expected_results == get_most_recent_objects()
+
+
+def test_get_most_recent_objects_if_more_objects_than_our_object_count(db):
+    """If we have a lot of objects, then make sure we don't truncate our lists before ordering them."""
+    datetime_now = now()
+    datetime_yesterday = datetime_now - timedelta(days=1)
+
+    home_page_2hr_ago = HomePageFactory(
+        latest_revision_created_at=datetime_now - timedelta(hours=2)
+    )
+    static_page_now = StaticPageFactory(latest_revision_created_at=datetime_now)
+    static_page_yesterday = StaticPageFactory(
+        latest_revision_created_at=datetime_yesterday
+    )
+
+    document_1hr_ago = DocumentFactory()
+    document_1hr_ago.created_at = datetime_now - timedelta(hours=1)
+    document_1hr_ago.save()
+
+    # we're only going to ask for 1 object, so expect 1 result
+    expected_results = [
+        static_page_now.page_ptr,
+    ]
+    assert expected_results == get_most_recent_objects(object_count=1)
 
 
 def test_get_most_recent_objects_annotations_pages(db):

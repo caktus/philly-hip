@@ -33,7 +33,7 @@ def get_most_recent_objects(object_count=10):
             updated_at=F("latest_revision_created_at"),
             type_of_object=Value("PAGE", output_field=CharField()),
             model_name=Value("page", output_field=CharField()),
-        )[:object_count]
+        )
     )
     # Get the most recent Document objects.
     documents = Document.objects.annotate(
@@ -45,7 +45,7 @@ def get_most_recent_objects(object_count=10):
             When(file__endswith="pdf", then=Value("PDF", output_field=CharField())),
         ),
         model_name=Value("document", output_field=CharField()),
-    )[:object_count]
+    )
 
     # Sort the combined_list by their 'updated_at' property.
     combined_list = list(pages) + list(documents)
