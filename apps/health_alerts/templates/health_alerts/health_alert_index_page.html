@@ -54,14 +54,14 @@
       </div>
 
       {# Main content table of Health Alerts #}
-      <table class="table is-striped alert-table-hip">
+      <table class="table alert-table-hip">
 	{% regroup health_alerts by alert_date.year as health_alert_list %}
 	{% for year in health_alert_list %}
 	  <tr>
 	    <td colspan="3">
 	      {# nav-heading-hip is used by right_scroll_nav as link targets #}
 	      <div class="nav-heading-hip" id="section-{{ year.grouper }}"></div>
-              <div class="is-size-4 pt-5">{{ year.grouper }}</div>
+              <div class="is-size-4 pt-5 row-bg-white-hip">{{ year.grouper }}</div>
 	    </td>
 	  </tr>
 	  {# only the first year has the table header #}
@@ -74,7 +74,7 @@
 	  {% endif %}
 
           {% for alert in year.list %}
-            <tr>
+            <tr class="{% if forloop.counter|divisibleby:2 %}row-bg-white-hip{% else %}row-bg-grey-hip{% endif %}">
               <td><a href="{{ alert.specific.alert_file.url }}">{{ alert.title }}</a></td>
 	      <td class="is-size-5 {{ alert.get_priority_display|lower }}-hip">
 		<i class="fa {{ alert.get_priority_icon }}" aria-hidden="true"></i>
