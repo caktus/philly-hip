@@ -45,7 +45,7 @@
         </thead>
         {% for recent_update in recent_updates %}
           <tr class="py-2">
-            <td class="py-4 pl-4 pr-2">
+            <td class="py-4 pl-4 pr-2 td-break-word">
               {% if recent_update.model_name == "page" %}
                 <a href="{% pageurl recent_update %}">
               {% elif recent_update.model_name == "document"%}

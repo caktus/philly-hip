@@ -85,6 +85,12 @@
   }
 }
 
+.td-break-word {
+  a {
+    word-break: break-word;
+  }
+}
+
 // -------------------- Modals ------------- //
 
 body.modal-is-open-hip {
