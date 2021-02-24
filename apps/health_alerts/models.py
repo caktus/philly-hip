@@ -1,6 +1,7 @@
 import datetime
 
 from django.db import models
+from django.shortcuts import redirect
 
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import Page
@@ -89,6 +90,9 @@ class HealthAlertPage(Page):
         elif self.priority == self.Priority.ALERT:
             return "alert-hip"
         return ""
+
+    def serve(self, request):
+        return redirect(self.alert_file.url)
 
 
 # hmm, this messes with migrations. I might need to think of a better way, but for now
