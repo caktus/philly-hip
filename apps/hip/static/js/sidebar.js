@@ -11,7 +11,9 @@ export default function () {
       /* Find the active sidebar element and remove the is-active-hip class
       */
       const isActiveEl = document.querySelector(".is-active-hip");
-      isActiveEl.classList.remove("is-active-hip")
+      if (isActiveEl) {
+        isActiveEl.classList.remove("is-active-hip");
+      }
     }
 
     // Event Listener for when sidebar nav elements are clicked.
@@ -27,8 +29,10 @@ export default function () {
     const currentPath = window.location.pathname;
     const sidebarEl = document.querySelector(`[data-href="${currentPath}"]`);
     if (sidebarEl) {
-      removeIsActive()
+      removeIsActive();
       sidebarEl.classList.add("is-active-hip");
+    } else {
+      removeIsActive();
     }
   };
 
