@@ -19,7 +19,6 @@ class StreamAndNavHeadingBlockFactory(wagtail_factories.StructBlockFactory):
 class QuickLinkCardFactory(wagtail_factories.StructBlockFactory):
     title = factory.faker.Faker("text")
     link_url = factory.faker.Faker("url")
-    title = factory.faker.Faker("text")
 
 
 class StaticPageFactory(wagtail_factories.PageFactory):
@@ -35,7 +34,7 @@ class StaticPageFactory(wagtail_factories.PageFactory):
 class HomePageFactory(wagtail_factories.PageFactory):
     about = factory.faker.Faker("text")
     quick_links = wagtail_factories.StreamFieldFactory(
-        {"quick_links": StreamAndNavHeadingBlockFactory()}
+        {"quick_links": QuickLinkCardFactory}
     )
 
     class Meta:
