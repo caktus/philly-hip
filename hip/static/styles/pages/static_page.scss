@@ -22,6 +22,9 @@
     table-layout: fixed;
     border-collapse: separate;
     border-spacing: 2rem 0;
+    @media screen and (max-width: $breakpoint-mobile) {
+      word-wrap: break-word;
+    }
     td {
       vertical-align: middle;
     }
