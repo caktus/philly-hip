@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.timezone import localtime
 
 from phonenumber_field.modelfields import PhoneNumberField
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
@@ -154,9 +155,10 @@ class QuickLinkStructValue(blocks.StructValue):
 
     def updated_date(self):
         """Return updated date based on either "link_page" or "updated_on"."""
-        # If the link_page is not None, then use its latest_revision_created_at.
+        # If the link_page is not None, then use its latest_revision_created_at's
+        # date, in the project's time zone.
         if self.get("link_page", None):
-            return self["link_page"].latest_revision_created_at.date()
+            return localtime(self["link_page"].latest_revision_created_at).date()
         else:
             return self.get("updated_on", "")
 
