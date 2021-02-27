@@ -9,7 +9,7 @@ class DiseaseControlIndexPage(Page):
     max_count = 1
 
     subpage_types = [
-        "disease_control.DiseaseControlPage",
+        "disease_control.DiseasesAndConditionsPage",
     ]
 
     def get_context(self, request):
@@ -44,3 +44,7 @@ class DiseaseControlPage(Page):
         FieldPanel("description"),
         FieldPanel("page_type"),
     ]
+
+
+class DiseasesAndConditionsPage(DiseaseControlPage):
+    pass
