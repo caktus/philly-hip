@@ -23,6 +23,7 @@ import Header from "../../../apps/hip/static/js/header";
 import SideBar from "../../../apps/hip/static/js/sidebar";
 import RightScrollNav from "../../../apps/hip/static/js/rightScrollNav";
 import MobileSearchModal from "../../../apps/hip/static/js/mobileSearchModal";
+import HealthAlertPriorityFilter from "../../../apps/health_alerts/static/js/healthAlertPriorityFilter";
 
 document.addEventListener("DOMContentLoaded", function() {
   Common();
@@ -30,4 +31,5 @@ document.addEventListener("DOMContentLoaded", function() {
   SideBar();
   MobileSearchModal();
   RightScrollNav();
+  HealthAlertPriorityFilter();
 });

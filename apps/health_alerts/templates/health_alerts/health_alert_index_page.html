@@ -31,25 +31,22 @@
       </div>
 
       {# Filter widget #}
-      <div class="filter-widget-hip card">
-        <div class="card-content">
-          <div class="content">
-            <form class="columns">
-              <div class="column is-half">
-                <div class="select">
-                  <select>
-                    <option>Filter by priority</option>
-                    <option>Coming Soon!</option>
-                  </select>
-                </div>
-              </div>
-              <div class="column">
-                <span class="is-size-6">Filter by tag:</span>
-                <span class="tag is-size-6">COVID-19</span>
-                <span class="tag is-size-6">Hepatitis A</span>
-              </div>
-            </form>
+      <div class="filter-widget-hip columns m-0">
+        <div class="column is-half">
+          <div class="select">
+            <select class="select-priority">
+              <option value="0">Filter by priority</option>
+              <option value="4">Alert</option>
+              <option value="3">Advisory</option>
+              <option value="2">Notification</option>
+              <option value="1">Update</option>
+            </select>
           </div>
+        </div>
+        <div class="column">
+          <span class="is-size-6">Filter by tag:</span>
+          <span class="tag is-size-6">COVID-19</span>
+          <span class="tag is-size-6">Hepatitis A</span>
         </div>
       </div>
 
@@ -57,7 +54,10 @@
       <table class="table alert-table-hip">
         {% regroup health_alerts by alert_date.year as health_alert_list %}
         {% for year in health_alert_list %}
-          <tr>
+          <tr
+            data-priority="{% for alert in year.list %}{{ alert.priority }} {% endfor %}"
+            data-year="{{ year.grouper }}"
+          >
             <td colspan="3" class="pl-0">
               {# nav-heading-hip is used by right_scroll_nav as link targets #}
               <div class="nav-heading-hip" id="section-{{ year.grouper }}"></div>
@@ -83,7 +83,10 @@
           {% endif %}
 
           {% for alert in year.list %}
-            <tr class="{% if forloop.counter|divisibleby:2 %}row-bg-white-hip{% else %}row-bg-grey-hip{% endif %}">
+            <tr
+              class="{% if forloop.counter|divisibleby:2 %}row-bg-white-hip{% else %}row-bg-grey-hip{% endif %}"
+              data-priority="{{ alert.priority }}"
+            >
               <td class="topic"><a href="{{ alert.specific.alert_file.url }}">{{ alert.title }}</a></td>
               <td class="priority {{ alert.get_priority_display|lower }}-hip">
                 <i class="fa {{ alert.get_priority_icon }}" aria-hidden="true"></i>
