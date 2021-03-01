@@ -207,11 +207,6 @@ LOGGING = {
         "basic": {"format": "%(asctime)s %(name)-20s %(levelname)-8s %(message)s"}
     },
     "handlers": {
-        "mail_admins": {
-            "level": "ERROR",
-            "filters": ["require_debug_false"],
-            "class": "django.utils.log.AdminEmailHandler",
-        },
         "console": {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
@@ -220,11 +215,13 @@ LOGGING = {
     },
     "loggers": {
         "django.request": {
+            # only log to console (but errors will still be sent to Sentry)
             "handlers": ["console"],
             "level": "ERROR",
             "propagate": True,
         },
         "django.security": {
+            # only log to console (but errors will still be sent to Sentry)
             "handlers": ["console"],
             "level": "ERROR",
             "propagate": True,
@@ -284,10 +281,7 @@ SEARCH_PAGE_SIZE = 10
 ADMINS = os.getenv(
     "ADMINS",
     [
-        (
-            "caktus-hip-team",
-            "hip-team@caktusgroup.com",
-        )
+        ("PDPH Health Information Portal Dev Team", "hip-philly-team@caktusgroup.com"),
     ],
 )
 
