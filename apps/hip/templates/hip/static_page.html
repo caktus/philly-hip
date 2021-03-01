@@ -29,7 +29,9 @@
               {{ block.value.body }}
               {% if block.value.contact_info %}
                 <div class="columns is-desktop">
-                  {% contact_info %}
+                  <div class="column is-7 pl-5 pr-5">
+                    {% contact_info %}
+                  </div>
                   <div class="column is-5"></div>
                 </div>
               {% endif %}
