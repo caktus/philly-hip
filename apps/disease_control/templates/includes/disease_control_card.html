@@ -1,0 +1,10 @@
+{% load wagtailcore_tags %}
+
+<div class="columns">
+  <div class="column">
+    <a>{{ page.title }}</a>
+  </div>
+  <div class="column">
+    {{ page.description|richtext }}
+  </div>
+</div>

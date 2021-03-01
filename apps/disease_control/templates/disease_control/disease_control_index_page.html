@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="disease-control-index-page-hip">
+  <h2>{{ page.title }}</h2>
+  {% if topic_pages.exists %}
+    <div>
+      <h3>Topic-specific Guidance</h3>
+      <div>
+      {% for sub_page in topic_pages %}
+        {% if sub_page.page_type == 1 %}
+          {% with page=sub_page %}
+            {% include 'includes/disease_control_card.html' %}
+          {% endwith %}
+        {% endif %}
+      {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+  {% if facility_pages.exists %}
+    <div>
+      <h3>Facility-specific Guidance</h3>
+      <div>
+      {% for sub_page in facility_pages %}
+        {% if sub_page.page_type == 2 %}
+          {% with page=sub_page %}
+            {% include 'includes/disease_control_card.html' %}
+          {% endwith %}
+        {% endif %}
+      {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+  {% if disease_control_pages.exists %}
+    <div>
+      <h3>Disease Control Services</h3>
+      <div>
+      {% for sub_page in disease_control_pages %}
+        {% if sub_page.page_type == 3 %}
+          {% with page=sub_page %}
+            {% include 'includes/disease_control_card.html' %}
+          {% endwith %}
+        {% endif %}
+      {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
