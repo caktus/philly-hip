@@ -51,6 +51,11 @@ class DiseasesAndConditionsPage(DiseaseControlPage):
         "disease_control.DiseasePage",
     ]
 
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["ordered_diseases"] = self.get_children().order_by("title")
+        return context
+
 
 class DiseasePage(Page):
     parent_page_types = ["disease_control.DiseasesAndConditionsPage"]
