@@ -1,5 +1,6 @@
 export default function() {
   const selectElement = document.querySelector('.select-priority');
+  const alertsMissingEl = document.querySelector(".alerts-missing-hip");
 
   if (selectElement) {
     // add a handler for the change event for the priority select dropdown
@@ -24,6 +25,12 @@ export default function() {
     allRows.forEach(row => row.hidden = true);
     // show just the rows the user wants to see
     rowsToShow.forEach(row => row.hidden = false);
+    if (rowsToShow.length === 0) {
+      // if all rows are hidden, then show our special "no alerts found" row
+      alertsMissingEl.hidden = false;
+    } else {
+      alertsMissingEl.hidden = true;
+    }
   }
 
   function restripeRows(rows) {
