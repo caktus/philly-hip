@@ -18,8 +18,8 @@
     </div>
   {% endif %}
   {% if facility_pages.exists %}
-    <div>
-      <h3 class="disease-control-header">Facility-specific Guidance</h3>
+    <div class="pt-4">
+      <h3 class="disease-control-header pb-2">Facility-specific Guidance</h3>
       <div>
       {% for sub_page in facility_pages %}
         {% if sub_page.page_type == 2 %}
@@ -32,8 +32,8 @@
     </div>
   {% endif %}
   {% if disease_control_pages.exists %}
-    <div>
-      <h3 class="disease-control-header">Disease Control Services</h3>
+    <div class="pt-4">
+      <h3 class="disease-control-header pb-2">Disease Control Services</h3>
       <div>
       {% for sub_page in disease_control_pages %}
         {% if sub_page.page_type == 3 %}
