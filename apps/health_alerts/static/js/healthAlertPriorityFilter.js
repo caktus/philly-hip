@@ -8,8 +8,8 @@ export default function() {
       const allRows = document.querySelectorAll("[data-priority]");
       // we want to show any row that has the selectedPriority
       let rowsToShow = document.querySelectorAll(`[data-priority~="${selectedPriority}"]`);
-      if (selectedPriority === '0') {
-        // user chose '0', we will show all rows again
+      if (selectedPriority === 'All') {
+        // show all rows again
         rowsToShow = allRows;
       }
       // filter the rows, restripe them, and then filter the right side links

@@ -35,11 +35,11 @@
         <div class="column is-half">
           <div class="select">
             <select class="select-priority">
-              <option value="0">Filter by priority</option>
-              <option value="4">Alert</option>
-              <option value="3">Advisory</option>
-              <option value="2">Notification</option>
-              <option value="1">Update</option>
+              <option value="All">Filter by priority</option>
+              <option value="Alert">Alert</option>
+              <option value="Advisory">Advisory</option>
+              <option value="Notification">Notification</option>
+              <option value="Update">Update</option>
             </select>
           </div>
         </div>
@@ -55,7 +55,7 @@
         {% regroup health_alerts by alert_date.year as health_alert_list %}
         {% for year in health_alert_list %}
           <tr
-            data-priority="{% for alert in year.list %}{{ alert.priority }} {% endfor %}"
+            data-priority="{% for alert in year.list %}{{ alert.get_priority_display }} {% endfor %}"
             data-year="{{ year.grouper }}"
           >
             <td colspan="3" class="pl-0">
@@ -85,7 +85,7 @@
           {% for alert in year.list %}
             <tr
               class="{% if forloop.counter|divisibleby:2 %}row-bg-white-hip{% else %}row-bg-grey-hip{% endif %}"
-              data-priority="{{ alert.priority }}"
+              data-priority="{{ alert.get_priority_display }}"
             >
               <td class="topic"><a href="{{ alert.specific.alert_file.url }}">{{ alert.title }}</a></td>
               <td class="priority {{ alert.get_priority_display|lower }}-hip">
