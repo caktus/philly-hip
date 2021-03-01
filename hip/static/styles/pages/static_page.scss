@@ -22,6 +22,10 @@
     table-layout: fixed;
     border-collapse: separate;
     border-spacing: 2rem 0;
+    @media screen and (max-width: $breakpoint-mobile) {
+      overflow-wrap: break-word;
+      border-spacing: 0.75rem 0;
+    }
     td {
       vertical-align: middle;
     }
