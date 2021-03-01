@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+diseases and conditions
+
+<table>
+  <tbody>
+    {% for disease in ordered_diseases %}
+      <tr>
+        <td>
+          <a href="{{ disease.url }}">
+            <div>
+              <div>{{ disease.title }}</div>
+              {% if disease.specific.is_emergent %}
+                {% if disease.specific.emergent_date_range %}<div>{{ disease.specific.emergent_date_range }}</div>{% endif %}
+                <div>Emergent</div>
+              {% endif %}
+            </div>
+          </a>
+        </td>
+        <td>
+          <a href="{{ disease.url }}">
+            <div>{{ disease.specific.description|richtext }}</div>
+            <div>Updated {{ disease.specific.latest_revision_created_at|date:"M j, Y" }}</div>
+          </a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock content %}
