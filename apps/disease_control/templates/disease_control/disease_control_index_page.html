@@ -5,6 +5,7 @@
   <div class="disease-control-index-page-hip">
     <h2>{{ page.title }}</h2>
     {% if topic_pages.exists %}
+      <div class="nav-heading-hip" id="section-{{'Topic-specific Guidance'|slugify}}"></div>
       <div>
         <h3>Topic-specific Guidance</h3>
         <div>
@@ -15,6 +16,7 @@
       </div>
     {% endif %}
     {% if facility_pages.exists %}
+      <div class="nav-heading-hip" id="section-{{'Facility-specific Guidance'|slugify}}"></div>
       <div>
         <h3>Facility-specific Guidance</h3>
         <div>
@@ -25,6 +27,7 @@
       </div>
     {% endif %}
     {% if disease_control_pages.exists %}
+      <div class="nav-heading-hip" id="section-{{'Disease Control Services'|slugify}}"></div>
       <div>
         <h3>Disease Control Services</h3>
         <div>

@@ -17,9 +17,11 @@ class DiseaseControlIndexPage(Page):
             get_disease_control_services_qs,
             get_facility_specific_guidance_qs,
             get_topic_specific_guidance_qs,
+            get_visible_section_headers,
         )
 
         context = super().get_context(request)
+        context["right_nav_headings"] = get_visible_section_headers()
         context["topic_pages"] = get_topic_specific_guidance_qs()
         context["facility_pages"] = get_facility_specific_guidance_qs()
         context["disease_control_pages"] = get_disease_control_services_qs()
