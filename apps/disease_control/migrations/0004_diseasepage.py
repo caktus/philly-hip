@@ -32,14 +32,15 @@ class Migration(migrations.Migration):
                 (
                     "is_emergent",
                     models.BooleanField(
-                        default=False, help_text="Is this an emergent disease?"
+                        default=False,
+                        help_text="Should this disease be tagged as emergent?",
                     ),
                 ),
                 (
                     "emergent_begin_date",
                     models.DateField(
                         blank=True,
-                        help_text="If this is an emergent disease, choose the date it emerged",
+                        help_text="Choose the date this disease became an emergent concern",
                         null=True,
                     ),
                 ),
@@ -47,7 +48,7 @@ class Migration(migrations.Migration):
                     "emergent_end_date",
                     models.DateField(
                         blank=True,
-                        help_text="If this is an emergent disease, choose the date it stopped emerging. Leave blank if it is still emerging",
+                        help_text="Choose the date this disease stopped being an emergent concern. Leave blank if it is still an emergent concern.",
                         null=True,
                     ),
                 ),
