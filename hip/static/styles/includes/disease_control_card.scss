@@ -1,0 +1,28 @@
+@import "../colors";
+
+.disease-control-card-hip {
+  border-bottom: 2px solid $light-grey;
+  line-height: 2rem;
+
+  .card-link-hip {
+    color: $dark-blue; 
+  }
+  .page-description-hip {
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      li {
+        display: flex;
+        margin-left: 1rem;
+        &:before {
+          content: "•";
+          display: block;
+          color: $grey;
+          font-size: 2rem;
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  }
+}
