@@ -51,3 +51,19 @@
   @include black-bg;
   border-radius: 0;
 }
+
+.is-sticky-parent-hip {
+  @media screen and (max-width: $breakpoint-tablet) {
+    // on small screens, remove the margin so that sticky navbar extends full width
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+.is-sticky-hip {
+  // keep top navbar fixed on scroll
+  position: fixed;
+  top: 0;
+  margin-top: 0;
+  background-color: $white;
+  border-bottom: 2px solid $grey;
+}
