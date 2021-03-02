@@ -1,7 +1,5 @@
 from django.utils.timezone import now, timedelta
 
-from wagtail_factories.factories import DocumentFactory
-
 from ..utils import get_most_recent_objects
 from .factories import HomePageFactory, StaticPageFactory
 
@@ -57,25 +55,6 @@ def test_get_most_recent_objects_pages_correct_order(db):
     assert expected_results == get_most_recent_objects()
 
 
-def test_get_most_recent_objects_documents_correct_order(db):
-    """Calling get_most_recent_objects() returns Documents in correct order."""
-    datetime_now = now()
-    datetime_yesterday = datetime_now - timedelta(days=1)
-
-    document_1hr_ago = DocumentFactory()
-    document_1hr_ago.created_at = datetime_now - timedelta(hours=1)
-    document_1hr_ago.save()
-    document_now = DocumentFactory()
-    document_now.created_at = datetime_now
-    document_now.save()
-    document_yesterday = DocumentFactory()
-    document_yesterday.created_at = datetime_yesterday
-    document_yesterday.save()
-
-    expected_results = [document_now, document_1hr_ago, document_yesterday]
-    assert expected_results == get_most_recent_objects()
-
-
 def test_get_most_recent_objects_different_objects_correct_order(db):
     """Calling get_most_recent_objects() returns objects in correct order."""
     datetime_now = now()
@@ -89,13 +68,8 @@ def test_get_most_recent_objects_different_objects_correct_order(db):
         latest_revision_created_at=datetime_yesterday
     )
 
-    document_1hr_ago = DocumentFactory()
-    document_1hr_ago.created_at = datetime_now - timedelta(hours=1)
-    document_1hr_ago.save()
-
     expected_results = [
         static_page_now.page_ptr,
-        document_1hr_ago,
         home_page_2hr_ago.page_ptr,
         static_page_yesterday.page_ptr,
     ]
@@ -114,10 +88,6 @@ def test_get_most_recent_objects_if_more_objects_than_our_object_count(db):
     static_page_yesterday = StaticPageFactory(
         latest_revision_created_at=datetime_yesterday
     )
-
-    document_1hr_ago = DocumentFactory()
-    document_1hr_ago.created_at = datetime_now - timedelta(hours=1)
-    document_1hr_ago.save()
 
     # we're only going to ask for 1 object, so expect 1 result
     expected_results = [
@@ -146,23 +116,3 @@ def test_get_most_recent_objects_annotations_pages(db):
         assert result.updated_at == result.latest_revision_created_at
         assert result.type_of_object == "PAGE"
         assert result.model_name == "page"
-
-
-def test_get_most_recent_objects_annotations_documents(db):
-    """
-    Calling get_most_recent_objects() returns objects with annotated fields.
-
-    Each object should have the following fields:
-     - name
-     - updated_at
-     - type_of_object
-     - model_name
-    """
-    document = DocumentFactory(file="example.pdf")
-
-    results = get_most_recent_objects()
-
-    assert results[0].name == document.title
-    assert results[0].updated_at == document.created_at
-    assert results[0].type_of_object == document.file.name.split(".")[-1].upper()
-    assert results[0].model_name == "document"
