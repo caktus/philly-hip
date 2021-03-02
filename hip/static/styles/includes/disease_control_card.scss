@@ -4,10 +4,23 @@
   border-bottom: 2px solid $light-grey;
   line-height: 2rem;
 
+  .emergent-dates-hip {
+    color: $black;
+  }
+
+  .emergent-btn-hip {
+    font-family: "Open Sans", sans-serif;
+    color: $black;
+    background-color: $light-red;
+  }
+
   .card-link-hip {
     color: $dark-blue; 
   }
   .page-description-hip {
+    p {
+      color: $black;
+    }
     ul {
       list-style: none;
       padding: 0;
