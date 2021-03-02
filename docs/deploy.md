@@ -78,18 +78,18 @@ where `<environment>` represents the name of the environment you are updating, u
 
 1. Generate or obtain the new secret. Then encrypt it with this command:
 
-	```sh
-	(hip)$ cd deploy
-	(hip)$ ansible-vault encrypt_string <secret>
-	!vault |
-	          $ANSIBLE_VAULT;1.1;AES256
-			  38646465363539613435316335663835373561346262383832303439623533376564636465666535
-			  3663396663373465633465636639636631303232343732380a343034376633323330386337653930
-			  36643366636334643839363763366335343266643431346435636264623634616538373863393534
-			  3937643532306231610a626333656461386433303335373361323330323466666130303063303863
-			  30623762363233643337653961633062346537643066663837633535336164623663
+    ```sh
+    (hip)$ cd deploy
+    (hip)$ ansible-vault encrypt_string <secret>
+    !vault |
+              $ANSIBLE_VAULT;1.1;AES256
+              38646465363539613435316335663835373561346262383832303439623533376564636465666535
+              3663396663373465633465636639636631303232343732380a343034376633323330386337653930
+              36643366636334643839363763366335343266643431346435636264623634616538373863393534
+              3937643532306231610a626333656461386433303335373361323330323466666130303063303863
+              30623762363233643337653961633062346537643066663837633535336164623663
     Encryption successful
-	```
+    ```
 2. Copy everything from the `!vault` up until the `Encryption successful` message, but
    not including the `Encryption successful` message.
 
@@ -126,20 +126,20 @@ to the cluster.
 2. Verify that there is an entry in `~/.aws/credentials` for your Caktus Saguaro role.
    Your file should have both of the following entries:
 
-	```conf
-	[caktus]
-	aws_access_key_id = <your caktus account access key id>
-	aws_secret_access_key = <your caktus account secret access key>
+    ```conf
+    [caktus]
+    aws_access_key_id = <your caktus account access key id>
+    aws_secret_access_key = <your caktus account secret access key>
 
-	# ...
+    # ...
 
-	[saguaro-cluster]
-	role_arn = arn:aws:iam::472354598015:role/CaktusAccountAccessRole-Admins
-	source_profile = caktus
-	```
+    [saguaro-cluster]
+    role_arn = arn:aws:iam::472354598015:role/CaktusAccountAccessRole-Admins
+    source_profile = caktus
+    ```
 
-	This will allow you to use the special AWS Role that we have set up that gives
-	accounts in `caktus` full privileges in `saguaro-cluster`.
+    This will allow you to use the special AWS Role that we have set up that gives
+    accounts in `caktus` full privileges in `saguaro-cluster`.
 
 3. Set `AWS_PROFILE` to this named profile. This should be added to your environment
    (using whatever method you use for that: `.envrc`, `.env`, `magical-shell-script.sh`)
@@ -155,8 +155,8 @@ to the cluster.
     time to time, so you may have to re-run the command before a deploy.
 
     ```sh
-	(hip)$ echo $AWS_PROFILE
-	saguaro-cluster
+    (hip)$ echo $AWS_PROFILE
+    saguaro-cluster
     (hip)$ inv aws.docker-login
     ```
 
@@ -172,9 +172,9 @@ to the cluster.
 
 2. You should now have access via ``kubectl``:
 
-	```sh
-	(hip)$ kubectl get node
-	```
+    ```sh
+    (hip)$ kubectl get node
+    ```
 
 ## Useful Commands
 

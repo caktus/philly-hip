@@ -10,22 +10,46 @@
 
 .alert-table-hip {
   width: 100%;
-  border: 0;
   border-spacing: 2px 0;
   border-collapse: separate;
+
   th {
     background-color: $dark-grey;
     color: $white;
     border-width: 0;
+    height: 3.5rem;
+    vertical-align: middle;
   }
+
   td {
     border-width: 0;
+    vertical-align: middle;
+    overflow-wrap: break-word;
   }
 
   .row-bg-white-hip {
     background-color: $white;
   }
+
   .row-bg-grey-hip {
     background-color: $light-grey;
+  }
+
+  .year-hip {
+    color: $grey;
+    font-weight: 700;
+  }
+
+  .topic {
+    font-size: 18px;
+  }
+
+  .priority {
+    width: 12rem;
+    text-transform: uppercase;
+  }
+
+  .alert-date {
+    width: 12rem;
   }
 }
