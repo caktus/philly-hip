@@ -1,7 +1,6 @@
-from django.db.models import Case, CharField, F, Value, When
+from django.db.models import CharField, F, Value
 
 from wagtail.core.models import Page
-from wagtail.documents.models import Document
 
 
 def get_most_recent_objects(object_count=10):
@@ -10,7 +9,6 @@ def get_most_recent_objects(object_count=10):
 
     Currently, we return the most recently updated models from:
      - Pages
-     - Documents
 
     In order to make it easier to get data from each returned object (in a template),
     several fields are annotated on each object:
@@ -34,22 +32,8 @@ def get_most_recent_objects(object_count=10):
             type_of_object=Value("PAGE", output_field=CharField()),
             model_name=Value("page", output_field=CharField()),
         )
+        .order_by("-updated_at")
     )
-    # Get the most recent Document objects.
-    documents = Document.objects.annotate(
-        name=F("title"),
-        updated_at=F("created_at"),
-        type_of_object=Case(
-            When(file__endswith="jpg", then=Value("JPG", output_field=CharField())),
-            When(file__endswith="png", then=Value("PNG", output_field=CharField())),
-            When(file__endswith="pdf", then=Value("PDF", output_field=CharField())),
-        ),
-        model_name=Value("document", output_field=CharField()),
-    )
-
-    # Sort the combined_list by their 'updated_at' property.
-    combined_list = list(pages) + list(documents)
-    combined_list.sort(key=lambda x: x.updated_at, reverse=True)
 
     # Return only the most recent object_count amount of objects.
-    return combined_list[:object_count]
+    return list(pages)[:object_count]
