@@ -6,84 +6,101 @@
     <div class="column p-6">
 
       <div class="level">
-	{# Title is on the left #}
-	<div class="level-left">
-	  <div class="level-item">
-	    <p class="title">
+        {# Title is on the left #}
+        <div class="level-left">
+          <div class="level-item">
+            <p class="title">
               {{ page.title }}
-	    </p>
-	  </div>
-	</div>
+            </p>
+          </div>
+        </div>
 
-	{# Sign up button is on the right #}
-	<div class="level-right">
-	  <div class="level-item">
+        {# Sign up button is on the right #}
+        <div class="level-right">
+          <div class="level-item">
             <a href="/fixme-alert-signup" class="is-block">
               <span class="button is-size-7-touch header-icon-hip">
-		<i class="email-icon-hip"></i>
+                <i class="email-icon-hip"></i>
               </span>
               <span class="button is-size-7-touch header-btn-hip">
-		<strong>Sign Up For Alerts</strong>
+                <strong>Sign Up For Alerts</strong>
               </span>
             </a>
-	  </div>
-	</div>
+          </div>
+        </div>
       </div>
 
       {# Filter widget #}
-      <div class="filter-widget-hip card">
-	<div class="card-content">
-	  <div class="content">
-	    <form class="columns">
-	      <div class="column is-half">
-		<div class="select">
-		  <select>
-		    <option>Filter by priority</option>
-		    <option>Coming Soon!</option>
-		  </select>
-		</div>
-	      </div>
-	      <div class="column">
-		<span class="is-size-6">Filter by tag:</span>
-		<span class="tag is-size-6">COVID-19</span>
-		<span class="tag is-size-6">Hepatitis A</span>
-	      </div>
-	    </form>
-	  </div>
-	</div>
+      <div class="filter-widget-hip columns m-0">
+        <div class="column is-half">
+          <div class="select">
+            <select class="select-priority">
+              <option value="All">Filter by priority</option>
+              <option value="Alert">Alert</option>
+              <option value="Advisory">Advisory</option>
+              <option value="Notification">Notification</option>
+              <option value="Update">Update</option>
+            </select>
+          </div>
+        </div>
+        <div class="column">
+          <span class="is-size-6">Filter by tag:</span>
+          <span class="tag is-size-6">COVID-19</span>
+          <span class="tag is-size-6">Hepatitis A</span>
+        </div>
       </div>
 
       {# Main content table of Health Alerts #}
       <table class="table alert-table-hip">
-	{% regroup health_alerts by alert_date.year as health_alert_list %}
-	{% for year in health_alert_list %}
-	  <tr>
-	    <td colspan="3">
-	      {# nav-heading-hip is used by right_scroll_nav as link targets #}
-	      <div class="nav-heading-hip" id="section-{{ year.grouper }}"></div>
-              <div class="is-size-4 pt-5 row-bg-white-hip">{{ year.grouper }}</div>
-	    </td>
-	  </tr>
-	  {# only the first year has the table header #}
-	  {% if forloop.counter == 1 %}
+        {% regroup health_alerts by alert_date.year as health_alert_list %}
+        {% for year in health_alert_list %}
+          <tr
+            data-priority="{% for alert in year.list %}{{ alert.get_priority_display }} {% endfor %}"
+            data-year="{{ year.grouper }}"
+          >
+            <td colspan="3" class="pl-0">
+              {# nav-heading-hip is used by right_scroll_nav as link targets #}
+              <div class="nav-heading-hip" id="section-{{ year.grouper }}"></div>
+              <div class="is-size-4 pt-5 year-hip row-bg-white-hip">{{ year.grouper }}</div>
+            </td>
+          </tr>
+          {# only the first year has the table header #}
+          {% if forloop.counter == 1 %}
             <tr>
-	      <th>Topic</th>
-	      <th>Priority</th>
-	      <th>Date of Alert</th>
+              <th>Topic</th>
+              <th>
+                <span class="is-mobile desktop-hidden-hip">Priority</span>
+                <div class="dropdown is-hoverable is-desktop mobile-hidden-hip">
+                  <span>Priority</span>
+                  <span class="icon">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                  </span>
+                  {% include "includes/health_alert_legend.html" %}
+                </div>
+              </th>
+              <th>Date of Alert</th>
             </tr>
-	  {% endif %}
+            <tr>
+              <td class="alerts-missing-hip" colspan="3" hidden>
+                No Health Alerts Found
+              </td>
+            </tr>
+          {% endif %}
 
           {% for alert in year.list %}
-            <tr class="{% if forloop.counter|divisibleby:2 %}row-bg-white-hip{% else %}row-bg-grey-hip{% endif %}">
-              <td><a href="{{ alert.specific.alert_file.url }}">{{ alert.title }}</a></td>
-	      <td class="is-size-5 {{ alert.get_priority_display|lower }}-hip">
-		<i class="fa {{ alert.get_priority_icon }}" aria-hidden="true"></i>
-		{{ alert.get_priority_display }}
-	      </td>
-              <td>{{ alert.specific.alert_date | date:"M j, Y" }}</td>
+            <tr
+              class="{% if forloop.counter|divisibleby:2 %}row-bg-white-hip{% else %}row-bg-grey-hip{% endif %}"
+              data-priority="{{ alert.get_priority_display }}"
+            >
+              <td class="topic"><a href="{{ alert.specific.alert_file.url }}">{{ alert.title }}</a></td>
+              <td class="priority {{ alert.get_priority_display|lower }}-hip">
+                <i class="fa {{ alert.get_priority_icon }}" aria-hidden="true"></i>
+                {{ alert.get_priority_display }}
+              </td>
+              <td class="alert-date">{{ alert.specific.alert_date | date:"M j, Y" }}</td>
             </tr>
           {% endfor %}
-	{% endfor %}
+        {% endfor %}
       </table>
     </div>
 

@@ -28,20 +28,20 @@ repo, but a copy has also been placed in the LastPass entry, "HIP Staging Secret
 2. Verify that there is an entry in `~/.aws/credentials` for your Caktus Saguaro role.
    Your file should have both of the following entries:
 
-	```conf
-	[caktus]
-	aws_access_key_id = <your caktus account access key id>
-	aws_secret_access_key = <your caktus account secret access key>
+    ```conf
+    [caktus]
+    aws_access_key_id = <your caktus account access key id>
+    aws_secret_access_key = <your caktus account secret access key>
 
-	# ...
+    # ...
 
-	[saguaro-cluster]
-	role_arn = arn:aws:iam::472354598015:role/CaktusAccountAccessRole-Admins
-	source_profile = caktus
-	```
+    [saguaro-cluster]
+    role_arn = arn:aws:iam::472354598015:role/CaktusAccountAccessRole-Admins
+    source_profile = caktus
+    ```
 
-	This will allow you to use the special AWS Role that gives accounts in `caktus` full
-	privileges in `saguaro-cluster`.
+    This will allow you to use the special AWS Role that gives accounts in `caktus` full
+    privileges in `saguaro-cluster`.
 
 3. Set `AWS_PROFILE` to this named profile. This should be added to your environment
    (using whatever method you use for that: `.envrc`, `.env`, `magical-shell-script.sh`)
@@ -100,64 +100,64 @@ repo, but a copy has also been placed in the LastPass entry, "HIP Staging Secret
 
     ```sh
     (hip)$ aws rds describe-db-instances
-	```
+    ```
 
    * From that output, get `MasterUsername`, `DBName`, and `Endpoint.Address`.
    * Get the `MasterPassword` from the LastPass entry, "Saguaro Cluster Secrets".
    * Choose or generate a `HipDbPassword` that you'll use for HIP. Save that
-	 somewhere so that you can encrypt it later in the process.
+     somewhere so that you can encrypt it later in the process.
 
 2. Using those parameters, create the DB with the proper permissions. (Anything in curly
    brackets is meant to represent a placeholder for the actual values from the step above):
 
-	```sh
-	(hip)$ inv pod.debian
-	root@debian:/# apt update && apt install postgresql-client -y
-	root@debian:/# psql postgres://{MasterUsername}:{MasterPassword}@{Endpoint.Address}:5432/{DBName}
-	=> CREATE DATABASE hip_staging;
-	=> CREATE ROLE hip_staging WITH LOGIN NOSUPERUSER INHERIT CREATEDB NOCREATEROLE NOREPLICATION PASSWORD '{HipDbPassword}';
-	=> GRANT CONNECT ON DATABASE hip_staging TO hip_staging;
-	=> GRANT ALL PRIVILEGES ON DATABASE hip_staging TO hip_staging;
-	```
+    ```sh
+    (hip)$ inv pod.debian
+    root@debian:/# apt update && apt install postgresql-client -y
+    root@debian:/# psql postgres://{MasterUsername}:{MasterPassword}@{Endpoint.Address}:5432/{DBName}
+    => CREATE DATABASE hip_staging;
+    => CREATE ROLE hip_staging WITH LOGIN NOSUPERUSER INHERIT CREATEDB NOCREATEROLE NOREPLICATION PASSWORD '{HipDbPassword}';
+    => GRANT CONNECT ON DATABASE hip_staging TO hip_staging;
+    => GRANT ALL PRIVILEGES ON DATABASE hip_staging TO hip_staging;
+    ```
 
 3. Once the DB is created, run a similar command to connect to it as the RDS superuser
    so that we can install the Postgresql citext extension:
 
    ```sh
-	(hip)$ inv pod.debian
-	root@debian:/# apt update && apt install postgresql-client -y
-	root@debian:/# psql postgres://{MasterUsername}:{MasterPassword}@{Endpoint.Address}:5432/hip_staging
-	=> CREATE EXTENSION citext;
+    (hip)$ inv pod.debian
+    root@debian:/# apt update && apt install postgresql-client -y
+    root@debian:/# psql postgres://{MasterUsername}:{MasterPassword}@{Endpoint.Address}:5432/hip_staging
+    => CREATE EXTENSION citext;
    ```
 
 ### Point your desired domain at the load balancer
 
 1. Find the load balancer URL:
 
-	```sh
-	(hip)$ kubectl get svc -n ingress-nginx
-	```
+    ```sh
+    (hip)$ kubectl get svc -n ingress-nginx
+    ```
 
 2. Copy the `EXTERNAL-IP` value from that output. It is the load balancer URL.
 
 3. Go to Cloudflare and create a CNAME from your desired subdomain pointing to that URL.
 
-	```
-	hip.caktus-built.com ->	a4c59174c7fff4935b9ab58abd1722e9-742984194.us-east-1.elb.amazonaws.com
-	```
+    ```
+    hip.caktus-built.com -> a4c59174c7fff4935b9ab58abd1722e9-742984194.us-east-1.elb.amazonaws.com
+    ```
 
 ### Set up vault password
 
 1. Generate a long password and save it to AWS with this command:
 
-	```sh
-	(hip)$ aws secretsmanager create-secret --name hip-ansible-vault-password --secret-string <long-secret>
-	{
-		"ARN": "arn:aws:secretsmanager:us-east-1:472354598015:secret:hip-ansible-vault-password-KxkJpW",
-		"Name": "hip-ansible-vault-password",
-		"VersionId": "35d97d2b-7130-407e-bd5c-e59f9d077234"
-	}
-	```
+    ```sh
+    (hip)$ aws secretsmanager create-secret --name hip-ansible-vault-password --secret-string <long-secret>
+    {
+        "ARN": "arn:aws:secretsmanager:us-east-1:472354598015:secret:hip-ansible-vault-password-KxkJpW",
+        "Name": "hip-ansible-vault-password",
+        "VersionId": "35d97d2b-7130-407e-bd5c-e59f9d077234"
+    }
+    ```
 
 2. Record the ARN that is returned, you'll need that for setting up CI later
 
@@ -193,13 +193,13 @@ complete that process.
    encrypted value in `deploy/host_vars/staging.yml` for `k8s_auth_api_key`.
 
      ```sh
-	 cd deploy
-	 ansible-vault encrypt_string <secret>
-	 ```
+     cd deploy
+     ansible-vault encrypt_string <secret>
+     ```
 
 5. Repeat step 4 for the other secrets that we need in `host_vars/staging.yaml`
     * `HipDbPassword` from above as `database_password`.
-	* Encrypt a long secret key and save it as
+    * Encrypt a long secret key and save it as
       `k8s_environment_variables/DJANGO_SECRET_KEY`.
 
 ### Set up email with Amazon SES
@@ -216,19 +216,19 @@ https://docs.aws.amazon.com/ses/latest/DeveloperGuide/smtp-credentials.html
 
 1. Finally, do the deploy again, and it should work.
 
-	```sh
-	(hip)$ inv staging image deploy
-	```
+    ```sh
+    (hip)$ inv staging image deploy
+    ```
 
 2. Confirm that you see pods running in our namespace.
 
-	```sh
-	(hip)$ kubectl get pods --namespace=hip-staging
-	NAME                         READY   STATUS    RESTARTS   AGE
-	app-84f486b849-pfp7k         1/1     Running   0          5m
-	app-84f486b849-zdjlz         1/1     Running   0          5m
-	memcached-797d6b546c-fn862   1/1     Running   0          7m
-	```
+    ```sh
+    (hip)$ kubectl get pods --namespace=hip-staging
+    NAME                         READY   STATUS    RESTARTS   AGE
+    app-84f486b849-pfp7k         1/1     Running   0          5m
+    app-84f486b849-zdjlz         1/1     Running   0          5m
+    memcached-797d6b546c-fn862   1/1     Running   0          7m
+    ```
 
 ### Create S3 buckets for media and assets
 
