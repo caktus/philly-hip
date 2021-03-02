@@ -2,7 +2,7 @@
 {% load wagtailcore_tags %}
 
 {% block content %}
-diseases and conditions
+<!-- diseases and conditions
 
 <table>
   <tbody>
@@ -28,5 +28,15 @@ diseases and conditions
       </tr>
     {% endfor %}
   </tbody>
-</table>
+</table> -->
+<div>
+  <div class="disease-control-index-page-hip">
+    <h2>{{ page.title }}</h2>
+    <div>
+      {% for disease in ordered_diseases %}
+        {% include 'includes/disease_control_card.html' with page=disease %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
 {% endblock content %}

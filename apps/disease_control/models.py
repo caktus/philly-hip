@@ -10,6 +10,8 @@ class DiseaseControlIndexPage(Page):
 
     subpage_types = [
         "disease_control.DiseasesAndConditionsPage",
+        # Generic Placeholder until other subpages are added
+        "disease_control.DiseaseControlPage",
     ]
 
     def get_context(self, request):
