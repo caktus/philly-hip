@@ -5,6 +5,9 @@
 .navbar-hip {
   border-bottom: 2px solid $grey;
   height: 6rem;
+  @media screen and (max-width: $breakpoint-tablet) {
+    border-bottom: none;
+  }
 }
 
 .logo-hip {
