@@ -35,11 +35,11 @@
   </div>
   {% if page.diseasepage and page.specific.description %}
     <div class="columns">
-      {% if page.specific.is_emergent %}
-        <div class="column is-4">
+      <div class="column is-4">
+        {% if page.specific.is_emergent %}
           <a class="button is-small is-rounded emergent-btn-hip" href="{{ page.get_url }}">Emergent</a>
-        </div>
-      {% endif %}
+        {% endif %}
+      </div>
       <div class="column">
         <p>Updated {{ page.latest_revision_created_at|date:"M d, Y" }}</p>
       </div>
