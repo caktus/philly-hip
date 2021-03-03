@@ -1,0 +1,14 @@
+{% load wagtailcore_tags %}
+
+<nav class="breadcrumb breadcrumbs-hip" aria-label="breadcrumbs">
+  <ul>
+    {% for page in self.get_ancestors %}
+      {%  if not page.is_root and not page.homepage %}
+        <li><a href="{% pageurl page %}">{{ page.title }}</a></li>
+      {% endif %}
+    {% endfor %}
+    <li class="is-active">
+      <a href="#" aria-current="{{ page.title }}">{{ page.title }}</a>
+    </li>
+  </ul>
+</nav>

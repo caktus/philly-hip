@@ -19,6 +19,7 @@ This file will manage all scss file imports.
 
 // ----------------- Includes Imports ---------------- //
 
+@import "./includes/breadcrumbs.scss";
 @import "./includes/header";
 @import "./includes/sidebar";
 @import "./includes/right_scroll_nav";
