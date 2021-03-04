@@ -6,14 +6,7 @@
       <a class="card-link-hip is-size-5 is-block" href="{{ page.get_url }}"><strong>{{ page.title }}</strong></a>
       {% if page.diseasepage %}
         <p class="emergent-dates-hip pt-2">
-          {% if page.specific.emergent_begin_date %}
-            {{ page.specific.emergent_begin_date }} - 
-          {% endif %}
-          {% if page.specific.emergent_end_date %}
-             {{ page.specific.emergent_end_date }}
-          {% elif page.specific.emergent_begin_date and not page.specific.emergent_end_date %}
-            Present
-          {% endif %}
+          {{ page.specific.emergent_date_range }}
         </p>
         {% if page.specific.is_emergent and not page.specific.description %}
           <a class="button is-rounded is-small mt-2 emergent-btn-hip" href="{{ page.get_url }}">Emergent</a>
