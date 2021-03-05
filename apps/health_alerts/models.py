@@ -3,10 +3,11 @@ import datetime
 from django.db import models
 from django.shortcuts import redirect
 
-from apps.disease_control.models import DiseasePage
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import Page
 from wagtail.documents.edit_handlers import DocumentChooserPanel
+
+from apps.disease_control.models import DiseasePage
 
 
 class HealthAlertIndexPage(Page):
