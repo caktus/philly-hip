@@ -3,6 +3,7 @@ import datetime
 from django.db import models
 from django.shortcuts import redirect
 
+from apps.disease_control.models import DiseasePage
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import Page
 from wagtail.documents.edit_handlers import DocumentChooserPanel
@@ -32,11 +33,16 @@ class HealthAlertIndexPage(Page):
         # the following line removes duplicates but keeps things ordered (unlike sets)
         years = list(dict.fromkeys(years))
         context["right_nav_headings"] = years
+
+        # Get list of conditions attached to all of our health alerts
+        conditions = DiseasePage.objects.exclude(health_alerts=None)
+        context["conditions"] = conditions
         return context
 
 
 class HealthAlertPage(Page):
     parent_page_types = ["health_alerts.HealthAlertIndexPage"]
+    subpage_types = []
     alert_file = models.ForeignKey(
         "wagtaildocs.Document", null=True, blank=True, on_delete=models.SET_NULL
     )
@@ -51,8 +57,13 @@ class HealthAlertPage(Page):
 
     alert_date = models.DateField(default=datetime.date.today)
 
-    # FUTURE FIXME
-    # add FK field to Disease/Condition model
+    disease = models.ForeignKey(
+        DiseasePage,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="health_alerts",
+    )
 
     content_panels = (
         [
@@ -62,6 +73,7 @@ class HealthAlertPage(Page):
         + [
             FieldPanel("priority"),
             FieldPanel("alert_date"),
+            FieldPanel("disease"),
         ]
     )
 
@@ -93,13 +105,3 @@ class HealthAlertPage(Page):
 
     def serve(self, request):
         return redirect(self.alert_file.url)
-
-
-# hmm, this messes with migrations. I might need to think of a better way, but for now
-# we'll tell them to put 'topic' in the 'title' field.
-
-# # Override superclass fields for the editor: https://stackoverflow.com/a/57498309/347942
-# HealthAlertPage._meta.get_field(
-#     "title"
-# ).help_text = "Please enter the Topic for this Health Alert."
-# HealthAlertPage._meta.get_field("title").verbose_name = "topic"

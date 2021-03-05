@@ -1,26 +1,58 @@
 export default function() {
-  const selectElement = document.querySelector('.select-priority');
+  const selectPriorityEl = document.querySelector('.select-priority');
+  const selectConditionEl = document.querySelector('.select-condition');
   const alertsMissingEl = document.querySelector(".alerts-missing-hip");
+  const allRows = document.querySelectorAll("[data-priority]");
 
-  if (selectElement) {
-    // add a handler for the change event for the priority select dropdown
-    selectElement.addEventListener('change', (event) => {
-      const selectedPriority = event.target.value;
-      const allRows = document.querySelectorAll("[data-priority]");
-      // we want to show any row that has the selectedPriority
-      let rowsToShow = document.querySelectorAll(`[data-priority~="${selectedPriority}"]`);
-      if (selectedPriority === 'All') {
-        // show all rows again
-        rowsToShow = allRows;
-      }
-      // filter the rows, restripe them, and then filter the right side links
-      filterRows(rowsToShow, allRows);
-      restripeRows(rowsToShow);
-      filterRightSideLinks(rowsToShow);
+  if (selectPriorityEl && selectConditionEl) {
+    // do an initial render on page load to stripe the rows properly
+    const initialRows = getInitialRows();
+    renderRows(initialRows);
+
+    // add a change event handler for each of the select dropdowns
+    [selectPriorityEl, selectConditionEl].forEach(el => {
+      el.addEventListener('change', (event) => {
+        const selectedPriority = selectPriorityEl.value;
+        const selectedCondition = selectConditionEl.value;
+
+        let matchString = "";
+        if (selectedPriority !== 'All') {
+          matchString = `[data-priority~="${selectedPriority}"]`;
+        }
+        if (selectedCondition !== 'All') {
+          matchString += `[data-condition~="${selectedCondition}"]`
+        }
+        if (matchString === ""){
+          renderRows(allRows);
+        } else {
+          const rowsToShow = document.querySelectorAll(matchString);
+          renderRows(rowsToShow);
+        }
+      })
     })
   }
 
-  function filterRows(rowsToShow, allRows) {
+  function getInitialRows(){
+    // check the query param to see if we should be filtering on page load
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialCondition = urlParams.get('condition')
+    if (initialCondition) {
+      // change the select dropdown to show this condition
+      selectConditionEl.value = initialCondition;
+      return document.querySelectorAll(`[data-condition~="${initialCondition}"]`);
+    } else {
+      return allRows;
+    }
+  }
+
+  function renderRows(rows) {
+    // convenience function to do all the things we need to do to render the rows properly
+    filterRows(rows);
+    restripeRows(rows);
+    filterRightSideLinks(rows);
+  }
+
+  function filterRows(rowsToShow) {
     // hide all the rows
     allRows.forEach(row => row.hidden = true);
     // show just the rows the user wants to see

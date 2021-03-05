@@ -1,0 +1,7 @@
+@import "../mixins";
+@import "../colors";
+
+.disease-page-hip {
+  margin: 0 3rem;
+  @include headers;
+}
