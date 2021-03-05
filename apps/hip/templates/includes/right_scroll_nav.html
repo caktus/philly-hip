@@ -19,7 +19,11 @@
   default to being is-three-quarter
 {% endcomment %}
 
-<div class="column is-one-quarter right-scroll-container-hip is-desktop is-hidden-touch">
+{% if page.healthalertindexpage %}
+  <div class="column is-one-quarter right-scroll-container-hip is-desktop is-hidden-touch mt-5">
+{% else %}
+  <div class="column is-one-quarter right-scroll-container-hip is-desktop is-hidden-touch">
+{% endif %}
   <div class="is-fixed">
     {% for nav_heading in right_nav_headings %}
       <div class="nav-title" data-ref="section-{{nav_heading|slugify}}">
