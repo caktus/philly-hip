@@ -1,10 +1,13 @@
 export default function() {
+  const hasHealthAlerts = document.querySelector('.alert-table-hip');
   const selectPriorityEl = document.querySelector('.select-priority');
   const selectConditionEl = document.querySelector('.select-condition');
   const alertsMissingEl = document.querySelector(".alerts-missing-hip");
   const allRows = document.querySelectorAll("[data-priority]");
+  const isHealthAlertsPage = selectPriorityEl && selectConditionEl;
+  const isDiseasePage = hasHealthAlerts && !isHealthAlertsPage
 
-  if (selectPriorityEl && selectConditionEl) {
+  if (isHealthAlertsPage) {
     // do an initial render on page load to stripe the rows properly
     const initialRows = getInitialRows();
     renderRows(initialRows);
@@ -30,6 +33,15 @@ export default function() {
         }
       })
     })
+  }
+  if (isDiseasePage) {
+    // On the disease/condition page, we have a health alerts table, but we don't want
+    // to do any filtering (and especially we don't want to hide the right sidebar links
+    // because they are unrelated to the health alerts on this page). We just want to
+    // filter the rows (which shows the 'no health alerts' row, if needed, andd then
+    // restripe the rows.
+    filterRows(allRows);
+    restripeRows(allRows);
   }
 
   function getInitialRows(){

@@ -3,6 +3,7 @@ from django.db import models
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
+from wagtail.documents import get_document_model
 
 
 class DiseaseControlIndexPage(Page):
@@ -113,7 +114,8 @@ class DiseasePage(Page):
 
     def get_context(self, request):
         """
-        Add health_alerts queryset and right_nav_headings to context.
+        Add right_nav_headings, the max number of health alerts we show, and any tagged
+        documents to the context.
         """
         context = super().get_context(request)
 
@@ -125,7 +127,12 @@ class DiseasePage(Page):
             "Diagnosis & Management",
             "Resources",
         ]
+
         context["health_alert_limit"] = 5
+
+        # find documents tagged with this condition's title
+        Document = get_document_model()
+        context["documents"] = Document.objects.filter(tags__name__iexact=self.title)
         return context
 
     @property

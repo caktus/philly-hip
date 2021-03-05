@@ -85,9 +85,13 @@
           There are no resources regarding {{ page.title }} for healthcare providers.
         {% endif %}
         <h3>For Patients and Community Members:</h3>
-        <p>
-          Automatically pull in documents
-        </p>
+        <div>
+	  <ul>
+	    {% for document in documents %}
+	      <li><a href="{{ document.url }}">{{ document.title }}</a></li> <!-- FIXME: Add document icon -->
+	    {% endfor %}
+	  </ul>
+        </div>
       </div>
     </div>
     {% include 'includes/right_scroll_nav.html' %}
