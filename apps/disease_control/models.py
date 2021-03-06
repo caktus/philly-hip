@@ -66,6 +66,10 @@ class DiseasePage(Page):
     parent_page_types = ["disease_control.DiseasesAndConditionsPage"]
     subpage_types = []
 
+    description = RichTextField(
+        blank=True,
+        help_text="Enter a short description which will be shown on the page listing diseases and conditions.",
+    )
     at_a_glance = RichTextField(blank=True)
     current_recommendations = RichTextField(blank=True)
     surveillance = RichTextField(blank=True)
@@ -73,7 +77,7 @@ class DiseasePage(Page):
     diagnosis_info = RichTextField(blank=True)
     provider_resources = RichTextField(
         blank=True,
-        help_text="List resources that will be useful for healthcare providers. Resources for patients and community will be pulled automatically by including any documents that are tagged with the title of this disease/condition",
+        help_text="List resources that will be useful for healthcare providers. Resources for patients and community will be pulled automatically by including any documents that are tagged with the title of this disease/condition.",
     )
 
     is_emergent = models.BooleanField(
