@@ -1,6 +1,6 @@
 from datetime import date
 
-from .factories import DiseasePageFactory
+from .factories import DiseasePageFactory, EmergentHealthTopicsPageFactory
 
 
 def test_disease_page_emergent_date_range_no_dates(db):
@@ -77,3 +77,18 @@ def test_disease_page_emergent_date_range_start_and_end_date(db):
     expected_str = "Dec 12, 2019 - Sep 9, 2021"
     assert expected_str == disease_page_emergent.emergent_date_range
     assert expected_str == disease_page_nonemergent.emergent_date_range
+
+
+def test_emergent_health_topics_page_only_emergent(db, rf):
+    """The EmergentHealthTopicsPage only shows emergent diseases."""
+    emergent_disease_1 = DiseasePageFactory(is_emergent=True)
+    emergent_disease_2 = DiseasePageFactory(is_emergent=True)
+    non_emergent_disease = DiseasePageFactory(is_emergent=False)
+    emergent_page = EmergentHealthTopicsPageFactory()
+
+    context = emergent_page.get_context(rf.get("/"))
+
+    expected_diseases = [emergent_disease_1, emergent_disease_2]
+    assert len(expected_diseases) == len(context["ordered_diseases"])
+    for disease in expected_diseases:
+        assert disease in context["ordered_diseases"]

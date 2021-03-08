@@ -161,3 +161,14 @@ class DiseasePage(Page):
             return f"Until {end_date}"
         else:
             return ""
+
+
+class EmergentHealthTopicsPage(Page):
+    template = "disease_control/diseases_and_conditions_page.html"
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["ordered_diseases"] = DiseasePage.objects.filter(
+            is_emergent=True
+        ).order_by("title")
+        return context
