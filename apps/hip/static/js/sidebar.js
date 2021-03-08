@@ -20,7 +20,9 @@ export default function () {
       /* Use Breadcrumb navigation to determine which SideBarLink is active
 
       This function's logic is based on the assumption that sections that
-      have a page depth of greater than 1 will use breadcrumb navigation.
+      have a page depth of greater than 1 will use breadcrumb navigation
+      and  the first <a> of the breadcrumb will have an href that matches
+      one of the sidebar data-href attributes.
       */
       const breadcrumbUL = document.querySelector("#breadcrumb-ul-hip");
       if (breadcrumbUL) {
