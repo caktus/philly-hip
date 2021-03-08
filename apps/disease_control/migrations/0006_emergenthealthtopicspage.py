@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ("wagtailcore", "0060_fix_workflow_unique_constraint"),
-        ("disease_control", "0004_diseasepage"),
+        ("disease_control", "0005_add_disease_fields"),
     ]
 
     operations = [
