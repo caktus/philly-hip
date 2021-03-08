@@ -3,12 +3,13 @@
 import django.utils.timezone
 from django.db import migrations, models
 
-import apps.hip.models
 import model_utils.fields
 import phonenumber_field.modelfields
 import wagtail.core.blocks
 import wagtail.core.fields
 import wagtail.snippets.blocks
+
+import apps.hip.models
 
 
 class Migration(migrations.Migration):
