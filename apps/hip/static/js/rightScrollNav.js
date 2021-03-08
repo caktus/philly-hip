@@ -6,13 +6,12 @@ export default function () {
    * Docs: https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
    *       https://codepen.io/mishunov/pen/opeRdL
    */
+  const rightScrollNavContainer = document.querySelector(".right-scroll-container-hip");
 
   addClickEventListenerBasedOnClassName("right-scroll-link-hip", function (element) {
-    // const elementCurrentlyActive = document.querySelector(".nav-title a.is-current-hip");
-    // elementCurrentlyActive.classList.remove("is-current-hip");
     const elementCurrentlyActive = document.querySelector(".nav-title a.is-current-hip");
-    const rightScrollNavContainer = document.querySelector(".right-scroll-container-hip");
-    rightScrollNavContainer.setAttribute("isClicked", true);
+    // disable intersection handler
+    rightScrollNavContainer.dataset.isclicked = "true";
     if (elementCurrentlyActive) {
       elementCurrentlyActive.classList.remove("is-current-hip");
     }
@@ -66,13 +65,11 @@ export default function () {
       * respective anchor tag (with the 'nav-title>a' CSS class). Remove the 'is-current-hip'
       * CSS class from other 'nav-title>a' elements.
       */
-      const rightScrollNavContainer = document.querySelector(".right-scroll-container-hip");
-      const rightScrollLinkClicked = rightScrollNavContainer.getAttribute("isClicked");
-      console.log(rightScrollLinkClicked);
-      if (!rightScrollLinkClicked) {
+      let rightScrollLinkClicked = rightScrollNavContainer.dataset.isclicked;
+      if (rightScrollLinkClicked === "false") {
         const id = entry.target.id;
         const elementCurrentlyActive = document.querySelector(".nav-title a.is-current-hip");
-        const elementBecomingActive = document.querySelector(".nav-title[data-ref=" + id + "] a");
+        const elementBecomingActive = document.querySelector(`.nav-title[data-ref=${id}] a`);
 
         // Give the 'is-current-hip' CSS class from the nav title that is becoming non-active.
         if (elementCurrentlyActive) {
@@ -83,8 +80,6 @@ export default function () {
           elementBecomingActive.classList.add("is-current-hip");
         }
       }
-      rightScrollNavContainer.setAttribute("isClicked", false);
-      console.log(rightScrollLinkClicked);
     }
 
     // smooth scroll to #targets
@@ -97,5 +92,10 @@ export default function () {
         });
       });
     });
+    window.onwheel = function (e) {
+      // re-enable intersection handler
+      rightScrollNavContainer.dataset.isclicked = "false";
+    };
+
   }
 };
