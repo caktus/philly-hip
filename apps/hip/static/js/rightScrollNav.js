@@ -1,10 +1,25 @@
+import { addClickEventListenerBasedOnClassName } from "./common";
+
 export default function () {
   /* Use IntersectionObserver to determine when a section of the page is within
    * the user's view; when it is, add a CSS class to its respective anchor tag.
    * Docs: https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
    *       https://codepen.io/mishunov/pen/opeRdL
    */
+  const rightScrollNavContainer = document.querySelector(".right-scroll-container-hip");
+
+  addClickEventListenerBasedOnClassName("right-scroll-link-hip", function (element) {
+    const elementCurrentlyActive = document.querySelector(".nav-title a.is-current-hip");
+    // disable intersection handler
+    rightScrollNavContainer.dataset.isclicked = "true";
+    if (elementCurrentlyActive) {
+      elementCurrentlyActive.classList.remove("is-current-hip");
+    }
+    element.classList.add("is-current-hip");
+  });
+
   let pageSections = Array.from(document.querySelectorAll("div.nav-heading-hip"));
+
   if (pageSections.length) {
     const lastSection = pageSections.pop();
     const options = {
@@ -50,18 +65,20 @@ export default function () {
       * respective anchor tag (with the 'nav-title>a' CSS class). Remove the 'is-current-hip'
       * CSS class from other 'nav-title>a' elements.
       */
+      let rightScrollLinkClicked = rightScrollNavContainer.dataset.isclicked;
+      if (rightScrollLinkClicked === "false") {
+        const id = entry.target.id;
+        const elementCurrentlyActive = document.querySelector(".nav-title a.is-current-hip");
+        const elementBecomingActive = document.querySelector(`.nav-title[data-ref=${id}] a`);
 
-      const id = entry.target.id;
-      const elementCurrentlyActive = document.querySelector(".nav-title a.is-current-hip");
-      const elementBecomingActive = document.querySelector(".nav-title[data-ref=" + id + "] a");
-
-      // Give the 'is-current-hip' CSS class from the nav title that is becoming non-active.
-      if (elementCurrentlyActive) {
-        elementCurrentlyActive.classList.remove("is-current-hip");
-      }
-      // Give the 'is-current-hip' CSS class to the nav title that is becoming active.
-      if (elementBecomingActive) {
-        elementBecomingActive.classList.add("is-current-hip");
+        // Give the 'is-current-hip' CSS class from the nav title that is becoming non-active.
+        if (elementCurrentlyActive) {
+          elementCurrentlyActive.classList.remove("is-current-hip");
+        }
+        // Give the 'is-current-hip' CSS class to the nav title that is becoming active.
+        if (elementBecomingActive) {
+          elementBecomingActive.classList.add("is-current-hip");
+        }
       }
     }
 
@@ -75,5 +92,10 @@ export default function () {
         });
       });
     });
+    window.onwheel = function (e) {
+      // re-enable intersection handler
+      rightScrollNavContainer.dataset.isclicked = "false";
+    };
+
   }
 };

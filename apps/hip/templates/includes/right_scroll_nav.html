@@ -20,9 +20,9 @@
 {% endcomment %}
 
 {% if page.healthalertindexpage %}
-  <div class="column is-one-quarter right-scroll-container-hip is-desktop is-hidden-touch mt-5">
+  <div class="column is-one-quarter right-scroll-container-hip is-desktop is-hidden-touch mt-5" data-isClicked="false">
 {% else %}
-  <div class="column is-one-quarter right-scroll-container-hip is-desktop is-hidden-touch">
+  <div class="column is-one-quarter right-scroll-container-hip is-desktop is-hidden-touch" data-isClicked="false">
 {% endif %}
   <div class="is-fixed">
     {% for nav_heading in right_nav_headings %}

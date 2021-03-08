@@ -15,3 +15,12 @@ export function closeMobileModal (target) {
   const header = document.getElementById("mobile-header-hip");
   header.classList.add("is-sticky-hip");
 };
+
+export function addClickEventListenerBasedOnClassName (className, handleClick) {
+  const selectedElements = Array.from(document.getElementsByClassName(className));
+  for (const el of selectedElements) {
+    el.addEventListener("click", function () {
+      handleClick(this);
+    });
+  }
+}
