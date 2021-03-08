@@ -1,3 +1,4 @@
+import factory
 import wagtail_factories
 
 from ..models import DiseasePage, EmergentHealthTopicsPage
