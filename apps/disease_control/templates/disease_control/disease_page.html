@@ -11,11 +11,17 @@
         <h2>{{ page.title }}</h2>
 
         {% if page.at_a_glance %}
-          {{ page.at_a_glance|richtext }}
+          <div class="at-a-glance-hip">
+            <h3>At a Glance</h3>
+            {{ page.at_a_glance|richtext }}
+          </div>
         {% endif %}
 
         {% if page.current_recommendations %}
-          {{ page.current_recommendations|richtext }}
+          <div class="current-recommendations-hip">
+            <h3>Current Recommendations</h3>
+            {{ page.current_recommendations|richtext }}
+          </div>
         {% endif %}
 
         <div class="nav-heading-hip" id="section-{{ "Health Alerts"|slugify }}"></div>
@@ -82,13 +88,19 @@
         {% if page.provider_resources %}
           {{ page.provider_resources|richtext }}
         {% else %}
-          There are no resources regarding {{ page.title }} for healthcare providers.
+          There are no healthcare provider resources available for {{ page.title }}.
         {% endif %}
         <h3>For Patients and Community Members:</h3>
         <div>
 	  <ul>
 	    {% for document in documents %}
-	      <li><a href="{{ document.url }}">{{ document.title }}</a></li> <!-- FIXME: Add document icon -->
+	      <li>
+                <a href="{{ document.url }}">{{ document.title }}
+                  <span class="pdf-icon-hip"></span>
+                </a>
+              </li>
+            {% empty %}
+              <li>There are no patient or community resources for {{ page.title }}.</li>
 	    {% endfor %}
 	  </ul>
         </div>

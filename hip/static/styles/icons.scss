@@ -1,5 +1,6 @@
 @import "../font_awesome/scss/fontawesome.scss";
 @import "../font_awesome/scss/solid.scss";
+@import "../font_awesome/scss/regular.scss";
 @import "./colors";
 
 /* Adding a new icon
@@ -22,6 +23,11 @@ To select that icon, do:
 @mixin solid-icon {
   @extend %fa-icon; // font-awesome icon
   @extend .fas; // solid icon
+}
+
+@mixin regular-icon {
+  @extend %fa-icon; // font-awesome icon
+  @extend .far; // regular icon
 }
 
 .search-icon-hip {
@@ -125,6 +131,14 @@ To select that icon, do:
   @include solid-icon;
   &::before {
     content: fa-content($fa-var-external-link-alt);
+  }
+}
+
+.pdf-icon-hip {
+  color: $dark-blue;
+  @include regular-icon;
+  &::before {
+    content: fa-content($fa-var-file-pdf);
   }
 }
 
