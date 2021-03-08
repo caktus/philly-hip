@@ -1,5 +1,6 @@
-from apps.users.tests.factories import DEFAULT_PASSWORD, UserFactory
 from pytest_factoryboy import register
+
+from apps.users.tests.factories import DEFAULT_PASSWORD, UserFactory
 
 
 # This registers User as a fixture (defaults to lowercase-underscored representation of
