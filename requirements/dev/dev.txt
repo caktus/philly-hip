@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file=requirements/dev/dev.txt requirements/dev/dev.in
 #
--e git+https://github.com/caktus/invoke-kubesae@0.0.11#egg=invoke-kubesae
+-e git+https://github.com/caktus/invoke-kubesae@0.0.14#egg=invoke-kubesae
     # via -r requirements/dev/dev.in
 ansible-base==2.10.5
     # via ansible
@@ -21,10 +21,7 @@ appdirs==1.4.4
     #   black
     #   virtualenv
 appnope==0.1.2
-    # via
-    #   -r requirements/dev/dev.in
-    #   ipykernel
-    #   ipython
+    # via -r requirements/dev/dev.in
 argon2-cffi==20.1.0
     # via notebook
 asgiref==3.3.1
@@ -57,6 +54,7 @@ boto3==1.17.9
     # via
     #   -c requirements/dev/../base/base.txt
     #   awslogs
+    #   invoke-kubesae
 botocore==1.20.9
     # via
     #   -c requirements/dev/../base/base.txt

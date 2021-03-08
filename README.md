@@ -227,21 +227,21 @@ The basic command for resetting your local media is this:
 
 
 ```sh
-    (hip)$ inv staging aws.sync-media  --sync-to="local"
+    (hip)$ inv staging aws.sync-media --sync-to="local" --bucket-path="media"
 ```
 
 Use the ``dry-run`` argument to see what would be done, without actually doing it.
 
 
 ```sh
-    (hip)$ inv staging aws.sync-media  --sync-to="local" --dry-run
+    (hip)$ inv staging aws.sync-media --sync-to="local" --bucket-path="media" --dry-run
 ```
 
 If you wish to clean out your local media tree before reset you can issue the command with a ``delete`` argument.
 
 
 ```sh
-    (hip)$ inv staging aws.sync-media  --sync-to="local" --delete
+    (hip)$ inv staging aws.sync-media --sync-to="local" --bucket-path="media" --delete
 ```
 
 
