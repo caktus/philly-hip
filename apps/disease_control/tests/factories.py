@@ -1,12 +1,9 @@
-import factory
 import wagtail_factories
 
 from ..models import DiseasePage, EmergentHealthTopicsPage
 
 
 class DiseasePageFactory(wagtail_factories.PageFactory):
-    description = factory.faker.Faker("text")
-
     class Meta:
         model = DiseasePage
 

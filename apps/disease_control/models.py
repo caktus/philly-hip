@@ -3,6 +3,7 @@ from django.db import models
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
+from wagtail.documents import get_document_model
 
 
 class DiseaseControlIndexPage(Page):
@@ -63,8 +64,21 @@ class DiseasesAndConditionsPage(DiseaseControlPage):
 
 class DiseasePage(Page):
     parent_page_types = ["disease_control.DiseasesAndConditionsPage"]
+    subpage_types = []
 
-    description = RichTextField(blank=True)
+    description = RichTextField(
+        blank=True,
+        help_text="Enter a short description which will be shown on the page listing diseases and conditions.",
+    )
+    at_a_glance = RichTextField(blank=True)
+    current_recommendations = RichTextField(blank=True)
+    surveillance = RichTextField(blank=True)
+    vaccine_info = RichTextField(blank=True)
+    diagnosis_info = RichTextField(blank=True)
+    provider_resources = RichTextField(
+        blank=True,
+        help_text="List resources that will be useful for healthcare providers. Resources for patients and community will be pulled automatically by including any documents that are tagged with the title of this disease/condition.",
+    )
 
     is_emergent = models.BooleanField(
         default=False,
@@ -86,7 +100,12 @@ class DiseasePage(Page):
 
     content_panels = [
         FieldPanel("title"),
-        FieldPanel("description"),
+        FieldPanel("at_a_glance"),
+        FieldPanel("current_recommendations"),
+        FieldPanel("surveillance"),
+        FieldPanel("vaccine_info"),
+        FieldPanel("diagnosis_info"),
+        FieldPanel("provider_resources"),
         MultiFieldPanel(
             [
                 FieldPanel("is_emergent"),
@@ -96,6 +115,29 @@ class DiseasePage(Page):
             heading="Emergent Data",
         ),
     ]
+
+    def get_context(self, request):
+        """
+        Add right_nav_headings, the max number of health alerts we show, and any tagged
+        documents to the context.
+        """
+        context = super().get_context(request)
+
+        context["right_nav_headings"] = [
+            self.title,
+            "Health Alerts",
+            "Surveillance",
+            "Vaccine Info",
+            "Diagnosis & Management",
+            "Resources",
+        ]
+
+        context["health_alert_limit"] = 5
+
+        # find documents tagged with this condition's title
+        Document = get_document_model()
+        context["documents"] = Document.objects.filter(tags__name__iexact=self.title)
+        return context
 
     @property
     def emergent_date_range(self):
