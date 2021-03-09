@@ -30,6 +30,21 @@ To select that icon, do:
   @extend .far; // regular icon
 }
 
+@mixin external-link-icon($before: true) {
+  color: $dark-blue;
+  @include solid-icon;
+  @if $before {
+    &::before {
+      content: fa-content($fa-var-external-link-alt);
+    }
+  } @else {
+    &::after {
+      content: fa-content($fa-var-external-link-alt);
+      margin-left: 0.5rem;
+    }
+  }
+}
+
 .search-icon-hip {
   color: $white;
   @include solid-icon;

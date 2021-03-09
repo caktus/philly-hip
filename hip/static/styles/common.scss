@@ -1,4 +1,5 @@
 @import "./mixins";
+@import "./icons.scss";
 @import "./colors";
 
 // ---------------- Background Colors ----------- //
@@ -97,4 +98,10 @@ body.modal-is-open-hip {
   height: 100vh;
   overflow-y: hidden;
   padding-right: 15px;
+}
+
+// ------------------- Wagtail Generated Links ------------------ //'
+
+.external-linktype {
+  @include external-link-icon($before: false);
 }

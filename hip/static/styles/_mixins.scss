@@ -1,13 +1,6 @@
 @import "./colors";
 @import "./variables";
 
-@mixin links {
-  outline: none;
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-}
-
 @mixin headers {
   h2 {
     font-size: $is-size-2;
@@ -29,7 +22,36 @@
 @mixin paragraphs {
   p {
     padding: 0.5rem 0;
+    line-height: $line-height;
     max-width: 50rem;
+  }
+}
+
+@mixin a-tags {
+  a {
+    color: $dark-blue;
+  }
+}
+
+@mixin lists {
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+      display: block;
+      margin-left: 1rem;
+      line-height: $line-height;
+      &:before {
+        content: "•";
+        vertical-align: middle;
+        display: inline-block;
+        color: $grey;
+        font-size: 2rem;
+        margin-right: 0.75rem;
+        margin-bottom: 0rem;
+      }
+    }
   }
 }
 
