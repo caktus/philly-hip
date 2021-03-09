@@ -102,6 +102,9 @@ body.modal-is-open-hip {
 
 // ------------------- Wagtail Generated Links ------------------ //'
 
+.fix-text-hip {
+  font-family: "Open Sans", "sans-serif";
+}
 .external-linktype {
   @include external-link-icon($before: false);
 }
