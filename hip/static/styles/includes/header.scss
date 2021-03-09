@@ -28,6 +28,7 @@
     float: right;
   }
   @media screen and (max-width: $breakpoint-mobile) {
+    width: 275px;
     margin-left: 0rem;
   }
 }
