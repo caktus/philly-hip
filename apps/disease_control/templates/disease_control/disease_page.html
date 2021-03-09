@@ -30,7 +30,7 @@
             <div class="level-item">
               <h2>Health Alerts</h2>
             </div>
-            <div class="level-item">
+            <div class="level-item alerts-level-item-hip">
               {% if page.health_alerts.count > health_alert_limit %}
                 <a href="{% pageurl page.health_alerts.first.get_parent %}?condition={{ page.slug }}">View all alerts for {{ page.title }}</a>
               {% endif %}
@@ -39,7 +39,7 @@
 
           {# Sign up button is on the right #}
           <div class="level-right">
-            <div class="level-item">
+            <div class="level-item alerts-level-item-hip">
               <a href="/fixme-alert-signup" class="is-block">
                 <span class="button is-size-7-touch header-icon-hip">
                   <i class="email-icon-hip"></i>
