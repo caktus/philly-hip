@@ -11,7 +11,7 @@ class ExternalLinkHandler(LinkHandler):
     @classmethod
     def expand_db_attributes(cls, attrs):
         href = attrs["href"]
-        return f'<span class="external-linktype"><a href="{escape(href)}" class="fix-text-hip">'
+        return f'<a href="{escape(href)}" class="external-linktype">'
 
 
 @hooks.register("insert_editor_css")
