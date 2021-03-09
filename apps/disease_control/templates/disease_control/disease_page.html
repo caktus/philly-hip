@@ -92,17 +92,17 @@
         {% endif %}
         <h3>For Patients and Community Members:</h3>
         <div>
-	  <ul>
+	  <div>
 	    {% for document in documents %}
-	      <li>
-                <a href="{{ document.url }}">{{ document.title }}
-                  <span class="pdf-icon-hip"></span>
-                </a>
-              </li>
-            {% empty %}
-              <li>There are no patient or community resources for {{ page.title }}.</li>
+	      <p>
+          <a href="{{ document.url }}"><strong>{{ document.title }}</strong>
+            <span class="pdf-icon-hip pl-2 is-size-6"></span>
+          </a>
+        </p>
+      {% empty %}
+        <p>There are no patient or community resources for {{ page.title }}.<p>
 	    {% endfor %}
-	  </ul>
+    </div>
         </div>
       </div>
     </div>

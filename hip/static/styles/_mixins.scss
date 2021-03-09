@@ -19,17 +19,19 @@
   };
 }
 
+@mixin a-tags {
+  a {
+    color: $dark-blue;
+  }
+}
+
+
 @mixin paragraphs {
   p {
     padding: 0.5rem 0;
     line-height: $line-height;
     max-width: 50rem;
-  }
-}
-
-@mixin a-tags {
-  a {
-    color: $dark-blue;
+    @include a-tags;
   }
 }
 
@@ -39,16 +41,18 @@
     padding: 0;
     margin: 0;
     li {
-      display: block;
+      display: inline-block;
+      vertical-align: middle;
       margin-left: 1rem;
       line-height: $line-height;
+      @include a-tags;
       &:before {
         content: "•";
-        vertical-align: middle;
         display: inline-block;
+        vertical-align: middle;
         color: $grey;
         font-size: 2rem;
-        margin-right: 0.75rem;
+        margin-right: 0.5rem;
         margin-bottom: 0rem;
       }
     }
