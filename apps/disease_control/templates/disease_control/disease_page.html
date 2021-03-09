@@ -26,11 +26,11 @@
 
         <div class="nav-heading-hip" id="section-{{ "Health Alerts"|slugify }}"></div>
         <div class="level">
-          <div class="level-left">
+          <div class="level-left is-align-items-baseline">
             <div class="level-item">
               <h2>Health Alerts</h2>
             </div>
-            <div class="level-item">
+            <div class="level-item pl-2">
               {% if page.health_alerts.count > health_alert_limit %}
                 <a href="{% pageurl page.health_alerts.first.get_parent %}?condition={{ page.slug }}">View all alerts for {{ page.title }}</a>
               {% endif %}
