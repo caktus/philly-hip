@@ -10,8 +10,8 @@ from wagtail.documents.edit_handlers import DocumentChooserPanel
 from apps.disease_control.models import DiseasePage
 
 
-class HealthAlertIndexPage(Page):
-    # There can be only one HealthAlertIndexPage
+class HealthAlertListPage(Page):
+    # There can be only one HealthAlertListPage
     max_count = 1
     # ... and its children must be HealthAlertPages
     subpage_types = ["health_alerts.HealthAlertPage"]
@@ -42,7 +42,7 @@ class HealthAlertIndexPage(Page):
 
 
 class HealthAlertPage(Page):
-    parent_page_types = ["health_alerts.HealthAlertIndexPage"]
+    parent_page_types = ["health_alerts.HealthAlertListPage"]
     subpage_types = []
     alert_file = models.ForeignKey(
         "wagtaildocs.Document", null=True, blank=True, on_delete=models.SET_NULL
