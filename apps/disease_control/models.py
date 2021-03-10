@@ -6,7 +6,7 @@ from wagtail.core.models import Page
 from wagtail.documents import get_document_model
 
 
-class DiseaseControlIndexPage(Page):
+class DiseaseControlListPage(Page):
     max_count = 1
 
     subpage_types = [
@@ -32,7 +32,7 @@ class DiseaseControlIndexPage(Page):
 
 
 class DiseaseControlPage(Page):
-    parent_page_types = ["disease_control.DiseaseControlIndexPage"]
+    parent_page_types = ["disease_control.DiseaseControlListPage"]
     description = RichTextField(blank=True)
 
     class Type(models.IntegerChoices):
