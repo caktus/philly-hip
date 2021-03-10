@@ -80,3 +80,26 @@
   max-height: auto;
   z-index: 1000;
 }
+
+@mixin rich-text-hip {
+  p {
+    color: $black;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+      display: flex;
+      margin-left: 1rem;
+      line-height: 2rem;
+      &:before {
+        content: "•";
+        display: block;
+        color: $grey;
+        font-size: 2rem;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+@import "../colors";
+@import "../mixins";
+@import "../variables";
+
+.emergency-response-page-hip {
+  @include headers;
+}
+
+.emergency-response-description-hip {
+  font-size: $is-size-5;
+  line-height: $is-size-3;
+}
+
+.action-section-hip {
+  background-color: $light-grey;
+  p {
+    font-size: $is-size-5;
+  }
+  border-left: 12px solid $orange;
+}
+
+.response-partner-login-hip {
+  background-color: $light-grey;
+}
+.response-partner-login__list-hip {
+  line-height: $is-size-3;
+  @include rich-text-hip;
+}
+.response-partner-login__paragraph-hip {
+  font-size: 0.9rem;
+}
+.login-btn-hip {
+  @include light-blue-bg;
+  border-radius: 0;
+  @media screen and (min-width:$breakpoint-tablet) and (max-width: $breakpoint-desktop) {
+    max-width: 75%;
+  }
+  @media screen and (min-width:$breakpoint-widescreen) {
+    width: 80%;
+  }
+}
+.login-icon-hip {
+  @include black-bg;
+  border-radius: 0;
+  @media screen and (min-width:$breakpoint-tablet) and (max-width: $breakpoint-desktop) {
+    max-width: 20%;
+  }
+}
+
+.section-of-links-hip {
+  @include rich-text-hip;
+}
+
+.section-of-links__subsection-hip {
+  line-height: $is-size-3;
+  a {
+    font-weight: bold;
+  }
+}
+
+.section-of-links__subsection-title-hip {
+  font-weight: bold;
+}
