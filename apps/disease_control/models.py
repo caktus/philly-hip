@@ -132,7 +132,15 @@ class DiseasePage(Page):
             "Resources",
         ]
 
-        context["health_alert_limit"] = 5
+        # prepare health alerts
+        HEALTH_ALERT_MAX = 5
+        health_alerts = self.health_alerts.order_by("-alert_date")
+        if health_alerts.count() > HEALTH_ALERT_MAX:
+            show_more_health_alerts = True
+        else:
+            show_more_health_alerts = False
+        context["health_alerts"] = health_alerts[:HEALTH_ALERT_MAX]
+        context["show_more_health_alerts"] = show_more_health_alerts
 
         # find documents tagged with this condition's title
         Document = get_document_model()

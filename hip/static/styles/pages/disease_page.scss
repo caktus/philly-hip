@@ -3,6 +3,9 @@
 
 .disease-page-hip {
   margin: 0 3rem;
+  @media screen and (max-width: $breakpoint-mobile) {
+    margin: 0 1.5rem;
+  }
   @include headers;
   @include paragraphs;
   @include lists;
