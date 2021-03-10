@@ -22,6 +22,7 @@
 @mixin a-tags {
   a {
     color: $dark-blue;
+    word-break: break-word;
   }
 }
 
