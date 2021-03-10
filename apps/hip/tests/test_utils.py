@@ -1,7 +1,7 @@
 from django.utils.timezone import now, timedelta
 
 from ..utils import get_most_recent_objects
-from .factories import HomePageFactory, StaticPageFactory
+from .factories import HomePageFactory, ReportDiseasePageFactory
 
 
 def test_get_most_recent_objects_zero(db):
@@ -16,13 +16,13 @@ def test_get_most_recent_objects_pages_draft_excluded(db):
     # Some live pages
     live_pages = [
         HomePageFactory(latest_revision_created_at=now()),
-        StaticPageFactory(latest_revision_created_at=now()),
+        ReportDiseasePageFactory(latest_revision_created_at=now()),
     ]
 
     # Some draft pages.
     draft_pages = [
         HomePageFactory(latest_revision_created_at=now(), live=False),
-        StaticPageFactory(latest_revision_created_at=now(), live=False),
+        ReportDiseasePageFactory(latest_revision_created_at=now(), live=False),
     ]
 
     # The results only include live (non-draft) Pages.
@@ -42,15 +42,17 @@ def test_get_most_recent_objects_pages_correct_order(db):
     home_page_1hr_ago = HomePageFactory(
         latest_revision_created_at=datetime_now - timedelta(hours=1)
     )
-    static_page_today = StaticPageFactory(latest_revision_created_at=datetime_now)
-    static_page_yesterday = StaticPageFactory(
+    report_disease_page_today = ReportDiseasePageFactory(
+        latest_revision_created_at=datetime_now
+    )
+    report_disease_page_yesterday = ReportDiseasePageFactory(
         latest_revision_created_at=datetime_yesterday
     )
 
     expected_results = [
-        static_page_today.page_ptr,
+        report_disease_page_today.page_ptr,
         home_page_1hr_ago.page_ptr,
-        static_page_yesterday.page_ptr,
+        report_disease_page_yesterday.page_ptr,
     ]
     assert expected_results == get_most_recent_objects()
 
@@ -63,15 +65,17 @@ def test_get_most_recent_objects_different_objects_correct_order(db):
     home_page_2hr_ago = HomePageFactory(
         latest_revision_created_at=datetime_now - timedelta(hours=2)
     )
-    static_page_now = StaticPageFactory(latest_revision_created_at=datetime_now)
-    static_page_yesterday = StaticPageFactory(
+    report_disease_page_now = ReportDiseasePageFactory(
+        latest_revision_created_at=datetime_now
+    )
+    report_disease_page_yesterday = ReportDiseasePageFactory(
         latest_revision_created_at=datetime_yesterday
     )
 
     expected_results = [
-        static_page_now.page_ptr,
+        report_disease_page_now.page_ptr,
         home_page_2hr_ago.page_ptr,
-        static_page_yesterday.page_ptr,
+        report_disease_page_yesterday.page_ptr,
     ]
     assert expected_results == get_most_recent_objects()
 
@@ -84,14 +88,16 @@ def test_get_most_recent_objects_if_more_objects_than_our_object_count(db):
     home_page_2hr_ago = HomePageFactory(
         latest_revision_created_at=datetime_now - timedelta(hours=2)
     )
-    static_page_now = StaticPageFactory(latest_revision_created_at=datetime_now)
-    static_page_yesterday = StaticPageFactory(
+    report_disease_page_now = ReportDiseasePageFactory(
+        latest_revision_created_at=datetime_now
+    )
+    report_disease_page_yesterday = ReportDiseasePageFactory(
         latest_revision_created_at=datetime_yesterday
     )
 
     # we're only going to ask for 1 object, so expect 1 result
     expected_results = [
-        static_page_now.page_ptr,
+        report_disease_page_now.page_ptr,
     ]
     assert expected_results == get_most_recent_objects(object_count=1)
 
@@ -107,7 +113,7 @@ def test_get_most_recent_objects_annotations_pages(db):
      - model_name
     """
     home_page = HomePageFactory()
-    static_page = StaticPageFactory()
+    report_disease_page = ReportDiseasePageFactory()
 
     results = get_most_recent_objects()
 

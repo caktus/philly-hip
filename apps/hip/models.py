@@ -102,7 +102,7 @@ class StreamAndNavHeadingBlock(blocks.StructBlock):
     contact_info = SnippetChooserBlock(Contact, required=False)
 
 
-class StaticPage(Page):
+class ReportDiseasePage(Page):
     """A Page with only sections of static content."""
 
     body = StreamField(
