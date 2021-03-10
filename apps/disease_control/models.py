@@ -10,7 +10,7 @@ class DiseaseControlListPage(Page):
     max_count = 1
 
     subpage_types = [
-        "disease_control.DiseasesAndConditionsPage",
+        "disease_control.DiseaseAndConditionListPage",
         # Generic Placeholder until other subpages are added
         "disease_control.DiseaseControlPage",
     ]
@@ -51,7 +51,7 @@ class DiseaseControlPage(Page):
     ]
 
 
-class DiseasesAndConditionsPage(DiseaseControlPage):
+class DiseaseAndConditionListPage(DiseaseControlPage):
     subpage_types = [
         "disease_control.DiseaseAndConditionDetailPage",
     ]
@@ -63,7 +63,7 @@ class DiseasesAndConditionsPage(DiseaseControlPage):
 
 
 class DiseaseAndConditionDetailPage(Page):
-    parent_page_types = ["disease_control.DiseasesAndConditionsPage"]
+    parent_page_types = ["disease_control.DiseaseAndConditionListPage"]
     subpage_types = []
 
     description = RichTextField(
@@ -172,7 +172,7 @@ class DiseaseAndConditionDetailPage(Page):
 
 
 class EmergentHealthTopicListPage(Page):
-    template = "disease_control/diseases_and_conditions_page.html"
+    template = "disease_control/disease_and_condition_list_page.html"
 
     def get_context(self, request):
         context = super().get_context(request)
