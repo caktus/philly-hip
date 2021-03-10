@@ -105,6 +105,10 @@ class StreamAndNavHeadingBlock(blocks.StructBlock):
 class ReportDiseasePage(Page):
     """A Page with only sections of static content."""
 
+    max_count = 1
+    parent_page_types = ["hip.HomePage"]
+    subpage_types = []
+
     body = StreamField(
         [
             ("section", StreamAndNavHeadingBlock()),
@@ -193,6 +197,7 @@ class QuickLinkCard(blocks.StructBlock):
 
 
 class HomePage(Page):
+    max_count = 1
     quick_links = StreamField(
         [
             ("quick_links", QuickLinkCard()),

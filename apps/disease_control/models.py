@@ -9,6 +9,7 @@ from wagtail.documents import get_document_model
 class DiseaseControlListPage(Page):
     max_count = 1
 
+    parent_page_types = ["hip.HomePage"]
     subpage_types = [
         "disease_control.DiseaseAndConditionListPage",
         # Generic Placeholder until other subpages are added
@@ -33,6 +34,7 @@ class DiseaseControlListPage(Page):
 
 class DiseaseControlPage(Page):
     parent_page_types = ["disease_control.DiseaseControlListPage"]
+    subpage_types = []
     description = RichTextField(blank=True)
 
     class Type(models.IntegerChoices):

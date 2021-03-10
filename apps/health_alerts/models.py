@@ -13,7 +13,7 @@ from apps.disease_control.models import DiseaseAndConditionDetailPage
 class HealthAlertListPage(Page):
     # There can be only one HealthAlertListPage
     max_count = 1
-    # ... and its children must be HealthAlertDetailPages
+    parent_page_types = ["hip.HomePage"]
     subpage_types = ["health_alerts.HealthAlertDetailPage"]
 
     def get_context(self, request):
