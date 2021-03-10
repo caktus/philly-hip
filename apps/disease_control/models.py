@@ -171,7 +171,7 @@ class DiseaseAndConditionDetailPage(Page):
             return ""
 
 
-class EmergentHealthTopicsPage(Page):
+class EmergentHealthTopicListPage(Page):
     template = "disease_control/diseases_and_conditions_page.html"
 
     def get_context(self, request):

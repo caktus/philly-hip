@@ -2,7 +2,7 @@ from datetime import date
 
 from apps.disease_control.tests.factories import (
     DiseaseAndConditionDetailPageFactory,
-    EmergentHealthTopicsPageFactory,
+    EmergentHealthTopicListPageFactory,
 )
 
 
@@ -107,12 +107,12 @@ def test_disease_and_condition_detail_page_emergent_date_range_start_and_end_dat
     )
 
 
-def test_emergent_health_topics_page_only_emergent(db, rf):
-    """The EmergentHealthTopicsPage only shows emergent diseases."""
+def test_emergent_health_topic_list_page_only_emergent(db, rf):
+    """The EmergentHealthTopicListPage only shows emergent diseases."""
     emergent_disease_1 = DiseaseAndConditionDetailPageFactory(is_emergent=True)
     emergent_disease_2 = DiseaseAndConditionDetailPageFactory(is_emergent=True)
     non_emergent_disease = DiseaseAndConditionDetailPageFactory(is_emergent=False)
-    emergent_page = EmergentHealthTopicsPageFactory()
+    emergent_page = EmergentHealthTopicListPageFactory()
 
     context = emergent_page.get_context(rf.get("/"))
 
