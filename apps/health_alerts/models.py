@@ -13,8 +13,8 @@ from apps.disease_control.models import DiseasePage
 class HealthAlertListPage(Page):
     # There can be only one HealthAlertListPage
     max_count = 1
-    # ... and its children must be HealthAlertPages
-    subpage_types = ["health_alerts.HealthAlertPage"]
+    # ... and its children must be HealthAlertDetailPages
+    subpage_types = ["health_alerts.HealthAlertDetailPage"]
 
     def get_context(self, request):
         """
@@ -24,7 +24,7 @@ class HealthAlertListPage(Page):
 
         # Get all live HealthAlerts, ordered date descending.
         health_alerts = (
-            HealthAlertPage.objects.child_of(self).order_by("-alert_date").live()
+            HealthAlertDetailPage.objects.child_of(self).order_by("-alert_date").live()
         )
         context["health_alerts"] = health_alerts
 
@@ -41,7 +41,7 @@ class HealthAlertListPage(Page):
         return context
 
 
-class HealthAlertPage(Page):
+class HealthAlertDetailPage(Page):
     parent_page_types = ["health_alerts.HealthAlertListPage"]
     subpage_types = []
     alert_file = models.ForeignKey(
