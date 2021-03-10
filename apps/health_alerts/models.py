@@ -7,7 +7,7 @@ from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import Page
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 
-from apps.disease_control.models import DiseasePage
+from apps.disease_control.models import DiseaseAndConditionDetailPage
 
 
 class HealthAlertListPage(Page):
@@ -36,7 +36,7 @@ class HealthAlertListPage(Page):
         context["right_nav_headings"] = years
 
         # Get list of conditions attached to all of our health alerts
-        conditions = DiseasePage.objects.exclude(health_alerts=None)
+        conditions = DiseaseAndConditionDetailPage.objects.exclude(health_alerts=None)
         context["conditions"] = conditions
         return context
 
@@ -59,7 +59,7 @@ class HealthAlertDetailPage(Page):
     alert_date = models.DateField(default=datetime.date.today)
 
     disease = models.ForeignKey(
-        DiseasePage,
+        DiseaseAndConditionDetailPage,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

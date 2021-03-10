@@ -1,12 +1,12 @@
 import factory
 import wagtail_factories
 
-from ..models import DiseasePage, EmergentHealthTopicsPage
+from ..models import DiseaseAndConditionDetailPage, EmergentHealthTopicsPage
 
 
-class DiseasePageFactory(wagtail_factories.PageFactory):
+class DiseaseAndConditionDetailPageFactory(wagtail_factories.PageFactory):
     class Meta:
-        model = DiseasePage
+        model = DiseaseAndConditionDetailPage
 
 
 class EmergentHealthTopicsPageFactory(wagtail_factories.PageFactory):

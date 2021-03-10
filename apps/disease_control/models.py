@@ -53,7 +53,7 @@ class DiseaseControlPage(Page):
 
 class DiseasesAndConditionsPage(DiseaseControlPage):
     subpage_types = [
-        "disease_control.DiseasePage",
+        "disease_control.DiseaseAndConditionDetailPage",
     ]
 
     def get_context(self, request):
@@ -62,7 +62,7 @@ class DiseasesAndConditionsPage(DiseaseControlPage):
         return context
 
 
-class DiseasePage(Page):
+class DiseaseAndConditionDetailPage(Page):
     parent_page_types = ["disease_control.DiseasesAndConditionsPage"]
     subpage_types = []
 
@@ -176,7 +176,7 @@ class EmergentHealthTopicsPage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context["ordered_diseases"] = DiseasePage.objects.filter(
+        context["ordered_diseases"] = DiseaseAndConditionDetailPage.objects.filter(
             is_emergent=True
         ).order_by("title")
         return context
