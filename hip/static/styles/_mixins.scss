@@ -1,13 +1,6 @@
 @import "./colors";
 @import "./variables";
 
-@mixin links {
-  outline: none;
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-}
-
 @mixin headers {
   h2 {
     font-size: $is-size-2;
@@ -26,10 +19,44 @@
   };
 }
 
+@mixin a-tags {
+  a {
+    color: $dark-blue;
+    word-break: break-word;
+  }
+}
+
+
 @mixin paragraphs {
   p {
     padding: 0.5rem 0;
+    line-height: $line-height;
     max-width: 50rem;
+    @include a-tags;
+  }
+}
+
+@mixin lists {
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 1rem;
+      line-height: $line-height;
+      @include a-tags;
+      &:before {
+        content: "•";
+        display: inline-block;
+        vertical-align: middle;
+        color: $grey;
+        font-size: 2rem;
+        margin-right: 0.5rem;
+        margin-bottom: 0rem;
+      }
+    }
   }
 }
 

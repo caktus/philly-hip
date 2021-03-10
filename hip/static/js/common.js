@@ -1,5 +1,6 @@
 export default function () {
   manageDocumentLinks();
+  addExternalLinkIcons();
 
   function manageDocumentLinks () {
     /* Manage Document Links
@@ -27,4 +28,17 @@ export default function () {
       }
     });
   }
+
+  function addExternalLinkIcons () {
+    /* Add External Link Icons to Wagtail Hook Generated Links of
+    type external across the site.
+    */
+   const externalLinks = Array.from(document.querySelectorAll('a.external-linktype'));
+   for (const link of externalLinks) {
+     const span = document.createElement("span");
+     span.classList.add("external-link-icon-hip");
+     span.classList.add("pl-2");
+     link.appendChild(span);
+   };
+  };
 };

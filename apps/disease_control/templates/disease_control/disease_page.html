@@ -11,21 +11,27 @@
         <h2>{{ page.title }}</h2>
 
         {% if page.at_a_glance %}
-          {{ page.at_a_glance|richtext }}
+          <div class="at-a-glance-hip">
+            <h3>At a Glance</h3>
+            {{ page.at_a_glance|richtext }}
+          </div>
         {% endif %}
 
         {% if page.current_recommendations %}
-          {{ page.current_recommendations|richtext }}
+          <div class="current-recommendations-hip">
+            <h3>Current Recommendations</h3>
+            {{ page.current_recommendations|richtext }}
+          </div>
         {% endif %}
 
         <div class="nav-heading-hip" id="section-{{ "Health Alerts"|slugify }}"></div>
         <div class="level">
-          <div class="level-left">
+          <div class="level-left is-align-items-baseline">
             <div class="level-item">
               <h2>Health Alerts</h2>
             </div>
-            <div class="level-item">
-              {% if page.health_alerts.count > health_alert_limit %}
+            <div class="level-item pl-2">
+              {% if show_more_health_alerts %}
                 <a href="{% pageurl page.health_alerts.first.get_parent %}?condition={{ page.slug }}">View all alerts for {{ page.title }}</a>
               {% endif %}
             </div>
@@ -47,7 +53,7 @@
         </div>
         <table class="table alert-table-hip">
           {% include "includes/health_alert_table_header.html" %}
-          {% for alert in page.health_alerts.all|slice:health_alert_limit %}
+          {% for alert in health_alerts %}
             {% include "includes/health_alert_table_row.html" %}
           {% endfor %}
         </table>
@@ -82,15 +88,21 @@
         {% if page.provider_resources %}
           {{ page.provider_resources|richtext }}
         {% else %}
-          There are no resources regarding {{ page.title }} for healthcare providers.
+          There are no healthcare provider resources available for {{ page.title }}.
         {% endif %}
         <h3>For Patients and Community Members:</h3>
         <div>
-	  <ul>
+	  <div>
 	    {% for document in documents %}
-	      <li><a href="{{ document.url }}">{{ document.title }}</a></li> <!-- FIXME: Add document icon -->
+	      <p>
+          <a href="{{ document.url }}"><strong>{{ document.title }}</strong>
+            <span class="pdf-icon-hip pl-2 is-size-6"></span>
+          </a>
+        </p>
+      {% empty %}
+        <p>There are no patient or community resources for {{ page.title }}.<p>
 	    {% endfor %}
-	  </ul>
+    </div>
         </div>
       </div>
     </div>
