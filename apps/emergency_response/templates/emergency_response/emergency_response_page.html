@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<div>
+  <div>
+    <h2>{{ page.title }}</h2>
+    <section>{{ page.description|richtext }}</section>
+    <section>{{ page.action_section|richtext }}</section>
+    {% for section_of_links in page.sections_of_links %}
+      <section>
+        <h3>{{ section_of_links.value.title }}</h3>
+        {% for link_block in section_of_links.value.link_blocks %}
+          <div>
+            <h4>{{ link_block.value.subtitle }}</h4>
+            {{ link_block.value.text|richtext }}
+          </div>
+        {% endfor %}
+      </section>
+    {% endfor %}
+  </div>
+  <div>
+    <div>
+      <h3>Response Partner Log In</h3>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
