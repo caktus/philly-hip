@@ -22,13 +22,17 @@
   float: none;
   text-align: none;
   margin-left: 1rem;
-  @media screen and (min-width: $breakpoint-mobile) and (max-width: $breakpoint-tablet) {
+  @media screen and (min-width: $breakpoint-xs-mobile) and (max-width: $breakpoint-tablet) {
     margin-left: 0rem;
-    text-align: none;
     float: right;
   }
-  @media screen and (max-width: $breakpoint-mobile) {
-    margin-left: 0rem;
+  @media screen and (min-width: $breakpoint-xs-mobile) and (max-width: $breakpoint-mobile) {
+    margin-right: 1.75rem;
+  }
+  @media screen and (max-width: $breakpoint-xs-mobile) {
+    float: left;
+    padding-left: 2rem;
+    margin-right: 0rem;
   }
 }
 
