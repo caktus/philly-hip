@@ -256,6 +256,8 @@ WAGTAILSEARCH_BACKENDS = {
     },
 }
 
+WAGTAILDOCS_EXTENSIONS = ["doc", "png", "jpg"]
+
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
