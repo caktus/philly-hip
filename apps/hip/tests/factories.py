@@ -3,7 +3,7 @@ from django.utils.timezone import now
 import factory
 import wagtail_factories
 
-from ..models import HomePage, ReportDiseasePage
+from ..models import HomePage, StaticPage
 
 
 class TextOrTableStreamBlockFactory(wagtail_factories.StructBlockFactory):
@@ -22,14 +22,14 @@ class QuickLinkCardFactory(wagtail_factories.StructBlockFactory):
     title = factory.faker.Faker("text")
 
 
-class ReportDiseasePageFactory(wagtail_factories.PageFactory):
+class StaticPageFactory(wagtail_factories.PageFactory):
     body = wagtail_factories.StreamFieldFactory(
         {"section": StreamAndNavHeadingBlockFactory()}
     )
     latest_revision_created_at = now()
 
     class Meta:
-        model = ReportDiseasePage
+        model = StaticPage
 
 
 class HomePageFactory(wagtail_factories.PageFactory):

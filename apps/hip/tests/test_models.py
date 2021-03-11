@@ -1,7 +1,7 @@
-from apps.hip.models import ReportDiseasePage
+from apps.hip.models import StaticPage
 
 
-def test_report_disease_page_sets_prev_to_referer(db, rf, mocker):
+def test_static_page_sets_prev_to_referer(db, rf, mocker):
     """If a request has an HTTP_REFERER, the prev_url is the HTTP_REFERER."""
     # Mock the apps.common.utils.get_home_page_url function to verify that it
     # does not get called.
@@ -9,7 +9,7 @@ def test_report_disease_page_sets_prev_to_referer(db, rf, mocker):
     mock_url = "/the_home_page_url/"
     mock_get_home_page_url.return_value = mock_url
 
-    sp = ReportDiseasePage()
+    sp = StaticPage()
     # make a fake request and set HTTP_REFERER
     request = rf.get("/foo")
     referring_url = "https://example.com"
@@ -21,7 +21,7 @@ def test_report_disease_page_sets_prev_to_referer(db, rf, mocker):
     assert mock_get_home_page_url.called is False
 
 
-def test_report_disease_page_prev_defaults_to_util_function(db, rf, mocker):
+def test_static_page_prev_defaults_to_util_function(db, rf, mocker):
     """If a request does not have an HTTP_REFERER, the prev_url use get_home_page_url()."""
     # Mock the apps.common.utils.get_home_page_url function to verify that it
     # gets called.
@@ -29,7 +29,7 @@ def test_report_disease_page_prev_defaults_to_util_function(db, rf, mocker):
     mock_url = "/the_home_page_url/"
     mock_get_home_page_url.return_value = mock_url
 
-    s = ReportDiseasePage()
+    s = StaticPage()
     # make a fake request and leave HTTP_REFERER unset
     request = rf.get("/foo")
     assert request.META.get("HTTP_REFERER") is None
