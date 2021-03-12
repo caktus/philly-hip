@@ -1,10 +1,10 @@
 export default function() {
   const hasHealthAlerts = document.querySelector('.alert-table-hip');
-  const selectPriorityEl = document.querySelector('.select-priority');
   const selectConditionEl = document.querySelector('.select-condition');
   const alertsMissingEl = document.querySelector(".alerts-missing-hip");
-  const allRows = document.querySelectorAll("[data-priority]");
-  const isHealthAlertsPage = selectPriorityEl && selectConditionEl;
+  const allRows = document.querySelectorAll("[data-condition]");
+  // the select element is only on the health alerts page
+  const isHealthAlertsPage = selectConditionEl;
   const isDiseasePage = hasHealthAlerts && !isHealthAlertsPage
 
   if (isHealthAlertsPage) {
@@ -12,39 +12,33 @@ export default function() {
     const initialRows = getInitialRows();
     renderRows(initialRows);
 
-    // add a change event handler for each of the select dropdowns
-    [selectPriorityEl, selectConditionEl].forEach(el => {
-      el.addEventListener('change', (event) => {
-        const selectedPriority = selectPriorityEl.value;
-        const selectedCondition = selectConditionEl.value;
+    // add a change event handler to the select dropdowns
+    selectConditionEl.addEventListener('change', (event) => {
+      const selectedCondition = event.target.value;
 
-        let matchString = "";
-        if (selectedPriority !== 'All') {
-          matchString = `[data-priority~="${selectedPriority}"]`;
-        }
-        if (selectedCondition !== 'All') {
-          matchString += `[data-condition~="${selectedCondition}"]`
-        }
-        if (matchString === ""){
-          renderRows(allRows);
-        } else {
-          const rowsToShow = document.querySelectorAll(matchString);
-          renderRows(rowsToShow);
-        }
-      })
+      let matchString = "";
+      if (selectedCondition !== 'All') {
+        matchString += `[data-condition~="${selectedCondition}"]`
+      }
+      if (matchString === ""){
+        renderRows(allRows);
+      } else {
+        const rowsToShow = document.querySelectorAll(matchString);
+        renderRows(rowsToShow);
+      }
     })
   }
   if (isDiseasePage) {
     // On the disease/condition page, we have a health alerts table, but we don't want
     // to do any filtering (and especially we don't want to hide the right sidebar links
     // because they are unrelated to the health alerts on this page). We just want to
-    // filter the rows (which shows the 'no health alerts' row, if needed, andd then
+    // filter the rows (which shows the 'no health alerts' row, if needed, and then
     // restripe the rows.
     filterRows(allRows);
     restripeRows(allRows);
   }
 
-  function getInitialRows(){
+  function getInitialRows() {
     // check the query param to see if we should be filtering on page load
     const urlParams = new URLSearchParams(window.location.search);
     const initialCondition = urlParams.get('condition')

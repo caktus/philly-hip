@@ -32,17 +32,6 @@
 
         {# Filter widget #}
         <div class="filter-widget-hip columns m-0">
-          <div class="column is-half">
-            <div class="select">
-              <select class="select-priority">
-                <option value="All">Filter by priority</option>
-                <option value="Alert">Alert</option>
-                <option value="Advisory">Advisory</option>
-                <option value="Notification">Notification</option>
-                <option value="Update">Update</option>
-              </select>
-            </div>
-          </div>
           <div class="column">
             <div class="select">
               <select class="select-condition">
@@ -65,7 +54,6 @@
           {% for year in health_alert_list %}
             <tr
               data-condition="{% for alert in year.list %}{{ alert.disease.slug }} {% endfor %}"
-              data-priority="{% for alert in year.list %}{{ alert.get_priority_display }} {% endfor %}"
               data-year="{{ year.grouper }}"
             >
               <td colspan="3" class="pl-0">
