@@ -1,16 +1,16 @@
-from .models import DiseaseControlDetailPage
+from .models import DiseaseControlPage
 
 
 def get_topic_specific_guidance_qs():
-    return DiseaseControlDetailPage.objects.live().filter(page_type=1).order_by("title")
+    return DiseaseControlPage.objects.live().filter(page_type=1).order_by("title")
 
 
 def get_facility_specific_guidance_qs():
-    return DiseaseControlDetailPage.objects.live().filter(page_type=2).order_by("title")
+    return DiseaseControlPage.objects.live().filter(page_type=2).order_by("title")
 
 
 def get_disease_control_services_qs():
-    return DiseaseControlDetailPage.objects.live().filter(page_type=3).order_by("title")
+    return DiseaseControlPage.objects.live().filter(page_type=3).order_by("title")
 
 
 def get_visible_section_headers():
