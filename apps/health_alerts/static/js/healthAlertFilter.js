@@ -2,6 +2,7 @@ export default function() {
   const hasHealthAlerts = document.querySelector('.alert-table-hip');
   const selectConditionEl = document.querySelector('.select-condition');
   const alertsMissingEl = document.querySelector(".alerts-missing-hip");
+  const tableHeaderEl = document.querySelector(".alert-table-header-hip");
   const allRows = document.querySelectorAll("[data-condition]");
   // the select element is only on the health alerts page
   const isHealthAlertsPage = selectConditionEl;
@@ -68,6 +69,10 @@ export default function() {
       alertsMissingEl.hidden = false;
     } else {
       alertsMissingEl.hidden = true;
+      // we have at least 1 row. make sure that the header and "no alerts row" are shown
+      // after the first row, which is the first "year" row
+      rowsToShow[0].after(tableHeaderEl);
+      tableHeaderEl.after(alertsMissingEl);
     }
   }
 
