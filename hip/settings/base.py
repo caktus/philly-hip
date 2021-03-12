@@ -28,6 +28,7 @@ ENVIRONMENT = os.getenv("ENVIRONMENT", "dev")
 INSTALLED_APPS = [
     "apps.common",
     "apps.disease_control",
+    "apps.emergency_response",
     "apps.health_alerts",
     "apps.hip",
     "apps.search",

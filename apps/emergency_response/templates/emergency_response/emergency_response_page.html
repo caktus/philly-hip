@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<div class="emergency-response-page-hip columns is-desktop mx-5 external-links-with-domains-hip">
+  <div class="column is-two-thirds-desktop is-full-mobile">
+    <h2>{{ page.title }}</h2>
+    <section class="emergency-response-description-hip">{{ page.description|richtext }}</section>
+    <section class="action-section-hip p-4 mt-5 mb-6">{{ page.action_section|richtext }}</section>
+    {% for section_of_links in page.sections_of_links %}
+      <section class="section-of-links-hip">
+        <h3>{{ section_of_links.value.title }}</h3>
+          <div class="{% if section_of_links.value.number_of_columns == 2 %}section-of-links-twocolumns-hip{% endif%}">
+          {% for link_block in section_of_links.value.link_blocks %}
+            <div class="section-of-links__subsection-hip pt-2 pb-4">
+              <h4 class="section-of-links__subsection-title-hip">{{ link_block.value.subtitle }}</h4>
+              {{ link_block.value.text|richtext }}
+            </div>
+          {% endfor %}
+          </div>
+      </section>
+    {% endfor %}
+  </div>
+  <div class="column is-one-third-desktop is-full-mobile">
+    {% include "includes/partner_login_card.html" %}
+  </div>
+</div>
+
+{% endblock %}
