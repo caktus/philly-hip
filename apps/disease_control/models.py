@@ -100,6 +100,7 @@ class DiseasePage(Page):
 
     content_panels = [
         FieldPanel("title"),
+        FieldPanel("description"),
         FieldPanel("at_a_glance"),
         FieldPanel("current_recommendations"),
         FieldPanel("surveillance"),
