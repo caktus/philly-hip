@@ -28,6 +28,7 @@ ENVIRONMENT = os.getenv("ENVIRONMENT", "dev")
 INSTALLED_APPS = [
     "apps.common",
     "apps.disease_control",
+    "apps.emergency_response",
     "apps.health_alerts",
     "apps.hip",
     "apps.search",
@@ -255,6 +256,8 @@ WAGTAILSEARCH_BACKENDS = {
         "SEARCH_CONFIG": "english",
     },
 }
+
+WAGTAILDOCS_EXTENSIONS = ["pdf", "png", "jpg"]
 
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -

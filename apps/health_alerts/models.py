@@ -35,8 +35,10 @@ class HealthAlertListPage(Page):
         years = list(dict.fromkeys(years))
         context["right_nav_headings"] = years
 
-        # Get list of conditions attached to all of our health alerts
-        conditions = DiseaseAndConditionDetailPage.objects.exclude(health_alerts=None)
+        # Get list of conditions attached to all of our health alerts, ordered by title
+        conditions = DiseaseAndConditionDetailPage.objects.exclude(
+            health_alerts=None
+        ).order_by("title")
         context["conditions"] = conditions
         return context
 
