@@ -105,8 +105,6 @@ class StreamAndNavHeadingBlock(blocks.StructBlock):
 class StaticPage(Page):
     """A Page with only sections of static content."""
 
-    max_count = 1
-    parent_page_types = ["hip.HomePage"]
     subpage_types = []
 
     body = StreamField(
