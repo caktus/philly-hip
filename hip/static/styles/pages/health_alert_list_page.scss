@@ -1,6 +1,13 @@
 @import "../mixins";
 @import "../colors";
 
+.health-alert-page {
+  margin: 0 3rem;
+  @media screen and (max-width: $breakpoint-widescreen) {
+    margin: 0 1.5rem;
+  }
+}
+
 .filter-widget-hip {
   background-color: $light-grey;
   .tag {
