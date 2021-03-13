@@ -4,7 +4,7 @@
   <div class="columns">
     <div class="column is-4">
       <a class="card-link-hip is-size-5 is-block" href="{{ page.get_url }}"><strong>{{ page.title }}</strong></a>
-      {% if page.diseasepage %}
+      {% if page.diseaseandconditiondetailpage %}
         <p class="emergent-dates-hip pt-2">
           {% if page.specific.is_emergent %}{{ page.specific.emergent_date_range }}{% endif %}
         </p>
@@ -13,7 +13,7 @@
         {% endif %}
       {% endif %}
     </div>
-    {% if page.diseasepage %}
+    {% if page.diseaseandconditiondetailpage %}
       <div class="page-description-hip column">
         {{ page.specific.description|richtext }}
         {% if not page.specific.description %}
@@ -26,7 +26,7 @@
       </div>
     {% endif %}
   </div>
-  {% if page.diseasepage and page.specific.description %}
+  {% if page.diseaseandconditiondetailpage and page.specific.description %}
     <div class="columns">
       <div class="column is-4">
         {% if page.specific.is_emergent %}

@@ -105,6 +105,8 @@ class StreamAndNavHeadingBlock(blocks.StructBlock):
 class StaticPage(Page):
     """A Page with only sections of static content."""
 
+    subpage_types = []
+
     body = StreamField(
         [
             ("section", StreamAndNavHeadingBlock()),
@@ -193,6 +195,7 @@ class QuickLinkCard(blocks.StructBlock):
 
 
 class HomePage(Page):
+    max_count = 1
     quick_links = StreamField(
         [
             ("quick_links", QuickLinkCard()),
