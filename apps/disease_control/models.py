@@ -6,11 +6,12 @@ from wagtail.core.models import Page
 from wagtail.documents import get_document_model
 
 
-class DiseaseControlIndexPage(Page):
+class DiseaseControlListPage(Page):
     max_count = 1
 
+    parent_page_types = ["hip.HomePage"]
     subpage_types = [
-        "disease_control.DiseasesAndConditionsPage",
+        "disease_control.DiseaseAndConditionListPage",
         # Generic Placeholder until other subpages are added
         "disease_control.DiseaseControlPage",
     ]
@@ -32,7 +33,8 @@ class DiseaseControlIndexPage(Page):
 
 
 class DiseaseControlPage(Page):
-    parent_page_types = ["disease_control.DiseaseControlIndexPage"]
+    parent_page_types = ["disease_control.DiseaseControlListPage"]
+    subpage_types = []
     description = RichTextField(blank=True)
 
     class Type(models.IntegerChoices):
@@ -51,9 +53,9 @@ class DiseaseControlPage(Page):
     ]
 
 
-class DiseasesAndConditionsPage(DiseaseControlPage):
+class DiseaseAndConditionListPage(DiseaseControlPage):
     subpage_types = [
-        "disease_control.DiseasePage",
+        "disease_control.DiseaseAndConditionDetailPage",
     ]
 
     def get_context(self, request):
@@ -62,8 +64,8 @@ class DiseasesAndConditionsPage(DiseaseControlPage):
         return context
 
 
-class DiseasePage(Page):
-    parent_page_types = ["disease_control.DiseasesAndConditionsPage"]
+class DiseaseAndConditionDetailPage(Page):
+    parent_page_types = ["disease_control.DiseaseAndConditionListPage"]
     subpage_types = []
 
     description = RichTextField(
@@ -100,6 +102,7 @@ class DiseasePage(Page):
 
     content_panels = [
         FieldPanel("title"),
+        FieldPanel("description"),
         FieldPanel("at_a_glance"),
         FieldPanel("current_recommendations"),
         FieldPanel("surveillance"),
@@ -171,12 +174,12 @@ class DiseasePage(Page):
             return ""
 
 
-class EmergentHealthTopicsPage(Page):
-    template = "disease_control/diseases_and_conditions_page.html"
+class EmergentHealthTopicListPage(Page):
+    template = "disease_control/disease_and_condition_list_page.html"
 
     def get_context(self, request):
         context = super().get_context(request)
-        context["ordered_diseases"] = DiseasePage.objects.filter(
+        context["ordered_diseases"] = DiseaseAndConditionDetailPage.objects.filter(
             is_emergent=True
         ).order_by("title")
         return context

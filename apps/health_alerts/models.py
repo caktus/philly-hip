@@ -7,14 +7,14 @@ from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import Page
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 
-from apps.disease_control.models import DiseasePage
+from apps.disease_control.models import DiseaseAndConditionDetailPage
 
 
-class HealthAlertIndexPage(Page):
-    # There can be only one HealthAlertIndexPage
+class HealthAlertListPage(Page):
+    # There can be only one HealthAlertListPage
     max_count = 1
-    # ... and its children must be HealthAlertPages
-    subpage_types = ["health_alerts.HealthAlertPage"]
+    parent_page_types = ["hip.HomePage"]
+    subpage_types = ["health_alerts.HealthAlertDetailPage"]
 
     def get_context(self, request):
         """
@@ -24,7 +24,7 @@ class HealthAlertIndexPage(Page):
 
         # Get all live HealthAlerts, ordered date descending.
         health_alerts = (
-            HealthAlertPage.objects.child_of(self).order_by("-alert_date").live()
+            HealthAlertDetailPage.objects.child_of(self).order_by("-alert_date").live()
         )
         context["health_alerts"] = health_alerts
 
@@ -35,14 +35,16 @@ class HealthAlertIndexPage(Page):
         years = list(dict.fromkeys(years))
         context["right_nav_headings"] = years
 
-        # Get list of conditions attached to all of our health alerts
-        conditions = DiseasePage.objects.exclude(health_alerts=None)
+        # Get list of conditions attached to all of our health alerts, ordered by title
+        conditions = DiseaseAndConditionDetailPage.objects.exclude(
+            health_alerts=None
+        ).order_by("title")
         context["conditions"] = conditions
         return context
 
 
-class HealthAlertPage(Page):
-    parent_page_types = ["health_alerts.HealthAlertIndexPage"]
+class HealthAlertDetailPage(Page):
+    parent_page_types = ["health_alerts.HealthAlertListPage"]
     subpage_types = []
     alert_file = models.ForeignKey(
         "wagtaildocs.Document", null=True, blank=True, on_delete=models.SET_NULL
@@ -59,7 +61,7 @@ class HealthAlertPage(Page):
     alert_date = models.DateField(default=datetime.date.today)
 
     disease = models.ForeignKey(
-        DiseasePage,
+        DiseaseAndConditionDetailPage,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

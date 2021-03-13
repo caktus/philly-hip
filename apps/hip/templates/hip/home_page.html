@@ -56,20 +56,20 @@
                 {{ recent_update.name }}
               </a>
             </td>
-            {% if recent_update.healthalertpage %}
-              <td class="py-4 pl-4 pr-2 {{ recent_update.healthalertpage.get_priority_color }}">
+            {% if recent_update.healthalertdetailpage %}
+              <td class="py-4 pl-4 pr-2 {{ recent_update.healthalertdetailpage.get_priority_color }}">
             {% else %}
               <td class="py-4 pl-4 pr-2">
             {% endif %}
-              {% if recent_update.model_name == "page" and not recent_update.healthalertpage %}
+              {% if recent_update.model_name == "page" and not recent_update.healthalertdetailpage %}
                 <i class="fa fa-link" aria-hidden="true"></i>
-              {% elif recent_update.healthalertpage %}
-                <i class="fa {{ recent_update.healthalertpage.get_priority_icon }}"></i>
+              {% elif recent_update.healthalertdetailpage %}
+                <i class="fa {{ recent_update.healthalertdetailpage.get_priority_icon }}"></i>
               {% elif recent_update.model_name == "document"%}
                 <i class="fa fa-download" aria-hidden="true"></i>
               {% endif %}
-              {% if recent_update.healthalertpage %}
-                {{ recent_update.healthalertpage.get_priority_display|upper }}
+              {% if recent_update.healthalertdetailpage %}
+                {{ recent_update.healthalertdetailpage.get_priority_display|upper }}
               {% else %}
                 {{ recent_update.type_of_object }}
               {% endif %}

@@ -1,6 +1,5 @@
 <tr
   data-condition="{{ alert.disease.slug }}"
-  data-priority="{{ alert.get_priority_display }}"
 >
   <td class="topic"><a href="{{ alert.specific.alert_file.url }}">{{ alert.title }}</a></td>
   <td class="priority {{ alert.get_priority_display|lower }}-hip">
