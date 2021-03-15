@@ -13,6 +13,7 @@ from apps.search import views as search_views
 urlpatterns = [
     path("search/", search_views.search, name="search"),
     path("admin/", admin.site.urls),
+    path("accounts/", include("django.contrib.auth.urls")),
 ]
 
 
