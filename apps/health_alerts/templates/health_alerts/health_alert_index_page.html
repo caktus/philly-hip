@@ -18,7 +18,7 @@
           {# Sign up button is on the right #}
           <div class="level-right">
             <div class="level-item">
-              <a href="/fixme-alert-signup" class="is-block">
+              <a href="/health-alerts-subscriber-signup" class="is-block">
                 <span class="button is-size-7-touch header-icon-hip">
                   <i class="email-icon-hip"></i>
                 </span>
@@ -76,4 +76,7 @@
       {% include 'includes/right_scroll_nav.html' with page=page %}
     </div>
   </div>
+  {% if form %}
+    {% include 'includes/health_alerts_sign_up.html' form=form %}
+  {% endif %}
 {% endblock %}

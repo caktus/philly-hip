@@ -14,7 +14,7 @@ from apps.search import views as search_views
 urlpatterns = [
     path("search/", search_views.search, name="search"),
     path(
-        "/health-alerts-subscribe-signup",
+        "health-alerts-subscriber-signup",
         health_alert_views.sign_up,
         name="health_alerts_sign_up",
     ),

@@ -11,9 +11,11 @@ def sign_up(request):
 
         if sign_up_form.is_valid():
             sign_up_form.save()
-            return HttpResponseRedirect("/health-alerts/")
+            return HttpResponseRedirect("/health-alerts/", {"subscribed": True})
 
     else:
         sign_up_form = HealthAlertsSignUpForm()
 
-    return render(request, "health_alerts_sign_up.html", {"form": sign_up_form})
+    return render(
+        request, "health_alerts/health_alert_index_page.html", {"form": sign_up_form}
+    )
