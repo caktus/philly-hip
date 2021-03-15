@@ -16,13 +16,13 @@
     <form class="column is-half-desktop class="column" action="/health-alerts-subscriber-signup" method="post">
       {% csrf_token %}
       <div>
-        {{ form.non_field_errors }}
+        {% include 'includes/field_errors.html' with errors=form.non_field_errors %}
       </div>
       <div>
         <h6 class="is-size-6 py-2"><strong>Personal Information</strong></h6>
         {% for field in form.personal_fields %}
           <div class="py-2 field form-sections-hip">
-            {{ field.errors }}
+            {% include 'includes/field_errors.html' with errors=field.errors %}
             <label class="label is-block is-size-7" for="{{ field.id_for_label }}">{{ field.label }}</label>
             <div class="control">
               {% if field|widget_class == "Select" %}
@@ -40,7 +40,7 @@
         <h6 class="is-size-6 py-2"><strong>Agency Information</strong></h6>
         {% for field in form.agency_fields %}
           <div class="py-2 field form-sections-hip">
-            {{ field.errors }}
+            {% include 'includes/field_errors.html' with errors=field.errors %}
             <label class="label is-block is-size-7" for="{{ field.id_for_label }}">{{ field.label }}</label>
             <div class="control">
               {% if field|widget_class == "Select" %}
@@ -58,7 +58,7 @@
         <h6 class="is-size-6 py-2"><strong>Health Alert Network Contact Information</strong></h6>
         {% for field in form.network_fields %}
           <div class="py-2 field form-sections-hip">
-            {{ field.errors }}
+            {% include 'includes/field_errors.html' with errors=field.errors %}
             <label class="label is-block is-size-7" for="{{ field.id_for_label }}">{{ field.label }}</label>
             <div class="control">
               {% if field|widget_class == "Select" %}
@@ -74,9 +74,9 @@
       </div>
       {# Submit #}
       <div class="py-4">
-        <span class="button is-size-7-touch header-btn-hip ml-0">
+        <button class="button is-size-7-touch header-btn-hip ml-0" type="submit">
           <strong>Confirm Account</strong>
-        </span>
+        </button>
       </div>
     </form>
     <div class="column"></div>
