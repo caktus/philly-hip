@@ -2,7 +2,9 @@ export default function() {
   const healthAlertSignUpEl = document.querySelector(".health-alerts-sign-up-modal");
   
   if (healthAlertSignUpEl) {
+    document.body.classList.add("modal-is-open-hip");
     styleInputElements();
+    closeBtnClicked();
   }
 
   function styleInputElements() {
@@ -17,4 +19,12 @@ export default function() {
       }
     }
   };
+
+  function closeBtnClicked() {
+    const closeBtn = document.querySelector("#health-alert-signup-close-btn-hip");
+    closeBtn.addEventListener("click", function () {
+      document.body.classList.remove("modal-is-open-hip");
+      window.location.href = this.dataset.href;
+    });
+  }
 }
