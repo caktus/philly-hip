@@ -116,7 +116,7 @@ class HealthAlertsSignUp(models.Model):
     """Health Alert Sign Up
 
     This model is a standard django model used
-    to send out newsletter subscribed users. Instances
+    to send out newsletter to subscribed users. Instances
     are made available in the django admin as opposed
     to the wagtail cms.
     """
