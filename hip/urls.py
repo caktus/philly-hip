@@ -7,11 +7,17 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
+from apps.health_alerts import views as health_alert_views
 from apps.search import views as search_views
 
 
 urlpatterns = [
     path("search/", search_views.search, name="search"),
+    path(
+        "/health-alerts-subscribe-signup",
+        health_alert_views.sign_up,
+        name="health_alerts_sign_up",
+    ),
     path("admin/", admin.site.urls),
 ]
 
