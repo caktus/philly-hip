@@ -76,7 +76,9 @@
       {% include 'includes/right_scroll_nav.html' with page=page %}
     </div>
   </div>
+  {# The context variable, 'form', being present on this page #}
+  {# indicates that the health_alerts_sign_up modal is open #}
   {% if form %}
-    {% include 'includes/health_alerts_sign_up.html' form=form %}
+    {% include 'includes/health_alerts_sign_up.html' %}
   {% endif %}
 {% endblock %}

@@ -1,0 +1,7 @@
+@import "../mixins";
+
+.health-alerts-sign-up-modal {
+  @include modals;
+  @include headers;
+  @include paragraphs;
+}
