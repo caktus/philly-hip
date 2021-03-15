@@ -1,38 +1,35 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div>
-  <div>
-    <div>
+<div class="login-page-hip columns px-5">
+  <div class="column is-half is-offset-one-quarter">
+    <div class="pt-5">
       <a href="{{ previous_url }}">< Back</a>
     </div>
 
     <h2 class="pb-5">Response Partner Log In</h2>
 
     {% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
+      <p class="message is-danger p-4 mb-4">Your username and password didn't match. Please try again.</p>
     {% endif %}
 
-    {% if next %}
-      {% if user.is_authenticated %}
-        <p>Your account doesn't have access to this page. To proceed, please login with an account that has access.</p>
-      {% else %}
-        <p>Please login to see this page.</p>
-      {% endif %}
-    {% endif %}
-
-    <form method="post" action="{% url 'login' %}">
+    <form class="login-form-hip" method="post" action="{% url 'login' %}">
       {% csrf_token %}
-      {{ form.username.label_tag }}
-      {{ form.username }}
-      {{ form.password.label_tag }}
-      {{ form.password }}
-      Remember me on this computer
-      <input type="submit" value="login">
+
+      <label class="label pb-2" for="id_username">Username:</label>
+      <input class="input is-normal mb-4"type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" required="" id="id_username">
+      <label class="label pb-2" for="id_password">Password:</label>
+      <input class="input is-normal mb-4" type="password" name="password" autocomplete="current-password" required="" id="id_password">
+      <div class="mb-4">
+        <input type="checkbox" name="remember_me" id="id_remember_me">
+        <span>Remember me on this computer</span>
+      </div>
+
+      <input type="submit" value="log in" class="button login-btn-hip full-width-hip mb-4">
       <input type="hidden" name="next" value="/">
     </form>
 
-    <p><a href="{% url 'password_reset' %}">Reset password</a></p>
+    <p class="has-text-centered"><a href="{% url 'password_reset' %}">Reset password</a></p>
 
     <h3>About this Network</h3>
     <p>Authorization to access these sites must be approved by the Philadelphia Department of Public Health’s Division of Disease Control. Please send an email to <a href="mailto:healthresponse@phila.gov">healthresponse@phila.gov</a> to request information about becoming a response partner.</p>
