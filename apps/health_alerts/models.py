@@ -150,3 +150,7 @@ class HealthAlertsSignUp(models.Model):
     agency_work_phone = PhoneNumberField("Work Phone (optional)", null=True, blank=True)
     network_email = models.EmailField("Email Address", default="")
     network_fax = PhoneNumberField("Fax Number")
+
+    class Meta:
+        verbose_name = "Health Alerts Subscriber"
+        verbose_name_plural = "Health Alerts Subscribers"
