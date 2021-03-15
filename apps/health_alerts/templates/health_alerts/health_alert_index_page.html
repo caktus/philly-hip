@@ -5,6 +5,7 @@
   <div class="p-6-desktop p-3">
     <div class="columns">
       <div class="column">
+        {% include 'includes/message.html' with messages=messages %}
         <div class="level">
           {# Title is on the left #}
           <div class="level-left">
@@ -78,6 +79,7 @@
   </div>
   {# The context variable, 'form', being present on this page #}
   {# indicates that the health_alerts_sign_up modal is open #}
+
   {% if form %}
     {% include 'includes/health_alerts_sign_up.html' %}
   {% endif %}
