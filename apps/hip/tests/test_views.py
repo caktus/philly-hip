@@ -52,7 +52,7 @@ def test_hip_login_view_get_authenticated(db, client, mocker):
     """An authenticated user GETting the login page is redirected to the homepage URL."""
     # Mock the apps.common.utils.get_home_page_url function, since the it is used
     # to determine the homepage URL.
-    mock_get_home_page_url = mocker.patch("apps.common.utils.get_home_page_url")
+    mock_get_home_page_url = mocker.patch("apps.hip.views.get_home_page_url")
     mock_url = "/the_home_page_url/"
     mock_get_home_page_url.return_value = mock_url
 
