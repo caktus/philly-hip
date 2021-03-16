@@ -1,13 +1,43 @@
-
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
 
-{% block extra_css %}
-    ADD EXTRA CSS
-{% endblock %}
-
 {% block title %}Search{% endblock %}
 
+{% block sidebar %}
+{% endblock %}
+
 {% block content %}
-    ADD YOUR CONTENT
+  <div class="search-page-hip">
+
+    <div class="py-5">
+      <a href="{{ prev_url }}">< Back</a>
+    </div>
+
+    <form action="{% url 'search' %}" method="get">
+      <div class="field">
+        <p class="control has-icons-right search-page-input-container-hip">
+          <input class="input search-page-input-hip" type="text" name="query" value="{{ search_query|default:"" }}" placeholder="Enter Search Terms...">
+          <span class="icon is-right search-page-icon-hip">
+            <i class="fas fa-search"></i>
+          </span>
+        </p>
+      </div>
+    </form>
+
+    <div class="search-page-count-hip">
+      {{ search_results.paginator.count }} results
+    </div>
+
+    {% if search_results %}
+      {% for result in search_results %}
+        {% include 'includes/search_result_card.html' %}
+      {% endfor %}
+
+      {% include 'includes/search_pagination.html' %}
+    {% elif search_query %}
+      No results found, please try different search terms.
+    {% else %}
+      Please type something into the search box.
+    {% endif %}
+  </div>
 {% endblock %}

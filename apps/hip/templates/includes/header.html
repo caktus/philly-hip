@@ -34,7 +34,9 @@
           <span class="icon is-right dark-blue-bg-hip mr-6">
             <i class="search-icon-hip"></i>
           </span>
-            <input class="input is-normal search-input-hip is-full-width-hip" type="text" placeholder="Enter Search Terms...">
+          <form action="{% url "search" %}">
+            <input class="input is-normal search-input-hip is-full-width-hip" name="query" type="text" placeholder="Enter Search Terms...">
+          </form>
         </div>
       </div>
     </div>
