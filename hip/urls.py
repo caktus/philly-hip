@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.conf.urls import include
 from django.contrib import admin
+from django.contrib.auth import views as django_auth_views
 from django.urls import path
 
 from wagtail.admin import urls as wagtailadmin_urls
@@ -13,7 +14,32 @@ from apps.search import views as search_views
 urlpatterns = [
     path("search/", search_views.search, name="search"),
     path("admin/", admin.site.urls),
-    path("accounts/", include("django.contrib.auth.urls")),
+]
+
+# Authentication-related views
+urlpatterns += [
+    path("accounts/login/", django_auth_views.LoginView.as_view(), name="login"),
+    path("accounts/logout/", django_auth_views.LogoutView.as_view(), name="logout"),
+    path(
+        "accounts/password_reset/",
+        django_auth_views.PasswordResetView.as_view(),
+        name="password_reset",
+    ),
+    path(
+        "accounts/password_reset/done/",
+        django_auth_views.PasswordResetDoneView.as_view(),
+        name="password_reset_done",
+    ),
+    path(
+        "accounts/reset/<uidb64>/<token>/",
+        django_auth_views.PasswordResetConfirmView.as_view(),
+        name="password_reset_confirm",
+    ),
+    path(
+        "accounts/reset/done/",
+        django_auth_views.PasswordResetCompleteView.as_view(),
+        name="password_reset_complete",
+    ),
 ]
 
 
