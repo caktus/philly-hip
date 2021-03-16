@@ -8,6 +8,7 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
+from apps.hip import views as hip_views
 from apps.search import views as search_views
 
 
@@ -18,7 +19,7 @@ urlpatterns = [
 
 # Authentication-related views
 urlpatterns += [
-    path("accounts/login/", django_auth_views.LoginView.as_view(), name="login"),
+    path("accounts/login/", hip_views.HIPLoginView.as_view(), name="login"),
     path("accounts/logout/", django_auth_views.LogoutView.as_view(), name="logout"),
     path(
         "accounts/password_reset/",
