@@ -25,5 +25,5 @@ def sign_up(request):
         sign_up_form = HealthAlertsSignUpForm()
 
     return render(
-        request, "health_alerts/health_alert_index_page.html", {"form": sign_up_form}
+        request, "health_alerts/health_alerts_sign_up.html", {"form": sign_up_form}
     )

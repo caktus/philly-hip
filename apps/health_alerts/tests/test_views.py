@@ -31,7 +31,7 @@ class TestHealthAlertsSignUpView(TestCase):
     def test_get_page(self):
         r = self.client.get(self.url)
         self.assertEqual(HTTPStatus.OK, r.status_code)
-        self.assertTemplateUsed(r, "health_alerts/health_alert_index_page.html")
+        self.assertTemplateUsed(r, "health_alerts/health_alerts_sign_up.html")
         self.assertIn("form", r.context)
 
     def test_success_msg_shown(self):
