@@ -1,16 +1,16 @@
 import factory
 import wagtail_factories
 
-from ..models import DiseasePage, EmergentHealthTopicsPage
+from ..models import DiseaseAndConditionDetailPage, EmergentHealthTopicListPage
 
 
-class DiseasePageFactory(wagtail_factories.PageFactory):
+class DiseaseAndConditionDetailPageFactory(wagtail_factories.PageFactory):
     class Meta:
-        model = DiseasePage
+        model = DiseaseAndConditionDetailPage
 
 
-class EmergentHealthTopicsPageFactory(wagtail_factories.PageFactory):
+class EmergentHealthTopicListPageFactory(wagtail_factories.PageFactory):
     title = factory.faker.Faker("sentence")
 
     class Meta:
-        model = EmergentHealthTopicsPage
+        model = EmergentHealthTopicListPage

@@ -3,10 +3,11 @@ export default function() {
   const healthAlertSignUpEl = document.querySelector(".health-alerts-sign-up-modal")
   const selectConditionEl = document.querySelector('.select-condition');
   const alertsMissingEl = document.querySelector(".alerts-missing-hip");
+  const tableHeaderEl = document.querySelector(".alert-table-header-hip");
   const allRows = document.querySelectorAll("[data-condition]");
   // the select element is only on the health alerts page
   const isHealthAlertsPage = selectConditionEl;
-  const isDiseasePage = hasHealthAlerts && !isHealthAlertsPage
+  const isDiseaseAndConditionDetailPage = hasHealthAlerts && !isHealthAlertsPage
 
   if (isHealthAlertsPage && !healthAlertSignUpEl) {
     // do an initial render on page load to stripe the rows properly
@@ -29,7 +30,7 @@ export default function() {
       }
     })
   }
-  if (isDiseasePage) {
+  if (isDiseaseAndConditionDetailPage) {
     // On the disease/condition page, we have a health alerts table, but we don't want
     // to do any filtering (and especially we don't want to hide the right sidebar links
     // because they are unrelated to the health alerts on this page). We just want to
@@ -69,6 +70,10 @@ export default function() {
       alertsMissingEl.hidden = false;
     } else {
       alertsMissingEl.hidden = true;
+      // we have at least 1 row. make sure that the header and "no alerts row" are shown
+      // after the first row, which is the first "year" row
+      rowsToShow[0].after(tableHeaderEl);
+      tableHeaderEl.after(alertsMissingEl);
     }
   }
 
