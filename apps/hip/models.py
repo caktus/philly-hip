@@ -6,6 +6,7 @@ from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core import blocks
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
+from wagtail.search import index
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
@@ -120,6 +121,9 @@ class StaticPage(Page):
     promote_panels = [
         FieldPanel("slug"),
     ]
+    search_fields = Page.search_fields + [
+        index.SearchField("body"),
+    ]
 
     def get_context(self, request):
         """
@@ -212,6 +216,11 @@ class HomePage(Page):
         SnippetChooserPanel("contact_info"),
         StreamFieldPanel("quick_links"),
         FieldPanel("about"),
+    ]
+
+    search_fields = Page.search_fields + [
+        index.SearchField("quick_links"),
+        index.SearchField("about"),
     ]
 
     def get_context(self, request):

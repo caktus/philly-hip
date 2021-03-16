@@ -4,6 +4,7 @@ from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
 from wagtail.documents import get_document_model
+from wagtail.search import index
 
 
 class DiseaseControlListPage(Page):
@@ -50,6 +51,10 @@ class DiseaseControlPage(Page):
         FieldPanel("title"),
         FieldPanel("description"),
         FieldPanel("page_type"),
+    ]
+
+    search_fields = Page.search_fields + [
+        index.SearchField("description"),
     ]
 
 
@@ -117,6 +122,16 @@ class DiseaseAndConditionDetailPage(Page):
             ],
             heading="Emergent Data",
         ),
+    ]
+
+    search_fields = Page.search_fields + [
+        index.SearchField("description"),
+        index.SearchField("at_a_glance"),
+        index.SearchField("current_recommendations"),
+        index.SearchField("surveillance"),
+        index.SearchField("vaccine_info"),
+        index.SearchField("diagnosis_info"),
+        index.SearchField("provider_resources"),
     ]
 
     def get_context(self, request):

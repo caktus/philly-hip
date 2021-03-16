@@ -2,6 +2,7 @@ from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core import blocks
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
+from wagtail.search import index
 
 
 class LinkBlock(blocks.StructBlock):
@@ -56,6 +57,12 @@ class EmergencyResponsePage(Page):
         FieldPanel("description"),
         FieldPanel("action_section"),
         StreamFieldPanel("sections_of_links"),
+    ]
+
+    search_fields = Page.search_fields + [
+        index.SearchField("description"),
+        index.SearchField("action_section"),
+        index.SearchField("sections_of_links"),
     ]
 
 

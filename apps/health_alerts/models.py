@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import Page
 from wagtail.documents.edit_handlers import DocumentChooserPanel
+from wagtail.search import index
 
 from apps.disease_control.models import DiseaseAndConditionDetailPage
 
@@ -79,6 +80,9 @@ class HealthAlertDetailPage(Page):
             FieldPanel("disease"),
         ]
     )
+    search_fields = Page.search_fields + [
+        index.SearchField("get_priority_display"),
+    ]
 
     def get_priority_icon(self):
         """
