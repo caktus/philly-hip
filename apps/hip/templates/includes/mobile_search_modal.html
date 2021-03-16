@@ -1,7 +1,7 @@
 <div id="searchMobileContainer" class="mobile-search-modal is-hidden-desktop is-hidden-touch">
   <div class="my-2">
     <div class="is-flex is-justify-content-space-between is-vcentered">
-      <h6 class="is-size-6 pt-2 pl-4"><strong>Search</strong></h6>
+      <h6 class="is-size-6 pt-2 pl-4 search-title-hip"><strong>Search</strong></h6>
       <div class="is-vcentered">
         <button class="button btn-no-border-hip mobile-search-close-btn-hip">
           <i class="close-icon-hip"></i>
@@ -14,31 +14,25 @@
       <span class="icon is-right dark-blue-bg-hip">
         <i class="search-icon-hip"></i>
       </span>
-        <input class="input is-normal search-input-hip is-full-width-hip" type="text" placeholder="Enter Search Terms...">
+      <form action="{% url "search" %}">
+        <input type="hidden" name="prev_url" value="{{ prev_url }}" />
+        <input class="input is-normal search-input-hip is-full-width-hip" name="query" type="text" value="{{ search_query|default:"" }}" placeholder="Enter Search Terms...">
+      </form>
     </div>
   </div>
   <div class="pt-4 pl-4">
     {# replace with the variable from backend for the number of results the user has for the search #}
     <h6 class="is-size-6">
-      {% if num_of_results %}{{ num_of_results }}{% else %}0{% endif %} results
+      {{ search_results.paginator.count|default:0 }} results
     </h6>
   </div>
-  {% if True %} {# filter buttons container #}
-  <div class="pt-4 px-4">
-    {% for i in '01234'|make_list %}
-      <button class="button is-small is-rounded mx-2 my-2 btn-no-border-hip filter-btn-hip filters-hip" data-filter="filter_name">
-        filter name
-      </button>
-    {% endfor %}
-    <button class="button is-small btn-no-border-hip mx-2 my-2 clear-filters-btn-hip">Clear all filters</button>
-  </div>
-  {% endif %}
-  {% if True %} {# search results container #}
-  <div class="py-4 px-4">
-    {% for i in '01234'|make_list %}
-      {% include 'includes/search_result_card.html' %}
-    {% endfor%}
-  </div>
+  {% if search_results %}
+    <div class="py-4 px-4">
+      {% for result in search_results %}
+        {% include 'includes/search_result_card.html' %}
+      {% endfor%}
+      {% include 'includes/search_pagination.html' %}
+    </div>
   {% else %}
     <div class="px-6 has-text-centered no-results-hip">
       <p>No results, please enter a search term above</p>
