@@ -1,42 +1,68 @@
 from http import HTTPStatus
-from unittest import TestCase
 
+from django.contrib.messages import get_messages
 from django.urls import reverse
 
+import pytest
+from pytest_django.asserts import assertTemplateUsed
 
-class TestHealthAlertsSignUpView(TestCase):
-    def setUp(self):
-        super().setUp()
-        self.url = reverse("health_alerts_sign_up")
-        self.sign_up_data = {
-            "personal_first_name": "SpongeBob",
-            "personal_last_name": "SquarePants",
-            "personal_medical_expertise": "Sutures",
-            "personal_professional_licenses": "1293-3P",
-            "agency_name": "The Crabby Patty",
-            "agency_type": "Restaurant Health",
-            "agency_zip_code": "12340",
-            "agency_position": "Manager",
-            "agency_work_phone": "(120) 192-1929",
-            "network_email": "crabbypatty@gmail.com",
-            "network_fax": "(120) 192-1929",
-        }
-        self.success_msg = (
-            (
-                "You are now subscribed to receiving Health Alerts "
-                "from the Philadelphia Department of Public Health."
-            ),
-        )
 
-    def test_get_page(self):
-        r = self.client.get(self.url)
-        self.assertEqual(HTTPStatus.OK, r.status_code)
-        self.assertTemplateUsed(r, "health_alerts/health_alerts_sign_up.html")
-        self.assertIn("form", r.context)
+@pytest.fixture
+def sign_up_data():
+    return dict(
+        personal_first_name="SpongeBob",
+        personal_last_name="SquarePants",
+        personal_medical_expertise="Sutures",
+        personal_professional_license="1294dk",
+        agency_name="The Crabby Patty",
+        agency_type="PDPH",
+        agency_zip_code="12340",
+        agency_position="Manager",
+        network_email="crabbypatty@gmail.com",
+        network_fax="(201) 555-0123",
+    )
 
-    def test_success_msg_shown(self):
-        r = self.client.post(self.url, self.sign_up_data)
-        self.assertEqual(HTTPStatus.FOUND, r.status_code)
-        messages = list(r.context["messages"])
-        self.assertEqual(len(messages), 1)
-        self.assertEqual(messages[0], self.success_msg)
+
+@pytest.fixture
+def url():
+    return reverse("health_alerts_sign_up")
+
+
+def test_get_sign_up_page(db, settings, client, url):
+    settings.STATICFILES_STORAGE = (
+        "django.contrib.staticfiles.storage.StaticFilesStorage"
+    )
+    res = client.get(url)
+    assert HTTPStatus.OK == res.status_code
+    assertTemplateUsed("health_alerts/health_alerts_sign_up.html")
+    assert "form" in res.context
+
+
+def test_success_msg_queqed_and_user_redirects(db, settings, client, url, sign_up_data):
+    settings.STATICFILES_STORAGE = (
+        "django.contrib.staticfiles.storage.StaticFilesStorage"
+    )
+    res = client.post(url, sign_up_data)
+    messages = get_messages(res.wsgi_request)
+    success_msg = (
+        "You are now subscribed to receiving Health Alerts "
+        "from the Philadelphia Department of Public Health."
+    )
+    assert res.url == "/health-alerts/"
+    assert HTTPStatus.FOUND == res.status_code
+    assert str(list(messages)[0]) == success_msg
+
+
+def test_form_errors_raised(db, settings, client, url, sign_up_data):
+    settings.STATICFILES_STORAGE = (
+        "django.contrib.staticfiles.storage.StaticFilesStorage"
+    )
+    data = sign_up_data
+    data["network_fax"] = "failure"
+    res = client.post(url, data)
+    error_msg = (
+        "Enter a valid phone number (e.g. (201) 555-0123) or a number "
+        "with an international call prefix."
+    )
+    assert HTTPStatus.OK == res.status_code
+    assert error_msg in str(res.content)

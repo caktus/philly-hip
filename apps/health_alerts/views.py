@@ -1,6 +1,5 @@
 from django.contrib import messages
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 from .forms import HealthAlertsSignUpForm
 
@@ -19,7 +18,7 @@ def sign_up(request):
                     "from the Philadelphia Department of Public Health."
                 ),
             )
-            return HttpResponseRedirect("/health-alerts/")
+            return redirect("/health-alerts/")
 
     else:
         sign_up_form = HealthAlertsSignUpForm()
