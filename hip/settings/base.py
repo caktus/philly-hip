@@ -261,6 +261,8 @@ WAGTAILSEARCH_BACKENDS = {
 WAGTAILDOCS_EXTENSIONS = ["pdf", "png", "jpg"]
 
 
+LOGOUT_REDIRECT_URL = "/"
+
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = os.getenv("DOMAIN", "http://hip.caktus-built.com")
