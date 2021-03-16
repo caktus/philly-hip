@@ -39,3 +39,29 @@ def test_hip_login_view_post_do_not_remember_user(db, client, remember_me):
 
     # The session is now set to expire when the browser is closed.
     assert client.session.get_expire_at_browser_close() is True
+
+
+def test_hip_login_view_get_unauthenticated(db, client):
+    """An unauthenticated user GETting the login page sees the login page."""
+    response = client.get(reverse("login"))
+    assert 200 == response.status_code
+    assert ["registration/login.html"] == response.template_name
+
+
+def test_hip_login_view_get_authenticated(db, client, mocker):
+    """An authenticated user GETting the login page is redirected to the homepage URL."""
+    # Mock the apps.common.utils.get_home_page_url function, since the it is used
+    # to determine the homepage URL.
+    mock_get_home_page_url = mocker.patch("apps.common.utils.get_home_page_url")
+    mock_url = "/the_home_page_url/"
+    mock_get_home_page_url.return_value = mock_url
+
+    # Log in the user.
+    user = UserFactory(email="test-user")
+    client.force_login(user)
+
+    response = client.get(reverse("login"))
+
+    # GETting the login page redirects the user to the get_home_page_url().
+    assert 302 == response.status_code
+    assert mock_url == response.url
