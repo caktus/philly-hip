@@ -33,7 +33,7 @@ def test_hip_login_view_post_do_not_remember_user(db, client, remember_me):
     assert client.session.get_expire_at_browser_close() is False
 
     post_data = {"username": user.email, "password": "testpassword1"}
-    if post_data is not None:
+    if remember_me is not None:
         post_data["remember_me"] = remember_me
     response = client.post(reverse("login"), post_data)
 
