@@ -1,6 +1,6 @@
 from http import HTTPStatus
+from unittest import TestCase
 
-from django.test import TestCase
 from django.urls import reverse
 
 
