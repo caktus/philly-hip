@@ -21,7 +21,6 @@ static/*
 public/static/
 public/media/
 media/*
-webpack-stats.json
 hip/static/bundles/main.js
 
 # Ansible
@@ -46,4 +45,3 @@ aws_ec2.yml
 .coverage
 coverage
 htmlcov/
-
