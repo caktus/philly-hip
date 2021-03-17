@@ -20,7 +20,9 @@ def test_search_with_successful_query(client, db):
     assert response.status_code == 200
     context = response.context
     assert response.context["search_query"] == "foo"
-    assert response.context["search_results"].object_list[0].specific == page
+    search_results = response.context["search_results"].object_list
+    assert len(search_results) == 1
+    assert search_results[0].specific == page
 
 
 def test_search_with_unsuccessful_query(client, db):
