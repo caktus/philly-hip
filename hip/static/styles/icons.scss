@@ -157,6 +157,14 @@ To select that icon, do:
   }
 }
 
+.down-triangle-icon-hip {
+  color: $dark-blue;
+  @include regular-icon;
+  &::before {
+    content: fa-content($fa-var-sort-down);
+  }
+}
+
 // ------------------ Health Alert Priority icon colors --------- //
   .update-hip {
     color: $update;
