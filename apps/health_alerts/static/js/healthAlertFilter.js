@@ -1,5 +1,6 @@
 export default function() {
   const hasHealthAlerts = document.querySelector('.alert-table-hip');
+  const healthAlertSignUpEl = document.querySelector(".health-alert-subscriber-modal")
   const selectConditionEl = document.querySelector('.select-condition');
   const alertsMissingEl = document.querySelector(".alerts-missing-hip");
   const tableHeaderEl = document.querySelector(".alert-table-header-hip");
@@ -8,7 +9,7 @@ export default function() {
   const isHealthAlertsPage = selectConditionEl;
   const isDiseaseAndConditionDetailPage = hasHealthAlerts && !isHealthAlertsPage
 
-  if (isHealthAlertsPage) {
+  if (isHealthAlertsPage && !healthAlertSignUpEl) {
     // do an initial render on page load to stripe the rows properly
     const initialRows = getInitialRows();
     renderRows(initialRows);
