@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import F
 
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.core.fields import RichTextField
@@ -179,7 +180,9 @@ class EmergentHealthTopicListPage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context["ordered_diseases"] = DiseaseAndConditionDetailPage.objects.filter(
-            is_emergent=True
-        ).order_by("title")
+        context["ordered_diseases"] = (
+            DiseaseAndConditionDetailPage.objects.filter(is_emergent=True)
+            .annotate(updated_at=F("latest_revision_created_at"))
+            .order_by("-updated_at")
+        )
         return context
