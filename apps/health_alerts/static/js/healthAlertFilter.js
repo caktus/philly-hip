@@ -34,9 +34,8 @@ export default function() {
     // On the disease/condition page, we have a health alerts table, but we don't want
     // to do any filtering (and especially we don't want to hide the right sidebar links
     // because they are unrelated to the health alerts on this page). We just want to
-    // filter the rows (which shows the 'no health alerts' row, if needed, and then
-    // restripe the rows.
-    filterRows(allRows);
+    // show the 'no health alerts' row, if needed, and then restripe the rows.
+    showMissingMessage(allRows);
     restripeRows(allRows);
   }
 
@@ -56,6 +55,8 @@ export default function() {
   function renderRows(rows) {
     // convenience function to do all the things we need to do to render the rows properly
     filterRows(rows);
+    moveHeader(rows);
+    showMissingMessage(rows);
     restripeRows(rows);
     filterRightSideLinks(rows);
   }
@@ -65,15 +66,24 @@ export default function() {
     allRows.forEach(row => row.hidden = true);
     // show just the rows the user wants to see
     rowsToShow.forEach(row => row.hidden = false);
+  }
+
+  function moveHeader(rowsToShow) {
+    if (rowsToShow.length !== 0) {
+      // we have at least 1 row. make sure that the header and "no alerts row" are shown
+      // after the first row, which is the first "year" row
+      rowsToShow[0].after(tableHeaderEl);
+      tableHeaderEl.after(alertsMissingEl);
+    }
+
+  }
+
+  function showMissingMessage(rowsToShow) {
     if (rowsToShow.length === 0) {
       // if all rows are hidden, then show our special "no alerts found" row
       alertsMissingEl.hidden = false;
     } else {
       alertsMissingEl.hidden = true;
-      // we have at least 1 row. make sure that the header and "no alerts row" are shown
-      // after the first row, which is the first "year" row
-      rowsToShow[0].after(tableHeaderEl);
-      tableHeaderEl.after(alertsMissingEl);
     }
   }
 
