@@ -4,13 +4,13 @@ from django.shortcuts import redirect, render
 from .forms import HealthAlertSubscriberForm
 
 
-def sign_up(request):
+def subscribe(request):
 
     if request.method == "POST":
-        sign_up_form = HealthAlertSubscriberForm(request.POST)
+        subscribe_form = HealthAlertSubscriberForm(request.POST)
 
-        if sign_up_form.is_valid():
-            sign_up_form.save()
+        if subscribe_form.is_valid():
+            subscribe_form.save()
             messages.success(
                 request,
                 (
@@ -21,8 +21,8 @@ def sign_up(request):
             return redirect("/health-alerts/")
 
     else:
-        sign_up_form = HealthAlertSubscriberForm()
+        subscribe_form = HealthAlertSubscriberForm()
 
     return render(
-        request, "health_alerts/health_alert_subscriber.html", {"form": sign_up_form}
+        request, "health_alerts/health_alert_subscriber.html", {"form": subscribe_form}
     )

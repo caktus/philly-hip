@@ -15,7 +15,7 @@ urlpatterns = [
     path("search/", search_views.search, name="search"),
     path(
         "health-alerts-subscriber-signup",
-        health_alert_views.sign_up,
+        health_alert_views.subscribe,
         name="health_alert_subscriber",
     ),
     path("admin/", admin.site.urls),

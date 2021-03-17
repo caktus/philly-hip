@@ -8,7 +8,7 @@ from pytest_django.asserts import assertTemplateUsed
 
 
 @pytest.fixture
-def sign_up_data():
+def subscribe_data():
     return dict(
         personal_first_name="SpongeBob",
         personal_last_name="SquarePants",
@@ -28,7 +28,7 @@ def url():
     return reverse("health_alert_subscriber")
 
 
-def test_get_sign_up_page(db, settings, client, url):
+def test_get_subscribe_page(db, settings, client, url):
     settings.STATICFILES_STORAGE = (
         "django.contrib.staticfiles.storage.StaticFilesStorage"
     )
@@ -38,11 +38,13 @@ def test_get_sign_up_page(db, settings, client, url):
     assert "form" in res.context
 
 
-def test_success_msg_queqed_and_user_redirects(db, settings, client, url, sign_up_data):
+def test_success_msg_queqed_and_user_redirects(
+    db, settings, client, url, subscribe_data
+):
     settings.STATICFILES_STORAGE = (
         "django.contrib.staticfiles.storage.StaticFilesStorage"
     )
-    res = client.post(url, sign_up_data)
+    res = client.post(url, subscribe_data)
     messages = get_messages(res.wsgi_request)
     success_msg = (
         "You are now subscribed to receiving Health Alerts "
@@ -53,11 +55,11 @@ def test_success_msg_queqed_and_user_redirects(db, settings, client, url, sign_u
     assert str(list(messages)[0]) == success_msg
 
 
-def test_form_errors_raised(db, settings, client, url, sign_up_data):
+def test_form_errors_raised(db, settings, client, url, subscribe_data):
     settings.STATICFILES_STORAGE = (
         "django.contrib.staticfiles.storage.StaticFilesStorage"
     )
-    data = sign_up_data
+    data = subscribe_data
     data["network_fax"] = "failure"
     res = client.post(url, data)
     error_msg = (
