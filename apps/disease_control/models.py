@@ -2,12 +2,13 @@ from django.db import models
 
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page
 from wagtail.documents import get_document_model
 from wagtail.search import index
 
+from apps.common.models import HipBasePage
 
-class DiseaseControlListPage(Page):
+
+class DiseaseControlListPage(HipBasePage):
     max_count = 1
 
     parent_page_types = ["hip.HomePage"]
@@ -33,7 +34,7 @@ class DiseaseControlListPage(Page):
         return context
 
 
-class DiseaseControlPage(Page):
+class DiseaseControlPage(HipBasePage):
     parent_page_types = ["disease_control.DiseaseControlListPage"]
     subpage_types = []
     description = RichTextField(blank=True)
@@ -47,13 +48,12 @@ class DiseaseControlPage(Page):
         choices=Type.choices, help_text=("Under which sub-heading does this page go?")
     )
 
-    content_panels = [
-        FieldPanel("title"),
+    content_panels = HipBasePage.content_panels + [
         FieldPanel("description"),
         FieldPanel("page_type"),
     ]
 
-    search_fields = Page.search_fields + [
+    search_fields = HipBasePage.search_fields + [
         index.SearchField("description"),
     ]
 
@@ -69,7 +69,7 @@ class DiseaseAndConditionListPage(DiseaseControlPage):
         return context
 
 
-class DiseaseAndConditionDetailPage(Page):
+class DiseaseAndConditionDetailPage(HipBasePage):
     parent_page_types = ["disease_control.DiseaseAndConditionListPage"]
     subpage_types = []
 
@@ -105,8 +105,7 @@ class DiseaseAndConditionDetailPage(Page):
         ),
     )
 
-    content_panels = [
-        FieldPanel("title"),
+    content_panels = HipBasePage.content_panels + [
         FieldPanel("description"),
         FieldPanel("at_a_glance"),
         FieldPanel("current_recommendations"),
@@ -124,7 +123,7 @@ class DiseaseAndConditionDetailPage(Page):
         ),
     ]
 
-    search_fields = Page.search_fields + [
+    search_fields = HipBasePage.search_fields + [
         index.SearchField("description"),
         index.SearchField("at_a_glance"),
         index.SearchField("current_recommendations"),
@@ -189,7 +188,7 @@ class DiseaseAndConditionDetailPage(Page):
             return ""
 
 
-class EmergentHealthTopicListPage(Page):
+class EmergentHealthTopicListPage(HipBasePage):
     template = "disease_control/disease_and_condition_list_page.html"
 
     def get_context(self, request):

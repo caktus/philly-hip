@@ -5,13 +5,12 @@ from phonenumber_field.modelfields import PhoneNumberField
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core import blocks
 from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import Page
 from wagtail.search import index
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
-from ..common.models import IndexedTimeStampedModel
+from apps.common.models import HipBasePage, IndexedTimeStampedModel
 
 
 @register_snippet
@@ -103,7 +102,7 @@ class StreamAndNavHeadingBlock(blocks.StructBlock):
     contact_info = SnippetChooserBlock(Contact, required=False)
 
 
-class StaticPage(Page):
+class StaticPage(HipBasePage):
     """A Page with only sections of static content."""
 
     subpage_types = []
@@ -121,7 +120,7 @@ class StaticPage(Page):
     promote_panels = [
         FieldPanel("slug"),
     ]
-    search_fields = Page.search_fields + [
+    search_fields = HipBasePage.search_fields + [
         index.SearchField("body"),
     ]
 
@@ -198,7 +197,7 @@ class QuickLinkCard(blocks.StructBlock):
         value_class = QuickLinkStructValue
 
 
-class HomePage(Page):
+class HomePage(HipBasePage):
     max_count = 1
     quick_links = StreamField(
         [
@@ -218,7 +217,7 @@ class HomePage(Page):
         FieldPanel("about"),
     ]
 
-    search_fields = Page.search_fields + [
+    search_fields = HipBasePage.search_fields + [
         index.SearchField("quick_links"),
         index.SearchField("about"),
     ]
