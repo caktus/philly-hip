@@ -1,11 +1,11 @@
 from django.forms import ModelForm
 
-from .models import HealthAlertsSignUp
+from .models import HealthAlertSubscriber
 
 
-class HealthAlertsSignUpForm(ModelForm):
+class HealthAlertSubscriberForm(ModelForm):
     class Meta:
-        model = HealthAlertsSignUp
+        model = HealthAlertSubscriber
         fields = "__all__"
 
     def personal_fields(self):

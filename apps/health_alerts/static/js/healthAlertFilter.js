@@ -1,6 +1,6 @@
 export default function() {
   const hasHealthAlerts = document.querySelector('.alert-table-hip');
-  const healthAlertSignUpEl = document.querySelector(".health-alerts-sign-up-modal")
+  const healthAlertSignUpEl = document.querySelector(".health-alert-subscriber-modal")
   const selectConditionEl = document.querySelector('.select-condition');
   const alertsMissingEl = document.querySelector(".alerts-missing-hip");
   const tableHeaderEl = document.querySelector(".alert-table-header-hip");

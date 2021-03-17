@@ -16,7 +16,7 @@ urlpatterns = [
     path(
         "health-alerts-subscriber-signup",
         health_alert_views.sign_up,
-        name="health_alerts_sign_up",
+        name="health_alert_subscriber",
     ),
     path("admin/", admin.site.urls),
 ]

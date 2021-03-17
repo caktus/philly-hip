@@ -1,13 +1,13 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
-from .forms import HealthAlertsSignUpForm
+from .forms import HealthAlertSubscriberForm
 
 
 def sign_up(request):
 
     if request.method == "POST":
-        sign_up_form = HealthAlertsSignUpForm(request.POST)
+        sign_up_form = HealthAlertSubscriberForm(request.POST)
 
         if sign_up_form.is_valid():
             sign_up_form.save()
@@ -21,8 +21,8 @@ def sign_up(request):
             return redirect("/health-alerts/")
 
     else:
-        sign_up_form = HealthAlertsSignUpForm()
+        sign_up_form = HealthAlertSubscriberForm()
 
     return render(
-        request, "health_alerts/health_alerts_sign_up.html", {"form": sign_up_form}
+        request, "health_alerts/health_alert_subscriber.html", {"form": sign_up_form}
     )

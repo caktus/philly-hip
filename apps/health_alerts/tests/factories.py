@@ -2,10 +2,10 @@ import factory
 from factory import fuzzy
 
 from ..constants import AGENCY_TYPE_CHOICES
-from ..models import HealthAlertsSignUp
+from ..models import HealthAlertSubscriber
 
 
-class HealthAlertsSignUpFactories(factory.DjangoModelFactory):
+class HealthAlertSubscriberFactories(factory.DjangoModelFactory):
     personal_first_name = factory.faker.Faker("first_name")
     personal_last_name = factory.faker.Faker("last_name")
     personal_medical_expertise = factory.faker.Faker("first_name")
@@ -19,4 +19,4 @@ class HealthAlertsSignUpFactories(factory.DjangoModelFactory):
     network_fax = factory.Sequence(lambda n: "(123) 555-%04d" % n)
 
     class Meta:
-        model = HealthAlertsSignUp
+        model = HealthAlertSubscriber

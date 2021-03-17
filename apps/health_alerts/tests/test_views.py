@@ -25,7 +25,7 @@ def sign_up_data():
 
 @pytest.fixture
 def url():
-    return reverse("health_alerts_sign_up")
+    return reverse("health_alert_subscriber")
 
 
 def test_get_sign_up_page(db, settings, client, url):
@@ -34,7 +34,7 @@ def test_get_sign_up_page(db, settings, client, url):
     )
     res = client.get(url)
     assert HTTPStatus.OK == res.status_code
-    assertTemplateUsed("health_alerts/health_alerts_sign_up.html")
+    assertTemplateUsed("health_alerts/health_alert_subscriber.html")
     assert "form" in res.context
 
 

@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from .models import HealthAlertsSignUp
+from .models import HealthAlertSubscriber
 
 
-@admin.register(HealthAlertsSignUp)
-class HealthAlertsSignUpAdmin(admin.ModelAdmin):
+@admin.register(HealthAlertSubscriber)
+class HealthAlertSubscriberAdmin(admin.ModelAdmin):
     list_display = (
         "full_name",
         "agency_name",
