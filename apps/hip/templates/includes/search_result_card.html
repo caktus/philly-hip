@@ -1,19 +1,30 @@
-<div class="card my-4">
+{% load wagtailcore_tags %}
+
+<div class="card my-4 search-page-result-card-hip">
   <div class="card-content">
     <div class="content">
-      <div>
-        <a href="#a-result-page"><strong>COVID-19 Vaccine Availability chart</strong></a>
+
+      <p><a href="{% pageurl result %}"><strong>{{ result }}</strong></a></p>
+
+      <div class="level">
+        <div class="level-left">
+          <div class="level-item">
+            <p class="search-page-url-hip">{{ result.full_url }}</p>
+          </div>
+        </div>
+        <div class="level-right">
+          {% if result.specific.get_priority_display %}
+            <div class="level-item search-page-priority-badge-hip {{ result.specific.get_priority_display|slugify }}-hip">
+              <i class="fa {{ result.specific.get_priority_icon }}"></i>
+              {{ result.specific.get_priority_display|upper }}
+            </div>
+          {% endif %}
+        </div>
       </div>
-      <div class="py-2">
-        {# I think this is a pdf of the webpage above. But this is something we should check with Erik#}
-        <h6 class="is-size-6">hip.phila.gov/Resources/COVID-19-vaccine/pdf</h6>
-      </div>
-      <div>
-        {# placeholder image, presumably showing a thumbnail or image of a page result #}
-        <figure class="image is-128x128 px-0 mx-0">
-          <img src="https://bulma.io/images/placeholders/128x128.png">
-        </figure>
-      </div>
+
+      {% if result.search_description %}
+        <p>{{ result.search_description|safe }}</p>
+      {% endif %}
     </div>
   </div>
 </div>

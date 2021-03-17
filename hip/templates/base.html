@@ -15,7 +15,7 @@
         {% endwith %}
       {% endblock %}
     </title>
-    <meta name="description" content="" />
+    <meta name="description" content="{% if page.search_description %}{{ page.search_description }}{% endif %}" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     {% if not debug %}

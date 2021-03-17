@@ -34,4 +34,7 @@ if os.getenv("DEBUG_TOOLBAR", "True") == "True":
     ]
     MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
 
+if "pytest" in sys.modules:
+    STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

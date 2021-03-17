@@ -1,7 +1,9 @@
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core import blocks
 from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import Page
+from wagtail.search import index
+
+from apps.common.models import HipBasePage
 
 
 class LinkBlock(blocks.StructBlock):
@@ -33,7 +35,7 @@ class SectionOfLinkBlocks(blocks.StructBlock):
     )
 
 
-class EmergencyResponsePage(Page):
+class EmergencyResponsePage(HipBasePage):
     subpage_types = [
         "emergency_response.VolunteerPage",
         "emergency_response.HeatIndexPage",
@@ -58,8 +60,14 @@ class EmergencyResponsePage(Page):
         StreamFieldPanel("sections_of_links"),
     ]
 
+    search_fields = HipBasePage.search_fields + [
+        index.SearchField("description"),
+        index.SearchField("action_section"),
+        index.SearchField("sections_of_links"),
+    ]
 
-class VolunteerPage(Page):
+
+class VolunteerPage(HipBasePage):
     parent_page_types = ["emergency_response.EmergencyResponsePage"]
     subpage_types = []
 
@@ -68,7 +76,7 @@ class VolunteerPage(Page):
     ]
 
 
-class HeatIndexPage(Page):
+class HeatIndexPage(HipBasePage):
     parent_page_types = ["emergency_response.EmergencyResponsePage"]
     subpage_types = []
 

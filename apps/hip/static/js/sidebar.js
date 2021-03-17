@@ -65,7 +65,7 @@ export default function () {
     /* Hides sidebar on mobile when clicked
     */
     const closeBtn = document.querySelector(".sidebar-close-btn-hip");
-    closeBtn.addEventListener("click", function () {
+    closeBtn && closeBtn.addEventListener("click", function () {
       const target = document.getElementById("sidebarContent");
       closeMobileModal(target);
     });

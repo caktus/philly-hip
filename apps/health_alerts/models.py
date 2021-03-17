@@ -5,15 +5,16 @@ from django.shortcuts import redirect
 
 from phonenumber_field.modelfields import PhoneNumberField
 from wagtail.admin.edit_handlers import FieldPanel
-from wagtail.core.models import Page
 from wagtail.documents.edit_handlers import DocumentChooserPanel
+from wagtail.search import index
 
+from apps.common.models import HipBasePage
 from apps.disease_control.models import DiseaseAndConditionDetailPage
 
 from .utils import zipcode_validator
 
 
-class HealthAlertListPage(Page):
+class HealthAlertListPage(HipBasePage):
     # There can be only one HealthAlertListPage
     max_count = 1
     parent_page_types = ["hip.HomePage"]
@@ -46,7 +47,7 @@ class HealthAlertListPage(Page):
         return context
 
 
-class HealthAlertDetailPage(Page):
+class HealthAlertDetailPage(HipBasePage):
     parent_page_types = ["health_alerts.HealthAlertListPage"]
     subpage_types = []
     alert_file = models.ForeignKey(
@@ -71,17 +72,15 @@ class HealthAlertDetailPage(Page):
         related_name="health_alerts",
     )
 
-    content_panels = (
-        [
-            DocumentChooserPanel("alert_file"),
-        ]
-        + Page.content_panels
-        + [
-            FieldPanel("priority"),
-            FieldPanel("alert_date"),
-            FieldPanel("disease"),
-        ]
-    )
+    content_panels = HipBasePage.content_panels + [
+        DocumentChooserPanel("alert_file"),
+        FieldPanel("priority"),
+        FieldPanel("alert_date"),
+        FieldPanel("disease"),
+    ]
+    search_fields = HipBasePage.search_fields + [
+        index.SearchField("get_priority_display"),
+    ]
 
     def get_priority_icon(self):
         """
