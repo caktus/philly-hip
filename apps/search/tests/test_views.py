@@ -1,5 +1,6 @@
 from django.urls import reverse
 
+from apps.common.utils import get_home_page_url
 from apps.disease_control.tests.factories import DiseaseControlPageFactory
 
 
@@ -8,7 +9,7 @@ def test_search_no_query(client, db):
     response = client.get(url)
     assert response.status_code == 200
     context = response.context
-    for key in ["search_query", "search_results", "prev_url"]:
+    for key in ["search_query", "search_results", "initial_url", "base_params"]:
         assert key in response.context
 
 
@@ -34,3 +35,19 @@ def test_search_with_unsuccessful_query(client, db):
     context = response.context
     assert response.context["search_query"] == "bar"
     assert len(response.context["search_results"].object_list) == 0
+
+
+def test_initial_url_defaults_to_home(client, db):
+    url = reverse("search")
+    response = client.get(url)
+    assert response.status_code == 200
+    context = response.context
+    assert response.context["initial_url"] == get_home_page_url()
+
+
+def test_initial_url_can_be_provided_in_request(client, db):
+    url = reverse("search")
+    response = client.get(url, {"initial_url": "/initial"})
+    assert response.status_code == 200
+    context = response.context
+    assert response.context["initial_url"] == "/initial"

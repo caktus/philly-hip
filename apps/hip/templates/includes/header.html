@@ -35,6 +35,7 @@
             <i class="search-icon-hip"></i>
           </span>
           <form action="{% url "search" %}">
+            <input type="hidden" name="initial_url" value="{{ initial_url|default:request.get_full_path }}" />
             <input class="input is-normal search-input-hip is-full-width-hip" name="query" type="text" placeholder="Enter Search Terms...">
           </form>
         </div>

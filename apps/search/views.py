@@ -14,16 +14,16 @@ def search(request):
     search_query = request.GET.get("query", None)
     page = request.GET.get("page", 1)
 
-    # Keep track of what prev_url is the first time that we load this view, and then
-    # "remember" that prev_url (by setting a hidden var in the template) so that even if
+    # Keep track of what initial_url is the first time that we load this view, and then
+    # "remember" that initial_url (by setting a hidden var in the template) so that even if
     # the user clicks around the pagination links, we can always remember what page they
-    # initially came from (in order for the mobile to act like a modal when it is
+    # initially came from (in order for the mobile view to act like a modal when it is
     # closed)
-    prev_url = request.GET.get("prev_url") or request.META.get("HTTP_REFERER")
-    if not prev_url:
-        prev_url = get_home_page_url()
+    initial_url = request.GET.get("initial_url")
+    if not initial_url:
+        initial_url = get_home_page_url()
     # helper variable to use in template for each of our pagination URLs
-    base_params = f"?query={ search_query }&prev_url={ prev_url }"
+    base_params = f"?query={ search_query }&initial_url={ initial_url }"
 
     # Search
     if search_query:
@@ -49,7 +49,7 @@ def search(request):
         {
             "search_query": search_query,
             "search_results": search_results,
-            "prev_url": prev_url,
+            "initial_url": initial_url,
             "base_params": base_params,
         },
     )

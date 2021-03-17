@@ -12,9 +12,9 @@ export default function() {
       // modal. we also need to redirect them to the page they were on before starting
       // to search
       const urlParams = new URLSearchParams(window.location.search);
-      const prevUrl = urlParams.get('prev_url');
-      if (prevUrl) {
-        window.location.href = prevUrl;
+      const initialUrl = urlParams.get('initial_url');
+      if (initialUrl) {
+        window.location.href = initialUrl;
       } else {
         // they haven't clicked around the search results, so we can just close the modal
         const target = document.getElementById("searchMobileContainer");
