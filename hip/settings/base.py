@@ -97,6 +97,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "wagtailmenus.context_processors.wagtailmenus",
                 "apps.common.context_processors.home_page_url",
+                "apps.common.context_processors.previous_url",
             ],
         },
     },
@@ -258,6 +259,8 @@ WAGTAILSEARCH_BACKENDS = {
 
 WAGTAILDOCS_EXTENSIONS = ["pdf", "png", "jpg"]
 
+
+LOGOUT_REDIRECT_URL = "/"
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
