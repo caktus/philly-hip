@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load form_tags %}
+
+{% block content %}
+<div class="health-alert-subscriber-modal columns">
+  <div class="column is-2-tablet"></div>
+  <div class="column py-6">
+    <div class="is-flex is-justify-content-space-between is-vcentered">
+      <h5 class="is-size-5 pt-2 pl-4">
+        <strong>Health Alerts Sign Up Form</strong>
+      </h5>
+      <button id="health-alert-subscriber-close-btn-hip" data-href="/health-alerts/" class="button btn-no-border-hip pt-4">
+        <i class="close-icon-hip"></i>
+      </button>
+    </div>
+    <div class="px-4 columns is-widescreen">
+      {# Sign Up Form Section #}
+      <form class="column is-half-desktop" action="/health-alerts-subscriber-signup" method="post">
+        {% csrf_token %}
+        <div>
+          {% include 'includes/field_errors.html' with errors=form.non_field_errors %}
+        </div>
+        <div>
+          <h6 class="is-size-6 py-2"><strong>Personal Information</strong></h6>
+          {% for field in form.personal_fields %}
+            <div class="py-2 field form-sections-hip">
+              {% include 'includes/field_errors.html' with errors=field.errors %}
+              <label class="label is-block is-size-7" for="{{ field.id_for_label }}">{{ field.label }}</label>
+              <div class="control">
+                {% if field|widget_class == "Select" %}
+                  <div class="select is-small">
+                    {{ field }}
+                  </div>
+                {% else %}
+                  {{ field }}
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div>
+          <h6 class="is-size-6 py-2"><strong>Agency Information</strong></h6>
+          {% for field in form.agency_fields %}
+            <div class="py-2 field form-sections-hip">
+              {% include 'includes/field_errors.html' with errors=field.errors %}
+              <label class="label is-block is-size-7" for="{{ field.id_for_label }}">{{ field.label }}</label>
+              <div class="control">
+                {% if field|widget_class == "Select" %}
+                  <div class="select is-small">
+                    {{ field }}
+                  </div>
+                {% else %}
+                  {{ field }}
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div>
+          <h6 class="is-size-6 py-2"><strong>Health Alert Network Contact Information</strong></h6>
+          {% for field in form.network_fields %}
+            <div class="py-2 field form-sections-hip">
+              {% include 'includes/field_errors.html' with errors=field.errors %}
+              <label class="label is-block is-size-7" for="{{ field.id_for_label }}">{{ field.label }}</label>
+              <div class="control">
+                {% if field|widget_class == "Select" %}
+                  <div class="select is-small">
+                    {{ field }}
+                  </div>
+                {% else %}
+                  {{ field }}
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        {# Submit #}
+        <div class="py-4">
+          <button class="button is-size-7-touch header-btn-hip ml-0" type="submit">
+            <strong>Confirm Account</strong>
+          </button>
+        </div>
+      </form>
+      <div class="column"></div>
+    </div>
+  </div>
+  <div class="column is-2-tablet"></div>
+</div>
+{% endblock %}

@@ -105,3 +105,13 @@ body.modal-is-open-hip {
   overflow-y: hidden;
   padding-right: 15px;
 }
+
+// -------------------- Errors --------------- //
+
+.errorlist {
+  li {
+    font-size: $is-size-7;
+    font-weight: bold;
+    color: $alert !important;
+  }
+}

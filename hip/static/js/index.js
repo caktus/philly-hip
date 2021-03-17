@@ -24,6 +24,8 @@ import SideBar from "../../../apps/hip/static/js/sidebar";
 import RightScrollNav from "../../../apps/hip/static/js/rightScrollNav";
 import MobileSearchModal from "../../../apps/hip/static/js/mobileSearchModal";
 import HealthAlertFilter from "../../../apps/health_alerts/static/js/healthAlertFilter";
+import HealthAlertSubscriber from "../../../apps/health_alerts/static/js/healthAlertSubscriber";
+import HealthAlertMessage from "../../../apps/health_alerts/static/js/healthAlertMessage";
 
 document.addEventListener("DOMContentLoaded", function() {
   Common();
@@ -32,4 +34,6 @@ document.addEventListener("DOMContentLoaded", function() {
   MobileSearchModal();
   RightScrollNav();
   HealthAlertFilter();
+  HealthAlertSubscriber();
+  HealthAlertMessage();
 });
