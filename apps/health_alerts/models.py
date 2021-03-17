@@ -10,7 +10,6 @@ from wagtail.documents.edit_handlers import DocumentChooserPanel
 
 from apps.disease_control.models import DiseaseAndConditionDetailPage
 
-from .constants import AGENCY_TYPE_CHOICES
 from .utils import zipcode_validator
 
 
@@ -115,12 +114,17 @@ class HealthAlertDetailPage(Page):
 
 
 class HealthAlertSubscriber(models.Model):
-    """Health Alert Sign Up
+    """Stores users that indicate they would like to
+    subscribe to health alerts
 
     This model is a standard django model used
-    to send out newsletter to subscribed users. Instances
+    to store health alert subscribers. Instances
     are made available in the django admin as opposed
-    to the wagtail cms.
+    to the wagtail cms. From the information stored here
+    admins will be able to send out newsletters. The
+    actual sending of newsletters is a process not
+    managed by the current iteration of this
+    application.
     """
 
     personal_first_name = models.CharField(
@@ -144,7 +148,24 @@ class HealthAlertSubscriber(models.Model):
         default="",
     )
     agency_name = models.CharField(max_length=255, default="")
-    agency_type = models.CharField(max_length=4, choices=AGENCY_TYPE_CHOICES)
+
+    class AGENCY_TYPE_CHOICES(models.TextChoices):
+        ANIMAL_VETERINARY_CLINICS = "AV", "Animal and Veterinary Clinics"
+        BUSINESSES_COMMUNITY_ORGANIZATIONS = (
+            "BCO",
+            "Businesses and Community Organizations",
+        )
+        CHILDCARE_SERVICES_DAYCARES = "CSD", "Child Care Services and Daycares"
+        DENTAL_OFFICES_CLINICS = "DOC", "Dental Offices and Clinics"
+        HOSPITALS_HEALTHCARE = "HH", "Hospitals and Healthcare"
+        NURSING_PERSONAL_CARE_HOMES = "NPH", "Nursing and Personal Care Homes"
+        PDPH_INTERNAL = "PDPH", "PDPH (Internal)"
+        PHARMACY = "P", "Pharmacy"
+        PUBLIC_HEALTH_REGIONAL_PARTNERS = "PHRP", "Public Health and Regional Partners"
+        UNIVERSITY_STUDENT_HEALTH = "USH", "University and Student Health"
+        OTHER = "O", "Other"
+
+    agency_type = models.CharField(max_length=4, choices=AGENCY_TYPE_CHOICES.choices)
     agency_zip_code = models.CharField(
         max_length=10, default="", validators=[zipcode_validator]
     )
