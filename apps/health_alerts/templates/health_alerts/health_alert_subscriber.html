@@ -15,7 +15,7 @@
     </div>
     <div class="px-4 columns is-widescreen">
       {# Sign Up Form Section #}
-      <form class="column is-half-desktop class="column" action="/health-alerts-subscriber-signup" method="post">
+      <form class="column is-half-desktop" action="/health-alerts-subscriber-signup" method="post">
         {% csrf_token %}
         <div>
           {% include 'includes/field_errors.html' with errors=form.non_field_errors %}
