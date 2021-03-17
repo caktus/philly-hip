@@ -1,9 +1,11 @@
 import os
+import sys
 
 from .base import *  # noqa
 
 
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+if "pytest" in sys.modules:
+    STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
