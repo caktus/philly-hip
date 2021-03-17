@@ -3,6 +3,8 @@ import os
 from .base import *  # noqa
 
 
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 

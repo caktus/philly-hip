@@ -28,22 +28,14 @@ def url():
     return reverse("health_alert_subscriber")
 
 
-def test_get_subscribe_page(db, settings, client, url):
-    settings.STATICFILES_STORAGE = (
-        "django.contrib.staticfiles.storage.StaticFilesStorage"
-    )
+def test_get_subscribe_page(db, client, url):
     res = client.get(url)
     assert HTTPStatus.OK == res.status_code
     assertTemplateUsed("health_alerts/health_alert_subscriber.html")
     assert "form" in res.context
 
 
-def test_success_msg_queqed_and_user_redirects(
-    db, settings, client, url, subscribe_data
-):
-    settings.STATICFILES_STORAGE = (
-        "django.contrib.staticfiles.storage.StaticFilesStorage"
-    )
+def test_success_msg_queqed_and_user_redirects(db, client, url, subscribe_data):
     res = client.post(url, subscribe_data)
     messages = get_messages(res.wsgi_request)
     success_msg = (
@@ -55,10 +47,7 @@ def test_success_msg_queqed_and_user_redirects(
     assert str(list(messages)[0]) == success_msg
 
 
-def test_form_errors_raised(db, settings, client, url, subscribe_data):
-    settings.STATICFILES_STORAGE = (
-        "django.contrib.staticfiles.storage.StaticFilesStorage"
-    )
+def test_form_errors_raised(db, client, url, subscribe_data):
     data = subscribe_data
     data["network_fax"] = "failure"
     res = client.post(url, data)
