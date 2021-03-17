@@ -1,0 +1,8 @@
+@import "../mixins";
+
+.login-page-hip {
+  @include headers;
+}
+.password-reset-hip {
+  @include headers;
+}

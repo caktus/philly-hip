@@ -5,6 +5,7 @@
   <div class="health-alert-page">
     <div class="columns">
       <div class="column">
+        {% include 'includes/message.html' with messages=messages %}
         <div class="level">
           {# Title is on the left #}
           <div class="level-left">
@@ -18,7 +19,7 @@
           {# Sign up button is on the right #}
           <div class="level-right">
             <div class="level-item">
-              <a href="/fixme-alert-signup" class="is-block">
+              <a href="/health-alerts-subscriber-signup" class="is-block">
                 <span class="button is-size-7-touch header-icon-hip">
                   <i class="email-icon-hip"></i>
                 </span>

@@ -97,6 +97,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "wagtailmenus.context_processors.wagtailmenus",
                 "apps.common.context_processors.home_page_url",
+                "apps.common.context_processors.previous_url",
             ],
         },
     },
@@ -198,7 +199,6 @@ AWS_QUERYSTRING_AUTH = os.getenv("AWS_QUERYSTRING_AUTH", "True") == "True"
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 
-
 # Logging
 
 LOGGING = {
@@ -259,6 +259,8 @@ WAGTAILSEARCH_BACKENDS = {
 
 WAGTAILDOCS_EXTENSIONS = ["pdf", "png", "jpg"]
 
+
+LOGOUT_REDIRECT_URL = "/"
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
