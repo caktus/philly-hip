@@ -189,6 +189,14 @@ class QuickLinkCard(blocks.StructBlock):
 
 class HomePage(HipBasePage):
     max_count = 1
+    short_description = models.CharField(
+        max_length=255,
+        default="",
+        blank=True,
+        help_text=(
+            "A short description of the website that will be shown to users when they are on the home page."
+        ),
+    )
     quick_links = StreamField(
         [
             ("quick_links", QuickLinkCard()),
@@ -202,6 +210,7 @@ class HomePage(HipBasePage):
 
     content_panels = [
         FieldPanel("title"),
+        FieldPanel("short_description"),
         SnippetChooserPanel("contact_info"),
         StreamFieldPanel("quick_links"),
         FieldPanel("about"),

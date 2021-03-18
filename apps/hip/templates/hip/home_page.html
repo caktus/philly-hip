@@ -7,6 +7,14 @@
 
 {% block content %}
   <div class="homepage-padding-hip">
+    {% if page.title %}
+      <section class="pb-4 px-2">
+        <h2 class="is-size-2"><strong>{{ page.title }}</strong></h2>
+        {% if page.short_description %}
+          <p>{{ page.short_description }}</p>
+        {% endif %}
+      </section>
+    {% endif %}
     <section class="columns is-multiline">
       {% for quick_link in page.quick_links %}
         <div class="column is-relative is-one-quarter has-text-centered quicklink-padding-hip">
