@@ -195,5 +195,5 @@ class EmergentHealthTopicListPage(HipBasePage):
         context = super().get_context(request)
         context["ordered_diseases"] = DiseaseAndConditionDetailPage.objects.filter(
             is_emergent=True
-        ).order_by("title")
+        ).order_by("-latest_revision_created_at")
         return context
