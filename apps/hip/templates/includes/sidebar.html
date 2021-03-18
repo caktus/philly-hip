@@ -45,8 +45,10 @@
   </div>
   <ul class="mb-4 desktop-hidden-hip {% if hidden_desktop %}is-hidden-desktop{% endif %}">
     <li class="pl-4 pb-2 sidenav-link-hip" data-href="#closed-pod-login">
-      <span class="signin-icon-blue-hip"></span>
-      Partner Log In
+      <a href="{% url 'login' %}" class="is-block">
+        <span class="signin-icon-blue-hip"></span>
+        Partner Log In
+      </a>
     </li>
   </ul>
 </div>
