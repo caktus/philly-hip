@@ -57,3 +57,26 @@ def test_form_errors_raised(db, client, url, subscribe_data):
     )
     assert HTTPStatus.OK == res.status_code
     assert error_msg in str(res.content)
+
+
+def test_form_errors_raised_multiple(db, client, url, subscribe_data):
+    errors = []
+    # This field is required error
+    del subscribe_data["personal_first_name"]
+    field_required_error = "This field is required."
+    errors.append(field_required_error)
+
+    # network fax error
+    subscribe_data["network_fax"] = "23903203"
+    network_fax_error = (
+        "Enter a valid phone number (e.g. (201) 555-0123) or a number "
+        "with an international call prefix."
+    )
+    errors.append(network_fax_error)
+    # zip_code error
+    subscribe_data["agency_zip_code"] = "23903203"
+    zip_code_error = "Either provide a 5 or 9 digit zipcode Ex: 12345 or 12345-1234"
+    errors.append(zip_code_error)
+    res = client.post(url, subscribe_data)
+    for e in errors:
+        assert e in str(res.content)
