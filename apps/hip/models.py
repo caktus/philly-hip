@@ -192,6 +192,7 @@ class HomePage(HipBasePage):
     short_description = models.CharField(
         max_length=255,
         default="",
+        blank=True,
         help_text=(
             "A short description of the website that will be shown to users when they are on the home page."
         ),
