@@ -120,3 +120,53 @@ def test_emergent_health_topic_list_page_only_emergent(db, rf):
     assert len(expected_diseases) == len(context["ordered_diseases"])
     for disease in expected_diseases:
         assert disease in context["ordered_diseases"]
+
+
+def test_emergent_health_topic_order_by_latest_revision_created_at(db, rf):
+    """The EmergentHealthTopicListPage is ordered by recently updated"""
+    disease_1 = DiseaseAndConditionDetailPageFactory(is_emergent=True)
+    disease_2 = DiseaseAndConditionDetailPageFactory(is_emergent=True)
+    disease_3 = DiseaseAndConditionDetailPageFactory(is_emergent=True)
+    disease_4 = DiseaseAndConditionDetailPageFactory(is_emergent=True)
+    disease_5 = DiseaseAndConditionDetailPageFactory(is_emergent=True)
+    expected_diseases = [
+        disease_1,
+        disease_2,
+        disease_3,
+        disease_4,
+        disease_5,
+    ]
+    emergent_page = EmergentHealthTopicListPageFactory()
+
+    for disease in expected_diseases:
+        # populate latest_revision_created_at
+        # otherwise value is None
+        disease.save_revision()
+
+    context = emergent_page.get_context(rf.get("/"))
+
+    ordered_diseases = sorted(
+        expected_diseases, key=lambda x: x.latest_revision_created_at, reverse=True
+    )
+    for i, disease in enumerate(ordered_diseases):
+        if i == 0:
+            assert (
+                disease_5.latest_revision_created_at
+                == context["ordered_diseases"][i].latest_revision_created_at
+            )
+        assert (
+            disease.latest_revision_created_at
+            == context["ordered_diseases"][i].latest_revision_created_at
+        )
+
+    # disease_3 is now the most recently updated emergent disease page
+    disease_3.save_revision()
+
+    context = emergent_page.get_context(rf.get("/"))
+
+    for disease in context["ordered_diseases"]:
+        if i == 0:
+            assert (
+                disease_3.latest_revision_created_at
+                == context["ordered_diseases"][i].latest_revision_created_at
+            )
