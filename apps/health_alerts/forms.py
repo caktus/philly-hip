@@ -4,6 +4,8 @@ from .models import HealthAlertSubscriber
 
 
 class HealthAlertSubscriberForm(ModelForm):
+    use_required_attribute = False
+
     class Meta:
         model = HealthAlertSubscriber
         fields = "__all__"

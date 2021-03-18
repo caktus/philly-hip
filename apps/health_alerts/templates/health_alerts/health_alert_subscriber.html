@@ -24,7 +24,6 @@
           <h6 class="is-size-6 py-2"><strong>Personal Information</strong></h6>
           {% for field in form.personal_fields %}
             <div class="py-2 field form-sections-hip">
-              {% include 'includes/field_errors.html' with errors=field.errors %}
               <label class="label is-block is-size-7" for="{{ field.id_for_label }}">{{ field.label }}</label>
               <div class="control">
                 {% if field|widget_class == "Select" %}
@@ -35,6 +34,7 @@
                   {{ field }}
                 {% endif %}
               </div>
+              {% include 'includes/field_errors.html' with errors=field.errors %}
             </div>
           {% endfor %}
         </div>
@@ -42,7 +42,6 @@
           <h6 class="is-size-6 py-2"><strong>Agency Information</strong></h6>
           {% for field in form.agency_fields %}
             <div class="py-2 field form-sections-hip">
-              {% include 'includes/field_errors.html' with errors=field.errors %}
               <label class="label is-block is-size-7" for="{{ field.id_for_label }}">{{ field.label }}</label>
               <div class="control">
                 {% if field|widget_class == "Select" %}
@@ -53,6 +52,7 @@
                   {{ field }}
                 {% endif %}
               </div>
+              {% include 'includes/field_errors.html' with errors=field.errors %}
             </div>
           {% endfor %}
         </div>
@@ -60,7 +60,6 @@
           <h6 class="is-size-6 py-2"><strong>Health Alert Network Contact Information</strong></h6>
           {% for field in form.network_fields %}
             <div class="py-2 field form-sections-hip">
-              {% include 'includes/field_errors.html' with errors=field.errors %}
               <label class="label is-block is-size-7" for="{{ field.id_for_label }}">{{ field.label }}</label>
               <div class="control">
                 {% if field|widget_class == "Select" %}
@@ -71,6 +70,7 @@
                   {{ field }}
                 {% endif %}
               </div>
+              {% include 'includes/field_errors.html' with errors=field.errors %}
             </div>
           {% endfor %}
         </div>

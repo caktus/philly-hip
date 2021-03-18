@@ -1,7 +1,7 @@
 {% if errors %}
     <ul class="errorlist">
     {% for error in errors %}
-        <li>{{ error|escape }}</li>
+        <li class="py-1">{{ error|escape }}</li>
     {% endfor %}
     </ul>
 {% endif %}
