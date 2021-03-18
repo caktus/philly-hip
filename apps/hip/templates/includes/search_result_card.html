@@ -14,7 +14,7 @@
         </div>
         <div class="level-right">
           {% if result.specific.get_priority_display %}
-            {# Health alert pages show the icon for their priority and their priority #}
+            {# Health alert pages show the icon for their priority and the word to describe their priority #}
             <div class="level-item search-page-priority-badge-hip {{ result.specific.get_priority_display|slugify }}-hip">
               <i class="fa {{ result.specific.get_priority_icon }} pr-2"></i>
               {{ result.specific.get_priority_display|upper }}
