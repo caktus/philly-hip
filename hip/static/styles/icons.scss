@@ -85,8 +85,8 @@ To select that icon, do:
   }
 }
 
-.signin-icon-blue-hip {
-  color: $dark-blue;
+.signin-icon-red-hip {
+  color: $red;
   @include solid-icon;
   &::before {
     content: fa-content($fa-var-sign-in-alt);

@@ -44,11 +44,18 @@
     <div class="ml-2 mr-6 sidebar-divider-hip desktop-hidden-hip"></div>
   </div>
   <ul class="mb-4 desktop-hidden-hip {% if hidden_desktop %}is-hidden-desktop{% endif %}">
-    <li class="pl-4 pb-2 sidenav-link-hip" data-href="#closed-pod-login">
-      <a href="{% url 'login' %}" class="is-block">
-        <span class="signin-icon-blue-hip"></span>
-        Partner Log In
-      </a>
+    <li class="pl-4 pb-2 sidenav-link-hip" data-href="#closed-pod-login-logout">
+      {% if request.user.is_authenticated %}
+        <a href="{% url 'logout' %}" class="is-block alert-hip">
+          <span class="signin-icon-red-hip"></span>
+            Logout
+        </a>
+      {% else %}
+        <a href="{% url 'login' %}" class="is-block">
+          <span class="signin-icon-blue-hip"></span>
+          Partner Log In
+        </a>
+      {% endif %}
     </li>
   </ul>
 </div>
