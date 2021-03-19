@@ -159,7 +159,7 @@ To select that icon, do:
 
 .down-triangle-icon-hip {
   color: $dark-blue;
-  @include regular-icon;
+  @include solid-icon;
   &::before {
     content: fa-content($fa-var-sort-down);
   }
