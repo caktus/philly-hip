@@ -1,6 +1,5 @@
 {% load wagtailcore_tags %}
 
-{% if not is_hidden %}
 <nav class="breadcrumb breadcrumbs-hip" aria-label="breadcrumbs">
   <ul id="breadcrumb-ul-hip">
     {% for page in self.get_ancestors %}
@@ -13,4 +12,3 @@
     </li>
   </ul>
 </nav>
-{% endif %}

@@ -2,7 +2,9 @@
 {% load wagtailcore_tags %}
 
 {% block content %}
-{% include 'includes/breadcrumb.html' with is_hidden=breadcrumb_is_hidden %}
+{%  if not breadcrumb_is_hidden %}
+  {% include 'includes/breadcrumb.html' %}
+{% endif %}
 <div>
   <div class="disease-control-index-page-hip">
     <h2><strong>{{ page.title }}</strong></h2>
