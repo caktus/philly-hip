@@ -20,7 +20,7 @@ def subscribe_data():
     )
 
 
-def test_asterisks_marks_required_fields(db):
+def test_asterisks_mark_required_fields(db):
     form = HealthAlertSubscriberForm()
     for field_name in form.fields:
         if form.fields[field_name].required:
