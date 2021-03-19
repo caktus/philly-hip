@@ -2,10 +2,10 @@
 {% load wagtailcore_tags %}
 
 {% block content %}
-{% include 'includes/breadcrumb.html' %}
+{% include 'includes/breadcrumb.html' with is_hidden=breadcrumb_is_hidden %}
 <div>
   <div class="disease-control-index-page-hip">
-    <h2>{{ page.title }}</h2>
+    <h2><strong>{{ page.title }}</strong></h2>
     <div>
       {% for disease in ordered_diseases %}
         {% include 'includes/disease_control_card.html' with page=disease %}
