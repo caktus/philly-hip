@@ -193,6 +193,7 @@ class EmergentHealthTopicListPage(HipBasePage):
 
     def get_context(self, request):
         context = super().get_context(request)
+        context["breadcrumb_is_hidden"] = True
         context["ordered_diseases"] = DiseaseAndConditionDetailPage.objects.filter(
             is_emergent=True
         ).order_by("-latest_revision_created_at")
