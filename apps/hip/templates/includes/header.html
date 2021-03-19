@@ -56,14 +56,14 @@
         </div>
         <div class="navbar-item">
           {% if request.user.is_authenticated %}
-            <a href="/accounts/logout/" class="is-block">
+            <a href="{% url 'logout' %}" class="is-block">
               <span class="button is-size-7-touch alt-header-btn-hip ml-0 pr-6">
                 <strong>Logged In</strong>
                 <i class="down-triangle-icon-hip"></i>
               </span>
             </a>
           {% else %}
-            <a href="/accounts/login/" class="is-block">
+            <a href="{% url 'login' %}" class="is-block">
               <span class="button is-size-7-touch header-icon-hip ml-0">
                 <i class="signin-icon-hip"></i>
               </span>
@@ -88,14 +88,14 @@
         </div>
         <div class="navbar-item pl-1 pr-2">
           {% if request.user.is_authenticated %}
-            <a href="/accounts/logout/" class="is-block">
+            <a href="{% url 'logout' %}" class="is-block">
               <span class="button is-size-7-touch alt-header-btn-hip ml-0">
                 <strong>Logged In</strong>
                 <i class="down-triangle-icon-hip"></i>
               </span>
             </a>
           {% else %}
-            <a href="/accounts/login/" class="is-block pr-6">
+            <a href="{% url 'login' %}" class="is-block pr-6">
               <span class="button is-size-7-touch header-icon-hip ml-0">
                 <i class="signin-icon-hip"></i>
               </span>
