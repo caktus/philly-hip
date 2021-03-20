@@ -30,15 +30,17 @@
   <div class="column is-four-fifths columns is-desktop mobile-hidden-hip">
     <div class="column is-desktop is-hidden-touch is-6 pt-5">
       <div class="navbar-item is-full-height-hip">
-        <div class="control is-inline-block has-icons-right is-full-width-hip pl-6 pr-6">
-          <span class="icon is-right dark-blue-bg-hip mr-6">
-            <i class="search-icon-hip"></i>
-          </span>
-          <form action="{% url "search" %}">
+        <form action="{% url "search" %}" class="field has-addons is-full-width-hip pl-6 pr-6">
+          <div class="control is-inline-block has-icons-right is-full-width-hip">
             <input type="hidden" name="initial_url" value="{{ initial_url|default:request.get_full_path }}" />
             <input class="input is-normal search-input-hip is-full-width-hip" name="query" type="text" placeholder="Enter Search Terms...">
-          </form>
-        </div>
+          </div>
+          <div class="control is-inline-block">
+            <button type="submit" class="icon button dark-blue-bg-hip is-full-width-hip is-full-height-hip btn-no-border-hip">
+              <i class="search-icon-hip"></i>
+            </button>
+          </div>
+        </form>
       </div>
     </div>
     <div class="column is-desktop is-hidden-touch is-6 pt-5">
