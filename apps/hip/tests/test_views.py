@@ -79,39 +79,49 @@ def test_authenticated_view_router_not_authenticated(db, client, mocker):
 
 
 @pytest.mark.parametrize(
-    "group_names",
+    "group_names,expected_redirect",
     [
-        None,
-        ["Closed POD"],
-        ["PCW MSA"],
-        ["Big Cities"],
-        ["Closed POD", "PCW MSA"],
-        ["Closed POD", "Big Cities"],
-        ["PCW MSA", "Big Cities"],
-        ["Closed POD", "PCW MSA", "Big Cities"],
+        ([], "get_home_page_url"),
+        (["Closed POD"], "get_closedpod_home_page_url"),
+        (["PCW MSA"], "get_home_page_url"),
+        (["Big Cities"], "get_home_page_url"),
+        (["Closed POD", "PCW MSA"], "get_closedpod_home_page_url"),
+        (["Closed POD", "Big Cities"], "get_closedpod_home_page_url"),
+        (["PCW MSA", "Big Cities"], "get_home_page_url"),
+        (["Closed POD", "PCW MSA", "Big Cities"], "get_closedpod_home_page_url"),
     ],
 )
-def test_authenticated_view_router_authenticated(db, client, mocker, group_names):
-    """All authenticated users get redirected to the homepage, regardless of their Groups."""
-    # Mock the apps.common.utils.get_home_page_url function, since the it is used
+def test_authenticated_view_router_authenticated(
+    db, client, mocker, group_names, expected_redirect
+):
+    """Authenticated users get redirected, based on their Group(s)."""
+    # Mock the apps.common.utils.get_home_page_url function, since it is used
     # to determine the homepage URL.
     mock_get_home_page_url = mocker.patch("apps.hip.views.get_home_page_url")
-    mock_url = "/the_home_page_url/"
-    mock_get_home_page_url.return_value = mock_url
+    mock_homepage_url = "/the_home_page_url/"
+    mock_get_home_page_url.return_value = mock_homepage_url
+    # Mock the apps.common.utils.get_closedpod_home_page_url function, since it
+    # is used to determine the Closed POD homepage URL.
+    mock_get_closedpod_home_page_url = mocker.patch(
+        "apps.hip.views.get_closedpod_home_page_url"
+    )
+    mock_closedpod_homepage_url = "/the_closedpod_home_page_url/"
+    mock_get_closedpod_home_page_url.return_value = mock_closedpod_homepage_url
 
     # Create a user, and put the user into a particular Group.
     user = UserFactory(email="test-user")
-    if group_names:
-        for group_name in group_names:
-            group = GroupFactory(name=group_name)
-            group.save()
-            user.groups.add(group)
+    for group_name in group_names:
+        group = GroupFactory(name=group_name)
+        group.save()
+        user.groups.add(group)
     # Log in the user.
     client.force_login(user)
 
     response = client.get(reverse("auth_view_router"))
 
-    # GETting the login page redirects the user to the get_home_page_url(), regardless
-    # of the user's Groups.
+    # GETting the login page redirects the user to the expected_redirect.
     assert 302 == response.status_code
-    assert mock_url == response.url
+    if expected_redirect == "get_home_page_url":
+        assert mock_homepage_url == response.url
+    elif expected_redirect == "get_closedpod_home_page_url":
+        assert mock_closedpod_homepage_url == response.url

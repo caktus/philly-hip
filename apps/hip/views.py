@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, render, reverse
 
-from apps.common.utils import get_home_page_url
+from apps.common.utils import get_closedpod_home_page_url, get_home_page_url
 
 
 def handler404(request, *args, **argv):
@@ -43,5 +43,8 @@ class HIPLoginView(LoginView):
 @login_required
 def authenticated_view_router(request, *args, **kwargs):
     """Determine which home page an authenticated user should go to, and redirect them there."""
-    # Currently, all authenticated users are redirected to the home page.
+    # Users in the "Closed POD" Group get redirected to the ClosedPODHomePage.
+    if request.user.groups.filter(name="Closed POD").exists():
+        return redirect(get_closedpod_home_page_url())
+    # All other authenticated users are redirected to the home page.
     return redirect(get_home_page_url())
