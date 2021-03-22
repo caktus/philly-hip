@@ -1,14 +1,19 @@
 from django.db import models
 
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.core.fields import RichTextField
 from wagtail.search import index
 
 from apps.common.models import HipBasePage
+from apps.hip.models import StaticPage
 
 
 class ClosedPODHomePage(HipBasePage):
     max_count = 1
+
+    subpage_types = [
+        "auth_content.ClosedPODChildPage",
+    ]
 
     action_section = RichTextField(
         blank=True,
@@ -77,4 +82,19 @@ class ClosedPODHomePage(HipBasePage):
         index.SearchField("exercise_text"),
         index.SearchField("about_subtitle"),
         index.SearchField("about_text"),
+    ]
+
+
+class ClosedPODChildPage(StaticPage):
+    parent_page_types = ["auth_content.ClosedPODHomePage"]
+
+    description = RichTextField(
+        blank=True,
+        help_text="The description that will appear for this page on the ClosedPODHomePage.",
+    )
+
+    content_panels = [
+        FieldPanel("title"),
+        FieldPanel("description"),
+        StreamFieldPanel("body"),
     ]
