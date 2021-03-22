@@ -1,0 +1,80 @@
+from django.db import models
+
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
+from wagtail.core.fields import RichTextField
+from wagtail.search import index
+
+from apps.common.models import HipBasePage
+
+
+class ClosedPODHomePage(HipBasePage):
+    max_count = 1
+
+    action_section = RichTextField(
+        blank=True,
+        help_text="This section will stand out to users, calling them to perform an action.",
+    )
+
+    plan_subtitle = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="The title of the 'Plan' section.",
+    )
+    plan_text = RichTextField(
+        blank=True,
+        help_text="The text of the 'Plan' section.",
+    )
+    exercise_subtitle = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="The title of the 'Exercise' section.",
+    )
+    exercise_text = RichTextField(
+        blank=True,
+        help_text="The text of the 'Exercise' section.",
+    )
+    about_subtitle = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="The title of the 'About' section.",
+    )
+    about_text = RichTextField(
+        blank=True,
+        help_text="The text of the 'About' section.",
+    )
+
+    content_panels = [
+        FieldPanel("title"),
+        FieldPanel("action_section"),
+        MultiFieldPanel(
+            [
+                FieldPanel("plan_subtitle"),
+                FieldPanel("plan_text"),
+            ],
+            heading="Plan Section",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("exercise_subtitle"),
+                FieldPanel("exercise_text"),
+            ],
+            heading="Exercise Section",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("about_subtitle"),
+                FieldPanel("about_text"),
+            ],
+            heading="About Section",
+        ),
+    ]
+
+    search_fields = HipBasePage.search_fields + [
+        index.SearchField("action_section"),
+        index.SearchField("plan_subtitle"),
+        index.SearchField("plan_text"),
+        index.SearchField("exercise_subtitle"),
+        index.SearchField("exercise_text"),
+        index.SearchField("about_subtitle"),
+        index.SearchField("about_text"),
+    ]

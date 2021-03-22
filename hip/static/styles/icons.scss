@@ -30,6 +30,11 @@ To select that icon, do:
   @extend .far; // regular icon
 }
 
+@mixin icon-2x {
+  @extend %fa-icon; // font-awesome icon
+  @extend .fa-2x; // icon that is 2x size
+}
+
 @mixin external-link-icon($before: true) {
   color: $dark-blue;
   @include solid-icon;
@@ -162,6 +167,23 @@ To select that icon, do:
   @include solid-icon;
   &::before {
     content: fa-content($fa-var-sort-down);
+  }
+}
+
+.lock-icon-2x-hip {
+  color: $black;
+  @include solid-icon;
+  @include icon-2x;
+  &::before {
+    content: fa-content($fa-var-lock);
+  }
+}
+
+.contact-icon-hip {
+  color: $white;
+  @include solid-icon;
+  &::before {
+    content: fa-content($fa-var-address-book);
   }
 }
 

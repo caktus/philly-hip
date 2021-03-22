@@ -26,6 +26,7 @@ ENVIRONMENT = os.getenv("ENVIRONMENT", "dev")
 # Application definition
 
 INSTALLED_APPS = [
+    "apps.auth_content",
     "apps.common",
     "apps.disease_control",
     "apps.emergency_response",
