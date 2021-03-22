@@ -47,6 +47,9 @@ urlpatterns += [
         django_auth_views.PasswordResetCompleteView.as_view(),
         name="password_reset_complete",
     ),
+    path(
+        "accounts/router/", hip_views.authenticated_view_router, name="auth_view_router"
+    ),
 ]
 
 
