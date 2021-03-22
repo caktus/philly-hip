@@ -35,24 +35,10 @@
 }
 
 .section-of-links-twocolumns-hip {
-  div {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    @media screen and (max-width: $breakpoint-mobile) {
-      display: block;
-    }
-    h4 {
-      grid-column-start: 1;
-      grid-column-end: 3;
-    }
-    ul {
-      grid-column-start: 1;
-      grid-column-end: 3;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      @media screen and (max-width: $breakpoint-mobile) {
-        display: block;
-      }
-    }
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 0.5rem;
+  @media screen and (max-width: $breakpoint-mobile) {
+    display: block;
   }
 }
