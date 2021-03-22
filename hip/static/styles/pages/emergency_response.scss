@@ -33,3 +33,12 @@
 .section-of-links__subsection-title-hip {
   font-weight: bold;
 }
+
+.section-of-links-twocolumns-hip {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 0.5rem;
+  @media screen and (max-width: $breakpoint-mobile) {
+    display: block;
+  }
+}
