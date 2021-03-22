@@ -20,6 +20,15 @@ def subscribe_data():
     )
 
 
+def test_asterisks_mark_required_fields(db):
+    form = HealthAlertSubscriberForm()
+    for field_name in form.fields:
+        if form.fields[field_name].required:
+            assert form.fields[field_name].label.endswith("*") is True
+        else:
+            assert form.fields[field_name].label.endswith("*") is False
+
+
 def test_form_valid_all_data(db, subscribe_data):
     form = HealthAlertSubscriberForm(subscribe_data)
     assert form.is_valid()
