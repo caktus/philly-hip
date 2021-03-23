@@ -1,7 +1,15 @@
-from apps.auth_content.tests.factories import ClosedPODHomePageFactory
+from apps.auth_content.tests.factories import (  # isort: skip
+    ClosedPODHomePageFactory,
+    PCWMSAHomePageFactory,
+)
 from apps.hip.tests.factories import HomePageFactory
 
-from ..utils import get_closedpod_home_page_url, get_home_page_url
+
+from ..utils import (  # isort: skip
+    get_closedpod_home_page_url,
+    get_home_page_url,
+    get_pcwmsa_home_page_url,
+)
 
 
 def test_get_home_page_url_no_homepage(db):
@@ -50,3 +58,33 @@ def test_get_closedpod_home_page_url_with_closedpod_homepage(db, mocker):
     """If a live ClosedPODHomePage exists, then the function returns its URL."""
     closedpod_home_page = ClosedPODHomePageFactory(live=True)
     assert closedpod_home_page.url == get_closedpod_home_page_url()
+
+
+def test_get_pcwmsa_home_page_url_no_pcwmsa_homepage(db, mocker):
+    """If no PCWMSAHomePage exists, then the function returns get_home_page_url()."""
+    # Mock the apps.common.utils.get_home_page_url function, since it is used
+    # to determine the homepage URL.
+    mock_get_home_page_url = mocker.patch("apps.common.utils.get_home_page_url")
+    mock_homepage_url = "/the_home_page_url/"
+    mock_get_home_page_url.return_value = mock_homepage_url
+
+    assert mock_homepage_url == get_pcwmsa_home_page_url()
+
+
+def test_get_pcwmsa_home_page_url_no_live_homepage(db, mocker):
+    """If no live PCWMSAHomePage exists, then the function returns get_home_page_url()."""
+    # Mock the apps.common.utils.get_home_page_url function, since it is used
+    # to determine the homepage URL.
+    mock_get_home_page_url = mocker.patch("apps.common.utils.get_home_page_url")
+    mock_homepage_url = "/the_home_page_url/"
+    mock_get_home_page_url.return_value = mock_homepage_url
+
+    pcwmsa_home_page = PCWMSAHomePageFactory(live=False)
+    assert mock_homepage_url == get_pcwmsa_home_page_url()
+    assert pcwmsa_home_page.url != get_pcwmsa_home_page_url()
+
+
+def test_get_pcwmsa_home_page_url_with_pcwmsa_homepage(db, mocker):
+    """If a live PCWMSAHomePage exists, then the function returns its URL."""
+    pcwmsa_home_page = PCWMSAHomePageFactory(live=True)
+    assert pcwmsa_home_page.url == get_pcwmsa_home_page_url()
