@@ -251,6 +251,7 @@ LOGIN_REDIRECT_URL = "auth_view_router"
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = "hip"
+WAGTAIL_FRONTEND_LOGIN_URL = "login"
 
 WAGTAILSEARCH_BACKENDS = {
     "default": {
