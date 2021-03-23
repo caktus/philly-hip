@@ -1,3 +1,4 @@
+from django.contrib.auth.models import Group
 from django.shortcuts import reverse
 
 import pytest
@@ -142,6 +143,7 @@ def test_authenticated_view_router_authenticated(
 
     # Create a user, and put the user into a particular Group.
     user = UserFactory(email="test-user")
+    Group.objects.all().delete()
     for group_name in group_names:
         group = GroupFactory(name=group_name)
         group.save()
