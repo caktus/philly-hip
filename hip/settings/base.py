@@ -259,7 +259,9 @@ WAGTAILSEARCH_BACKENDS = {
 
 # use our custom form to validate that documents are of a certain file type
 WAGTAILDOCS_DOCUMENT_FORM_BASE = "apps.hip.forms.ValidateFileTypeForm"
-WAGTAILDOCS_EXTENSIONS = ["pdf", "png", "jpg"]
+# have to include jpeg here because even if the file extension is 'jpg', the content
+# type is 'image/jpeg' and we compare against content type in our custom form
+WAGTAILDOCS_EXTENSIONS = ["pdf", "png", "jpg", "jpeg"]
 
 
 LOGOUT_REDIRECT_URL = "/"
