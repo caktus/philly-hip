@@ -13,18 +13,6 @@
       <a href="{{ initial_url }}">< Back</a>
     </div>
 
-    <form action="{% url 'search' %}" method="get">
-      <div class="field">
-        <p class="control has-icons-right search-page-input-container-hip">
-          <input type="hidden" name="initial_url" value="{{ initial_url|default:request.get_full_path }}" />
-          <input class="input search-page-input-hip" type="text" name="query" value="{{ search_query|default:"" }}" placeholder="Enter Search Terms...">
-          <span class="icon is-right search-page-icon-hip">
-            <i class="fas fa-search"></i>
-          </span>
-        </p>
-      </div>
-    </form>
-
     <div class="search-page-count-hip">
       {{ search_results.paginator.count }} results
     </div>

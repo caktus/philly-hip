@@ -127,26 +127,26 @@ class HealthAlertSubscriber(models.Model):
     """
 
     personal_first_name = models.CharField(
-        "First Name",
+        "First Name*",
         max_length=255,
         default="",
     )
     personal_last_name = models.CharField(
-        "Last Name",
+        "Last Name*",
         max_length=255,
         default="",
     )
     personal_medical_expertise = models.CharField(
-        "Medical Specialty/Expertise",
+        "Medical Specialty/Expertise*",
         max_length=255,
         default="",
     )
     personal_professional_license = models.CharField(
-        "Professional License",
+        "Professional License*",
         max_length=255,
         default="",
     )
-    agency_name = models.CharField(max_length=255, default="")
+    agency_name = models.CharField("Agency Name*", max_length=255, default="")
 
     class AGENCY_TYPE_CHOICES(models.TextChoices):
         ANIMAL_VETERINARY_CLINICS = "AV", "Animal and Veterinary Clinics"
@@ -164,11 +164,13 @@ class HealthAlertSubscriber(models.Model):
         UNIVERSITY_STUDENT_HEALTH = "USH", "University and Student Health"
         OTHER = "O", "Other"
 
-    agency_type = models.CharField(max_length=4, choices=AGENCY_TYPE_CHOICES.choices)
-    agency_zip_code = models.CharField(
-        max_length=10, default="", validators=[zipcode_validator]
+    agency_type = models.CharField(
+        "Agency Type*", max_length=4, choices=AGENCY_TYPE_CHOICES.choices
     )
-    agency_position = models.CharField("Position/Title", max_length=255, default="")
-    agency_work_phone = PhoneNumberField("Work Phone (optional)", null=True, blank=True)
-    network_email = models.EmailField("Email Address", default="")
-    network_fax = PhoneNumberField("Fax Number")
+    agency_zip_code = models.CharField(
+        "Agency Zip Code*", max_length=10, default="", validators=[zipcode_validator]
+    )
+    agency_position = models.CharField("Position/Title*", max_length=255, default="")
+    agency_work_phone = PhoneNumberField("Work Phone", null=True, blank=True)
+    network_email = models.EmailField("Email Address*", default="")
+    network_fax = PhoneNumberField("Fax Number*")
