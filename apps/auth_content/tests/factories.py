@@ -1,7 +1,7 @@
 import factory
 import wagtail_factories
 
-from ..models import ClosedPODHomePage
+from ..models import ClosedPODChildPage, ClosedPODHomePage
 
 
 class ClosedPODHomePageFactory(wagtail_factories.PageFactory):
@@ -9,3 +9,10 @@ class ClosedPODHomePageFactory(wagtail_factories.PageFactory):
 
     class Meta:
         model = ClosedPODHomePage
+
+
+class ClosedPODChildPageFactory(wagtail_factories.PageFactory):
+    description = factory.faker.Faker("text")
+
+    class Meta:
+        model = ClosedPODChildPage
