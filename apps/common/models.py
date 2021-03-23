@@ -69,3 +69,17 @@ class HipBasePage(Page):
         ):
             return True
         return False
+
+    @property
+    def is_pcwmsa_page(self):
+        """
+        Determine if this page is a PCW MSA page.
+
+        A page is a PCW MSA page if it is either the PCWMSAHomePage, or a
+        descendant of the PCWMSAHomePage.
+        """
+        if hasattr(self, "pcwmsahomepage") or any(
+            [hasattr(ancestor, "pcwmsahomepage") for ancestor in self.get_ancestors()]
+        ):
+            return True
+        return False
