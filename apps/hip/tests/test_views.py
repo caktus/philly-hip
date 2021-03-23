@@ -41,6 +41,38 @@ def test_hip_login_view_post_do_not_remember_user(db, client, remember_me):
     assert client.session.get_expire_at_browser_close() is True
 
 
+def test_hip_login_view_post_no_next_parameter(db, client):
+    """Logging in without a 'next' parameter means user is redirected to auth_view_router."""
+    user = UserFactory(email="test-user")
+    user.set_password("testpassword1")
+    user.save()
+
+    response = client.post(
+        reverse("login"),
+        {"username": user.email, "password": "testpassword1", "remember_me": True},
+    )
+
+    # The user is redirected to auth_view_router
+    assert 302 == response.status_code
+    assert reverse("auth_view_router") == response.url
+
+
+def test_hip_login_view_post_with_next_parameter(db, client):
+    """Logging in with a 'next' parameter means user is redirected to that parameter."""
+    user = UserFactory(email="test-user")
+    user.set_password("testpassword1")
+    user.save()
+
+    response = client.post(
+        f"{reverse('login')}?next=next_page",
+        {"username": user.email, "password": "testpassword1", "remember_me": True},
+    )
+
+    # The user is redirected to auth_view_router
+    assert 302 == response.status_code
+    assert "next_page" == response.url
+
+
 def test_hip_login_view_get_unauthenticated(db, client):
     """An unauthenticated user GETting the login page sees the login page."""
     response = client.get(reverse("login"))

@@ -246,6 +246,7 @@ LOGGING = {
 SASS_PROCESSOR_ROOT = STATIC_ROOT
 SASS_PRECISION = 8
 
+LOGIN_REDIRECT_URL = "auth_view_router"
 
 # Wagtail settings
 
