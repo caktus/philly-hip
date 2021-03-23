@@ -108,3 +108,30 @@ class ClosedPODChildPage(StaticPage):
         context = super().get_context(request)
         context["closedpod_children_pages"] = self.get_siblings()
         return context
+
+
+class PCWMSAHomePage(StaticPage):
+    max_count = 1
+
+    subtitle = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="A subtitle for the page.",
+    )
+    action_section = RichTextField(
+        blank=True,
+        help_text="This section will stand out to users, calling them to perform an action.",
+    )
+
+    content_panels = [
+        FieldPanel("title"),
+        FieldPanel("subtitle"),
+        FieldPanel("action_section"),
+        StreamFieldPanel("body"),
+    ]
+
+    search_fields = HipBasePage.search_fields + [
+        index.SearchField("subtitle"),
+        index.SearchField("action_section"),
+        index.SearchField("body"),
+    ]
