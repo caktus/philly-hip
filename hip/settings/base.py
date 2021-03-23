@@ -257,6 +257,8 @@ WAGTAILSEARCH_BACKENDS = {
     },
 }
 
+# use our custom form to validate that documents are of a certain file type
+WAGTAILDOCS_DOCUMENT_FORM_BASE = "apps.hip.forms.ValidateFileTypeForm"
 WAGTAILDOCS_EXTENSIONS = ["pdf", "png", "jpg"]
 
 
