@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block sidebar %}
+  {% include 'includes/sidebar.html' with hidden_column_desktop=True %}
+{% endblock %}
+
 {% block content %}
 <div class="login-page-hip columns px-5">
   <div class="column is-half is-offset-one-quarter">
