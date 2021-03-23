@@ -187,6 +187,22 @@ To select that icon, do:
   }
 }
 
+.contact-icon-blue-hip {
+  color: $dark-blue;
+  @include solid-icon;
+  &::before {
+    content: fa-content($fa-var-address-book);
+  }
+}
+
+.arrowleft-icon-blue-hip {
+  color: $dark-blue;
+  @include solid-icon;
+  &::before {
+    content: fa-content($fa-var-arrow-circle-left);
+  }
+}
+
 // ------------------ Health Alert Priority icon colors --------- //
   .update-hip {
     color: $update;

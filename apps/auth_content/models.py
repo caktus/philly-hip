@@ -84,6 +84,11 @@ class ClosedPODHomePage(HipBasePage):
         index.SearchField("about_text"),
     ]
 
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["closedpod_children_pages"] = self.get_children()
+        return context
+
 
 class ClosedPODChildPage(StaticPage):
     parent_page_types = ["auth_content.ClosedPODHomePage"]
@@ -98,3 +103,8 @@ class ClosedPODChildPage(StaticPage):
         FieldPanel("description"),
         StreamFieldPanel("body"),
     ]
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["closedpod_children_pages"] = self.get_siblings()
+        return context
