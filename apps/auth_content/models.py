@@ -135,3 +135,8 @@ class PCWMSAHomePage(StaticPage):
         index.SearchField("action_section"),
         index.SearchField("body"),
     ]
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["pcwmsa_home_url"] = self.url
+        return context
