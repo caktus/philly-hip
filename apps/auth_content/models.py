@@ -87,6 +87,7 @@ class ClosedPODHomePage(HipBasePage):
     def get_context(self, request):
         context = super().get_context(request)
         context["closedpod_children_pages"] = self.get_children()
+        context["closedpod_home_url"] = self.url
         return context
 
 
@@ -107,6 +108,7 @@ class ClosedPODChildPage(StaticPage):
     def get_context(self, request):
         context = super().get_context(request)
         context["closedpod_children_pages"] = self.get_siblings()
+        context["closedpod_home_url"] = self.get_parent().url
         return context
 
 

@@ -21,7 +21,7 @@
         <h5 class="is-size-7">Closed POD</h5>
         <div class="ml-2 mr-6 sidebar-divider-hip"></div>
       </div>
-      <li class="pl-4 pb-2 sidenav-link-hip is-active-hip" data-href="/closed-pod/">Closed POD Home</li>
+      <li class="pl-4 pb-2 sidenav-link-hip is-active-hip" data-href="{{ closedpod_home_url }}">Closed POD Home</li>
       {% for child_page in closedpod_children_pages %}
         <li class="pl-4 pb-2 sidenav-link-hip" data-href="{{ child_page.url }}">{{ child_page.title }}</li>
       {% endfor %}
