@@ -82,6 +82,9 @@
 
 .is-full-width-hip {
   width: 100%;
+  @media screen and (max-width: $breakpoint-tablet) {
+    width: 105%;
+  }
 }
 
 // -------------------- Tables ------------- //
