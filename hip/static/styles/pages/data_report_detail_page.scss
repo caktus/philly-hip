@@ -1,0 +1,6 @@
+@import "../mixins";
+
+.reports-detail-page-hip {
+  @include headers;
+  @include paragraphs;
+}

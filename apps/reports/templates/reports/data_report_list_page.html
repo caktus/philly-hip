@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<div>
+  <div class="reports-list-page-hip px-4">
+    <h2><strong>{{ page.title }}</strong></h2>
+    <h4 class="pb-4">{{ page.description|richtext }}</h4>
+
+    <table class="full-width-hip is-black-hip table-grid-pattern-hip">
+      <thead>
+        <tr class="py-2">
+          <th class="table-grid-pattern-hip__th py-4 pl-4 dark-grey-bg-hip">Title</th>
+          <th class="table-grid-pattern-hip__th py-4 pl-4 dark-grey-bg-hip">Update Frequency</th>
+          <th class="table-grid-pattern-hip__th py-4 pl-4 dark-grey-bg-hip">Last Updated</th>
+          <th class="table-grid-pattern-hip__th py-4 pl-4 dark-grey-bg-hip">Disease Information Pages</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {# Loop through the rows, and show their value, except for the header row. #}
+        {% for report in page.get_children %}
+          <tr>
+            <td class="is-vcentered">
+              <a class="is-inline-block py-4 pl-4 pr-2 full-width-hip is-black-hip" href="{{ report.url }}">
+                {{ report.title }}
+              <span class="external-link-icon-hip pt-3 pl-4 is-hidden"></span>
+              </a>
+            </td>
+            <td class="is-vcentered">
+              <a class="is-inline-block py-4 pl-4 pr-2 full-width-hip is-black-hip" href="{{ report.url }}">
+                {{ report.specific.update_frequency }}
+              </a>
+            </td>
+            <td class="is-vcentered">
+              <a class="is-inline-block py-4 pl-4 pr-2 full-width-hip is-black-hip" href="{{ report.url }}">
+                {{ report.specific.latest_revision_created_at }}
+              </a>
+            </td>
+            <td class="py-4 pl-4 pr-2 is-vcentered">
+              {% if report.specific.associated_disease %}
+                <a href="{{ report.specific.associated_disease.url }}">{{ report.specific.associated_disease }}</a>
+              {% else %}
+                --
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock content %}
