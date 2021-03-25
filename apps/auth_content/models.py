@@ -48,8 +48,7 @@ class ClosedPODHomePage(HipBasePage):
         help_text="The text of the 'About' section.",
     )
 
-    content_panels = [
-        FieldPanel("title"),
+    content_panels = HipBasePage.content_panels + [
         FieldPanel("action_section"),
         MultiFieldPanel(
             [
@@ -99,7 +98,7 @@ class ClosedPODChildPage(StaticPage):
         help_text="The description that will appear for this page on the ClosedPODHomePage.",
     )
 
-    content_panels = [
+    content_panels = HipBasePage.content_panels + [
         FieldPanel("title"),
         FieldPanel("description"),
         StreamFieldPanel("body"),
