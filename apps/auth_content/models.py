@@ -124,8 +124,7 @@ class PCWMSAHomePage(StaticPage):
         help_text="This section will stand out to users, calling them to perform an action.",
     )
 
-    content_panels = [
-        FieldPanel("title"),
+    content_panels = HipBasePage.content_panels + [
         FieldPanel("subtitle"),
         FieldPanel("action_section"),
         StreamFieldPanel("body"),
