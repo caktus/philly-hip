@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "apps.emergency_response",
     "apps.health_alerts",
     "apps.hip",
+    "apps.reports",
     "apps.search",
     "apps.users",
     "taggit",
