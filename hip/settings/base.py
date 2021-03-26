@@ -26,6 +26,7 @@ ENVIRONMENT = os.getenv("ENVIRONMENT", "dev")
 # Application definition
 
 INSTALLED_APPS = [
+    "apps.auth_content",
     "apps.common",
     "apps.disease_control",
     "apps.emergency_response",
@@ -245,10 +246,12 @@ LOGGING = {
 SASS_PROCESSOR_ROOT = STATIC_ROOT
 SASS_PRECISION = 8
 
+LOGIN_REDIRECT_URL = "auth_view_router"
 
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = "hip"
+WAGTAIL_FRONTEND_LOGIN_URL = "login"
 
 WAGTAILSEARCH_BACKENDS = {
     "default": {

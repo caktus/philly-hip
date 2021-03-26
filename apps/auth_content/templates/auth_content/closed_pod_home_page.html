@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<div class="closed-pod-homepage-hip px-4">
+  <h2 class="is-inline-block pr-4">{{ page.title }}</h2>
+  <span class="lock-icon-2x-hip"></span>
+  {% if page.action_section %}
+    <section class="action-section-hip py-4 pl-4">
+      {{ page.action_section|richtext }}
+      <span class="button is-size-7-touch header-icon-hip ml-0">
+        <i class="contact-icon-hip"></i>
+      </span>
+      <span class="button login-btn-hip ml-0">
+        <strong>Update Contact Info</strong>
+      </span>
+    </section>
+  {% endif %}
+  {% if page.plan_subtitle %}
+    <section class="py-4">
+      <h3>{{ page.plan_subtitle }}</h3>
+      {{ page.plan_text|richtext }}
+    </section>
+  {% endif %}
+  {% if page.exercise_subtitle %}
+    <section class="py-4">
+      <h3>{{ page.exercise_subtitle }}</h3>
+      {{ page.exercise_text|richtext }}
+    </section>
+  {% endif %}
+  <section class="py-4">
+    <h3>Partner Resources</h3>
+    {% for child_page in page.get_children %}
+      {% include 'includes/partner_resource_card.html' with resource=child_page %}
+    {% endfor %}
+  </section>
+  {% if page.about_subtitle %}
+    <section class="p-4 mt-5 mb-6">
+      <h3>{{ page.about_subtitle }}</h3>
+      {{ page.about_text|richtext }}
+    </section>
+  {% endif %}
+</div>
+{% endblock content %}

@@ -1,0 +1,6 @@
+@import "../mixins";
+
+.closed-pod-homepage-hip {
+  @include headers;
+  @include paragraphs;
+}
