@@ -18,8 +18,7 @@
       </thead>
 
       <tbody>
-        {# Loop through the rows, and show their value, except for the header row. #}
-        {% for report in page.get_children %}
+        {% for report in reports %}
           <tr>
             <td class="is-vcentered">
               <a class="is-inline-block py-4 pl-4 pr-2 full-width-hip is-black-hip" href="{{ report.url }}">
@@ -29,17 +28,17 @@
             </td>
             <td class="is-vcentered">
               <a class="is-inline-block py-4 pl-4 pr-2 full-width-hip is-black-hip" href="{{ report.url }}">
-                {{ report.specific.update_frequency }}
+                {{ report.update_frequency }}
               </a>
             </td>
             <td class="is-vcentered">
               <a class="is-inline-block py-4 pl-4 pr-2 full-width-hip is-black-hip" href="{{ report.url }}">
-                {{ report.specific.latest_revision_created_at }}
+                {{ report.last_updated }}
               </a>
             </td>
             <td class="py-4 pl-4 pr-2 is-vcentered">
-              {% if report.specific.associated_disease %}
-                <a href="{{ report.specific.associated_disease.url }}">{{ report.specific.associated_disease }}</a>
+              {% if report.associated_disease %}
+                <a href="{{ report.associated_disease.url }}">{{ report.associated_disease }}</a>
               {% else %}
                 --
               {% endif %}

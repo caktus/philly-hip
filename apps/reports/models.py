@@ -46,6 +46,36 @@ class DataReportListPage(HipBasePage):
         index.SearchField("description"),
     ]
 
+    def get_context(self, request):
+        """
+        Add reports to the page context.
+
+        This method combines both the internal reports (DataReportDetailPages for
+        this page) and external reports ('external_reports' for this page),
+        alphabetizes them, and returns a list of reports as a 'reports' context
+        variable.
+        """
+        context = super().get_context(request)
+
+        internal_reports = [
+            {
+                "title": r.title,
+                "url": r.url,
+                "update_frequency": r.datareportdetailpage.update_frequency,
+                "last_updated": r.latest_revision_created_at.date()
+                if r.latest_revision_created_at
+                else None,
+                "associated_disease": r.datareportdetailpage.associated_disease,
+            }
+            for r in self.get_children()
+        ]
+        external_reports = [r["value"] for r in self.external_reports.raw_data]
+        reports = internal_reports + external_reports
+        reports.sort(key=lambda r: r["title"].lower())
+
+        context["reports"] = reports
+        return context
+
 
 class DataReportDetailPage(HipBasePage):
     parent_page_types = ["reports.DataReportListPage"]
