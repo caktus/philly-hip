@@ -4,7 +4,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, render, reverse
 
-from apps.common.utils import get_closedpod_home_page_url, get_home_page_url
+from apps.common.utils import (
+    get_closedpod_home_page_url,
+    get_home_page_url,
+    get_pcwmsa_home_page_url,
+)
 
 
 def handler404(request, *args, **argv):
@@ -44,7 +48,10 @@ class HIPLoginView(LoginView):
 def authenticated_view_router(request, *args, **kwargs):
     """Determine which home page an authenticated user should go to, and redirect them there."""
     # Users in the "Closed POD" Group get redirected to the ClosedPODHomePage.
+    # Users in the "PCW MSA" Group get redirected to the PCWMSAHomePage.
     if request.user.groups.filter(name="Closed POD").exists():
         return redirect(get_closedpod_home_page_url())
+    elif request.user.groups.filter(name="PCW MSA").exists():
+        return redirect(get_pcwmsa_home_page_url())
     # All other authenticated users are redirected to the home page.
     return redirect(get_home_page_url())

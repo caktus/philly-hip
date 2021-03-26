@@ -82,6 +82,12 @@
 
 .is-full-width-hip {
   width: 100%;
+  @media screen and (max-width: $breakpoint-tablet) {
+    width: 100% + 2%;
+  }
+  @media screen and (max-width: $breakpoint-mobile) {
+    width: 100% + 3%;
+  }
 }
 
 // -------------------- Tables ------------- //

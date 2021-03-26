@@ -1,16 +1,12 @@
 {% extends "base.html" %}
 
 {% block sidebar %}
-  {% include 'includes/sidebar.html' with hidden_column_desktop=True %}
+  {% include 'includes/sidebar.html' %}
 {% endblock %}
 
 {% block content %}
 <div class="login-page-hip columns px-5">
   <div class="column is-half is-offset-one-quarter">
-    <div class="pt-5">
-      <a href="{{ previous_url }}">< Back</a>
-    </div>
-
     <h2 class="pb-5">Response Partner Log In</h2>
 
     {% if form.errors %}
