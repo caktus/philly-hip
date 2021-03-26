@@ -1,6 +1,8 @@
 from django.conf import settings
 
-from .utils import get_home_page_url
+from apps.auth_content.models import ClosedPODHomePage
+
+from .utils import get_closedpod_home_page_url, get_home_page_url
 
 
 def sentry_dsn(request):
@@ -25,3 +27,28 @@ def previous_url(request):
         return {"previous_url": request.META["HTTP_REFERER"]}
     except KeyError:
         return {"previous_url": get_home_page_url()}
+
+
+def authenticated_home_pages(request):
+    """
+    Return a list of authenticated home pages for the request.user.
+
+    Some parts of the site require authentication, as well as Group membership.
+    When a user is authenticated, it can be helpful to have a context variable
+    that lists which authticated pages the user may visit.
+    """
+    if not request.user.is_authenticated:
+        return {"authenticated_home_pages": []}
+    else:
+        auth_pages = []
+        closed_pod_home_page = ClosedPODHomePage.objects.first()
+        if closed_pod_home_page and all(
+            [
+                pageviewrestriction.accept_request(request)
+                for pageviewrestriction in closed_pod_home_page.get_view_restrictions()
+            ]
+        ):
+            auth_pages.append(
+                {"name": "Closed POD Home", "url": get_closedpod_home_page_url()}
+            )
+        return {"authenticated_home_pages": auth_pages}
