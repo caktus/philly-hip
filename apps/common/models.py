@@ -52,3 +52,20 @@ class HipBasePage(Page):
 
     class Meta:
         abstract = True
+
+    @property
+    def is_closedpod_page(self):
+        """
+        Determine if this page is a Closed POD page.
+
+        A page is a ClosedPOD page if it is either the ClosedPODHomePage, or a
+        descendant of the ClosedPODHomePage.
+        """
+        if hasattr(self, "closedpodhomepage") or any(
+            [
+                hasattr(ancestor, "closedpodhomepage")
+                for ancestor in self.get_ancestors()
+            ]
+        ):
+            return True
+        return False

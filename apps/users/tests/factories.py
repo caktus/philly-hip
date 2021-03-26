@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 
 import factory
 
@@ -26,3 +27,10 @@ class UserFactory(factory.django.DjangoModelFactory):
         if kwargs.pop("is_superuser", False):
             return manager.create_superuser(*args, **kwargs)
         return manager.create_user(*args, **kwargs)
+
+
+class GroupFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Group
+
+    name = factory.faker.Faker("company")

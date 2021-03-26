@@ -9,53 +9,78 @@
       </div>
     </div>
   </div>
-  <ul class="mb-4 {% if hidden_desktop %}is-hidden-desktop{% endif %}">
-    <li class="desktop-hidden-hip my-4 pl-4 is-vcentered my-0">
-      <a href="/report-a-disease" class="is-block">
-        <span class="control is-inline-block has-icons-left is-size-7-touch">
-          <span class="button header-icon-hip py-4">
-            <i class="bullhorn-icon-hip"></i>
+  {% if page.is_closedpod_page %}
+    <ul class="mb-4 {% if hidden_desktop %}is-hidden-desktop{% endif %}">
+      <li class="pl-4 pb-2 sidenav-link-hip" data-href="{{ home_page_url }}">
+        <span class="arrowleft-icon-blue-hip"></span>
+        Return to Public Site
+      </li>
+    </ul>
+    <ul class="mb-4 {% if hidden_desktop %}is-hidden-desktop{% endif %}">
+      <div class="pl-2 pb-4 is-flex is-justify-content-flex-start is-align-items-center {% if hidden_desktop %}is-hidden-desktop{% endif %}">
+        <h5 class="is-size-7">Closed POD</h5>
+        <div class="ml-2 mr-6 sidebar-divider-hip"></div>
+      </div>
+      <li class="pl-4 pb-2 sidenav-link-hip is-active-hip" data-href="{{ closedpod_home_url }}">Closed POD Home</li>
+      {% for child_page in closedpod_children_pages %}
+        <li class="pl-4 pb-2 sidenav-link-hip" data-href="{{ child_page.url }}">{{ child_page.title }}</li>
+      {% endfor %}
+    </ul>
+    <ul class="mb-4 {% if hidden_desktop %}is-hidden-desktop{% endif %}">
+      <li class="pl-4 pb-2 sidenav-link-hip" data-href="#contact-information">
+        <span class="contact-icon-blue-hip"></span>
+        Contact Information
+      </li>
+    </ul>
+  {% else %}
+    <ul class="mb-4 {% if hidden_desktop %}is-hidden-desktop{% endif %}">
+      <li class="desktop-hidden-hip my-4 pl-4 is-vcentered my-0">
+        <a href="/report-a-disease" class="is-block">
+          <span class="control is-inline-block has-icons-left is-size-7-touch">
+            <span class="button header-icon-hip py-4">
+              <i class="bullhorn-icon-hip"></i>
+            </span>
+            <span class="button light-blue-bg-hip my-0">
+              <strong>Report Disease</strong>
+            </span>
           </span>
-          <span class="button light-blue-bg-hip my-0">
-            <strong>Report Disease</strong>
-          </span>
-        </span>
-      </a>
-    </li>
-    <li class="pl-4 pb-2 sidenav-link-hip is-active-hip" data-href="{{ home_page_url }}">Home</li>
-    <li class="pl-4 pb-2 sidenav-link-hip" data-href="/health-alerts/">Health Alerts</li>
-    <li class="pl-4 pb-2 sidenav-link-hip" data-href="/data-reports-statistics/">Data and Reports</li>
-    <li class="pl-4 pb-2 sidenav-link-hip" data-href="/disease-control/">Disease Control</li>
-    <li class="pl-4 pb-2 sidenav-link-hip" data-href="/emergent-health-topics/">Emergent Health Topics</li>
-    <li class="pl-4 pb-2 sidenav-link-hip" data-href="/emergency-response/">Emergency Response</li>
-  </ul>
-  <div class="pl-2 pb-4 is-flex is-justify-content-flex-start is-align-items-center {% if hidden_desktop %}is-hidden-desktop{% endif %}">
-    <h5 class="is-size-7">Resources</h5>
-    <div class="ml-2 mr-6 sidebar-divider-hip"></div>
-  </div>
-  <ul class="mb-4 {% if hidden_desktop %}is-hidden-desktop{% endif %}">
-    <li class="pl-4 pb-2 sidenav-link-hip" data-href="#posters">Posters</li>
-    <li class="pl-4 pb-2 sidenav-link-hip" data-href="#related-websites">Related Websites</li>
-    <li class="pl-4 pb-2 sidenav-link-hip" data-href="#conferences">Conferences</li>
-    <li class="pl-4 pb-2 sidenav-link-hip" data-href="#newsletter">Newsletter</li>
-  </ul>
-  <div class="pl-2 pb-4 is-flex is-justify-content-flex-start is-align-items-center desktop-hidden-hip {% if hidden_desktop %}is-hidden-desktop{% endif %}">
-    <h5 class="is-size-7 desktop-hidden-hip">Response Partners</h5>
-    <div class="ml-2 mr-6 sidebar-divider-hip desktop-hidden-hip"></div>
-  </div>
-  <ul class="mb-4 desktop-hidden-hip {% if hidden_desktop %}is-hidden-desktop{% endif %}">
-    <li class="pl-4 pb-2 sidenav-link-hip" data-href="#closed-pod-login-logout">
-      {% if request.user.is_authenticated %}
-        <a href="{% url 'logout' %}" class="is-block alert-hip">
-          <span class="signout-icon-red-hip"></span>
-            Log Out
         </a>
-      {% else %}
-        <a href="{% url 'login' %}" class="is-block">
-          <span class="signin-icon-blue-hip"></span>
-          Partner Log In
-        </a>
-      {% endif %}
-    </li>
-  </ul>
+      </li>
+      <li class="pl-4 pb-2 sidenav-link-hip is-active-hip" data-href="{{ home_page_url }}">Home</li>
+      <li class="pl-4 pb-2 sidenav-link-hip" data-href="/health-alerts/">Health Alerts</li>
+      <li class="pl-4 pb-2 sidenav-link-hip" data-href="/data-reports-statistics/">Data and Reports</li>
+      <li class="pl-4 pb-2 sidenav-link-hip" data-href="/disease-control/">Disease Control</li>
+      <li class="pl-4 pb-2 sidenav-link-hip" data-href="/emergent-health-topics/">Emergent Health Topics</li>
+      <li class="pl-4 pb-2 sidenav-link-hip" data-href="/emergency-response/">Emergency Response</li>
+    </ul>
+    <div class="pl-2 pb-4 is-flex is-justify-content-flex-start is-align-items-center {% if hidden_desktop %}is-hidden-desktop{% endif %}">
+      <h5 class="is-size-7">Resources</h5>
+      <div class="ml-2 mr-6 sidebar-divider-hip"></div>
+    </div>
+    <ul class="mb-4 {% if hidden_desktop %}is-hidden-desktop{% endif %}">
+      <li class="pl-4 pb-2 sidenav-link-hip" data-href="#posters">Posters</li>
+      <li class="pl-4 pb-2 sidenav-link-hip" data-href="#related-websites">Related Websites</li>
+      <li class="pl-4 pb-2 sidenav-link-hip" data-href="#conferences">Conferences</li>
+      <li class="pl-4 pb-2 sidenav-link-hip" data-href="#newsletter">Newsletter</li>
+    </ul>
+    <div class="pl-2 pb-4 is-flex is-justify-content-flex-start is-align-items-center desktop-hidden-hip {% if hidden_desktop %}is-hidden-desktop{% endif %}">
+      <h5 class="is-size-7 desktop-hidden-hip">Response Partners</h5>
+      <div class="ml-2 mr-6 sidebar-divider-hip desktop-hidden-hip"></div>
+    </div>
+    <ul class="mb-4 desktop-hidden-hip {% if hidden_desktop %}is-hidden-desktop{% endif %}">
+      <li class="pl-4 pb-2 sidenav-link-hip" data-href="#closed-pod-login-logout">
+        {% if request.user.is_authenticated %}
+          <a href="{% url 'logout' %}" class="is-block alert-hip">
+            <span class="signout-icon-red-hip"></span>
+              Log Out
+          </a>
+        {% else %}
+          <a href="{% url 'login' %}" class="is-block">
+            <span class="signin-icon-blue-hip"></span>
+            Partner Log In
+          </a>
+        {% endif %}
+      </li>
+    </ul>
+  {% endif %}
 </div>
