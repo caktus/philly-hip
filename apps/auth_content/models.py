@@ -10,6 +10,7 @@ from apps.hip.models import StaticPage
 
 class ClosedPODHomePage(HipBasePage):
     max_count = 1
+    parent_page_types = ["hip.HomePage"]
 
     subpage_types = [
         "auth_content.ClosedPODChildPage",
@@ -113,6 +114,7 @@ class ClosedPODChildPage(StaticPage):
 
 class PCWMSAHomePage(StaticPage):
     max_count = 1
+    parent_page_types = ["hip.HomePage"]
 
     subtitle = models.CharField(
         max_length=255,
