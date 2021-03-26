@@ -1,8 +1,12 @@
+from wagtail.core.models import Page
+
+from apps.hip.tests.factories import HomePageFactory
+
+
 from apps.auth_content.tests.factories import (  # isort: skip
     ClosedPODHomePageFactory,
     PCWMSAHomePageFactory,
 )
-from apps.hip.tests.factories import HomePageFactory
 
 
 from ..utils import (  # isort: skip
@@ -19,14 +23,17 @@ def test_get_home_page_url_no_homepage(db):
 
 def test_get_home_page_url_no_live_homepage(db):
     """If no live HomePage exists, then the function returns '/'."""
-    home_page = HomePageFactory(live=False)
+    # Delete any Pages with a URL path of "/".
+    Page.objects.all().filter(url_path="/").delete()
+
+    home_page = HomePageFactory(live=False, url_path="/")
     assert "/" == get_home_page_url()
     assert home_page.url != get_home_page_url()
 
 
 def test_get_home_page_url_with_homepage(db):
     """If a live HomePage exists, then the function returns its URL."""
-    home_page = HomePageFactory(live=True)
+    home_page = HomePageFactory(live=True, url_path="/")
     assert home_page.url == get_home_page_url()
 
 
