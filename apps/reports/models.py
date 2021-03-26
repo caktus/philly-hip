@@ -66,10 +66,15 @@ class DataReportListPage(HipBasePage):
                 if r.latest_revision_created_at
                 else None,
                 "associated_disease": r.datareportdetailpage.associated_disease,
+                "external": False,
             }
             for r in self.get_children()
         ]
-        external_reports = [r["value"] for r in self.external_reports.raw_data]
+        external_reports = []
+        for report in self.external_reports.raw_data:
+            report_data = report["value"]
+            report_data["external"] = True
+            external_reports.append(report_data)
         reports = internal_reports + external_reports
         reports.sort(key=lambda r: r["title"].lower())
 

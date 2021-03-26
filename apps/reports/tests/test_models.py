@@ -36,6 +36,7 @@ def test_datareportslistpage_context_only_internal_reports(db, rf):
             "update_frequency": report_annual.update_frequency,
             "last_updated": report_annual.latest_revision_created_at,
             "associated_disease": None,
+            "external": False,
         },
         {
             "title": report_hep_b.title,
@@ -43,6 +44,7 @@ def test_datareportslistpage_context_only_internal_reports(db, rf):
             "update_frequency": report_hep_b.update_frequency,
             "last_updated": report_hep_b.latest_revision_created_at,
             "associated_disease": hep_b.page_ptr,
+            "external": False,
         },
         {
             "title": report_hiv_aids.title,
@@ -50,6 +52,7 @@ def test_datareportslistpage_context_only_internal_reports(db, rf):
             "update_frequency": report_hiv_aids.update_frequency,
             "last_updated": report_hiv_aids.latest_revision_created_at,
             "associated_disease": hiv.page_ptr,
+            "external": False,
         },
     ]
     assert expected_results == context["reports"]
@@ -63,12 +66,14 @@ def test_datareportslistpage_context_only_external_reports(db, rf):
         "url": "example.com/report-hepatitis-a",
         "update_frequency": "Annually",
         "last_updated": "2020-01-01",
+        "external": True,
     }
     external_report_hiv = {
         "title": "HIV/AIDS",
         "url": "example.com/report-hiv-aids",
         "update_frequency": "Sometime",
         "last_updated": "2021-01-01",
+        "external": True,
     }
     reports_list_page = DataReportListPageFactory(
         external_reports__0__external_reports__title=external_report_hiv["title"],
@@ -103,6 +108,7 @@ def test_datareportslistpage_context_internal_and_external_reports(db, rf):
         "url": "example.com/report-hiv-aids",
         "update_frequency": "Sometime",
         "last_updated": "2021-01-01",
+        "external": True,
     }
     reports_list_page = DataReportListPageFactory(
         external_reports__0__external_reports__title=external_report_hiv["title"],
@@ -133,6 +139,7 @@ def test_datareportslistpage_context_internal_and_external_reports(db, rf):
             "update_frequency": report_annual.update_frequency,
             "last_updated": report_annual.latest_revision_created_at,
             "associated_disease": None,
+            "external": False,
         },
         external_report_hiv,
         {
@@ -141,6 +148,7 @@ def test_datareportslistpage_context_internal_and_external_reports(db, rf):
             "update_frequency": report_tuberculosis.update_frequency,
             "last_updated": report_tuberculosis.latest_revision_created_at,
             "associated_disease": tuberculosis.page_ptr,
+            "external": False,
         },
     ]
     assert expected_results == context["reports"]
