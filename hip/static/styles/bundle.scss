@@ -17,6 +17,7 @@ This file will manage all scss file imports.
 @import "./pages/home";
 @import "./pages/home_page";
 @import "./pages/login";
+@import "./pages/poster_list_page";
 @import "./pages/search";
 @import "./pages/static_page";
 @import "./pages/text_or_table_stream";
@@ -30,6 +31,7 @@ This file will manage all scss file imports.
 @import "./includes/health_alert_subscriber.scss";
 @import "./includes/mobile_search_modal.scss";
 @import "./includes/partner_login_card.scss";
+@import "./includes/poster_card";
 @import "./includes/right_scroll_nav";
 @import "./includes/sidebar";
 
