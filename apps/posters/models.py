@@ -30,10 +30,20 @@ class PosterListPage(HipBasePage):
         context["posters"] = posters
 
         # Get list of categories that we have posters for, to create the right scroll
-        # links and nav headings
-        categories = [poster.category.name for poster in posters]
+        # links and nav headings. If a poster does not have a category, then we
+        # add an "Other" category at the end of the "categories" list.
+        categories = []
+        need_to_add_other = False
+        for poster in posters:
+            if poster.category:
+                categories.append(poster.category.name)
+            else:
+                need_to_add_other = True
         # the following line removes duplicates but keeps things ordered (unlike sets)
         categories = list(dict.fromkeys(categories))
+        # If we need to add the "Other" category, add it here (at the end).
+        if need_to_add_other:
+            categories.append("Other")
         context["right_nav_headings"] = categories
 
         return context

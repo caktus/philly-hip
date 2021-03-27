@@ -10,8 +10,10 @@
         {% regroup posters by category as poster_list %}
         {% for category in poster_list %}
           {# nav-heading-hip is used by right_scroll_nav as link targets #}
-          <div class="nav-heading-hip" id="section-{{ category.grouper|slugify }}"></div>
-          <div class="is-size-4 pt-5"><h3>{{ category.grouper }}</h3></div>
+          <div class="nav-heading-hip" id="section-{% if category.grouper %}{{ category.grouper|slugify }}{% else %}other{% endif %}"></div>
+          <div class="is-size-4 pt-5">
+            <h3>{% if category.grouper %}{{ category.grouper }}{% else %}Other{% endif %}</h3>
+          </div>
           <section class="columns is-multiline">
             {% for poster in category.list %}
               {% include "includes/poster_card.html" %}
