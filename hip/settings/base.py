@@ -100,6 +100,7 @@ TEMPLATES = [
                 "wagtailmenus.context_processors.wagtailmenus",
                 "apps.common.context_processors.home_page_url",
                 "apps.common.context_processors.previous_url",
+                "apps.common.context_processors.authenticated_home_pages",
             ],
         },
     },
