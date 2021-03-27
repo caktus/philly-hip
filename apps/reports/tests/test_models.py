@@ -11,7 +11,7 @@ def test_datareportslistpage_context_no_internal_or_external_reports(db, rf):
 
 
 def test_datareportslistpage_context_only_internal_reports(db, rf):
-    """A DataReportListPage with no children and no external_reports has empty 'reports'."""
+    """Test the context for a DataReportListPage with children, but no external_reports."""
     # Create a DataReportListPage with some internal reports (DataReportDetailPages).
     reports_list_page = DataReportListPageFactory()
     hep_b = DiseaseAndConditionDetailPageFactory(title="Hepatitis B")
@@ -59,7 +59,7 @@ def test_datareportslistpage_context_only_internal_reports(db, rf):
 
 
 def test_datareportslistpage_context_only_external_reports(db, rf):
-    """A DataReportListPage with no children and no external_reports has empty 'reports'."""
+    """Test the context for a DataReportListPage with no children, but with external_reports."""
     # Create a DataReportListPage with some external reports.
     external_report_hep_a = {
         "title": "Hepatitis A",
@@ -101,7 +101,7 @@ def test_datareportslistpage_context_only_external_reports(db, rf):
 
 
 def test_datareportslistpage_context_internal_and_external_reports(db, rf):
-    """A DataReportListPage with no children and no external_reports has empty 'reports'."""
+    """Test the context for a DataReportListPage with children and with external_reports."""
     # Create a DataReportListPage with an external report.
     external_report_hiv = {
         "title": "HIV/AIDS",
@@ -131,7 +131,7 @@ def test_datareportslistpage_context_internal_and_external_reports(db, rf):
 
     context = reports_list_page.get_context(rf.get("/someurl/"))
 
-    # The results should be data for the external reports alphabetical order.
+    # The results should be data for the internal and external reports in alphabetical order.
     expected_results = [
         {
             "title": report_annual.title,
