@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<div>
+  <div class="reports-list-page-hip px-4">
+    <h2><strong>{{ page.title }}</strong></h2>
+    <h4 class="pb-4">{{ page.description|richtext }}</h4>
+
+    <table class="full-width-hip is-black-hip table-grid-pattern-hip external-links-with-domains-hip">
+      <thead>
+        <tr class="py-2">
+          <th class="table-grid-pattern-hip__th py-4 pl-4 dark-grey-bg-hip">Title</th>
+          <th class="table-grid-pattern-hip__th py-4 pl-4 dark-grey-bg-hip">Update Frequency</th>
+          <th class="table-grid-pattern-hip__th py-4 pl-4 dark-grey-bg-hip">Last Updated</th>
+          <th class="table-grid-pattern-hip__th py-4 pl-4 dark-grey-bg-hip">Disease Information Pages</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for report in reports %}
+          <tr>
+            <td class="is-vcentered">
+              <a class="is-inline-block py-4 pl-4 pr-2 full-width-hip is-black-hip{% if report.external %} external-linktype{% endif %}" href="{{ report.url }}">
+                {{ report.title }}
+              <span class="external-link-icon-hip pt-3 pl-4 is-hidden"></span>
+              </a>
+            </td>
+            <td class="is-vcentered">
+              <a class="is-inline-block py-4 pl-4 pr-2 full-width-hip is-black-hip" href="{{ report.url }}">
+                {{ report.update_frequency }}
+              </a>
+            </td>
+            <td class="is-vcentered">
+              <a class="is-inline-block py-4 pl-4 pr-2 full-width-hip is-black-hip" href="{{ report.url }}">
+                {{ report.last_updated }}
+              </a>
+            </td>
+            <td class="py-4 pl-4 pr-2 is-vcentered">
+              {% if report.associated_disease %}
+                <a href="{{ report.associated_disease.url }}">{{ report.associated_disease }}</a>
+              {% else %}
+                --
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock content %}
