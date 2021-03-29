@@ -6,6 +6,7 @@ from wagtail.core.fields import RichTextField, StreamField
 from wagtail.search import index
 
 from apps.common.models import HipBasePage
+from apps.hip.models import StaticPage
 
 
 class ExternalReportBlock(blocks.StructBlock):
@@ -61,11 +62,11 @@ class DataReportListPage(HipBasePage):
             {
                 "title": r.title,
                 "url": r.url,
-                "update_frequency": r.datareportdetailpage.update_frequency,
+                "update_frequency": r.staticpage.datareportdetailpage.update_frequency,
                 "last_updated": r.latest_revision_created_at.date()
                 if r.latest_revision_created_at
                 else None,
-                "associated_disease": r.datareportdetailpage.associated_disease,
+                "associated_disease": r.staticpage.datareportdetailpage.associated_disease,
                 "external": False,
             }
             for r in self.get_children()
@@ -82,7 +83,7 @@ class DataReportListPage(HipBasePage):
         return context
 
 
-class DataReportDetailPage(HipBasePage):
+class DataReportDetailPage(StaticPage):
     parent_page_types = ["reports.DataReportListPage"]
     subpage_types = []
 
@@ -95,7 +96,7 @@ class DataReportDetailPage(HipBasePage):
         related_name="data_report_detail_pages",
     )
 
-    content_panels = HipBasePage.content_panels + [
+    content_panels = StaticPage.content_panels + [
         FieldPanel("update_frequency"),
         PageChooserPanel(
             "associated_disease", "disease_control.DiseaseAndConditionDetailPage"

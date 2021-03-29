@@ -12,6 +12,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ("wagtailcore", "0060_fix_workflow_unique_constraint"),
+        ("hip", "0008_homepage_short_description"),
     ]
 
     operations = [
@@ -40,14 +41,14 @@ class Migration(migrations.Migration):
             name="DataReportDetailPage",
             fields=[
                 (
-                    "page_ptr",
+                    "staticpage_ptr",
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="wagtailcore.page",
+                        to="hip.staticpage",
                     ),
                 ),
                 ("update_frequency", models.CharField(blank=True, max_length=80)),
@@ -65,6 +66,6 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=("wagtailcore.page",),
+            bases=("hip.staticpage",),
         ),
     ]
