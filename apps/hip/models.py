@@ -73,9 +73,54 @@ class TwoColumnBlock(blocks.StructBlock):
         template = "hip/text_or_table_stream.html"
 
 
+class FourColumnTableRow(blocks.StructBlock):
+    column_1 = blocks.RichTextBlock(
+        max_length=255,
+        required=False,
+        help_text=("Text for column 1"),
+    )
+    column_2 = blocks.RichTextBlock(
+        max_length=255,
+        required=False,
+        help_text=("Text for column 2"),
+    )
+    column_3 = blocks.RichTextBlock(
+        max_length=255,
+        required=False,
+        help_text=("Text for column 3"),
+    )
+    column_4 = blocks.RichTextBlock(
+        max_length=255,
+        required=False,
+        help_text=("Text for column 4"),
+    )
+
+    class Meta:
+        label = "Table row"
+        form_classname = "four-column-table__row"
+
+
+class FourColumnTableRowStreamBlock(blocks.StreamBlock):
+    rows = FourColumnTableRow()
+
+
+class FourColumnBlock(blocks.StructBlock):
+    has_grid_pattern = blocks.BooleanBlock(
+        required=False, help_text="Does this table's styling have a grid pattern?"
+    )
+    is_first_row_header = blocks.BooleanBlock(
+        required=False, help_text="Should the first row be displayed as a header?"
+    )
+    rows = FourColumnTableRowStreamBlock()
+
+    class Meta:
+        template = "hip/text_or_table_stream.html"
+
+
 class TextOrTableStreamBlock(blocks.StreamBlock):
     rich_text = blocks.RichTextBlock()
     two_column_table = TwoColumnBlock()
+    four_column_table = FourColumnBlock()
 
 
 class StreamAndNavHeadingBlock(blocks.StructBlock):
