@@ -113,8 +113,7 @@ class StaticPage(HipBasePage):
         ]
     )
 
-    content_panels = [
-        FieldPanel("title"),
+    content_panels = HipBasePage.content_panels + [
         StreamFieldPanel("body"),
     ]
     promote_panels = [
@@ -208,8 +207,7 @@ class HomePage(HipBasePage):
         "Contact", null=True, blank=True, on_delete=models.SET_NULL, related_name="+"
     )
 
-    content_panels = [
-        FieldPanel("title"),
+    content_panels = HipBasePage.content_panels + [
         FieldPanel("short_description"),
         SnippetChooserPanel("contact_info"),
         StreamFieldPanel("quick_links"),
