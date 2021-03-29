@@ -10,6 +10,7 @@ from apps.hip.models import StaticPage
 
 class ClosedPODHomePage(HipBasePage):
     max_count = 1
+    parent_page_types = ["hip.HomePage"]
 
     subpage_types = [
         "auth_content.ClosedPODChildPage",
@@ -108,4 +109,36 @@ class ClosedPODChildPage(StaticPage):
         context = super().get_context(request)
         context["closedpod_children_pages"] = self.get_siblings()
         context["closedpod_home_url"] = self.get_parent().url
+        return context
+
+
+class PCWMSAHomePage(StaticPage):
+    max_count = 1
+    parent_page_types = ["hip.HomePage"]
+
+    subtitle = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="A subtitle for the page.",
+    )
+    action_section = RichTextField(
+        blank=True,
+        help_text="This section will stand out to users, calling them to perform an action.",
+    )
+
+    content_panels = HipBasePage.content_panels + [
+        FieldPanel("subtitle"),
+        FieldPanel("action_section"),
+        StreamFieldPanel("body"),
+    ]
+
+    search_fields = HipBasePage.search_fields + [
+        index.SearchField("subtitle"),
+        index.SearchField("action_section"),
+        index.SearchField("body"),
+    ]
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["pcwmsa_home_url"] = self.url
         return context

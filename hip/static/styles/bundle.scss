@@ -12,12 +12,15 @@ This file will manage all scss file imports.
 @import "./pages/base";
 @import "./pages/closed_pod_child_page";
 @import "./pages/closed_pod_home_page";
+@import "./pages/data_report_detail_page";
+@import "./pages/data_report_list_page";
 @import "./pages/disease_control_list_page.scss";
 @import "./pages/disease_and_condition_detail_page.scss";
 @import "./pages/emergency_response.scss";
 @import "./pages/health_alert_list_page";
 @import "./pages/home";
 @import "./pages/home_page";
+@import "./pages/pcwmsa_home_page";
 @import "./pages/login";
 @import "./pages/poster_list_page";
 @import "./pages/search";
