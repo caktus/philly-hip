@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% comment %}
+  This page is not linked anywhere on the site, but makes it so the 'View
+  Live' button in the CMS admin doesn't break and shows something reasonable.
+{% endcomment %}
+
+{% block content %}
+  <div class="poster-list-page-hip">
+    <h2>Poster: {{ page.title }}</h2>
+    {% include "includes/poster_card.html" with poster=page %}
+  </div>
+{% endblock %}

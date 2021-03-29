@@ -92,18 +92,28 @@
         {% endif %}
         <h3>For Patients and Community Members:</h3>
         <div>
-	  <div>
-	    {% for document in documents %}
-	      <p>
-          <a href="{{ document.url }}"><strong>{{ document.title }}</strong>
-            <span class="pdf-icon-hip pl-2 is-size-6"></span>
-          </a>
-        </p>
-      {% empty %}
-        <p>There are no patient or community resources for {{ page.title }}.<p>
-	    {% endfor %}
-    </div>
+          <div>
+            {% for document in documents %}
+              <p>
+                <a href="{{ document.url }}"><strong>{{ document.title }}</strong>
+                  <span class="pdf-icon-hip pl-2 is-size-6"></span>
+                </a>
+              </p>
+            {% empty %}
+              <p>There are no patient or community resources for {{ page.title }}.<p>
+            {% endfor %}
+          </div>
         </div>
+        <h3>Posters:</h3>
+        {% if page.posters.all %}
+          <div class="columns is-multiline">
+            {% for poster in page.posters.all %}
+              {% include "includes/poster_card.html" %}
+            {% endfor %}
+          </div>
+        {% else %}
+          <p>There are no posters for {{ page.title }}.</p>
+        {% endif %}
       </div>
     </div>
     {% include 'includes/right_scroll_nav.html' %}
