@@ -1,11 +1,8 @@
 {% extends "hip/static_page.html" %}
 
-{% block page_css_class_class %}reports-detail-page-hip{% endblock %}
+{% block page_css_class_class %}reports-archive-detail-page-hip{% endblock %}
 
 {% block before_staticpage_content %}
   {% include 'includes/breadcrumb.html' %}
   <h2 class="is-inline-block px-4 pt-0">{{ page.title }}</h2>
-  {% if archive %}
-    <a href="{{ archive.url }}">View Previous Years</a>
-  {% endif %}
 {% endblock %}

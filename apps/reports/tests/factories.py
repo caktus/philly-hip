@@ -34,3 +34,18 @@ class DataReportDetailPageFactory(wagtail_factories.PageFactory):
 
     class Meta:
         model = models.DataReportDetailPage
+
+
+class DataReportDetailArchiveListPageFactory(wagtail_factories.PageFactory):
+    title = factory.faker.Faker("sentence")
+
+    class Meta:
+        model = models.DataReportDetailArchiveListPage
+
+
+class DataReportDetailArchiveDetailPageFactory(wagtail_factories.PageFactory):
+    title = factory.faker.Faker("sentence")
+    year = random.randrange(2000, 2021)
+
+    class Meta:
+        model = models.DataReportDetailArchiveDetailPage
