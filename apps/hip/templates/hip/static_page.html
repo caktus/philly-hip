@@ -14,9 +14,13 @@
     {% block before_staticpage_content %}{% endblock %}
     <div class="columns">
       <div class="column">
+
+        {% block back_button %}
         <div class="pt-5 px-5">
           <a href="{{ previous_url }}">< Back</a>
         </div>
+        {% endblock back_button %}
+
         {% for block in page.body %}
           {% if block.value.nav_heading %}
             {# This is the div that the IntersectionObserver observes #}
