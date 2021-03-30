@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<div class="columns is-desktop">
+  <div class="column">
+    {% include 'includes/breadcrumb.html' %}
+    <div class="disease-control-index-page-hip">
+      <h2>{{ page.title }}</h2>
+      <div>
+        {% regroup detail_pages by category as detail_pages_list %}
+        {% for category in detail_pages_list %}
+          <div class="nav-heading-hip" id="section-{% if category.grouper %}{{ category.grouper|slugify }}{% else %}other{% endif %}"></div>
+          <div>
+            <h3>{% if category.grouper %}{{ category.grouper }}{% else %}Other{% endif %}</h3>
+            <div>
+              {% for detail_page in category.list %}
+                {% include 'includes/disease_control_card.html' with page=detail_page %}
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% for block in page.page_customization %}
+    {% if block.block_type == "disable_right_nav" and block.value is not True %}
+      {% include 'includes/right_scroll_nav.html' %}
+    {% endif %}
+  {% endfor %}
+</div>
+{% endblock %}

@@ -37,6 +37,17 @@
         </div>
       </div>
     {% endif %}
+    {% if other_pages.exists %}
+      <div class="nav-heading-hip" id="section-{{'Other'|slugify}}"></div>
+      <div>
+        <h3>Additional Resources</h3>
+        <div>
+          {% for sub_page in other_pages %}
+              {% include 'includes/disease_control_card.html' with page=sub_page %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
   </div>
   {% include 'includes/right_scroll_nav.html' %}
 </div>

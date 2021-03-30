@@ -19,7 +19,7 @@ class ExternalReportBlock(blocks.StructBlock):
     update_frequency = blocks.CharBlock(
         max_length=255,
         required=True,
-        help_text="How often this external is udpated (Annually, Quarterly, etc.).",
+        help_text="How often this external is updated (Annually, Quarterly, etc.).",
     )
     last_updated = blocks.DateBlock(required=True)
 

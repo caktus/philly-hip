@@ -271,3 +271,80 @@ class HomePage(HipBasePage):
         context = super().get_context(request)
         context["recent_updates"] = get_most_recent_objects(object_count=10)
         return context
+
+
+@register_snippet
+class SimpleDetailPageCategory(models.Model):
+    """Allow simple detail page categories to be editable in the Wagtail admin."""
+
+    name = models.CharField(max_length=255)
+
+    panels = [FieldPanel("name")]
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Simple Detail Page Category"
+        verbose_name_plural = "Simple Detail Page Categories"
+
+
+class SimpleDetailPage(StaticPage):
+    parent_page_types = ["hip.SimpleListPage"]
+
+    description = RichTextField(blank=True)
+    category = models.ForeignKey(
+        SimpleDetailPageCategory, null=True, blank=True, on_delete=models.SET_NULL
+    )
+
+    content_panels = StaticPage.content_panels + [
+        FieldPanel("description"),
+        FieldPanel("category"),
+    ]
+
+
+class SimpleListPage(HipBasePage):
+    max_count = 1
+
+    parent_page_types = ["disease_control.DiseaseControlListPage"]
+    subpage_types = ["hip.SimpleDetailPage"]
+
+    description = RichTextField(blank=True)
+    page_customization = StreamField(
+        [
+            (
+                "disable_right_nav",
+                blocks.BooleanBlock(
+                    required=False,
+                    help_text="Remove right side navigation from this page?",
+                ),
+            )
+        ],
+        blank=True,
+    )
+    content_panels = HipBasePage.content_panels + [
+        FieldPanel("description"),
+        StreamFieldPanel("page_customization"),
+    ]
+
+    def get_context(self, request):
+        """
+        Add right_nav_headings to context
+        """
+        context = super().get_context(request)
+        associated_simple_detail_pages = (
+            SimpleDetailPage.objects.child_of(self).order_by("category", "title").live()
+        )
+        context["detail_pages"] = associated_simple_detail_pages
+        categories = []
+        need_to_add_other = False
+        for detail_page in associated_simple_detail_pages:
+            if detail_page.category:
+                categories.append(detail_page.category.name)
+            else:
+                need_to_add_other = True
+        categories = list(dict.fromkeys(categories))
+        if need_to_add_other:
+            categories.append("Other")
+        context["right_nav_headings"] = categories
+        return context

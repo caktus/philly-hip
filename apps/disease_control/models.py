@@ -6,6 +6,7 @@ from wagtail.documents import get_document_model
 from wagtail.search import index
 
 from apps.common.models import HipBasePage
+from apps.hip.models import SimpleListPage
 
 
 class DiseaseControlListPage(HipBasePage):
@@ -16,7 +17,11 @@ class DiseaseControlListPage(HipBasePage):
         "disease_control.DiseaseAndConditionListPage",
         # Generic Placeholder until other subpages are added
         "disease_control.DiseaseControlPage",
+        "hip.SimpleListPage",
     ]
+
+    def get_simple_list_page_qs(self):
+        return SimpleListPage.objects.child_of(self).order_by("title")
 
     def get_context(self, request):
         from .utils import (
@@ -27,10 +32,13 @@ class DiseaseControlListPage(HipBasePage):
         )
 
         context = super().get_context(request)
-        context["right_nav_headings"] = get_visible_section_headers()
+        context["right_nav_headings"] = get_visible_section_headers() + [
+            "Additional Resources" if self.get_simple_list_page_qs().exists() else ""
+        ]
         context["topic_pages"] = get_topic_specific_guidance_qs()
         context["facility_pages"] = get_facility_specific_guidance_qs()
         context["disease_control_pages"] = get_disease_control_services_qs()
+        context["other_pages"] = self.get_simple_list_page_qs()
         return context
 
 
@@ -61,6 +69,8 @@ class DiseaseControlPage(HipBasePage):
 class DiseaseAndConditionListPage(DiseaseControlPage):
     subpage_types = [
         "disease_control.DiseaseAndConditionDetailPage",
+        "hip.SimpleListPage",
+        "hip.SimpleDetailPage",
     ]
 
     def get_context(self, request):
