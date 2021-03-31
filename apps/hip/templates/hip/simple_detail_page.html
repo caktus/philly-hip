@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags hip_tags %}
+
+{% block title %}
+  Philadelphia Department of Public Health - {{ page.title }}
+{% endblock %}
+
+{% block sidebar %}
+  {% include 'includes/sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+  <div class="{% block page_css_class_class %}{% endblock %}">
+    {% block before_staticpage_content %}
+      {% include 'includes/breadcrumb.html' %}
+    {% endblock %}
+    <div class="columns">
+      <div class="column ml-4">
+        {% for block in page.body %}
+          {% if block.value.nav_heading %}
+            {# This is the div that the IntersectionObserver observes #}
+            <div class="nav-heading-hip" id="section-{{block.value.nav_heading|slugify}}"></div>
+          {% endif %}
+          {% if block.value.is_card %}
+            <section class="page-section-hip card-hip mt-4 mb-6 mx-4">
+          {% else %}
+            <section class="page-section-hip mx-4">
+          {% endif %}
+              {{ block.value.body }}
+              {% if block.value.contact_info %}
+                <div class="columns is-desktop">
+                  <div class="column is-7 pl-5 pr-5">
+                    {% contact_info %}
+                  </div>
+                  <div class="column is-5"></div>
+                </div>
+              {% endif %}
+            </section>
+        {% endfor %}
+      </div>
+
+      {% for block in page.page_customization %}
+        {% if block.block_type == "disable_right_nav" and block.value != True %}
+          {% include 'includes/right_scroll_nav.html' %}
+        {% endif %}
+      {% endfor %}
+
+    </div>
+  </div>
+{% endblock %}

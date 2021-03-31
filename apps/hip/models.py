@@ -290,21 +290,32 @@ class SimpleDetailPageCategory(models.Model):
 
 
 class SimpleDetailPage(StaticPage):
-    parent_page_types = ["hip.SimpleListPage"]
 
     description = RichTextField(blank=True)
+    page_customization = StreamField(
+        [
+            (
+                "disable_right_nav",
+                blocks.BooleanBlock(
+                    default=False,
+                    help_text="Remove right side navigation from this page?",
+                ),
+            )
+        ],
+        blank=True,
+    )
     category = models.ForeignKey(
         SimpleDetailPageCategory, null=True, blank=True, on_delete=models.SET_NULL
     )
 
     content_panels = StaticPage.content_panels + [
         FieldPanel("description"),
+        StreamFieldPanel("page_customization"),
         FieldPanel("category"),
     ]
 
 
 class SimpleListPage(HipBasePage):
-    max_count = 1
 
     parent_page_types = ["disease_control.DiseaseControlListPage"]
     subpage_types = ["hip.SimpleDetailPage"]
@@ -315,7 +326,7 @@ class SimpleListPage(HipBasePage):
             (
                 "disable_right_nav",
                 blocks.BooleanBlock(
-                    required=False,
+                    default=False,
                     help_text="Remove right side navigation from this page?",
                 ),
             )
