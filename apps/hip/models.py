@@ -235,10 +235,9 @@ class ListPage(HipBasePage):
     ]
 
     def get_context(self, request):
-        """Add recent_updates to context."""
+        """Add headings for the right nav section to the context."""
         context = super().get_context(request)
 
-        # right_nav_headings = [block.value["header"] for block in self.list_section]
         right_nav_headings = []
         for block in self.list_section:
             if block.value["show_header_in_right_nav"]:
