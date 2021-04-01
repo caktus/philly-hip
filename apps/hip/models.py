@@ -202,7 +202,7 @@ class ListRowStreamBlock(blocks.StreamBlock):
 class ListSectionBlock(blocks.StructBlock):
     header = blocks.CharBlock(
         max_length=80,
-        required=True,
+        required=False,
         help_text=("The heading for this section of rows (maximum of 80 characters)."),
     )
     show_header_in_right_nav = blocks.BooleanBlock(
