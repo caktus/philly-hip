@@ -6,6 +6,10 @@
     {% block before_listpage_content %}{% endblock before_listpage_content %}
     <div class="columns">
       <div class="column{% block main_area_css_class %} list-page-main-area-hip{% endblock main_area_css_class %}">
+        {%  if page.show_breadcrumb %}
+          {% include 'includes/breadcrumb.html' %}
+        {% endif %}
+
         <h2>{{ page.title }}</h2>
         {% for list_section in page.list_section %}
           {% if list_section.value.header %}

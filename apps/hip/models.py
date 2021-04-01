@@ -214,6 +214,11 @@ class ListSectionBlock(blocks.StructBlock):
 
 
 class ListPage(HipBasePage):
+    show_breadcrumb = models.BooleanField(
+        default=False,
+        blank=True,
+        help_text="Should this page show a breadcrumb at the top of the page?",
+    )
     show_right_nav = models.BooleanField(
         default=False,
         blank=True,
@@ -226,6 +231,7 @@ class ListPage(HipBasePage):
     )
 
     content_panels = HipBasePage.content_panels + [
+        FieldPanel("show_breadcrumb"),
         FieldPanel("show_right_nav"),
         StreamFieldPanel("list_section"),
     ]
