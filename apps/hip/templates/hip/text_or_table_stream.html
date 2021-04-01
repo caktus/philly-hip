@@ -15,6 +15,9 @@
       {% if 'column_4' in value.rows.0.value %}
         <th class="table-grid-pattern-hip__th py-4 pl-4 dark-grey-bg-hip">{{ value.rows.0.value.column_4 }}</th>
       {% endif %}
+      {% if 'column_5' in value.rows.0.value %}
+        <th class="table-grid-pattern-hip__th py-4 pl-4 dark-grey-bg-hip">{{ value.rows.0.value.column_5 }}</th>
+      {% endif %}
     </tr>
   </thead>
   {% endif %}
@@ -35,6 +38,9 @@
             {% if 'column_4' in row.value %}
               <td class="py-4 pl-4 pr-2">{{ row.value.column_4 }}</td>
             {% endif %}
+            {% if 'column_5' in row.value %}
+              <td class="py-4 pl-4 pr-2">{{ row.value.column_5 }}</td>
+            {% endif %}
           {% else %}
             <td class="py-4 pr-2">{{ row.value.column_1 }}</td>
             <td class="py-4 pr-2">{{ row.value.column_2 }}</td>
@@ -43,6 +49,9 @@
             {% endif %}
             {% if 'column_4' in row.value %}
               <td class="py-4 pl-4 pr-2">{{ row.value.column_4 }}</td>
+            {% endif %}
+            {% if 'column_5' in row.value %}
+              <td class="py-4 pl-4 pr-2">{{ row.value.column_5 }}</td>
             {% endif %}
           {% endif %}
         </tr>

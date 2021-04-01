@@ -156,11 +156,61 @@ class FourColumnBlock(blocks.StructBlock):
         template = "hip/text_or_table_stream.html"
 
 
+class FiveColumnTableRow(blocks.StructBlock):
+    column_1 = blocks.RichTextBlock(
+        max_length=255,
+        required=False,
+        help_text=("Text for column 1"),
+    )
+    column_2 = blocks.RichTextBlock(
+        max_length=255,
+        required=False,
+        help_text=("Text for column 2"),
+    )
+    column_3 = blocks.RichTextBlock(
+        max_length=255,
+        required=False,
+        help_text=("Text for column 3"),
+    )
+    column_4 = blocks.RichTextBlock(
+        max_length=255,
+        required=False,
+        help_text=("Text for column 4"),
+    )
+    column_5 = blocks.RichTextBlock(
+        max_length=255,
+        required=False,
+        help_text=("Text for column 5"),
+    )
+
+    class Meta:
+        label = "Table row"
+        form_classname = "five-column-table__row"
+
+
+class FiveColumnTableRowStreamBlock(blocks.StreamBlock):
+    rows = FiveColumnTableRow()
+
+
+class FiveColumnBlock(blocks.StructBlock):
+    has_grid_pattern = blocks.BooleanBlock(
+        required=False, help_text="Does this table's styling have a grid pattern?"
+    )
+    is_first_row_header = blocks.BooleanBlock(
+        required=False, help_text="Should the first row be displayed as a header?"
+    )
+    rows = FiveColumnTableRowStreamBlock()
+
+    class Meta:
+        template = "hip/text_or_table_stream.html"
+
+
 class TextOrTableStreamBlock(blocks.StreamBlock):
     rich_text = blocks.RichTextBlock()
     two_column_table = TwoColumnBlock()
     three_column_table = ThreeColumnBlock()
     four_column_table = FourColumnBlock()
+    five_column_table = FiveColumnBlock()
 
 
 class StreamAndNavHeadingBlock(blocks.StructBlock):
