@@ -1,6 +1,11 @@
 from apps.disease_control.tests.factories import DiseaseAndConditionDetailPageFactory
 
-from .factories import DataReportDetailPageFactory, DataReportListPageFactory
+from .factories import (
+    DataReportDetailArchiveDetailPageFactory,
+    DataReportDetailArchiveListPageFactory,
+    DataReportDetailPageFactory,
+    DataReportListPageFactory,
+)
 
 
 def test_datareportslistpage_context_no_internal_or_external_reports(db, rf):
@@ -152,3 +157,71 @@ def test_datareportslistpage_context_internal_and_external_reports(db, rf):
         },
     ]
     assert expected_results == context["reports"]
+
+
+def test_datareportsdetailpage_context_no_archive(db, rf):
+    """
+    A DataReportDetailPage with no DataReportDetailArchiveListPage children has empty 'archive'.
+    """
+    report_detail_page = DataReportDetailPageFactory()
+    context = report_detail_page.get_context(rf.get("/someurl/"))
+    assert context["archive"] is None
+
+
+def test_datareportsdetailpage_context_with_archive(db, rf):
+    """A DataReportDetailPage with a DataReportDetailArchiveListPage child has an 'archive'."""
+    report_detail_page = DataReportDetailPageFactory()
+    archivepage = DataReportDetailArchiveListPageFactory(parent=report_detail_page)
+
+    context = report_detail_page.get_context(rf.get("/someurl/"))
+
+    assert archivepage == context["archive"]
+
+
+def test_datareportsdetailpage_context_archive_other_page(db, rf):
+    """A DataReportDetailArchiveListPage does not show up for other DataReportDetailPages."""
+    report_detail_page1 = DataReportDetailPageFactory()
+    report_detail_page2 = DataReportDetailPageFactory()
+    # A DataReportDetailArchiveListPage for the report_detail_page1.
+    archivepage1 = DataReportDetailArchiveListPageFactory(parent=report_detail_page1)
+
+    context = report_detail_page2.get_context(rf.get("/someurl/"))
+
+    # The context for the report_detail_page2 should not have an archive.
+    assert context["archive"] is None
+
+
+def test_datareportarchivelistpage_context_no_archived_reports(db, rf):
+    """A DataReportDetailArchiveListPage with no children has empty 'archived_reports'."""
+    archive_page = DataReportDetailArchiveListPageFactory()
+    context = archive_page.get_context(rf.get("/someurl/"))
+    assert 0 == len(context["archived_reports"])
+
+
+def test_datareportarchivelistpage_context_with_archived_reports(db, rf):
+    """A DataReportDetailArchiveListPage with children has them in the context."""
+    archive_page = DataReportDetailArchiveListPageFactory()
+    archived_report_2019 = DataReportDetailArchiveDetailPageFactory(
+        parent=archive_page, year=2019
+    )
+    archived_report_2020 = DataReportDetailArchiveDetailPageFactory(
+        parent=archive_page, year=2020
+    )
+    archived_report_2018 = DataReportDetailArchiveDetailPageFactory(
+        parent=archive_page, year=2018
+    )
+    # An archived report for a different archive page (which should not show up
+    # in the context for archive_page).
+    DataReportDetailArchiveDetailPageFactory(
+        parent=DataReportDetailArchiveDetailPageFactory(), year=2019
+    )
+    # The archived reports should be ordered by year.
+    expected_results = [
+        archived_report_2020,
+        archived_report_2019,
+        archived_report_2018,
+    ]
+
+    context = archive_page.get_context(rf.get("/someurl/"))
+
+    assert expected_results == list(context["archived_reports"])

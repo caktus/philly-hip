@@ -85,7 +85,7 @@ class DataReportListPage(HipBasePage):
 
 class DataReportDetailPage(StaticPage):
     parent_page_types = ["reports.DataReportListPage"]
-    subpage_types = []
+    subpage_types = ["reports.DataReportDetailArchiveListPage"]
 
     update_frequency = models.CharField(max_length=80, blank=True)
     associated_disease = models.ForeignKey(
@@ -107,3 +107,41 @@ class DataReportDetailPage(StaticPage):
         index.SearchField("update_frequency"),
         index.SearchField("associated_disease"),
     ]
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["archive"] = DataReportDetailArchiveListPage.objects.child_of(
+            self
+        ).first()
+        return context
+
+
+class DataReportDetailArchiveListPage(HipBasePage):
+    max_count_per_parent = 1
+
+    parent_page_types = ["reports.DataReportDetailPage"]
+    subpage_types = ["reports.DataReportDetailArchiveDetailPage"]
+
+    content_panels = HipBasePage.content_panels
+
+    search_fields = HipBasePage.search_fields
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context[
+            "archived_reports"
+        ] = DataReportDetailArchiveDetailPage.objects.child_of(self).order_by("-year")
+        return context
+
+
+class DataReportDetailArchiveDetailPage(StaticPage):
+    parent_page_types = ["reports.DataReportDetailArchiveListPage"]
+    subpage_types = []
+
+    year = models.PositiveSmallIntegerField()
+
+    content_panels = StaticPage.content_panels + [
+        FieldPanel("year"),
+    ]
+
+    search_fields = HipBasePage.search_fields
