@@ -12,7 +12,7 @@
 {% block content %}
   <div class="{% block page_css_class_class %}{% endblock %}">
     <div class="columns">
-      <div class="column">
+      <div class="column {% block main_area_css_class %}{% endblock main_area_css_class %}">
         {% block before_staticpage_content %}{% endblock %}
 
         {% block back_button %}
