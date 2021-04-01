@@ -184,6 +184,70 @@ class StaticPage(HipBasePage):
         return context
 
 
+class ListRowBlock(blocks.StructBlock):
+    page = blocks.PageChooserBlock(
+        required=True,
+        help_text=("An internal page"),
+    )
+    description = blocks.RichTextBlock(
+        required=False,
+        help_text=("Description for this row"),
+    )
+
+
+class ListRowStreamBlock(blocks.StreamBlock):
+    rows = ListRowBlock()
+
+
+class ListSectionBlock(blocks.StructBlock):
+    header = blocks.CharBlock(
+        max_length=80,
+        required=True,
+        help_text=("The heading for this section of rows (maximum of 80 characters)."),
+    )
+    show_header_in_right_nav = blocks.BooleanBlock(
+        required=False,
+        default=True,
+        help_text="Should this header be shown in the navigation on the right side of the page?",
+    )
+    rows = ListRowStreamBlock()
+
+
+class ListPage(HipBasePage):
+    show_right_nav = models.BooleanField(
+        default=False,
+        blank=True,
+        help_text="Should this page show a navigation of its sections on the right side of the page?",
+    )
+    list_section = StreamField(
+        [
+            ("list_section", ListSectionBlock()),
+        ]
+    )
+
+    content_panels = HipBasePage.content_panels + [
+        FieldPanel("show_right_nav"),
+        StreamFieldPanel("list_section"),
+    ]
+    promote_panels = [FieldPanel("slug")]
+    search_fields = HipBasePage.search_fields + [
+        index.SearchField("list_section"),
+    ]
+
+    def get_context(self, request):
+        """Add recent_updates to context."""
+        context = super().get_context(request)
+
+        # right_nav_headings = [block.value["header"] for block in self.list_section]
+        right_nav_headings = []
+        for block in self.list_section:
+            if block.value["show_header_in_right_nav"]:
+                right_nav_headings.append(block.value["header"])
+        context["right_nav_headings"] = right_nav_headings
+
+        return context
+
+
 class QuickLinkStructValue(blocks.StructValue):
     def link(self):
         """Determine the link based on "link_page" or "link_url"."""

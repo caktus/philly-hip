@@ -3,7 +3,7 @@ from django.utils.timezone import now
 import factory
 import wagtail_factories
 
-from ..models import HomePage, StaticPage
+from ..models import HomePage, ListPage, StaticPage
 
 
 class TextOrTableStreamBlockFactory(wagtail_factories.StructBlockFactory):
@@ -40,3 +40,28 @@ class HomePageFactory(wagtail_factories.PageFactory):
 
     class Meta:
         model = HomePage
+
+
+class ListRowBlockFactory(wagtail_factories.StructBlockFactory):
+    description = factory.faker.Faker("text")
+    page = factory.SubFactory(StaticPageFactory)
+
+
+class ListRowStreamBlockFactory(wagtail_factories.StructBlockFactory):
+    rows = factory.SubFactory(ListRowBlockFactory)
+
+
+class ListSectionBlockFactory(wagtail_factories.StructBlockFactory):
+    header = factory.faker.Faker("text")
+    is_card = True
+    rows = factory.SubFactory(ListRowStreamBlockFactory)
+
+
+class ListPageFactory(wagtail_factories.PageFactory):
+    list_section = wagtail_factories.StreamFieldFactory(
+        {"list_section": StreamAndNavHeadingBlockFactory()}
+    )
+    latest_revision_created_at = now()
+
+    class Meta:
+        model = ListPage
