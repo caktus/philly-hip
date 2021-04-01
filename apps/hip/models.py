@@ -73,6 +73,45 @@ class TwoColumnBlock(blocks.StructBlock):
         template = "hip/text_or_table_stream.html"
 
 
+class ThreeColumnTableRow(blocks.StructBlock):
+    column_1 = blocks.RichTextBlock(
+        max_length=255,
+        required=False,
+        help_text=("Text for column 1"),
+    )
+    column_2 = blocks.RichTextBlock(
+        max_length=255,
+        required=False,
+        help_text=("Text for column 2"),
+    )
+    column_3 = blocks.RichTextBlock(
+        max_length=255,
+        required=False,
+        help_text=("Text for column 3"),
+    )
+
+    class Meta:
+        label = "Table row"
+        form_classname = "three-column-table__row"
+
+
+class ThreeColumnTableRowStreamBlock(blocks.StreamBlock):
+    rows = ThreeColumnTableRow()
+
+
+class ThreeColumnBlock(blocks.StructBlock):
+    has_grid_pattern = blocks.BooleanBlock(
+        required=False, help_text="Does this table's styling have a grid pattern?"
+    )
+    is_first_row_header = blocks.BooleanBlock(
+        required=False, help_text="Should the first row be displayed as a header?"
+    )
+    rows = ThreeColumnTableRowStreamBlock()
+
+    class Meta:
+        template = "hip/text_or_table_stream.html"
+
+
 class FourColumnTableRow(blocks.StructBlock):
     column_1 = blocks.RichTextBlock(
         max_length=255,
@@ -117,10 +156,61 @@ class FourColumnBlock(blocks.StructBlock):
         template = "hip/text_or_table_stream.html"
 
 
+class FiveColumnTableRow(blocks.StructBlock):
+    column_1 = blocks.RichTextBlock(
+        max_length=255,
+        required=False,
+        help_text=("Text for column 1"),
+    )
+    column_2 = blocks.RichTextBlock(
+        max_length=255,
+        required=False,
+        help_text=("Text for column 2"),
+    )
+    column_3 = blocks.RichTextBlock(
+        max_length=255,
+        required=False,
+        help_text=("Text for column 3"),
+    )
+    column_4 = blocks.RichTextBlock(
+        max_length=255,
+        required=False,
+        help_text=("Text for column 4"),
+    )
+    column_5 = blocks.RichTextBlock(
+        max_length=255,
+        required=False,
+        help_text=("Text for column 5"),
+    )
+
+    class Meta:
+        label = "Table row"
+        form_classname = "five-column-table__row"
+
+
+class FiveColumnTableRowStreamBlock(blocks.StreamBlock):
+    rows = FiveColumnTableRow()
+
+
+class FiveColumnBlock(blocks.StructBlock):
+    has_grid_pattern = blocks.BooleanBlock(
+        required=False, help_text="Does this table's styling have a grid pattern?"
+    )
+    is_first_row_header = blocks.BooleanBlock(
+        required=False, help_text="Should the first row be displayed as a header?"
+    )
+    rows = FiveColumnTableRowStreamBlock()
+
+    class Meta:
+        template = "hip/text_or_table_stream.html"
+
+
 class TextOrTableStreamBlock(blocks.StreamBlock):
     rich_text = blocks.RichTextBlock()
     two_column_table = TwoColumnBlock()
+    three_column_table = ThreeColumnBlock()
     four_column_table = FourColumnBlock()
+    five_column_table = FiveColumnBlock()
 
 
 class StreamAndNavHeadingBlock(blocks.StructBlock):
@@ -179,6 +269,75 @@ class StaticPage(HipBasePage):
         for block in self.body:
             if block.value["nav_heading"]:
                 right_nav_headings.append(block.value["nav_heading"])
+        context["right_nav_headings"] = right_nav_headings
+
+        return context
+
+
+class ListRowBlock(blocks.StructBlock):
+    page = blocks.PageChooserBlock(
+        required=True,
+        help_text=("An internal page"),
+    )
+    description = blocks.RichTextBlock(
+        required=False,
+        help_text=("Description for this row"),
+    )
+
+
+class ListRowStreamBlock(blocks.StreamBlock):
+    rows = ListRowBlock()
+
+
+class ListSectionBlock(blocks.StructBlock):
+    header = blocks.CharBlock(
+        max_length=80,
+        required=False,
+        help_text=("The heading for this section of rows (maximum of 80 characters)."),
+    )
+    show_header_in_right_nav = blocks.BooleanBlock(
+        required=False,
+        default=True,
+        help_text="Should this header be shown in the navigation on the right side of the page?",
+    )
+    rows = ListRowStreamBlock()
+
+
+class ListPage(HipBasePage):
+    show_breadcrumb = models.BooleanField(
+        default=False,
+        blank=True,
+        help_text="Should this page show a breadcrumb at the top of the page?",
+    )
+    show_right_nav = models.BooleanField(
+        default=False,
+        blank=True,
+        help_text="Should this page show a navigation of its sections on the right side of the page?",
+    )
+    list_section = StreamField(
+        [
+            ("list_section", ListSectionBlock()),
+        ]
+    )
+
+    content_panels = HipBasePage.content_panels + [
+        FieldPanel("show_breadcrumb"),
+        FieldPanel("show_right_nav"),
+        StreamFieldPanel("list_section"),
+    ]
+    promote_panels = [FieldPanel("slug")]
+    search_fields = HipBasePage.search_fields + [
+        index.SearchField("list_section"),
+    ]
+
+    def get_context(self, request):
+        """Add headings for the right nav section to the context."""
+        context = super().get_context(request)
+
+        right_nav_headings = []
+        for block in self.list_section:
+            if block.value["show_header_in_right_nav"]:
+                right_nav_headings.append(block.value["header"])
         context["right_nav_headings"] = right_nav_headings
 
         return context

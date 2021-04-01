@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags hip_tags %}
+
+{% block content %}
+  <div class="{% block page_css_class_class %}mx-6{% endblock %}">
+    {% block before_listpage_content %}{% endblock before_listpage_content %}
+    <div class="columns">
+      <div class="column{% block main_area_css_class %} list-page-main-area-hip{% endblock main_area_css_class %}">
+        {%  if page.show_breadcrumb %}
+          {% include 'includes/breadcrumb.html' %}
+        {% endif %}
+
+        <h2>{{ page.title }}</h2>
+        {% for list_section in page.list_section %}
+          {% if list_section.value.header %}
+            {% if list_section.value.show_header_in_right_nav %}
+              <div class="nav-heading-hip" id="section-{{list_section.value.header|slugify}}"></div>
+            {% endif %}
+            <h3>{{ list_section.value.header }}</h3>
+          {% endif %}
+          <div>
+            {% block list_page_rows %}
+              {% for row in list_section.value.rows %}
+                {% include 'includes/list_page_row.html' with row=row %}
+              {% endfor %}
+            {% endblock list_page_rows %}
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if page.show_right_nav %}
+        {% include 'includes/right_scroll_nav.html' with page=page %}
+      {% endif %}
+
+    </div>
+  </div>
+
+{% endblock %}
