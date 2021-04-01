@@ -73,6 +73,45 @@ class TwoColumnBlock(blocks.StructBlock):
         template = "hip/text_or_table_stream.html"
 
 
+class ThreeColumnTableRow(blocks.StructBlock):
+    column_1 = blocks.RichTextBlock(
+        max_length=255,
+        required=False,
+        help_text=("Text for column 1"),
+    )
+    column_2 = blocks.RichTextBlock(
+        max_length=255,
+        required=False,
+        help_text=("Text for column 2"),
+    )
+    column_3 = blocks.RichTextBlock(
+        max_length=255,
+        required=False,
+        help_text=("Text for column 3"),
+    )
+
+    class Meta:
+        label = "Table row"
+        form_classname = "three-column-table__row"
+
+
+class ThreeColumnTableRowStreamBlock(blocks.StreamBlock):
+    rows = ThreeColumnTableRow()
+
+
+class ThreeColumnBlock(blocks.StructBlock):
+    has_grid_pattern = blocks.BooleanBlock(
+        required=False, help_text="Does this table's styling have a grid pattern?"
+    )
+    is_first_row_header = blocks.BooleanBlock(
+        required=False, help_text="Should the first row be displayed as a header?"
+    )
+    rows = ThreeColumnTableRowStreamBlock()
+
+    class Meta:
+        template = "hip/text_or_table_stream.html"
+
+
 class FourColumnTableRow(blocks.StructBlock):
     column_1 = blocks.RichTextBlock(
         max_length=255,
@@ -120,6 +159,7 @@ class FourColumnBlock(blocks.StructBlock):
 class TextOrTableStreamBlock(blocks.StreamBlock):
     rich_text = blocks.RichTextBlock()
     two_column_table = TwoColumnBlock()
+    three_column_table = ThreeColumnBlock()
     four_column_table = FourColumnBlock()
 
 
