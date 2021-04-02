@@ -37,7 +37,7 @@
 }
 
 @mixin lists {
-  ul {
+  ul:not(#breadcrumb-ul-hip) {
     list-style: none;
     padding: 0;
     margin: 0;
