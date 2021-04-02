@@ -1,6 +1,5 @@
 @import "../mixins";
 
 .reports-detail-page-mainarea-hip {
-  @include headers;
-  @include paragraphs;
+  @include wagtail-richtext;
 }
