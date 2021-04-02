@@ -60,6 +60,13 @@
   }
 }
 
+@mixin wagtail-richtext {
+  @include headers;
+  @include paragraphs;
+  @include lists;
+  @include a-tags;
+}
+
 @mixin tables {
   table {
     width: 100%;
