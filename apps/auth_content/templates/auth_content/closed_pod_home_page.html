@@ -3,8 +3,7 @@
 
 {% block content %}
 <div class="closed-pod-homepage-hip px-4">
-  <h2 class="is-inline-block pr-4">{{ page.title }}</h2>
-  <span class="lock-icon-2x-hip"></span>
+  <h2 class="is-inline-block pr-4">{{ page.title }}<span class="lock-icon-2x-hip is-size-2 pl-4"></span></h2>
   {% if page.action_section %}
     <section class="action-section-hip py-4 pl-4">
       {{ page.action_section|richtext }}
