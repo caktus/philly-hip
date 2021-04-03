@@ -43,3 +43,7 @@ body {
 .full-height-hip {
   min-height: 100vh;
 }
+
+.descendant-table-layout-fixed-hip table {
+  table-layout: fixed;
+}
