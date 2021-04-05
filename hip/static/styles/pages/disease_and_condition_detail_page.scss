@@ -6,10 +6,7 @@
   @media screen and (max-width: $breakpoint-widescreen) {
     margin: 0 1.5rem;
   }
-  @include headers;
-  @include paragraphs;
-  @include lists;
-  @include a-tags;
+  @include wagtail-richtext;
 
   .at-a-glance-hip {
     background-color: $light-grey;
