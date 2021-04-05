@@ -240,7 +240,28 @@ class StreamAndNavHeadingBlock(blocks.StructBlock):
 class StaticPage(HipBasePage):
     """A Page with only sections of static content."""
 
-    subpage_types = []
+    subpage_types = ["hip.StaticPage", "hip.ListPage"]
+
+    show_left_nav = models.BooleanField(
+        default=True,
+        blank=True,
+        help_text="Should this page show a navigation of the site on the left side of the page?",
+    )
+    show_breadcrumb = models.BooleanField(
+        default=False,
+        blank=True,
+        help_text="Should this page show a breadcrumb at the top of the page?",
+    )
+    show_back_button = models.BooleanField(
+        default=False,
+        blank=True,
+        help_text="Should this page show a back button at the top of the page?",
+    )
+    show_right_nav = models.BooleanField(
+        default=False,
+        blank=True,
+        help_text="Should this page show a navigation of its sections on the right side of the page?",
+    )
 
     body = StreamField(
         [
@@ -249,6 +270,10 @@ class StaticPage(HipBasePage):
     )
 
     content_panels = HipBasePage.content_panels + [
+        FieldPanel("show_left_nav"),
+        FieldPanel("show_breadcrumb"),
+        FieldPanel("show_back_button"),
+        FieldPanel("show_right_nav"),
         StreamFieldPanel("body"),
     ]
     promote_panels = [
