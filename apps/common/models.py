@@ -83,3 +83,27 @@ class HipBasePage(Page):
         ):
             return True
         return False
+
+    @property
+    def is_bigcities_page(self):
+        """
+        Determine if this page is a Big Cities page.
+
+        A page is a Big Cities page if it is either the BigCitiesHomePage, or a
+        descendant of the BigCitiesHomePage.
+        """
+        # Note: the BigCitiesHomePage inherits from StaticPage, which inherits from
+        # HipBasePage, so we must check self.staticpage.bigcitieshomepage and
+        # ancestor.staticpage.bigcitieshomepage.
+        if (
+            hasattr(self, "staticpage")
+            and hasattr(self.staticpage, "bigcitieshomepage")
+        ) or any(
+            [
+                hasattr(ancestor, "staticpage")
+                and hasattr(ancestor.staticpage, "bigcitieshomepage")
+                for ancestor in self.get_ancestors()
+            ]
+        ):
+            return True
+        return False
