@@ -240,7 +240,7 @@ class StreamAndNavHeadingBlock(blocks.StructBlock):
 class StaticPage(HipBasePage):
     """A Page with only sections of static content."""
 
-    subpage_types = []
+    subpage_types = ["hip.StaticPage", "hip.ListPage"]
 
     show_left_nav = models.BooleanField(
         default=True,
