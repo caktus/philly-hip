@@ -1,7 +1,13 @@
 from wagtail.core.models import Page, PageViewRestriction
 
-from apps.auth_content.models import ClosedPODHomePage, PCWMSAHomePage
 from apps.hip.models import HomePage
+
+
+from apps.auth_content.models import (  # isort: skip
+    BigCitiesHomePage,
+    ClosedPODHomePage,
+    PCWMSAHomePage,
+)
 
 
 def get_home_page_url():
@@ -20,6 +26,12 @@ def get_pcwmsa_home_page_url():
     """If a live PCWMSAHomePage exists, return its URL. Otherwise, return get_home_page_url()."""
     pcwmsa_home_page = PCWMSAHomePage.objects.live().first()
     return pcwmsa_home_page.url if pcwmsa_home_page else get_home_page_url()
+
+
+def get_bigcities_home_page_url():
+    """If a live BigCitiesHomePage exists, return its URL. Otherwise, return get_home_page_url()."""
+    bigcities_home_page = BigCitiesHomePage.objects.live().first()
+    return bigcities_home_page.url if bigcities_home_page else get_home_page_url()
 
 
 def get_all_pages_visible_to_request(request):

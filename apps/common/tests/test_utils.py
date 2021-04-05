@@ -3,11 +3,17 @@ from django.contrib.auth.models import AnonymousUser, Group
 import pytest
 from wagtail.core.models import Page
 
+from apps.auth_content.tests.factories import (
+    BigCitiesHomePageFactory,
+    ClosedPODHomePageFactory,
+    PCWMSAHomePageFactory,
+)
 from apps.hip.tests.factories import HomePageFactory
 from apps.users.tests.factories import UserFactory
 
 from ..utils import (
     get_all_pages_visible_to_request,
+    get_bigcities_home_page_url,
     get_closedpod_home_page_url,
     get_home_page_url,
     get_pcwmsa_home_page_url,
@@ -18,12 +24,6 @@ from .fixtures import (  # noqa: F401
     public_pages_with_descendants,
 )
 from .test_context_processors import closedpod_homepage, pcwmsa_homepage  # noqa: F401
-
-
-from apps.auth_content.tests.factories import (  # isort: skip
-    ClosedPODHomePageFactory,
-    PCWMSAHomePageFactory,
-)
 
 
 def test_get_home_page_url_no_homepage(db):
@@ -105,6 +105,36 @@ def test_get_pcwmsa_home_page_url_with_pcwmsa_homepage(db, mocker):
     """If a live PCWMSAHomePage exists, then the function returns its URL."""
     pcwmsa_home_page = PCWMSAHomePageFactory(live=True)
     assert pcwmsa_home_page.url == get_pcwmsa_home_page_url()
+
+
+def test_get_bigcities_home_page_url_no_bigcities_homepage(db, mocker):
+    """If no BigCitiesHomePage exists, then the function returns get_home_page_url()."""
+    # Mock the apps.common.utils.get_home_page_url function, since it is used
+    # to determine the homepage URL.
+    mock_get_home_page_url = mocker.patch("apps.common.utils.get_home_page_url")
+    mock_homepage_url = "/the_home_page_url/"
+    mock_get_home_page_url.return_value = mock_homepage_url
+
+    assert mock_homepage_url == get_bigcities_home_page_url()
+
+
+def test_get_bigcities_home_page_url_no_live_homepage(db, mocker):
+    """If no live BigCitiesHomePage exists, then the function returns get_home_page_url()."""
+    # Mock the apps.common.utils.get_home_page_url function, since it is used
+    # to determine the homepage URL.
+    mock_get_home_page_url = mocker.patch("apps.common.utils.get_home_page_url")
+    mock_homepage_url = "/the_home_page_url/"
+    mock_get_home_page_url.return_value = mock_homepage_url
+
+    bigcities_home_page = BigCitiesHomePageFactory(live=False)
+    assert mock_homepage_url == get_bigcities_home_page_url()
+    assert bigcities_home_page.url != get_bigcities_home_page_url()
+
+
+def test_get_bigcities_home_page_url_with_bigcities_homepage(db, mocker):
+    """If a live BigCitiesHomePage exists, then the function returns its URL."""
+    bigcities_home_page = BigCitiesHomePageFactory(live=True)
+    assert bigcities_home_page.url == get_bigcities_home_page_url()
 
 
 def test_get_all_pages_visible_to_request_unauthenticated(
