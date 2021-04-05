@@ -18,14 +18,6 @@ from ..utils import (
     get_home_page_url,
     get_pcwmsa_home_page_url,
 )
-from .fixtures import (  # noqa: F401
-    bigcities_homepage,
-    bigcities_homepage_with_descendants,
-    closedpod_homepage_with_descendants,
-    pcwmsa_homepage_with_descendants,
-    public_pages_with_descendants,
-)
-from .test_context_processors import closedpod_homepage, pcwmsa_homepage  # noqa: F401
 
 
 def test_get_home_page_url_no_homepage(db):
