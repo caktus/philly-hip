@@ -117,7 +117,7 @@ def test_authenticated_view_router_not_authenticated(db, client, mocker):
         ([], "get_home_page_url"),
         (["Closed POD"], "get_closedpod_home_page_url"),
         (["PCW MSA"], "get_pcwmsa_home_page_url"),
-        (["Big Cities"], "get_home_page_url"),
+        (["Big Cities"], "get_bigcities_home_page_url"),
         (["Closed POD", "PCW MSA"], "get_closedpod_home_page_url"),
         (["Closed POD", "Big Cities"], "get_closedpod_home_page_url"),
         (["PCW MSA", "Big Cities"], "get_pcwmsa_home_page_url"),
@@ -147,6 +147,13 @@ def test_authenticated_view_router_authenticated(
     )
     mock_pcwmsa_homepage_url = "/the_pcwmsa_home_page_url/"
     mock_get_pcwmsa_home_page_url.return_value = mock_pcwmsa_homepage_url
+    # Mock the apps.common.utils.get_bigcities_home_page_url function, since it
+    # is used to determine the Big Cities homepage URL.
+    mock_get_bigcities_home_page_url = mocker.patch(
+        "apps.hip.views.get_bigcities_home_page_url"
+    )
+    mock_bigcities_homepage_url = "/the_bigcities_home_page_url/"
+    mock_get_bigcities_home_page_url.return_value = mock_bigcities_homepage_url
 
     # Create a user, and put the user into a particular Group.
     user = UserFactory(email="test-user")
@@ -168,3 +175,5 @@ def test_authenticated_view_router_authenticated(
         assert mock_closedpod_homepage_url == response.url
     elif expected_redirect == "get_pcwmsa_home_page_url":
         assert mock_pcwmsa_homepage_url == response.url
+    elif expected_redirect == "get_bigcities_home_page_url":
+        assert mock_bigcities_homepage_url == response.url
