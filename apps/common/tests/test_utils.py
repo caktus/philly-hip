@@ -19,6 +19,8 @@ from ..utils import (
     get_pcwmsa_home_page_url,
 )
 from .fixtures import (  # noqa: F401
+    bigcities_homepage,
+    bigcities_homepage_with_descendants,
     closedpod_homepage_with_descendants,
     pcwmsa_homepage_with_descendants,
     public_pages_with_descendants,
@@ -140,6 +142,7 @@ def test_get_bigcities_home_page_url_with_bigcities_homepage(db, mocker):
 def test_get_all_pages_visible_to_request_unauthenticated(
     db,
     rf,
+    bigcities_homepage_with_descendants,  # noqa: F811
     closedpod_homepage_with_descendants,  # noqa: F811
     pcwmsa_homepage_with_descendants,  # noqa: F811
     public_pages_with_descendants,  # noqa: F811
@@ -161,6 +164,7 @@ def test_get_all_pages_visible_to_request_unauthenticated(
 def test_get_all_pages_visible_to_request_authenticated_not_in_groups(
     db,
     rf,
+    bigcities_homepage_with_descendants,  # noqa: F811
     closedpod_homepage_with_descendants,  # noqa: F811
     pcwmsa_homepage_with_descendants,  # noqa: F811
     public_pages_with_descendants,  # noqa: F811
@@ -185,6 +189,7 @@ def test_get_all_pages_visible_to_request_authenticated_not_in_groups(
 def test_get_all_pages_visible_to_request_authenticated_superuser_not_in_groups(
     db,
     rf,
+    bigcities_homepage_with_descendants,  # noqa: F811
     closedpod_homepage_with_descendants,  # noqa: F811
     pcwmsa_homepage_with_descendants,  # noqa: F811
     public_pages_with_descendants,  # noqa: F811
@@ -200,6 +205,7 @@ def test_get_all_pages_visible_to_request_authenticated_superuser_not_in_groups(
     # is a superuser, the request.user is allowed to see all of the Pages.
     expected_results = (
         public_pages_with_descendants
+        + bigcities_homepage_with_descendants
         + closedpod_homepage_with_descendants
         + pcwmsa_homepage_with_descendants
     )
@@ -214,6 +220,7 @@ def test_get_all_pages_visible_to_request_authenticated_superuser_not_in_groups(
 def test_get_all_pages_visible_to_request_authenticated_adminuser_not_in_groups(
     db,
     rf,
+    bigcities_homepage_with_descendants,  # noqa: F811
     closedpod_homepage_with_descendants,  # noqa: F811
     pcwmsa_homepage_with_descendants,  # noqa: F811
     public_pages_with_descendants,  # noqa: F811
@@ -244,19 +251,36 @@ def test_get_all_pages_visible_to_request_authenticated_adminuser_not_in_groups(
         ([], "get_home_page_url"),
         (["Closed POD"], ["closedpod_homepage_with_descendants"]),
         (["PCW MSA"], ["pcwmsa_homepage_with_descendants"]),
-        # (["Big Cities"], ["bigcities_homepage_with_descendants"]),
+        (["Big Cities"], ["bigcities_homepage_with_descendants"]),
         (
             ["Closed POD", "PCW MSA"],
             ["closedpod_homepage_with_descendants", "pcwmsa_homepage_with_descendants"],
         ),
-        # (["Closed POD", "Big Cities"], ["closedpod_homepage_with_descendants", "bigcities_homepage_with_descendants"]),
-        # (["PCW MSA", "Big Cities"], ["pcwmsa_homepage_with_descendants", "bigcities_homepage_with_descendants"]),
-        # (["Closed POD", "PCW MSA", "Big Cities"], ["closedpod_homepage_with_descendants", "pcwmsa_homepage_with_descendants", "bigcities_homepage_with_descendants"]),
+        (
+            ["Closed POD", "Big Cities"],
+            [
+                "closedpod_homepage_with_descendants",
+                "bigcities_homepage_with_descendants",
+            ],
+        ),
+        (
+            ["PCW MSA", "Big Cities"],
+            ["pcwmsa_homepage_with_descendants", "bigcities_homepage_with_descendants"],
+        ),
+        (
+            ["Closed POD", "PCW MSA", "Big Cities"],
+            [
+                "closedpod_homepage_with_descendants",
+                "pcwmsa_homepage_with_descendants",
+                "bigcities_homepage_with_descendants",
+            ],
+        ),
     ],
 )
 def test_get_all_pages_visible_to_request_authenticated_in_group(
     db,
     rf,
+    bigcities_homepage_with_descendants,  # noqa: F811
     closedpod_homepage_with_descendants,  # noqa: F811
     pcwmsa_homepage_with_descendants,  # noqa: F811
     public_pages_with_descendants,  # noqa: F811
@@ -280,8 +304,8 @@ def test_get_all_pages_visible_to_request_authenticated_in_group(
             expected_results += closedpod_homepage_with_descendants
         elif expected_page_name == "pcwmsa_homepage_with_descendants":
             expected_results += pcwmsa_homepage_with_descendants
-        # elif expected_page_name == "bigcities_homepage_with_descendants":
-        #     expected_results += bigcities_homepage_with_descendants
+        elif expected_page_name == "bigcities_homepage_with_descendants":
+            expected_results += bigcities_homepage_with_descendants
 
     results = get_all_pages_visible_to_request(request)
 
