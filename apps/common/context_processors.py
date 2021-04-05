@@ -1,12 +1,17 @@
 from django.conf import settings
 
-from apps.auth_content.models import ClosedPODHomePage, PCWMSAHomePage
-
-
-from .utils import (  # isort: skip
+from .utils import (
+    get_bigcities_home_page_url,
     get_closedpod_home_page_url,
     get_home_page_url,
     get_pcwmsa_home_page_url,
+)
+
+
+from apps.auth_content.models import (  # isort: skip
+    BigCitiesHomePage,
+    ClosedPODHomePage,
+    PCWMSAHomePage,
 )
 
 
@@ -67,6 +72,17 @@ def authenticated_home_pages(request):
         ):
             auth_pages.append(
                 {"name": "PCW-MSA Home", "url": get_pcwmsa_home_page_url()}
+            )
+
+        bigcities_home_page = BigCitiesHomePage.objects.first()
+        if bigcities_home_page and all(
+            [
+                pageviewrestriction.accept_request(request)
+                for pageviewrestriction in bigcities_home_page.get_view_restrictions()
+            ]
+        ):
+            auth_pages.append(
+                {"name": "Big Cities PDPH Home", "url": get_bigcities_home_page_url()}
             )
 
         return {"authenticated_home_pages": auth_pages}
