@@ -147,6 +147,7 @@ class PCWMSAHomePage(StaticPage):
 class BigCitiesHomePage(StaticPage):
     max_count = 1
     parent_page_types = ["hip.HomePage"]
+    subpage_types = ["hip.StaticPage", "hip.ListPage"]
 
     def get_context(self, request):
         context = super().get_context(request)
