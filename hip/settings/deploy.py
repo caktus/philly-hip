@@ -71,9 +71,7 @@ for backend in TEMPLATES:
             ]
 
 ### ADMINS and MANAGERS
-ADMINS = (
-    ("PDPH Health Information Portal Dev Team", "hip-philly-team@caktusgroup.com"),
-)
+ADMINS = []  # we use sentry for this
 
 ### 3rd-party appplications
 
