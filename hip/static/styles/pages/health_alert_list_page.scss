@@ -6,6 +6,8 @@
   @media screen and (max-width: $breakpoint-widescreen) {
     margin: 0 1.5rem;
   }
+
+  @include tables;
 }
 
 .filter-widget-hip {
@@ -16,7 +18,6 @@
 }
 
 .alert-table-hip {
-  width: 100%;
   border-spacing: 2px 0;
   border-collapse: separate;
 
