@@ -1,3 +1,4 @@
+@import "../mixins";
 @import "../variables";
 
 .homepage-padding-hip {
@@ -29,6 +30,7 @@
 
 .recently-updated-hip {
   @include headers;
+  @include tables;
 }
 
 .table-space-between-cells-hip {

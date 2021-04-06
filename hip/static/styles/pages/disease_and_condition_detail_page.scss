@@ -7,6 +7,7 @@
     margin: 0 1.5rem;
   }
   @include wagtail-richtext;
+  @include tables;
 
   .at-a-glance-hip {
     background-color: $light-grey;
