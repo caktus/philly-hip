@@ -3,7 +3,7 @@ from django.db.models import CharField, F, Value
 from wagtail.core.models import Page
 
 
-def get_most_recent_objects(object_count=10):
+def get_most_recent_objects(pages_qs=None, object_count=10):
     """
     Return the most recently updated objects from a number of models.
 
@@ -22,10 +22,11 @@ def get_most_recent_objects(object_count=10):
     loses its methods. In order to preserve the methods, objects are combined in
     a list.
     """
+    if pages_qs is None:
+        pages_qs = Page.objects.live()
     # Get the most recent Page objects.
     pages = (
-        Page.objects.live()
-        .exclude(latest_revision_created_at__isnull=True)
+        pages_qs.exclude(latest_revision_created_at__isnull=True)
         .annotate(
             name=F("title"),
             updated_at=F("latest_revision_created_at"),
