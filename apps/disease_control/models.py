@@ -59,6 +59,7 @@ class DiseaseControlPage(HipBasePage):
 
 
 class DiseaseAndConditionListPage(DiseaseControlPage):
+    max_count_per_parent = 1
     subpage_types = [
         "disease_control.DiseaseAndConditionDetailPage",
     ]
