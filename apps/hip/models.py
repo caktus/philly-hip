@@ -304,6 +304,8 @@ class ListSectionBlock(blocks.StructBlock):
 
 
 class ListPage(HipBasePage):
+    subpage_types = ["hip.StaticPage", "hip.ListPage"]
+
     show_breadcrumb = models.BooleanField(
         default=False,
         blank=True,
