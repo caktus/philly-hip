@@ -38,7 +38,10 @@ class DiseaseControlListPage(HipBasePage):
 class DiseaseControlPage(HipBasePage):
     parent_page_types = ["disease_control.DiseaseControlListPage"]
     subpage_types = []
-    description = RichTextField(blank=True)
+    description = RichTextField(
+        blank=True,
+        help_text="Text that that will show up as a description of this page on the disease control list page.",
+    )
 
     class Type(models.IntegerChoices):
         TOPIC_SPECIFIC_GUIDANCE = 1
