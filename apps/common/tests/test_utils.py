@@ -1,18 +1,28 @@
+from django.contrib.auth.models import AnonymousUser, Group
+
+import pytest
 from wagtail.core.models import Page
 
 from apps.hip.tests.factories import HomePageFactory
+from apps.users.tests.factories import UserFactory
+
+from ..utils import (
+    get_all_pages_visible_to_request,
+    get_closedpod_home_page_url,
+    get_home_page_url,
+    get_pcwmsa_home_page_url,
+)
+from .fixtures import (  # noqa: F401
+    closedpod_homepage_with_descendants,
+    pcwmsa_homepage_with_descendants,
+    public_pages_with_descendants,
+)
+from .test_context_processors import closedpod_homepage, pcwmsa_homepage  # noqa: F401
 
 
 from apps.auth_content.tests.factories import (  # isort: skip
     ClosedPODHomePageFactory,
     PCWMSAHomePageFactory,
-)
-
-
-from ..utils import (  # isort: skip
-    get_closedpod_home_page_url,
-    get_home_page_url,
-    get_pcwmsa_home_page_url,
 )
 
 
@@ -95,3 +105,156 @@ def test_get_pcwmsa_home_page_url_with_pcwmsa_homepage(db, mocker):
     """If a live PCWMSAHomePage exists, then the function returns its URL."""
     pcwmsa_home_page = PCWMSAHomePageFactory(live=True)
     assert pcwmsa_home_page.url == get_pcwmsa_home_page_url()
+
+
+def test_get_all_pages_visible_to_request_unauthenticated(
+    db,
+    rf,
+    closedpod_homepage_with_descendants,  # noqa: F811
+    pcwmsa_homepage_with_descendants,  # noqa: F811
+    public_pages_with_descendants,  # noqa: F811
+):
+    """Test get_all_pages_visible_to_request() for an unauthenticated user."""
+    # A request with an anonymous user.
+    request = rf.get("/someurl/")
+    request.user = AnonymousUser()
+    # The expected results are the public pages.
+    expected_results = public_pages_with_descendants
+
+    results = get_all_pages_visible_to_request(request)
+
+    assert len(expected_results) == len(results)
+    for expected_result in expected_results:
+        assert expected_result in results
+
+
+def test_get_all_pages_visible_to_request_authenticated_not_in_groups(
+    db,
+    rf,
+    closedpod_homepage_with_descendants,  # noqa: F811
+    pcwmsa_homepage_with_descendants,  # noqa: F811
+    public_pages_with_descendants,  # noqa: F811
+):
+    """Test get_all_pages_visible_to_request() for an authenticated user not in any Groups."""
+    # A request with a user, who is not in any Groups.
+    request = rf.get("/someurl/")
+    user = UserFactory(email="test@example.com")
+    assert not user.groups.exists()
+    request.user = user
+    # Because the request.user is not in any Groups, the request.user is not able
+    # to see any of the private Pages, so the expected results are the public pages.
+    expected_results = public_pages_with_descendants
+
+    results = get_all_pages_visible_to_request(request)
+
+    assert len(expected_results) == len(results)
+    for expected_result in expected_results:
+        assert expected_result in results
+
+
+def test_get_all_pages_visible_to_request_authenticated_superuser_not_in_groups(
+    db,
+    rf,
+    closedpod_homepage_with_descendants,  # noqa: F811
+    pcwmsa_homepage_with_descendants,  # noqa: F811
+    public_pages_with_descendants,  # noqa: F811
+):
+    """Test get_all_pages_visible_to_request() for an authenticated superuser not in any Groups."""
+    # A request with a user, who is not in any Groups.
+    request = rf.get("/someurl/")
+    user = UserFactory(email="test@example.com", is_superuser=True)
+    assert not user.groups.exists()
+    assert user.is_superuser
+    request.user = user
+    # Even though the request.user is not in any Groups, because the request.user
+    # is a superuser, the request.user is allowed to see all of the Pages.
+    expected_results = (
+        public_pages_with_descendants
+        + closedpod_homepage_with_descendants
+        + pcwmsa_homepage_with_descendants
+    )
+
+    results = get_all_pages_visible_to_request(request)
+
+    assert len(expected_results) == len(results)
+    for expected_result in expected_results:
+        assert expected_result in results
+
+
+def test_get_all_pages_visible_to_request_authenticated_adminuser_not_in_groups(
+    db,
+    rf,
+    closedpod_homepage_with_descendants,  # noqa: F811
+    pcwmsa_homepage_with_descendants,  # noqa: F811
+    public_pages_with_descendants,  # noqa: F811
+):
+    """Test get_all_pages_visible_to_request() for an authenticated admin user not in any Groups."""
+    # A request with a user, who is not in any Groups.
+    request = rf.get("/someurl/")
+    user = UserFactory(email="test@example.com")
+    user.is_admin = True
+    user.save()
+    assert not user.groups.exists()
+    assert not user.is_superuser
+    request.user = user
+    # Because the request.user is not in any Groups, the request.user is not able
+    # to see any of the private Pages, so the expected results are the public pages.
+    expected_results = public_pages_with_descendants
+
+    results = get_all_pages_visible_to_request(request)
+
+    assert len(expected_results) == len(results)
+    for expected_result in expected_results:
+        assert expected_result in results
+
+
+@pytest.mark.parametrize(
+    "group_names,expected_pages",
+    [
+        ([], "get_home_page_url"),
+        (["Closed POD"], ["closedpod_homepage_with_descendants"]),
+        (["PCW MSA"], ["pcwmsa_homepage_with_descendants"]),
+        # (["Big Cities"], ["bigcities_homepage_with_descendants"]),
+        (
+            ["Closed POD", "PCW MSA"],
+            ["closedpod_homepage_with_descendants", "pcwmsa_homepage_with_descendants"],
+        ),
+        # (["Closed POD", "Big Cities"], ["closedpod_homepage_with_descendants", "bigcities_homepage_with_descendants"]),
+        # (["PCW MSA", "Big Cities"], ["pcwmsa_homepage_with_descendants", "bigcities_homepage_with_descendants"]),
+        # (["Closed POD", "PCW MSA", "Big Cities"], ["closedpod_homepage_with_descendants", "pcwmsa_homepage_with_descendants", "bigcities_homepage_with_descendants"]),
+    ],
+)
+def test_get_all_pages_visible_to_request_authenticated_in_group(
+    db,
+    rf,
+    closedpod_homepage_with_descendants,  # noqa: F811
+    pcwmsa_homepage_with_descendants,  # noqa: F811
+    public_pages_with_descendants,  # noqa: F811
+    group_names,
+    expected_pages,
+):
+    """Test get_all_pages_visible_to_request() for an authenticated user in Group(s)."""
+    # Create a user, and put the user into particular Group(s).
+    user = UserFactory(email="test-user")
+    for group_name in group_names:
+        group = Group.objects.get(name=group_name)
+        user.groups.add(group)
+    # A request with the user.
+    request = rf.get("/someurl/")
+    request.user = user
+    # Determine the Pages that the user should be allowed to see. The user should
+    # be able to see all of the public Pages, as well as any Pages for their Group.
+    expected_results = public_pages_with_descendants
+    for expected_page_name in expected_pages:
+        if expected_page_name == "closedpod_homepage_with_descendants":
+            expected_results += closedpod_homepage_with_descendants
+        elif expected_page_name == "pcwmsa_homepage_with_descendants":
+            expected_results += pcwmsa_homepage_with_descendants
+        # elif expected_page_name == "bigcities_homepage_with_descendants":
+        #     expected_results += bigcities_homepage_with_descendants
+
+    results = get_all_pages_visible_to_request(request)
+
+    assert len(expected_results) == len(results)
+    for expected_result in expected_results:
+        assert expected_result in results
