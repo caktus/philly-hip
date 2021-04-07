@@ -1,10 +1,6 @@
 @import "../variables";
 
 .breadcrumbs-hip {
-  margin: 2rem 0 0 3rem;
-  @media screen and (max-width: $breakpoint-mobile) {
-    margin: 2rem 0 0 1.5rem;
-  }
   .breadcrumb-links-hip {
     color: $dark-blue;
   }
