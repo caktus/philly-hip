@@ -26,13 +26,20 @@ export default function () {
       */
       const breadcrumbUL = document.querySelector("#breadcrumb-ul-hip");
       if (breadcrumbUL) {
-        const parentBreadCrumb = breadcrumbUL.getElementsByTagName("li")[0];
-        const sideBarLink = parentBreadCrumb.getElementsByTagName("a")[0];
-        const sideBarLinkHref = sideBarLink.getAttribute("href");
-        if (currentPath.includes(sideBarLinkHref)) {
-          const actualSidebarLink = document.querySelector(`[data-href="${sideBarLinkHref}"]`);
-          return actualSidebarLink;
-        }
+        const breadcrumbElements = breadcrumbUL.getElementsByTagName("li");
+        // Loop through the breadcrumb elements backwards, and try to find a match
+        // in the sidebar. When a match is found, return the matching element.
+        // Note: we don't include the current element when looping through the breadcrumbElements.
+        for (let i = breadcrumbElements.length - 2; i >= 0; i--) {
+          const parentBreadCrumb = breadcrumbElements[i];
+          const sideBarLink = parentBreadCrumb.getElementsByTagName("a")[0];
+          const sideBarLinkHref = sideBarLink.getAttribute("href");
+
+          if (currentPath.includes(sideBarLinkHref)) {
+            const actualSidebarLink = document.querySelector(`[data-href="${sideBarLinkHref}"]`);
+            return actualSidebarLink;
+          }
+        };
       }
       return null
     }

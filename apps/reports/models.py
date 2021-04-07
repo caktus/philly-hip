@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 
 from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, StreamFieldPanel
@@ -73,8 +75,11 @@ class DataReportListPage(HipBasePage):
         ]
         external_reports = []
         for report in self.external_reports.raw_data:
-            report_data = report["value"]
+            report_data = report["value"].copy()
             report_data["external"] = True
+            report_data["last_updated"] = datetime.strptime(
+                report["value"]["last_updated"], "%Y-%m-%d"
+            ).date()
             external_reports.append(report_data)
         reports = internal_reports + external_reports
         reports.sort(key=lambda r: r["title"].lower())

@@ -11,7 +11,9 @@ class ValidateFileTypeForm(BaseDocumentForm):
 
     def clean_file(self):
         uploaded_file = self.cleaned_data["file"]
-        if uploaded_file:
+        if uploaded_file and "file" in self.changed_data:
+            # Only validate the file type if a file made it through previous validation
+            # AND if it has changed
             content_type = uploaded_file.content_type
             extension = content_type.split("/")[1]
             if extension.lower() not in settings.WAGTAILDOCS_EXTENSIONS:

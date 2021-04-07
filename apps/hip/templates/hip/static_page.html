@@ -6,20 +6,30 @@
 {% endblock %}
 
 {% block sidebar %}
-  {% include 'includes/sidebar.html' with hidden_desktop=True %}
-{% endblock %}
+  {% if page.show_left_nav %}
+    {% include 'includes/sidebar.html' with hidden_desktop=False %}
+  {% else %}
+    {% include 'includes/sidebar.html' with hidden_desktop=True %}
+  {% endif %}
+{% endblock sidebar %}
 
 {% block content %}
   <div class="{% block page_css_class_class %}{% endblock %}">
-    {% block before_staticpage_content %}{% endblock %}
     <div class="columns">
-      <div class="column">
+      <div class="column {% block main_area_css_class %}{% endblock main_area_css_class %}">
+        {% block before_staticpage_content %}{% endblock %}
 
-        {% block back_button %}
-        <div class="pt-5 px-5">
-          <a href="{{ previous_url }}">< Back</a>
-        </div>
-        {% endblock back_button %}
+        {% if page.show_breadcrumb %}
+          {% include 'includes/breadcrumb.html' %}
+        {% endif %}
+
+        {% if page.show_back_button %}
+          {% block back_button %}
+          <div class="pt-5 px-5">
+            <a href="{{ previous_url }}">< Back</a>
+          </div>
+          {% endblock back_button %}
+        {% endif %}
 
         {% for block in page.body %}
           {% if block.value.nav_heading %}
@@ -44,7 +54,9 @@
         {% endfor %}
       </div>
 
-      {% include 'includes/right_scroll_nav.html' with page=page %}
+      {% if page.show_right_nav %}
+        {% include 'includes/right_scroll_nav.html' with page=page %}
+      {% endif %}
 
     </div>
   </div>
