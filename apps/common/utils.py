@@ -27,12 +27,12 @@ def get_all_pages_visible_to_request(request):
     # Get the Pages with no view_restrictions. Note: it may seem like unauthenticated
     # users should be able to see all of the Pages without any view_restrictions, like
     # if not request.user.is_authenticated:
-    #     return Page.objects.filter(view_restrictions__isnull=True)
+    #     return Page.objects.filter(view_restrictions=None)
     # However, this is not completely accurate. Children of private Pages don't
     # have any view_restrictions of their own, but they should still be considered
     # private Pages, because they are children of private Pages. Therefore, we
     # need to go through the following loop, even for unauthenticated users.
-    pages_for_user = Page.objects.filter(view_restrictions__isnull=True)
+    pages_for_user = Page.objects.filter(view_restrictions=None)
 
     # Loop through private Pages. If the request user has permission to see the
     # Page, then add that Page (and all its descendants) to pages_for_user. If
