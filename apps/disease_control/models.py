@@ -15,8 +15,8 @@ class DiseaseControlListPage(HipBasePage):
     parent_page_types = ["hip.HomePage"]
     subpage_types = [
         "disease_control.DiseaseAndConditionListPage",
-        "hip.StaticPage",
-        "hip.ListPage",
+        "disease_control.DiseaseControlChildStaticPage",
+        "disease_control.DiseaseControlChildListPage",
     ]
 
     def get_context(self, request):
