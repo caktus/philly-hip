@@ -14,8 +14,8 @@ class DiseaseControlListPage(HipBasePage):
     parent_page_types = ["hip.HomePage"]
     subpage_types = [
         "disease_control.DiseaseAndConditionListPage",
-        # Generic Placeholder until other subpages are added
-        "disease_control.DiseaseControlPage",
+        "hip.StaticPage",
+        "hip.ListPage",
     ]
 
     def get_context(self, request):
@@ -59,6 +59,7 @@ class DiseaseControlPage(HipBasePage):
 
 
 class DiseaseAndConditionListPage(DiseaseControlPage):
+    max_count_per_parent = 1
     subpage_types = [
         "disease_control.DiseaseAndConditionDetailPage",
     ]

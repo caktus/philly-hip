@@ -115,6 +115,7 @@ class ClosedPODChildPage(StaticPage):
 class PCWMSAHomePage(StaticPage):
     max_count = 1
     parent_page_types = ["hip.HomePage"]
+    subpage_types = ["hip.StaticPage", "hip.ListPage"]
 
     subtitle = models.CharField(
         max_length=255,

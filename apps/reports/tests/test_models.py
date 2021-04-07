@@ -1,3 +1,5 @@
+from datetime import date
+
 from apps.disease_control.tests.factories import DiseaseAndConditionDetailPageFactory
 
 from .factories import (
@@ -101,8 +103,16 @@ def test_datareportslistpage_context_only_external_reports(db, rf):
 
     context = reports_list_page.get_context(rf.get("/someurl/"))
 
+    expected_result_hep_a = external_report_hep_a.copy()
+    expected_result_hep_a["last_updated"] = date(
+        year=2020, month=1, day=1
+    )  # format date to be the expected type
+    expected_result_hiv = external_report_hiv.copy()
+    expected_result_hiv["last_updated"] = date(
+        year=2021, month=1, day=1
+    )  # format date to be the expected type
     # The results should be data for the external reports alphabetical order.
-    assert [external_report_hep_a, external_report_hiv] == context["reports"]
+    assert [expected_result_hep_a, expected_result_hiv] == context["reports"]
 
 
 def test_datareportslistpage_context_internal_and_external_reports(db, rf):
@@ -137,6 +147,10 @@ def test_datareportslistpage_context_internal_and_external_reports(db, rf):
     context = reports_list_page.get_context(rf.get("/someurl/"))
 
     # The results should be data for the internal and external reports in alphabetical order.
+    expected_result_external_report_hiv = external_report_hiv.copy()
+    expected_result_external_report_hiv["last_updated"] = date(
+        year=2021, month=1, day=1
+    )  # format date to be the expected type
     expected_results = [
         {
             "title": report_annual.title,
@@ -146,7 +160,7 @@ def test_datareportslistpage_context_internal_and_external_reports(db, rf):
             "associated_disease": None,
             "external": False,
         },
-        external_report_hiv,
+        expected_result_external_report_hiv,
         {
             "title": report_tuberculosis.title,
             "url": report_tuberculosis.url,
