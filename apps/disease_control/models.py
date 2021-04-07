@@ -1,11 +1,12 @@
 from django.db import models
 
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
-from wagtail.core.fields import RichTextField
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.core.fields import RichTextField, StreamField
 from wagtail.documents import get_document_model
 from wagtail.search import index
 
 from apps.common.models import HipBasePage
+from apps.hip.models import ListSectionBlock, StreamAndNavHeadingBlock
 
 
 class DiseaseControlListPage(HipBasePage):
@@ -14,8 +15,8 @@ class DiseaseControlListPage(HipBasePage):
     parent_page_types = ["hip.HomePage"]
     subpage_types = [
         "disease_control.DiseaseAndConditionListPage",
-        "hip.StaticPage",
-        "hip.ListPage",
+        "disease_control.DiseaseControlChildStaticPage",
+        "disease_control.DiseaseControlChildListPage",
     ]
 
     def get_context(self, request):
@@ -37,7 +38,10 @@ class DiseaseControlListPage(HipBasePage):
 class DiseaseControlPage(HipBasePage):
     parent_page_types = ["disease_control.DiseaseControlListPage"]
     subpage_types = []
-    description = RichTextField(blank=True)
+    description = RichTextField(
+        blank=True,
+        help_text="Text that that will show up as a description of this page on the disease control list page.",
+    )
 
     class Type(models.IntegerChoices):
         TOPIC_SPECIFIC_GUIDANCE = 1
@@ -56,6 +60,103 @@ class DiseaseControlPage(HipBasePage):
     search_fields = HipBasePage.search_fields + [
         index.SearchField("description"),
     ]
+
+
+class DiseaseControlChildStaticPage(DiseaseControlPage):
+    """A Page that inherits from DiseaseControlPage, and copies fields from StaticPage."""
+
+    show_left_nav = models.BooleanField(
+        default=True,
+        blank=True,
+        help_text="Should this page show a navigation of the site on the left side of the page?",
+    )
+    show_breadcrumb = models.BooleanField(
+        default=False,
+        blank=True,
+        help_text="Should this page show a breadcrumb at the top of the page?",
+    )
+    show_back_button = models.BooleanField(
+        default=False,
+        blank=True,
+        help_text="Should this page show a back button at the top of the page?",
+    )
+    show_right_nav = models.BooleanField(
+        default=False,
+        blank=True,
+        help_text="Should this page show a navigation of its sections on the right side of the page?",
+    )
+    body = StreamField(
+        [
+            ("section", StreamAndNavHeadingBlock()),
+        ]
+    )
+
+    content_panels = HipBasePage.content_panels + [
+        FieldPanel("show_left_nav"),
+        FieldPanel("show_breadcrumb"),
+        FieldPanel("show_back_button"),
+        FieldPanel("show_right_nav"),
+        FieldPanel("description"),
+        StreamFieldPanel("body"),
+        FieldPanel("page_type"),
+    ]
+    promote_panels = [
+        FieldPanel("slug"),
+    ]
+    search_fields = HipBasePage.search_fields + [
+        index.SearchField("body"),
+        index.SearchField("description"),
+    ]
+
+    def get_context(self, request):
+        """Add right_nav_headings to the context."""
+        context = super().get_context(request)
+
+        # right nav uses the `nav_heading` variable in the template to create links
+        right_nav_headings = []
+        for block in self.body:
+            if block.value["nav_heading"]:
+                right_nav_headings.append(block.value["nav_heading"])
+        context["right_nav_headings"] = right_nav_headings
+
+        return context
+
+    template = "hip/static_page.html"
+
+
+class DiseaseControlChildListPage(DiseaseControlPage):
+    """A Page that inherits from DiseaseControlPage, and copies fields from ListPage."""
+
+    show_breadcrumb = models.BooleanField(
+        default=False,
+        blank=True,
+        help_text="Should this page show a breadcrumb at the top of the page?",
+    )
+    show_right_nav = models.BooleanField(
+        default=False,
+        blank=True,
+        help_text="Should this page show a navigation of its sections on the right side of the page?",
+    )
+    list_section = StreamField(
+        [
+            ("list_section", ListSectionBlock()),
+        ]
+    )
+
+    content_panels = HipBasePage.content_panels + [
+        FieldPanel("show_breadcrumb"),
+        FieldPanel("show_right_nav"),
+        StreamFieldPanel("list_section"),
+        FieldPanel("description"),
+        FieldPanel("page_type"),
+    ]
+    promote_panels = [FieldPanel("slug")]
+    search_fields = HipBasePage.search_fields + [
+        index.SearchField("description"),
+        index.SearchField("list_section"),
+    ]
+
+    template = "hip/list_page.html"
 
 
 class DiseaseAndConditionListPage(DiseaseControlPage):
