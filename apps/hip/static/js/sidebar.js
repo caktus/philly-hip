@@ -37,7 +37,11 @@ export default function () {
 
           if (currentPath.includes(sideBarLinkHref)) {
             const actualSidebarLink = document.querySelector(`[data-href="${sideBarLinkHref}"]`);
-            return actualSidebarLink;
+            // If the document has an element with a data-href of the actualSidebarLink,
+            // then return that element. Otherwise, keep looping through the breadcrumbElements.
+            if (actualSidebarLink) {
+              return actualSidebarLink;
+            }
           }
         };
       }
