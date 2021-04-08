@@ -2,6 +2,7 @@ from django.utils.timezone import now
 
 import factory
 import wagtail_factories
+from wagtail.documents import get_document_model
 
 from ..models import HomePage, ListPage, StaticPage
 
@@ -65,3 +66,11 @@ class ListPageFactory(wagtail_factories.PageFactory):
 
     class Meta:
         model = ListPage
+
+
+class DocumentFactory(factory.django.DjangoModelFactory):
+    title = "A document title"
+    file = factory.django.FileField(filename="fake.pdf")
+
+    class Meta:
+        model = get_document_model()

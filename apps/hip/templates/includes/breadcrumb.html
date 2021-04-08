@@ -1,6 +1,6 @@
 {% load wagtailcore_tags %}
 
-<nav class="breadcrumb breadcrumbs-hip" aria-label="breadcrumbs">
+<nav class="breadcrumb breadcrumbs-hip mt-6 ml-4" aria-label="breadcrumbs">
   <ul id="breadcrumb-ul-hip">
     {% for page in self.get_ancestors %}
       {%  if not page.is_root and not page.homepage %}

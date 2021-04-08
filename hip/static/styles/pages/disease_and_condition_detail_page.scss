@@ -2,11 +2,8 @@
 @import "../colors";
 
 .disease-page-hip {
-  margin: 0 3rem;
-  @media screen and (max-width: $breakpoint-widescreen) {
-    margin: 0 1.5rem;
-  }
   @include wagtail-richtext;
+  @include tables;
 
   .at-a-glance-hip {
     background-color: $light-grey;
