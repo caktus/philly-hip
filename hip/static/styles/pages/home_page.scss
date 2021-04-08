@@ -1,13 +1,6 @@
 @import "../mixins";
 @import "../variables";
 
-.homepage-padding-hip {
-  padding: 0.75rem 2rem;
-  @media screen and (max-width: $breakpoint-tablet) {
-    padding: 0.75rem;
-  }
-}
-
 .quicklink-padding-hip {
   padding: 0.75rem 1rem;
 }
