@@ -1,7 +1,13 @@
 import factory
 import wagtail_factories
 
-from ..models import ClosedPODChildPage, ClosedPODHomePage, PCWMSAHomePage
+
+from ..models import (  # isort: skip
+    BigCitiesHomePage,
+    ClosedPODChildPage,
+    ClosedPODHomePage,
+    PCWMSAHomePage,
+)
 
 
 class ClosedPODHomePageFactory(wagtail_factories.PageFactory):
@@ -24,3 +30,10 @@ class PCWMSAHomePageFactory(wagtail_factories.PageFactory):
 
     class Meta:
         model = PCWMSAHomePage
+
+
+class BigCitiesHomePageFactory(wagtail_factories.PageFactory):
+    title = factory.faker.Faker("text")
+
+    class Meta:
+        model = BigCitiesHomePage

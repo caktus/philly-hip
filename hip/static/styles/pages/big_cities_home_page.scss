@@ -1,0 +1,5 @@
+@import "../mixins";
+
+.bigcities-homepage-hip {
+  @include wagtail-richtext;
+}

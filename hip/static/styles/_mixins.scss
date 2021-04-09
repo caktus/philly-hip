@@ -70,6 +70,8 @@
   table {
     width: 100%;
     table-layout: fixed;
+    border-spacing: 2px;
+    border-collapse: separate;
   }
 }
 

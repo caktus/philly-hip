@@ -3,27 +3,29 @@ from django.contrib.auth.models import AnonymousUser, Group
 import pytest
 from wagtail.core.models import Page
 
+from apps.auth_content.tests.factories import (
+    BigCitiesHomePageFactory,
+    ClosedPODHomePageFactory,
+    PCWMSAHomePageFactory,
+)
 from apps.hip.tests.factories import HomePageFactory
 from apps.users.tests.factories import UserFactory
 
 from ..utils import (
     get_all_pages_visible_to_request,
+    get_bigcities_home_page_url,
     get_closedpod_home_page_url,
     get_home_page_url,
     get_pcwmsa_home_page_url,
 )
 from .fixtures import (  # noqa: F401
+    bigcities_homepage,
+    bigcities_homepage_with_descendants,
     closedpod_homepage_with_descendants,
     pcwmsa_homepage_with_descendants,
     public_pages_with_descendants,
 )
 from .test_context_processors import closedpod_homepage, pcwmsa_homepage  # noqa: F401
-
-
-from apps.auth_content.tests.factories import (  # isort: skip
-    ClosedPODHomePageFactory,
-    PCWMSAHomePageFactory,
-)
 
 
 def test_get_home_page_url_no_homepage(db):
@@ -107,9 +109,40 @@ def test_get_pcwmsa_home_page_url_with_pcwmsa_homepage(db, mocker):
     assert pcwmsa_home_page.url == get_pcwmsa_home_page_url()
 
 
+def test_get_bigcities_home_page_url_no_bigcities_homepage(db, mocker):
+    """If no BigCitiesHomePage exists, then the function returns get_home_page_url()."""
+    # Mock the apps.common.utils.get_home_page_url function, since it is used
+    # to determine the homepage URL.
+    mock_get_home_page_url = mocker.patch("apps.common.utils.get_home_page_url")
+    mock_homepage_url = "/the_home_page_url/"
+    mock_get_home_page_url.return_value = mock_homepage_url
+
+    assert mock_homepage_url == get_bigcities_home_page_url()
+
+
+def test_get_bigcities_home_page_url_no_live_homepage(db, mocker):
+    """If no live BigCitiesHomePage exists, then the function returns get_home_page_url()."""
+    # Mock the apps.common.utils.get_home_page_url function, since it is used
+    # to determine the homepage URL.
+    mock_get_home_page_url = mocker.patch("apps.common.utils.get_home_page_url")
+    mock_homepage_url = "/the_home_page_url/"
+    mock_get_home_page_url.return_value = mock_homepage_url
+
+    bigcities_home_page = BigCitiesHomePageFactory(live=False)
+    assert mock_homepage_url == get_bigcities_home_page_url()
+    assert bigcities_home_page.url != get_bigcities_home_page_url()
+
+
+def test_get_bigcities_home_page_url_with_bigcities_homepage(db, mocker):
+    """If a live BigCitiesHomePage exists, then the function returns its URL."""
+    bigcities_home_page = BigCitiesHomePageFactory(live=True)
+    assert bigcities_home_page.url == get_bigcities_home_page_url()
+
+
 def test_get_all_pages_visible_to_request_unauthenticated(
     db,
     rf,
+    bigcities_homepage_with_descendants,  # noqa: F811
     closedpod_homepage_with_descendants,  # noqa: F811
     pcwmsa_homepage_with_descendants,  # noqa: F811
     public_pages_with_descendants,  # noqa: F811
@@ -131,6 +164,7 @@ def test_get_all_pages_visible_to_request_unauthenticated(
 def test_get_all_pages_visible_to_request_authenticated_not_in_groups(
     db,
     rf,
+    bigcities_homepage_with_descendants,  # noqa: F811
     closedpod_homepage_with_descendants,  # noqa: F811
     pcwmsa_homepage_with_descendants,  # noqa: F811
     public_pages_with_descendants,  # noqa: F811
@@ -155,6 +189,7 @@ def test_get_all_pages_visible_to_request_authenticated_not_in_groups(
 def test_get_all_pages_visible_to_request_authenticated_superuser_not_in_groups(
     db,
     rf,
+    bigcities_homepage_with_descendants,  # noqa: F811
     closedpod_homepage_with_descendants,  # noqa: F811
     pcwmsa_homepage_with_descendants,  # noqa: F811
     public_pages_with_descendants,  # noqa: F811
@@ -170,6 +205,7 @@ def test_get_all_pages_visible_to_request_authenticated_superuser_not_in_groups(
     # is a superuser, the request.user is allowed to see all of the Pages.
     expected_results = (
         public_pages_with_descendants
+        + bigcities_homepage_with_descendants
         + closedpod_homepage_with_descendants
         + pcwmsa_homepage_with_descendants
     )
@@ -184,6 +220,7 @@ def test_get_all_pages_visible_to_request_authenticated_superuser_not_in_groups(
 def test_get_all_pages_visible_to_request_authenticated_adminuser_not_in_groups(
     db,
     rf,
+    bigcities_homepage_with_descendants,  # noqa: F811
     closedpod_homepage_with_descendants,  # noqa: F811
     pcwmsa_homepage_with_descendants,  # noqa: F811
     public_pages_with_descendants,  # noqa: F811
@@ -214,19 +251,36 @@ def test_get_all_pages_visible_to_request_authenticated_adminuser_not_in_groups(
         ([], "get_home_page_url"),
         (["Closed POD"], ["closedpod_homepage_with_descendants"]),
         (["PCW MSA"], ["pcwmsa_homepage_with_descendants"]),
-        # (["Big Cities"], ["bigcities_homepage_with_descendants"]),
+        (["Big Cities"], ["bigcities_homepage_with_descendants"]),
         (
             ["Closed POD", "PCW MSA"],
             ["closedpod_homepage_with_descendants", "pcwmsa_homepage_with_descendants"],
         ),
-        # (["Closed POD", "Big Cities"], ["closedpod_homepage_with_descendants", "bigcities_homepage_with_descendants"]),
-        # (["PCW MSA", "Big Cities"], ["pcwmsa_homepage_with_descendants", "bigcities_homepage_with_descendants"]),
-        # (["Closed POD", "PCW MSA", "Big Cities"], ["closedpod_homepage_with_descendants", "pcwmsa_homepage_with_descendants", "bigcities_homepage_with_descendants"]),
+        (
+            ["Closed POD", "Big Cities"],
+            [
+                "closedpod_homepage_with_descendants",
+                "bigcities_homepage_with_descendants",
+            ],
+        ),
+        (
+            ["PCW MSA", "Big Cities"],
+            ["pcwmsa_homepage_with_descendants", "bigcities_homepage_with_descendants"],
+        ),
+        (
+            ["Closed POD", "PCW MSA", "Big Cities"],
+            [
+                "closedpod_homepage_with_descendants",
+                "pcwmsa_homepage_with_descendants",
+                "bigcities_homepage_with_descendants",
+            ],
+        ),
     ],
 )
 def test_get_all_pages_visible_to_request_authenticated_in_group(
     db,
     rf,
+    bigcities_homepage_with_descendants,  # noqa: F811
     closedpod_homepage_with_descendants,  # noqa: F811
     pcwmsa_homepage_with_descendants,  # noqa: F811
     public_pages_with_descendants,  # noqa: F811
@@ -250,8 +304,8 @@ def test_get_all_pages_visible_to_request_authenticated_in_group(
             expected_results += closedpod_homepage_with_descendants
         elif expected_page_name == "pcwmsa_homepage_with_descendants":
             expected_results += pcwmsa_homepage_with_descendants
-        # elif expected_page_name == "bigcities_homepage_with_descendants":
-        #     expected_results += bigcities_homepage_with_descendants
+        elif expected_page_name == "bigcities_homepage_with_descendants":
+            expected_results += bigcities_homepage_with_descendants
 
     results = get_all_pages_visible_to_request(request)
 

@@ -6,6 +6,7 @@ from wagtail.core.models import Page, PageViewRestriction
 from apps.users.tests.factories import UserFactory
 
 from ..context_processors import authenticated_home_pages, previous_url
+from .fixtures import bigcities_homepage  # noqa: F401
 
 
 from apps.auth_content.tests.factories import (  # isort: skip
@@ -124,12 +125,14 @@ def test_authenticated_home_pages_authenticated_not_authorized(
     rf,
     closedpod_homepage,
     pcwmsa_homepage,
+    bigcities_homepage,  # noqa: F811
 ):
     """
     A user who is authenticated, but not authorized, may not see any authenticated home pages.
 
     In order to see the ClosedPODHomePage, a user must be in the "Closed POD" Group.
     In order to see the PCWMSAHomePage, a user must be in the "PCW MSA" Group.
+    In order to see the BigCitiesHomePage, a user must be in the "Big Cities" Group.
     """
     # Create a user who is not in any Groups, but is authenticated.
     request = rf.get("/someurl")
@@ -163,18 +166,22 @@ def test_authenticated_home_pages_authenticated_and_authorized(
     rf,
     closedpod_homepage,
     pcwmsa_homepage,
+    bigcities_homepage,  # noqa: F811
 ):
     """
     A user who is authenticated and authorized may see any authenticated home pages.
 
     In order to see the ClosedPODHomePage, a user must be in the "Closed POD" Group.
+    In order to see the PCWMSAHomePage, a user must be in the "PCW MSA" Group.
+    In order to see the BigCitiesHomePage, a user must be in the "Big Cities" Group.
     """
     request = rf.get("/someurl")
     # Create a user who is in the "Closed POD" and "PCW MSA" Groups, and is authenticated.
     user = UserFactory()
     group_closedpod = Group.objects.get(name="Closed POD")
     group_pcwmsa = Group.objects.get(name="PCW MSA")
-    user.groups.add(group_closedpod, group_pcwmsa)
+    group_bigcities = Group.objects.get(name="Big Cities")
+    user.groups.add(group_closedpod, group_pcwmsa, group_bigcities)
     request.user = user
     assert request.user.is_authenticated
 
@@ -183,6 +190,7 @@ def test_authenticated_home_pages_authenticated_and_authorized(
         "authenticated_home_pages": [
             {"name": "Closed POD Home", "url": closedpod_homepage.url},
             {"name": "PCW-MSA Home", "url": pcwmsa_homepage.url},
+            {"name": "Big Cities PDPH Home", "url": bigcities_homepage.url},
         ]
     }
     assert expected_results == authenticated_home_pages(request)
