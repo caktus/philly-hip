@@ -1,64 +1,8 @@
 from django.contrib.auth.models import AnonymousUser, Group
 
-import pytest
-from wagtail.core.models import Page, PageViewRestriction
-
 from apps.users.tests.factories import UserFactory
 
 from ..context_processors import authenticated_home_pages, previous_url
-from .fixtures import bigcities_homepage  # noqa: F401
-
-
-from apps.auth_content.tests.factories import (  # isort: skip
-    ClosedPODHomePageFactory,
-    PCWMSAHomePageFactory,
-)
-
-
-@pytest.fixture
-def closedpod_homepage():
-    """Create a ClosedPODHomePage as a child of the homepage."""
-    # The current home page of the site.
-    homepage = (
-        Page.objects.all().filter(title="Welcome to your new Wagtail site!").first()
-    )
-    homepage.url_path = "/"
-    homepage.save()
-    # Create a ClosedPODHomePage
-    closedpodhomepage = ClosedPODHomePageFactory(
-        parent=homepage, title="Closed POD Home Page"
-    )
-    # The ClosedPODHomePage is restricted to users in the "Closed POD" Group.
-    page_view_restriction = PageViewRestriction.objects.create(
-        page=closedpodhomepage, restriction_type="groups"
-    )
-    group_closedpod = Group.objects.get(name="Closed POD")
-    page_view_restriction.groups.add(group_closedpod)
-
-    return closedpodhomepage
-
-
-@pytest.fixture
-def pcwmsa_homepage():
-    """Create a PCWMSAHomePage as a child of the homepage."""
-    # The current home page of the site.
-    homepage = (
-        Page.objects.all().filter(title="Welcome to your new Wagtail site!").first()
-    )
-    homepage.url_path = "/"
-    homepage.save()
-    # Create a PCWMSAHomePage
-    pcw_msa_home_page = PCWMSAHomePageFactory(
-        parent=homepage, title="PCW MSA Home Page"
-    )
-    # The PCWMSAHomePage is restricted to users in the "PCW MSA" Group.
-    page_view_restriction = PageViewRestriction.objects.create(
-        page=pcw_msa_home_page, restriction_type="groups"
-    )
-    group_pcwmsa = Group.objects.get(name="PCW MSA")
-    page_view_restriction.groups.add(group_pcwmsa)
-
-    return pcw_msa_home_page
 
 
 def test_previous_url_with_http_referrer(db, rf, mocker):
