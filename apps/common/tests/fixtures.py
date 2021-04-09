@@ -1,7 +1,8 @@
-import pytest
-from wagtail.core.models import Page
+from django.contrib.auth.models import Group
 
-from apps.auth_content.tests.factories import ClosedPODChildPageFactory
+import pytest
+from wagtail.core.models import Page, PageViewRestriction
+
 from apps.disease_control.tests.factories import (
     DiseaseAndConditionDetailPageFactory,
     DiseaseAndConditionListPageFactory,
@@ -10,6 +11,35 @@ from apps.disease_control.tests.factories import (
 )
 from apps.emergency_response.tests.factories import EmergencyResponsePageFactory
 from apps.hip.tests.factories import StaticPageFactory
+
+
+from apps.auth_content.tests.factories import (  # isort: skip
+    BigCitiesHomePageFactory,
+    ClosedPODChildPageFactory,
+)
+
+
+@pytest.fixture
+def bigcities_homepage():
+    """Create a BigCitiesHomePage as a child of the homepage."""
+    # The current home page of the site.
+    homepage = (
+        Page.objects.all().filter(title="Welcome to your new Wagtail site!").first()
+    )
+    homepage.url_path = "/"
+    homepage.save()
+    # Create a BigCitiesHomePage
+    bigcities_home_page = BigCitiesHomePageFactory(
+        parent=homepage, title="Big Cities Home Page"
+    )
+    # The BigCitiesHomePage is restricted to users in the "Big Cities" Group.
+    page_view_restriction = PageViewRestriction.objects.create(
+        page=bigcities_home_page, restriction_type="groups"
+    )
+    group_bigcities = Group.objects.get(name="Big Cities")
+    page_view_restriction.groups.add(group_bigcities)
+
+    return bigcities_home_page
 
 
 @pytest.fixture
@@ -72,6 +102,41 @@ def pcwmsa_homepage_with_descendants(pcwmsa_homepage):
         pcwmsa_homepage.page_ptr,
         leadagency_page.page_ptr,
         excerices_page.page_ptr,
+        grandchild1.page_ptr,
+        grandchild2.page_ptr,
+        grandchild3.page_ptr,
+    ]
+
+
+@pytest.fixture
+def bigcities_homepage_with_descendants(bigcities_homepage):
+    """
+    Create a BigCitiesHomePage as a child of the homepage, with its own descendants.
+
+    Note: the children and grandchildren of the BigCitiesHomePage do not have any
+    PageViewRestrictions. Instead, they inherit their restrictions from the
+    BigCitiesHomePage in Wagtail.
+    """
+    # Create some children of the BigCitiesHomePage.
+    meetings_page = StaticPageFactory(parent=bigcities_homepage, title="Meetings")
+    extreme_heat_page = StaticPageFactory(
+        parent=bigcities_homepage, title="Extreme Heat"
+    )
+    # Create some grandchildren of the BigCitiesHomePage.
+    grandchild1 = StaticPageFactory(
+        parent=meetings_page, title="BigCities Grandchild 1"
+    )
+    grandchild2 = StaticPageFactory(
+        parent=meetings_page, title="BigCities Grandchild 2"
+    )
+    grandchild3 = StaticPageFactory(
+        parent=extreme_heat_page, title="BigCities Grandchild 3"
+    )
+
+    return [
+        bigcities_homepage.page_ptr,
+        meetings_page.page_ptr,
+        extreme_heat_page.page_ptr,
         grandchild1.page_ptr,
         grandchild2.page_ptr,
         grandchild3.page_ptr,
