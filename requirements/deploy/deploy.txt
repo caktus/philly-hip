@@ -18,7 +18,7 @@ six==1.15.0
     # via
     #   -c requirements/deploy/../base/base.txt
     #   python-memcached
-urllib3==1.26.3
+urllib3==1.26.4
     # via
     #   -c requirements/deploy/../base/base.txt
     #   sentry-sdk
