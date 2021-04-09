@@ -452,8 +452,14 @@ class HomePage(HipBasePage):
 
     def get_context(self, request):
         """Add recent_updates to context."""
+        from apps.common.utils import get_all_pages_visible_to_request
+
         from .utils import get_most_recent_objects
 
+        pages_visible_to_user = get_all_pages_visible_to_request(request)
+
         context = super().get_context(request)
-        context["recent_updates"] = get_most_recent_objects(object_count=10)
+        context["recent_updates"] = get_most_recent_objects(
+            pages_qs=pages_visible_to_user, object_count=10
+        )
         return context

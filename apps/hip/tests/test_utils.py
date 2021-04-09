@@ -1,5 +1,7 @@
 from django.utils.timezone import now, timedelta
 
+from wagtail.core.models import Page
+
 from ..utils import get_most_recent_objects
 from .factories import HomePageFactory, StaticPageFactory
 
@@ -116,3 +118,66 @@ def test_get_most_recent_objects_annotations_pages(db):
         assert result.updated_at == result.latest_revision_created_at
         assert result.type_of_object == "PAGE"
         assert result.model_name == "page"
+
+
+def test_get_most_recent_objects_pages_parameter(db):
+    """Passing a 'pages_qs' parameter means most recent Pages come from only those Pages."""
+    datetime_now = now()
+    datetime_yesterday = datetime_now - timedelta(days=1)
+
+    home_page_2hr_ago = HomePageFactory(
+        latest_revision_created_at=datetime_now - timedelta(hours=2)
+    )
+    static_page_now = StaticPageFactory(latest_revision_created_at=datetime_now)
+    static_page_yesterday = StaticPageFactory(
+        latest_revision_created_at=datetime_yesterday
+    )
+
+    # Passing a 'pages_qs' parameter only returns those Pages, in order of their
+    # most recent revision.
+    assert [home_page_2hr_ago.page_ptr] == get_most_recent_objects(
+        pages_qs=Page.objects.filter(id=home_page_2hr_ago.page_ptr.id)
+    )
+    assert [static_page_now.page_ptr] == get_most_recent_objects(
+        pages_qs=Page.objects.filter(id=static_page_now.page_ptr.id)
+    )
+    assert [static_page_yesterday.page_ptr] == get_most_recent_objects(
+        pages_qs=Page.objects.filter(id=static_page_yesterday.page_ptr.id)
+    )
+    assert [
+        static_page_now.page_ptr,
+        home_page_2hr_ago.page_ptr,
+    ] == get_most_recent_objects(
+        pages_qs=Page.objects.filter(
+            id__in=[home_page_2hr_ago.page_ptr.id, static_page_now.page_ptr.id]
+        )
+    )
+    assert [
+        static_page_now.page_ptr,
+        static_page_yesterday.page_ptr,
+    ] == get_most_recent_objects(
+        pages_qs=Page.objects.filter(
+            id__in=[static_page_now.page_ptr.id, static_page_yesterday.page_ptr.id]
+        )
+    )
+    assert [
+        home_page_2hr_ago.page_ptr,
+        static_page_yesterday.page_ptr,
+    ] == get_most_recent_objects(
+        pages_qs=Page.objects.filter(
+            id__in=[home_page_2hr_ago.page_ptr.id, static_page_yesterday.page_ptr.id]
+        )
+    )
+    assert [
+        static_page_now.page_ptr,
+        home_page_2hr_ago.page_ptr,
+        static_page_yesterday.page_ptr,
+    ] == get_most_recent_objects(
+        pages_qs=Page.objects.filter(
+            id__in=[
+                home_page_2hr_ago.page_ptr.id,
+                static_page_now.page_ptr.id,
+                static_page_yesterday.page_ptr.id,
+            ]
+        )
+    )
