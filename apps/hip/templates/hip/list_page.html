@@ -2,7 +2,7 @@
 {% load wagtailcore_tags hip_tags %}
 
 {% block content %}
-  <div class="{% block page_css_class_class %}mx-6{% endblock %}">
+  <div class="{% block page_css_class %}mx-6{% endblock page_css_class %}">
     {% block before_listpage_content %}{% endblock before_listpage_content %}
     <div class="columns">
       <div class="column{% block main_area_css_class %} list-page-main-area-hip{% endblock main_area_css_class %}">
