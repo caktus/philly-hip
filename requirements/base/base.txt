@@ -12,7 +12,7 @@ beautifulsoup4==4.8.2
     # via wagtail
 boto3==1.17.9
     # via -r requirements/base/base.in
-botocore==1.20.9
+botocore==1.20.48
     # via
     #   boto3
     #   s3transfer
@@ -91,7 +91,7 @@ openpyxl==3.0.6
     # via tablib
 phonenumberslite==8.12.18
     # via -r requirements/base/base.in
-pillow==8.1.0
+pillow==8.2.0
     # via wagtail
 psycopg2-binary==2.8.6
     # via -r requirements/base/base.in
@@ -123,7 +123,7 @@ sqlparse==0.4.1
     # via django
 tablib[xls,xlsx]==3.0.0
     # via wagtail
-urllib3==1.26.3
+urllib3==1.26.4
     # via
     #   botocore
     #   requests
