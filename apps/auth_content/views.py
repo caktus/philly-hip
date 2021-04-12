@@ -33,7 +33,7 @@ def closedpod_contact_information_edit(request):
         # the form with it; otherwise, the form has empty data.
         if hasattr(request.user, "closedpodcontactinformation"):
             form = ClosedPODContactInformationForm(
-                request.user.closedpodcontactinformation
+                instance=request.user.closedpodcontactinformation
             )
         else:
             form = ClosedPODContactInformationForm()
