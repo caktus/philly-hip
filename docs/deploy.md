@@ -136,6 +136,7 @@ to the cluster.
     [philly-hip]
     role_arn = arn:aws:iam::061553509755:role/CaktusAccountAccessRole-Admins
     source_profile = caktus
+    region = us-east-1
     ```
 
     This will allow you to use the special AWS Role that we have set up that gives
