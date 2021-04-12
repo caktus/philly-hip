@@ -30,7 +30,7 @@ By default, the next command will perform the following:
 You should now see the built and tagged image in ``docker images``.
 
 
-#### Test the Docker image locally
+### Test the Docker image locally
 
 You can test the deployable image locally with:
 
@@ -123,7 +123,7 @@ to the cluster.
    account, typically named `caktus` (which is what we'll assume it is for these
    instructions).
 
-2. Verify that there is an entry in `~/.aws/credentials` for your Caktus Saguaro role.
+2. Verify that there is an entry in `~/.aws/credentials` for the `philly-hip` role.
    Your file should have both of the following entries:
 
     ```conf
@@ -133,20 +133,20 @@ to the cluster.
 
     # ...
 
-    [saguaro-cluster]
-    role_arn = arn:aws:iam::472354598015:role/CaktusAccountAccessRole-Admins
+    [philly-hip]
+    role_arn = arn:aws:iam::061553509755:role/CaktusAccountAccessRole-Admins
     source_profile = caktus
     ```
 
     This will allow you to use the special AWS Role that we have set up that gives
-    accounts in `caktus` full privileges in `saguaro-cluster`.
+    accounts in `caktus` full privileges in `philly-hip`.
 
 3. Set `AWS_PROFILE` to this named profile. This should be added to your environment
    (using whatever method you use for that: `.envrc`, `.env`, `magical-shell-script.sh`)
    when you switch to this project.
 
    ```sh
-   (hip)$ export AWS_PROFILE=saguaro-cluster
+   (hip)$ export AWS_PROFILE=philly-hip
    ```
 
 ### Confirm access to docker registry
@@ -156,7 +156,7 @@ to the cluster.
 
     ```sh
     (hip)$ echo $AWS_PROFILE
-    saguaro-cluster
+    philly-hip
     (hip)$ inv aws.docker-login
     ```
 
@@ -166,7 +166,7 @@ to the cluster.
 
    ```sh
    (hip)$ echo $AWS_PROFILE
-   saguaro-cluster
+   philly-hip
    (hip)$ inv aws.configure-eks-kubeconfig
    ```
 
@@ -176,12 +176,23 @@ to the cluster.
     (hip)$ kubectl get node
     ```
 
-## Useful Commands
+### Get access to the AWS Console:
+
+If you need access to the AWS Console, create a bookmark with this URL:
+
+https://signin.aws.amazon.com/switchrole?roleName=CaktusAccountAccessRole-Admins&account=061553509755&displayName=Philly-PDPH
+
+If you are logged into the AWS console with your `caktus` account, then that URL will
+switch you to the PDPH subaccount.
+
+Reference: https://github.com/caktus/caktus-hosting-services/blob/main/docs/aws-assumerole.md#aws-accounts
+
+### Useful Commands
 
 To see configured ansible variable like ``k8s_environment_variables`` you can use the following invoke command.
 
 ```sh
-(hip)$ inv staging info.get-ansible-vars
+(hip)$ inv staging info.print-ansible-vars
 ```
 
 There are many other useful commands built into `invoke-kubesae` itself, so check out

@@ -70,10 +70,13 @@ ns.add_task(production)
 ns.configure(
     {
         "app": "hip",
-        "aws": {"region": "us-east-1"},
-        "cluster": "caktus-saguaro-cluster",
+        "aws": {
+            "region": "us-east-1",
+            "profile_name": "philly-hip",
+        },
+        "cluster": "philly-hip-stack-cluster",
         "container_name": "app",
-        "repository": "472354598015.dkr.ecr.us-east-1.amazonaws.com/hip",
+        "repository": "061553509755.dkr.ecr.us-east-1.amazonaws.com/philly-hip-stack-applicationrepository-kk92mehevd86",
         "run": {
             "echo": True,
             "pty": True,
