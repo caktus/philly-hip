@@ -5,22 +5,91 @@
 # ----------------------------------------------------------------------------
 
 app_name: hip
-ansible_connection: local
+# we use hip in some places and philly-hip in some places, so let's create a variable
+long_app_name: "philly-{{ app_name }}"
+aws_region: us-east-1
+stack_name: "{{ long_app_name }}-stack"
+aws_profile: "{{ long_app_name }}"
+cluster_name: "{{ stack_name }}-cluster"
+aws_account_id: "061553509755"
+
+# CloudFormation Outputs
+# These values are taken from the CF 'Output' tab
+ClusterEndpoint: https://C3219F3CB49E4B1C82CFE8C82A846345.sk1.us-east-1.eks.amazonaws.com
+DatabaseAddress: pd13w6wwn2hbn7f.cp7c2yqiusbp.us-east-1.rds.amazonaws.com
+RepositoryURL: 061553509755.dkr.ecr.us-east-1.amazonaws.com/philly-hip-stack-applicationrepository-kk92mehevd86
+
+# The RDS superuser password
+admin_database_password: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  63666133363834643339373132356631656633343463313761376363613138383035353532346236
+  3162396136333434303539346435306361336636636232620a353139306565616231303763646366
+  31636366666262323933643061626135346663646564656534313437393063396633626332663831
+  3565323636626163320a633963393664626563313265363632633161643833626366373265643835
+  30383637393636336335303231653434666536623535313439646136663239383139323533613239
+  6666643563326336613864366161623264363331656632333761
+
+# ----------------------------------------------------------------------------
+# caktus.aws-web-stacks: Ansible role to automate AWS CloudFormation stack
+#                        provisioning with aws-web-stacks.
+# ----------------------------------------------------------------------------
+
+cloudformation_stack:
+  profile: "{{ aws_profile }}"
+  region: "{{ aws_region }}"
+  stack_name: "{{ stack_name }}"
+  template_bucket: "aws-web-stacks-{{ app_name }}"
+  template_local_path: '{{ playbook_dir + "/stack/eks-no-nat.yml" }}'
+  create_changeset: true
+  termination_protection: true
+
+  template_parameters:
+    UseAES256Encryption: "true"
+    CustomerManagedCmkArn: ""
+    DomainName: "{{ app_name }}-prod.caktus-built.com"
+    DomainNameAlternates: ""
+    PrimaryAZ: "{{ aws_region }}a"
+    SecondaryAZ: "{{ aws_region }}b"
+    DesiredScale: 2
+    MaxScale: 4
+    ContainerInstanceType: t3a.medium
+    AssetsBucketAccessControl: Private
+    AssetsUseCloudFront: "false"
+    DatabaseClass: db.t3.small
+    DatabaseEngineVersion: "11"
+    DatabaseParameterGroupFamily: postgres11
+    DatabaseName: "{{ app_name }}"
+    DatabaseUser: "{{ app_name }}_admin"
+    DatabasePassword: "{{ admin_database_password }}"
+    DatabaseMultiAZ: "true"
+  tags:
+    Environment: "{{ app_name }}"
+
+# --------------------------------------------------------------------------
+# caktus.k8s-web-cluster: Configuration variables for the single k8s cluster
+# --------------------------------------------------------------------------
+
+k8s_cluster_type: aws
+k8s_context: "arn:aws:eks:us-east-1:{{ aws_account_id }}:cluster/{{ cluster_name }}"
+k8s_ingress_nginx_chart_version: "3.29.0"
+k8s_cert_manager_chart_version: "v1.3.0"
+k8s_letsencrypt_email: admin@caktusgroup.com
+k8s_iam_users: [noop]  # https://github.com/caktus/ansible-role-k8s-web-cluster/issues/17
 
 # ----------------------------------------------------------------------------
 # caktus.django-k8s: Shared configuration variables for staging and production
 #                    environments.
 # ----------------------------------------------------------------------------
 
-
 k8s_auth_host: "{{ ClusterEndpoint }}"
 k8s_auth_ssl_ca_cert: "k8s_auth_ssl_ca_cert.txt"
 k8s_namespace: "{{ app_name }}-{{ env_name }}"
+k8s_memcached_enabled: true
 
 # App pod configuration:
 k8s_container_name: app
 k8s_container_port: 8000
-k8s_container_image: "{{ RepositoryURL }}/{{ app_name }}"
+k8s_container_image: "{{ RepositoryURL }}"
 k8s_container_image_pull_policy: Always
 k8s_container_replicas: 2
 k8s_migrations_enabled: true
@@ -42,24 +111,18 @@ env_database_url: "postgres://{{ app_name }}_{{ env_name }}:{{ database_password
 env_django_settings: "{{ app_name }}.settings.deploy"
 env_cache_host: memcached:11211
 env_default_file_storage: "{{ app_name }}.storages.MediaBoto3Storage"
-env_media_storage_bucket_name: "{{ app_name }}-{{ env_name }}-private-assets"
+env_media_storage_bucket_name: "{{ app_name }}-{{ env_name }}-philly-private-assets"
 env_aws_default_acl: ""
 env_media_location: media/
-# New Relic APM: Caktus Free Account
-env_new_relic_app_name: "{{ k8s_namespace }}"
-env_new_relic_license_key: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          32643438396439386334333135393064663563363438666530653064623238653031666366363232
-          6137373831303130353761343930346634613136646362310a633666393463633835333934316532
-          62643265666362643364323135346161346433323037616363323434363031663735393232326539
-          6462306135653738640a626663346439666636353665653936353837623235633362393434303933
-          35373734396564363166613564303332663635643639323935336338613436393937363235353165
-          6636616130373563383234333230656538613365653737346236
 env_sentry_dsn: https://405bfdc63a414dd88ef44d3fd2633982@o168020.ingest.sentry.io/5599363
 
-# Auxillary pod configuration:
-k8s_memcached_enabled: true
-
 # S3 bucket configuration:
+k8s_s3_cluster_name: "{{ cluster_name }}"
 k8s_s3_region: "{{ aws_region }}"
-k8s_s3_cluster_name: "{{ ClusterName }}"
+k8s_s3_public_bucket: "{{ k8s_s3_namespace }}-philly-assets"
+k8s_s3_private_bucket: "{{ k8s_s3_namespace }}-philly-private-assets"
+
+# Set up an AWS IAM user with limited perms for CI deploys
+k8s_ci_username: hip-ci-user
+k8s_ci_repository_arn: "arn:aws:ecr:us-east-1:061553509755:repository/philly-hip-stack-applicationrepository-kk92mehevd86"
+k8s_ci_vault_password_arn: "arn:aws:secretsmanager:us-east-1:061553509755:secret:hip-ansible-vault-password-JYhbao"
