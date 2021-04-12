@@ -39,6 +39,22 @@ class Contact(IndexedTimeStampedModel):
         return f'Contact Us - Created: {self.created.strftime("%b %d %Y %H:%M:%S")}'
 
 
+@register_snippet
+class SocialMedia(IndexedTimeStampedModel):
+    org_name = models.CharField("Organization Name", max_length=255)
+    twitter = models.URLField(max_length=255, blank=True)
+    facebook = models.URLField(max_length=255, blank=True)
+    instagram = models.URLField(max_length=255, blank=True)
+    youtube = models.URLField(max_length=255, blank=True)
+
+    class Meta:
+        verbose_name = "Social Media"
+        verbose_name_plural = "Social Media"
+
+    def __str__(self):
+        return f"Social Media for {self.org_name}"
+
+
 class TableRow(blocks.StructBlock):
     column_1 = blocks.RichTextBlock(
         max_length=255,
@@ -49,6 +65,11 @@ class TableRow(blocks.StructBlock):
         max_length=255,
         required=False,
         help_text=("Text for column 2"),
+    )
+    social_media = SnippetChooserBlock(
+        SocialMedia,
+        required=False,
+        help_text="Social media links will be shown with this row.",
     )
 
     class Meta:
@@ -88,6 +109,11 @@ class ThreeColumnTableRow(blocks.StructBlock):
         max_length=255,
         required=False,
         help_text=("Text for column 3"),
+    )
+    social_media = SnippetChooserBlock(
+        SocialMedia,
+        required=False,
+        help_text="Social media links will be shown with this row.",
     )
 
     class Meta:
@@ -132,6 +158,11 @@ class FourColumnTableRow(blocks.StructBlock):
         max_length=255,
         required=False,
         help_text=("Text for column 4"),
+    )
+    social_media = SnippetChooserBlock(
+        SocialMedia,
+        required=False,
+        help_text="Social media links will be shown with this row.",
     )
 
     class Meta:
@@ -181,6 +212,11 @@ class FiveColumnTableRow(blocks.StructBlock):
         max_length=255,
         required=False,
         help_text=("Text for column 5"),
+    )
+    social_media = SnippetChooserBlock(
+        SocialMedia,
+        required=False,
+        help_text="Social media links will be shown with this row.",
     )
 
     class Meta:

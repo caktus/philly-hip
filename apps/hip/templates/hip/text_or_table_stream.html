@@ -31,7 +31,12 @@
               {{ row.value.column_1 }}
               <span class="external-link-icon-hip pt-3 pl-4 is-hidden"></span>
             </td>
-            <td class="py-4 pl-4 pr-2">{{ row.value.column_2 }}</td>
+            <td class="py-4 pl-4 pr-2">
+              {{ row.value.column_2 }}
+              {% if row.value.social_media %}
+                {% include 'includes/social_media.html' with social_media=row.value.social_media %}
+              {% endif %}
+            </td>
             {% if 'column_3' in row.value %}
               <td class="py-4 pl-4 pr-2">{{ row.value.column_3 }}</td>
             {% endif %}
