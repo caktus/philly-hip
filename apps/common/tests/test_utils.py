@@ -12,6 +12,7 @@ from apps.hip.tests.factories import HomePageFactory
 from apps.users.tests.factories import UserFactory
 
 from ..utils import (
+    closedpod_user_check,
     get_all_pages_visible_to_request,
     get_bigcities_home_page_url,
     get_closedpod_home_page_url,
@@ -304,3 +305,38 @@ def test_get_all_pages_visible_to_request_authenticated_in_group(
     assert len(expected_results) == len(results)
     for expected_result in expected_results:
         assert expected_result in results
+
+
+def test_closedpod_user_check_anonymoususer(db):
+    """An anonymous user is not in the "Closed POD" Group."""
+    user = AnonymousUser()
+    assert closedpod_user_check(user) is False
+
+
+def test_closedpod_user_check_no_groups(db):
+    """A user who is not in any Groups is not in the "Closed POD" Group."""
+    user = UserFactory()
+    assert closedpod_user_check(user) is False
+
+
+def test_closedpod_user_check_wrong_group(db):
+    """Test closedpod_user_check() for a user who is in a Group, but not the "Closed POD" Group."""
+    user = UserFactory()
+    user.groups.add(Group.objects.get(name="PCW MSA"))
+    assert closedpod_user_check(user) is False
+
+
+def test_closedpod_user_check_correct_group(db):
+    """Test closedpod_user_check() for a user who is in the "Closed POD" Group."""
+    user = UserFactory()
+    user.groups.add(Group.objects.get(name="Closed POD"))
+    assert closedpod_user_check(user) is True
+
+
+def test_closedpod_user_check_multiple_groups(db):
+    """Test closedpod_user_check() for a user who is in multiple Groups."""
+    user = UserFactory()
+    user.groups.add(Group.objects.get(name="PCW MSA"))
+    user.groups.add(Group.objects.get(name="Closed POD"))
+    user.groups.add(Group.objects.get(name="Big Cities"))
+    assert closedpod_user_check(user) is True

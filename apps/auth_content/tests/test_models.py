@@ -1,4 +1,8 @@
-from .factories import ClosedPODChildPageFactory, ClosedPODHomePageFactory
+from .factories import (
+    ClosedPODChildPageFactory,
+    ClosedPODContactInformationFactory,
+    ClosedPODHomePageFactory,
+)
 
 
 def test_closedpod_home_page_context_no_children(db, rf):
@@ -20,3 +24,9 @@ def test_closedpod_home_page_context_with_children(db, rf):
     assert len(context["closedpod_children_pages"]) == len(expected_results)
     for page in context["closedpod_children_pages"]:
         assert page in expected_results
+
+
+def test_closedpod_contact_information_string(db):
+    """Test the string representation of a ClosedPODContactInformation."""
+    contact = ClosedPODContactInformationFactory()
+    assert f"ClosedPOD Contact for '{contact.facility_name}'" == str(contact)
