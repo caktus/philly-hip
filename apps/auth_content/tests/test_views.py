@@ -276,7 +276,7 @@ def test_get_closedpod_contact_information_edit_authenticated_in_closedpod_group
     # The user can see the data for their ClosedPODContactInformation on the page.
     assert (
         user.closedpodcontactinformation.facility_name
-        == response.context["form"].data.facility_name
+        == response.context["form"].initial["facility_name"]
     )
 
 

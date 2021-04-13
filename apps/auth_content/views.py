@@ -25,7 +25,7 @@ def closedpod_contact_information(request):
         {
             "contact_info": contact_info,
             "show_closedpod_sidebar": True,
-            "closedpod_children_pages": home_page.get_children(),
+            "closedpod_children_pages": home_page.get_children() if home_page else [],
         },
     )
 
