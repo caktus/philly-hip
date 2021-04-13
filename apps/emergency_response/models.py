@@ -36,10 +36,7 @@ class SectionOfLinkBlocks(blocks.StructBlock):
 
 
 class EmergencyResponsePage(HipBasePage):
-    subpage_types = [
-        "emergency_response.VolunteerPage",
-        "emergency_response.HeatIndexPage",
-    ]
+    subpage_types = ["hip.StaticPage"]
 
     description = RichTextField(blank=True)
     action_section = RichTextField(
@@ -64,22 +61,4 @@ class EmergencyResponsePage(HipBasePage):
         index.SearchField("description"),
         index.SearchField("action_section"),
         index.SearchField("sections_of_links"),
-    ]
-
-
-class VolunteerPage(HipBasePage):
-    parent_page_types = ["emergency_response.EmergencyResponsePage"]
-    subpage_types = []
-
-    content_panels = [
-        FieldPanel("title"),
-    ]
-
-
-class HeatIndexPage(HipBasePage):
-    parent_page_types = ["emergency_response.EmergencyResponsePage"]
-    subpage_types = []
-
-    content_panels = [
-        FieldPanel("title"),
     ]
