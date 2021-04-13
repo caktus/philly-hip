@@ -8,7 +8,6 @@ export default function () {
   
     btn.addEventListener("click", function () {
       const dropdownIsActive = dropdown.classList.contains("is-active");
-      console.log(dropdownIsActive)
       if (dropdownIsActive) {
         dropdown.classList.remove("is-active");
       } else {
