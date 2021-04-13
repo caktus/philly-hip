@@ -6,13 +6,15 @@ from django.views.decorators.http import require_http_methods
 from apps.common.utils import closedpod_user_check
 
 from .forms import ClosedPODContactInformationForm
-from .models import ClosedPODContactInformation
+from .models import ClosedPODContactInformation, ClosedPODHomePage
 
 
 @require_http_methods(["GET"])
 @user_passes_test(closedpod_user_check)
 def closedpod_contact_information(request):
     """Return the request.user's ClosedPODContactInformation."""
+    home_page = ClosedPODHomePage.objects.live().first()
+
     if hasattr(request.user, "closedpodcontactinformation"):
         contact_info = request.user.closedpodcontactinformation
     else:
@@ -20,7 +22,11 @@ def closedpod_contact_information(request):
     return render(
         request,
         "auth_content/closedpod_contact_information.html",
-        {"contact_info": contact_info},
+        {
+            "contact_info": contact_info,
+            "show_closedpod_sidebar": True,
+            "closedpod_children_pages": home_page.get_children(),
+        },
     )
 
 

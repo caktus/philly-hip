@@ -9,7 +9,7 @@
       </div>
     </div>
   </div>
-  {% if page.is_closedpod_page %}
+  {% if page.is_closedpod_page or show_closedpod_sidebar %}
     <ul class="mb-4 {% if hidden_desktop %}is-hidden-desktop{% endif %}">
       <li class="pl-4 pb-2 sidenav-link-hip" data-href="{{ home_page_url }}">
         <span class="arrowleft-icon-blue-hip"></span>
