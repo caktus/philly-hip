@@ -25,7 +25,7 @@ run-dev:
 	@echo 'Running local development'
 	docker-compose up -d --remove-orphans
 	npm run dev &
-	python manage.py runserver
+	python manage.py runserver 0.0.0.0:8000
 
 run-tests:
 	@echo 'Checking for migrations'
