@@ -30,7 +30,7 @@
   <div class="column is-four-fifths columns is-desktop mobile-hidden-hip">
     <div class="column is-desktop is-hidden-touch is-6 pt-5">
       <div class="navbar-item is-full-height-hip">
-        <form action="{% url "search" %}" class="field has-addons is-full-width-hip pl-6 pr-6">
+        <form action="{% url "search" %}" class="field has-addons is-full-width-hip pl-6 pr-4">
           <div class="control is-inline-block has-icons-right is-full-width-hip">
             <input type="hidden" name="initial_url" value="{{ initial_url|default:request.get_full_path }}" />
             <input class="input is-normal search-input-hip is-full-width-hip" name="query" type="text" value="{{ search_query|default:"" }}" placeholder="Enter Search Terms...">
@@ -44,8 +44,8 @@
       </div>
     </div>
     <div class="column is-desktop is-hidden-touch is-6 pt-5">
-      <!-- WideScreen and Higher Breakpoint-->
-      <div class="is-flex is-justify-content-flex-end is-align-content-center is-full-height-hip is-hidden-touch is-hidden-desktop-only">
+      <!-- Desktop and Higher Breakpoint-->
+      <div class="is-flex is-justify-content-flex-end is-align-content-center is-full-height-hip is-hidden-touch">
         <div class="navbar-item p-0">
           <a href="/report-a-disease" class="is-block pl-2">
             <span class="button is-size-7-touch header-icon-hip ml-0">
@@ -58,50 +58,13 @@
         </div>
         <div class="navbar-item">
           {% if request.user.is_authenticated %}
-            <a href="{% url 'logout' %}" class="is-block">
-              <span class="button is-size-7-touch alt-header-btn-hip ml-0 pr-6">
-                <strong>Logged In</strong>
-                <i class="down-triangle-icon-hip pl-1 pb-1"></i>
-              </span>
-            </a>
+            {% include 'includes/logged_in_dropdown.html'%}
           {% else %}
             <a href="{% url 'login' %}" class="is-block">
               <span class="button is-size-7-touch header-icon-hip ml-0">
                 <i class="signin-icon-hip"></i>
               </span>
               <span class="button is-size-7-touch header-btn-hip ml-0 pr-6">
-                <strong>Partner Log In</strong>
-              </span>
-            </a>
-          {% endif %}
-        </div>
-      </div>
-      <!-- Desktop Breakpoint-->
-      <div class="is-flex is-justify-content-space-around is-align-content-center is-full-height-hip is-hidden-touch is-hidden-widescreen">
-        <div class="navbar-item p-0">
-          <a href="/report-a-disease" class="is-block pl-1">
-            <span class="button is-size-7-touch header-icon-hip ml-0">
-              <i class="bullhorn-icon-hip"></i>
-            </span>
-            <span class="button is-size-7-touch header-btn-hip ml-0">
-              <strong>Report Disease</strong>
-            </span>
-          </a>
-        </div>
-        <div class="navbar-item pl-1 pr-2">
-          {% if request.user.is_authenticated %}
-            <a href="{% url 'logout' %}" class="is-block">
-              <span class="button is-size-7-touch alt-header-btn-hip ml-0">
-                <strong>Logged In</strong>
-                <i class="down-triangle-icon-hip pl-1 pb-1"></i>
-              </span>
-            </a>
-          {% else %}
-            <a href="{% url 'login' %}" class="is-block pr-6">
-              <span class="button is-size-7-touch header-icon-hip ml-0">
-                <i class="signin-icon-hip"></i>
-              </span>
-              <span class="button is-size-7-touch header-btn-hip ml-0">
                 <strong>Partner Log In</strong>
               </span>
             </a>

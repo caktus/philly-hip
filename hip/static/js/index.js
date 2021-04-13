@@ -23,6 +23,7 @@ import Header from "../../../apps/hip/static/js/header";
 import SideBar from "../../../apps/hip/static/js/sidebar";
 import RightScrollNav from "../../../apps/hip/static/js/rightScrollNav";
 import MobileSearchModal from "../../../apps/hip/static/js/mobileSearchModal";
+import LoggedInDropdown from "../../../apps/hip/static/js/loggedInDropdown";
 import HealthAlertFilter from "../../../apps/health_alerts/static/js/healthAlertFilter";
 import HealthAlertSubscriber from "../../../apps/health_alerts/static/js/healthAlertSubscriber";
 import HealthAlertMessage from "../../../apps/health_alerts/static/js/healthAlertMessage";
@@ -33,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
   Header();
   SideBar();
   MobileSearchModal();
+  LoggedInDropdown();
   RightScrollNav();
   HealthAlertFilter();
   HealthAlertSubscriber();

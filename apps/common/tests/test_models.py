@@ -11,11 +11,7 @@ from apps.disease_control.tests.factories import (
     DiseaseControlPageFactory,
     EmergentHealthTopicListPageFactory,
 )
-from apps.emergency_response.tests.factories import (
-    EmergencyResponsePageFactory,
-    HeatIndexPageFactory,
-    VolunteerPageFactory,
-)
+from apps.emergency_response.tests.factories import EmergencyResponsePageFactory
 from apps.health_alerts.tests.factories import (
     HealthAlertDetailPageFactory,
     HealthAlertListPageFactory,
@@ -44,8 +40,6 @@ def test_is_closedpod_page(db):
         DiseaseAndConditionDetailPageFactory(parent=disease_and_condition_list_page),
         EmergentHealthTopicListPageFactory(parent=home_page),
         emergency_response_page,
-        HeatIndexPageFactory(parent=emergency_response_page, title="HeatIndexPage"),
-        VolunteerPageFactory(parent=emergency_response_page, title="VolunteerPage"),
         health_alert_list_page,
         HealthAlertDetailPageFactory(parent=health_alert_list_page),
         StaticPageFactory(parent=home_page, title="Static Page"),
@@ -85,8 +79,6 @@ def test_is_pcwmsa_page(db):
         DiseaseAndConditionDetailPageFactory(parent=disease_and_condition_list_page),
         EmergentHealthTopicListPageFactory(parent=home_page),
         emergency_response_page,
-        HeatIndexPageFactory(parent=emergency_response_page, title="HeatIndexPage"),
-        VolunteerPageFactory(parent=emergency_response_page, title="VolunteerPage"),
         health_alert_list_page,
         HealthAlertDetailPageFactory(parent=health_alert_list_page),
         StaticPageFactory(parent=home_page, title="Static Page"),
@@ -124,8 +116,6 @@ def test_is_bigcities_page(db):
         DiseaseAndConditionDetailPageFactory(parent=disease_and_condition_list_page),
         EmergentHealthTopicListPageFactory(parent=home_page),
         emergency_response_page,
-        HeatIndexPageFactory(parent=emergency_response_page, title="HeatIndexPage"),
-        VolunteerPageFactory(parent=emergency_response_page, title="VolunteerPage"),
         health_alert_list_page,
         HealthAlertDetailPageFactory(parent=health_alert_list_page),
         StaticPageFactory(parent=home_page, title="Static Page"),

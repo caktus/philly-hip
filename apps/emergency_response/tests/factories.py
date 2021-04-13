@@ -1,7 +1,7 @@
 import factory
 import wagtail_factories
 
-from ..models import EmergencyResponsePage, HeatIndexPage, VolunteerPage
+from ..models import EmergencyResponsePage
 
 
 class EmergencyResponsePageFactory(wagtail_factories.PageFactory):
@@ -10,13 +10,3 @@ class EmergencyResponsePageFactory(wagtail_factories.PageFactory):
 
     class Meta:
         model = EmergencyResponsePage
-
-
-class HeatIndexPageFactory(wagtail_factories.PageFactory):
-    class Meta:
-        model = HeatIndexPage
-
-
-class VolunteerPageFactory(wagtail_factories.PageFactory):
-    class Meta:
-        model = VolunteerPage
