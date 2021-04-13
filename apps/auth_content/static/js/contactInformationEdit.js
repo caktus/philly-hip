@@ -1,9 +1,11 @@
 export default function() {
   const contactInformationEditModal = document.querySelector(".contact-information-edit-modal");
   const mobileHeader = document.getElementById("mobile-header-hip");
+  const sidebar = document.querySelector("#sidebarContent");
   
   if (contactInformationEditModal) {
     document.body.classList.add("modal-is-open-hip");
+    sidebar.classList.add("is-hidden-desktop");
     if (mobileHeader) {
       mobileHeader.classList.remove("is-sticky-hip");
     }
