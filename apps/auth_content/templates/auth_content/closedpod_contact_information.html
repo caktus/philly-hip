@@ -2,8 +2,12 @@
 {% load wagtailcore_tags %}
 
 {% block content %}
-{% include 'includes/message.html' with messages=messages %}
 <div class="closed-pod-homepage-hip px-4">
+  <div class="columns">
+    <div class="column is-10 pr-4">
+      {% include 'includes/message.html' with messages=messages %}
+    </div>
+  </div>
   <section class="columns px-2">
     <h2 class="is-size-2 column is-5 has-text-centered-mobile">Contact Information</h2>
 
