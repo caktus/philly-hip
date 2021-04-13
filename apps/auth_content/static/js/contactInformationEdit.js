@@ -27,10 +27,6 @@ export default function() {
   function closeBtnClicked() {
     const closeBtn = document.querySelector("#contact-information-edit-close-btn-hip");
     closeBtn.addEventListener("click", function () {
-      document.body.classList.remove("modal-is-open-hip");
-      if (mobileHeader) {
-        mobileHeader.classList.add("is-sticky-hip");
-      }
       window.location.href = this.dataset.href;
     });
   }
