@@ -65,6 +65,8 @@ class DiseaseControlPage(HipBasePage):
 class DiseaseControlChildStaticPage(DiseaseControlPage):
     """A Page that inherits from DiseaseControlPage, and copies fields from StaticPage."""
 
+    subpage_types = ["hip.StaticPage", "hip.ListPage"]
+
     show_left_nav = models.BooleanField(
         default=True,
         blank=True,
@@ -123,6 +125,8 @@ class DiseaseControlChildStaticPage(DiseaseControlPage):
 
 class DiseaseControlChildListPage(DiseaseControlPage):
     """A Page that inherits from DiseaseControlPage, and copies fields from ListPage."""
+
+    subpage_types = ["hip.StaticPage", "hip.ListPage"]
 
     show_breadcrumb = models.BooleanField(
         default=False,
