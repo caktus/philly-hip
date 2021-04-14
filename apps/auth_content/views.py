@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
+from django.http import HttpResponseBadRequest
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods
 
@@ -14,6 +15,13 @@ from .models import ClosedPODContactInformation, ClosedPODHomePage
 def closedpod_contact_information(request):
     """Return the request.user's ClosedPODContactInformation."""
     home_page = ClosedPODHomePage.objects.live().first()
+    if not home_page:
+        return HttpResponseBadRequest(
+            content=(
+                "Closed-Pod home page must be created and "
+                "made live before accessing this page."
+            )
+        )
 
     if hasattr(request.user, "closedpodcontactinformation"):
         contact_info = request.user.closedpodcontactinformation
@@ -25,7 +33,7 @@ def closedpod_contact_information(request):
         {
             "contact_info": contact_info,
             "show_closedpod_sidebar": True,
-            "closedpod_children_pages": home_page.get_children() if home_page else [],
+            "closedpod_children_pages": home_page.get_children(),
         },
     )
 
