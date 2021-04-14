@@ -100,9 +100,6 @@ class DiseaseControlChildStaticPage(DiseaseControlPage):
         StreamFieldPanel("body"),
         FieldPanel("page_type"),
     ]
-    promote_panels = [
-        FieldPanel("slug"),
-    ]
     search_fields = HipBasePage.search_fields + [
         index.SearchField("body"),
         index.SearchField("description"),
@@ -150,7 +147,6 @@ class DiseaseControlChildListPage(DiseaseControlPage):
         FieldPanel("description"),
         FieldPanel("page_type"),
     ]
-    promote_panels = [FieldPanel("slug")]
     search_fields = HipBasePage.search_fields + [
         index.SearchField("description"),
         index.SearchField("list_section"),
