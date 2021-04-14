@@ -1,1 +1,126 @@
-contact information here
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<div class="closed-pod-homepage-hip px-4">
+  <div class="columns pr-6">
+    <div class="column is-10">
+      {% include 'includes/message.html' with messages=messages %}
+    </div>
+  </div>
+  <section class="columns px-2">
+    <h2 class="is-size-2 column is-5 has-text-centered-mobile">Contact Information</h2>
+
+    <div class="column is-7 pt-5">
+      <div class="level-item">
+        <a href="{% url 'closedpod_contact_information_edit' %}" class="is-block">
+          <span class="button is-size-7-mobile header-icon-hip">
+            <i class="contact-icon-hip"></i>
+          </span>
+          <span class="button is-size-7-mobile header-btn-hip">
+            <strong>Update Contact Info</strong>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+  <section class="columns is-desktop is-vcentered">
+    <div class="column is-7">
+      <h3 class="is-size-3">Facility Contact Information</h3>
+      <div class="columns is-desktop">
+        <div class="column is-7">
+          <h6>Facility Name</h6>
+          <h4>{{ contact_info.facility_name }}</h4>
+        </div>
+        <div class="column is-5">
+          <h6>Facility ID</h6>
+          <h4>{{ contact_info.facility_id }}</h4>
+        </div>
+        <div></div>
+      </div>
+      <div class="columns is-desktop is-vcentered">
+        <div class="column is-4">
+          <h6>Phone Number</h6>
+          <h4>{{ contact_info.phone_number }}</h4>
+        </div>
+        <div class="column is-2">
+          <h6>Extension</h6>
+          <h4>{{ contact_info.extension }}</h4>
+        </div>
+        <div class="column is-3-widescreen is-4-mobile">
+          <h4 class="pt-4">
+          {% if contact_info.available_24_7 %}
+            <span class="check-circle-icon-green-hip"></span>
+            <span class="is-green-hip">Available 24/7</span>
+          {% else %}
+            <span class="times-circle-icon-red-hip"></span>
+            <span class="is-red-hip">Not Available 24/7</span>
+          {% endif %}
+          </h4>
+        </div>
+        <div></div>
+      </div>
+      <div>
+        <h6>Special Instructions for calling this number</h6>
+        <h4>{{ contact_info.special_instructions }}</h4>
+      </div>
+    </div>
+    <div></div>
+  </section>
+
+  <section class="columns">
+    <div class="column is-half">
+      <h3 class="is-size-3">Primary Contact Information</h3>
+      <div class="py-2">
+        <h6>Name</h6>
+        <h4>{{ contact_info.primary_contact_name }}</h4>
+      </div>
+      <div class="py-2">
+        <h6>Work Email</h6>
+        <h4>{{ contact_info.primary_contact_work_email }}</h4>
+      </div>
+      <div class="py-2">
+        <h6>Personal / Home Email</h6>
+        <h4>{{ contact_info.primary_contact_personal_email }}</h4>
+      </div>
+      <div class="columns py-2">
+        <div class="column is-4">
+          <h6>Cell Phone</h6>
+          <h4>{{ contact_info.primary_contact_cell_phone }}</h4>
+        </div>
+        <div class="column is-4">
+          <h6>Cell Phone</h6>
+          <h4>{{ contact_info.primary_contact_cell_phone_provider }}</h4>
+        </div>
+        <div></div>
+      </div>
+    </div>
+    <div class="column is-half">
+      <h3 class="is-size-3">Secondary Contact Information</h3>
+      <div class="py-2">
+        <h6>Name</h6>
+        <h4>{{ contact_info.secondary_contact_name }}</h4>
+      </div>
+      <div class="py-2">
+        <h6>Work Email</h6>
+        <h4>{{ contact_info.secondary_contact_work_email }}</h4>
+      </div>
+      <div class="py-2">
+        <h6>Personal / Home Email</h6>
+        <h4>{{ contact_info.secondary_contact_personal_email }}</h4>
+      </div>
+      <div class="columns py-2">
+        <div class="column is-4">
+          <h6>Cell Phone</h6>
+          <h4>{{ contact_info.secondary_contact_cell_phone }}</h4>
+        </div>
+        <div class="column is-4">
+          <h6>Cell Phone</h6>
+          <h4>{{ contact_info.secondary_contact_cell_phone_provider }}</h4>
+        </div>
+        <div></div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock content %}

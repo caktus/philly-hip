@@ -1,18 +1,28 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
+from django.http import HttpResponseBadRequest
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods
 
 from apps.common.utils import closedpod_user_check
 
 from .forms import ClosedPODContactInformationForm
-from .models import ClosedPODContactInformation
+from .models import ClosedPODContactInformation, ClosedPODHomePage
 
 
 @require_http_methods(["GET"])
 @user_passes_test(closedpod_user_check)
 def closedpod_contact_information(request):
     """Return the request.user's ClosedPODContactInformation."""
+    home_page = ClosedPODHomePage.objects.live().first()
+    if not home_page:
+        return HttpResponseBadRequest(
+            content=(
+                "Closed-Pod home page must be created and "
+                "made live before accessing this page."
+            )
+        )
+
     if hasattr(request.user, "closedpodcontactinformation"):
         contact_info = request.user.closedpodcontactinformation
     else:
@@ -20,7 +30,11 @@ def closedpod_contact_information(request):
     return render(
         request,
         "auth_content/closedpod_contact_information.html",
-        {"contact_info": contact_info},
+        {
+            "contact_info": contact_info,
+            "show_closedpod_sidebar": True,
+            "closedpod_children_pages": home_page.get_children(),
+        },
     )
 
 
@@ -33,7 +47,7 @@ def closedpod_contact_information_edit(request):
         # the form with it; otherwise, the form has empty data.
         if hasattr(request.user, "closedpodcontactinformation"):
             form = ClosedPODContactInformationForm(
-                request.user.closedpodcontactinformation
+                instance=request.user.closedpodcontactinformation
             )
         else:
             form = ClosedPODContactInformationForm()

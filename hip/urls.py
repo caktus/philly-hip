@@ -17,12 +17,12 @@ from apps.search import views as search_views
 urlpatterns = [
     path("search/", search_views.search, name="search"),
     path(
-        "closedpod-contact-information/",
+        "closed-pod/closedpod-contact-information/",
         auth_content_views.closedpod_contact_information,
         name="closedpod_contact_information",
     ),
     path(
-        "closedpod-contact-information-edit/",
+        "closed-pod/closedpod-contact-information-edit/",
         auth_content_views.closedpod_contact_information_edit,
         name="closedpod_contact_information_edit",
     ),

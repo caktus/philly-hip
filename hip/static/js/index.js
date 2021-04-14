@@ -27,6 +27,7 @@ import LoggedInDropdown from "../../../apps/hip/static/js/loggedInDropdown";
 import HealthAlertFilter from "../../../apps/health_alerts/static/js/healthAlertFilter";
 import HealthAlertSubscriber from "../../../apps/health_alerts/static/js/healthAlertSubscriber";
 import HealthAlertMessage from "../../../apps/health_alerts/static/js/healthAlertMessage";
+import ContactInformationEditModal from "../../../apps/auth_content/static/js/contactInformationEdit";
 
 document.addEventListener("DOMContentLoaded", function() {
   Common();
@@ -38,4 +39,5 @@ document.addEventListener("DOMContentLoaded", function() {
   HealthAlertFilter();
   HealthAlertSubscriber();
   HealthAlertMessage();
+  ContactInformationEditModal();
 });

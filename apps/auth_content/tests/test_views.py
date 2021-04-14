@@ -9,7 +9,11 @@ from pytest_django.asserts import assertTemplateUsed
 
 from apps.users.tests.factories import UserFactory
 
-from .factories import ClosedPODContactInformationFactory
+from .factories import (
+    ClosedPODChildPageFactory,
+    ClosedPODContactInformationFactory,
+    ClosedPODHomePageFactory,
+)
 
 
 @pytest.fixture
@@ -66,6 +70,86 @@ def test_get_closedpod_contact_information_authenticated_in_other_group(db, clie
     assert f"{reverse('login')}?next={url}" == response.url
 
 
+def test_get_closepod_contact_information_no_closepodhomepage_raises_400(db, client):
+    """Closed-Pod Contact Information GET raises 400 Bad Request response if
+    Closed Pod HomePage has not been created
+    """
+    url = reverse("closedpod_contact_information")
+    user = UserFactory()
+    user.groups.add(Group.objects.get(name="Closed POD"))
+    client.force_login(user)
+
+    response = client.get(url)
+
+    assert HTTPStatus.BAD_REQUEST == response.status_code
+
+
+def test_get_closepod_contact_information_non_live_closepodhomepage_raises_400(
+    db, client
+):
+    """Closed-Pod Contact Information GET raises 400 Bad Request response if
+    Closed Pod HomePage has not been made live
+    """
+    url = reverse("closedpod_contact_information")
+    user = UserFactory()
+    user.groups.add(Group.objects.get(name="Closed POD"))
+    client.force_login(user)
+
+    # create homepage
+    closed_pod_home_page = ClosedPODHomePageFactory()
+    closed_pod_home_page.unpublish()
+
+    response = client.get(url)
+
+    assert HTTPStatus.BAD_REQUEST == response.status_code
+
+
+def test_get_closepod_contact_information_live_closepodhomepage_no_children(db, client):
+    """Closed-Pod Contact Information GET, page renders successfully without
+    closed-pod homepage having child pages.
+    """
+    url = reverse("closedpod_contact_information")
+    user = UserFactory()
+    user.groups.add(Group.objects.get(name="Closed POD"))
+    client.force_login(user)
+
+    # create homepage
+    closed_pod_home_page = ClosedPODHomePageFactory()
+    # no children pages
+    children_pages = []
+
+    response = client.get(url)
+
+    assert HTTPStatus.OK == response.status_code
+    assert children_pages == list(response.context["closedpod_children_pages"])
+
+
+def test_get_closepod_contact_information_live_closepodhomepage_with_children(
+    db, client
+):
+    """Closed-Pod Contact Information GET, page renders successfully without
+    closed-pod homepage having child pages.
+    """
+    url = reverse("closedpod_contact_information")
+    user = UserFactory()
+    user.groups.add(Group.objects.get(name="Closed POD"))
+    client.force_login(user)
+
+    # create homepage
+    closed_pod_home_page = ClosedPODHomePageFactory()
+    # create children of homepages
+    children_pages = [
+        ClosedPODChildPageFactory(parent=closed_pod_home_page, title="test-child"),
+        ClosedPODChildPageFactory(parent=closed_pod_home_page, title="test-child-1"),
+        ClosedPODChildPageFactory(parent=closed_pod_home_page, title="test-child-2"),
+    ]
+
+    response = client.get(url)
+
+    assert HTTPStatus.OK == response.status_code
+    assert len(children_pages) == response.context["closedpod_children_pages"].count()
+
+
 def test_get_closedpod_contact_information_authenticated_in_closedpod_group_no_info(
     db, client
 ):
@@ -79,6 +163,9 @@ def test_get_closedpod_contact_information_authenticated_in_closedpod_group_no_i
     user = UserFactory()
     user.groups.add(Group.objects.get(name="Closed POD"))
     client.force_login(user)
+
+    # create homepage
+    closed_pod_home_page = ClosedPODHomePageFactory()
 
     response = client.get(url)
 
@@ -102,6 +189,9 @@ def test_get_closedpod_contact_information_authenticated_in_closedpod_group_with
     ClosedPODContactInformationFactory(user=user)
     user.groups.add(Group.objects.get(name="Closed POD"))
     client.force_login(user)
+
+    # create homepage
+    closed_pod_home_page = ClosedPODHomePageFactory()
 
     response = client.get(url)
 
@@ -276,7 +366,7 @@ def test_get_closedpod_contact_information_edit_authenticated_in_closedpod_group
     # The user can see the data for their ClosedPODContactInformation on the page.
     assert (
         user.closedpodcontactinformation.facility_name
-        == response.context["form"].data.facility_name
+        == response.context["form"].initial["facility_name"]
     )
 
 

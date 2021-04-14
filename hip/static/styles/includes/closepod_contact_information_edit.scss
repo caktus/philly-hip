@@ -1,0 +1,7 @@
+@import "../mixins";
+
+.contact-information-edit-modal {
+  @include modals;
+  @include headers;
+  @include paragraphs;
+};
