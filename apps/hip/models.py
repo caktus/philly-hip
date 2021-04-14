@@ -312,9 +312,6 @@ class StaticPage(HipBasePage):
         FieldPanel("show_right_nav"),
         StreamFieldPanel("body"),
     ]
-    promote_panels = [
-        FieldPanel("slug"),
-    ]
     search_fields = HipBasePage.search_fields + [
         index.SearchField("body"),
     ]
@@ -388,7 +385,6 @@ class ListPage(HipBasePage):
         FieldPanel("show_right_nav"),
         StreamFieldPanel("list_section"),
     ]
-    promote_panels = [FieldPanel("slug")]
     search_fields = HipBasePage.search_fields + [
         index.SearchField("list_section"),
     ]

@@ -88,6 +88,22 @@ To select that icon, do:
   }
 }
 
+.check-circle-icon-green-hip {
+  color: $green;
+  @include solid-icon;
+  &::before {
+    content: fa-content($fa-var-check-circle);
+  }
+}
+
+.times-circle-icon-red-hip {
+  color: $red;
+  @include solid-icon;
+  &::before {
+    content: fa-content($fa-var-times-circle);
+  }
+}
+
 .search-icon-hip {
   color: $white;
   @include solid-icon;

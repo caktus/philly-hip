@@ -1,4 +1,9 @@
 ---
+- src: https://github.com/caktus/ansible-role-aws-web-stacks
+  name: caktus.aws-web-stacks
+- src: https://github.com/caktus/ansible-role-k8s-web-cluster
+  version: v1.1.0
+  name: caktus.k8s-web-cluster
 - src: https://github.com/caktus/ansible-role-django-k8s
   name: caktus.django-k8s
-  version: v0.0.11
+  version: v1.2.0

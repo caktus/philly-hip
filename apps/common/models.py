@@ -41,9 +41,10 @@ class HipBasePage(Page):
             [
                 FieldPanel("slug"),
                 FieldPanel("seo_title"),
-                FieldPanel("show_in_menus"),
                 # override Page's promote_panels to remove search_description (since we
-                # include it in content_panels)
+                # include it in content_panels). Also, don't show "show_in_menus",
+                # since we don't use that field in this project.
+                # FieldPanel("show_in_menus"),
                 # FieldPanel('search_description'),
             ],
             gettext_lazy("Common page configuration"),

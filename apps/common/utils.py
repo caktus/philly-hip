@@ -62,3 +62,8 @@ def get_all_pages_visible_to_request(request):
     # Because calling .filter() after calling .difference() is not supported,
     # we get all of the relevant Page objects again here.
     return Page.objects.filter(id__in=pages_for_user.values_list("id", flat=True))
+
+
+def closedpod_user_check(user):
+    """A check to determine if a user is in the ClosedPOD Group."""
+    return not user.is_anonymous and user.groups.filter(name="Closed POD").exists()

@@ -8,6 +8,7 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
+from apps.auth_content import views as auth_content_views
 from apps.health_alerts import views as health_alert_views
 from apps.hip import views as hip_views
 from apps.search import views as search_views
@@ -15,6 +16,16 @@ from apps.search import views as search_views
 
 urlpatterns = [
     path("search/", search_views.search, name="search"),
+    path(
+        "closed-pod/closedpod-contact-information/",
+        auth_content_views.closedpod_contact_information,
+        name="closedpod_contact_information",
+    ),
+    path(
+        "closed-pod/closedpod-contact-information-edit/",
+        auth_content_views.closedpod_contact_information_edit,
+        name="closedpod_contact_information_edit",
+    ),
     path(
         "health-alerts-subscriber-signup/",
         health_alert_views.subscribe,

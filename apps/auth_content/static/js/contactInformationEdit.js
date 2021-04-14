@@ -1,9 +1,11 @@
 export default function() {
-  const healthAlertSubscriberEl = document.querySelector(".health-alert-subscriber-modal");
+  const contactInformationEditModal = document.querySelector(".contact-information-edit-modal");
   const mobileHeader = document.getElementById("mobile-header-hip");
+  const sidebar = document.querySelector("#sidebarContent");
   
-  if (healthAlertSubscriberEl) {
+  if (contactInformationEditModal) {
     document.body.classList.add("modal-is-open-hip");
+    sidebar.classList.add("is-hidden-desktop");
     if (mobileHeader) {
       mobileHeader.classList.remove("is-sticky-hip");
     }
@@ -25,7 +27,7 @@ export default function() {
   };
 
   function closeBtnClicked() {
-    const closeBtn = document.querySelector("#health-alert-subscriber-close-btn-hip");
+    const closeBtn = document.querySelector("#contact-information-edit-close-btn-hip");
     closeBtn.addEventListener("click", function () {
       window.location.href = this.dataset.href;
     });
