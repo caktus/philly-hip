@@ -72,6 +72,16 @@ class TableRow(blocks.StructBlock):
         help_text="Social media links will be shown with this row.",
     )
 
+    class Column(models.IntegerChoices):
+        COLUMN_1 = 1
+        COLUMN_2 = 2
+
+    social_media_column = blocks.ChoiceBlock(
+        choices=Column.choices,
+        required=False,
+        help_text=("Under which column should social media links be placed?"),
+    )
+
     class Meta:
         label = "Table row"
         form_classname = "two-column-table__row"
@@ -114,6 +124,17 @@ class ThreeColumnTableRow(blocks.StructBlock):
         SocialMedia,
         required=False,
         help_text="Social media links will be shown with this row.",
+    )
+
+    class Column(models.IntegerChoices):
+        COLUMN_1 = 1
+        COLUMN_2 = 2
+        COLUMN_3 = 3
+
+    social_media_column = blocks.ChoiceBlock(
+        choices=Column.choices,
+        required=False,
+        help_text=("Under which column should social media links be placed?"),
     )
 
     class Meta:
@@ -163,6 +184,18 @@ class FourColumnTableRow(blocks.StructBlock):
         SocialMedia,
         required=False,
         help_text="Social media links will be shown with this row.",
+    )
+
+    class Column(models.IntegerChoices):
+        COLUMN_1 = 1
+        COLUMN_2 = 2
+        COLUMN_3 = 3
+        COLUMN_4 = 4
+
+    social_media_column = blocks.ChoiceBlock(
+        choices=Column.choices,
+        required=False,
+        help_text=("Under which column should social media links be placed?"),
     )
 
     class Meta:
@@ -217,6 +250,19 @@ class FiveColumnTableRow(blocks.StructBlock):
         SocialMedia,
         required=False,
         help_text="Social media links will be shown with this row.",
+    )
+
+    class Column(models.IntegerChoices):
+        COLUMN_1 = 1
+        COLUMN_2 = 2
+        COLUMN_3 = 3
+        COLUMN_4 = 4
+        COLUMN_5 = 5
+
+    social_media_column = blocks.ChoiceBlock(
+        choices=Column.choices,
+        required=False,
+        help_text=("Under which column should social media links be placed?"),
     )
 
     class Meta:

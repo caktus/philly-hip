@@ -27,24 +27,44 @@
       {% if forloop.counter != 1 or not value.is_first_row_header %}
         <tr>
           {% if value.has_grid_pattern %}
-            <td class="py-4 pl-4 pr-2 is-flex is-vcentered">
-              {{ row.value.column_1 }}
-              <span class="external-link-icon-hip pt-3 pl-4 is-hidden"></span>
+            <td class="py-4 pl-4 pr-2">
+              <div class="is-flex is-vcentered">
+                {{ row.value.column_1 }}
+                <span class="external-link-icon-hip pt-3 pl-4 is-hidden"></span>
+              </div>
+              {% if row.value.social_media  and row.value.social_media_column == "1" %}
+                {% include 'includes/social_media.html' with social_media=row.value.social_media %}
+              {% endif %}
             </td>
             <td class="py-4 pl-4 pr-2">
               {{ row.value.column_2 }}
-              {% if row.value.social_media %}
+              {% if row.value.social_media  and row.value.social_media_column == "2" %}
                 {% include 'includes/social_media.html' with social_media=row.value.social_media %}
               {% endif %}
             </td>
             {% if 'column_3' in row.value %}
-              <td class="py-4 pl-4 pr-2">{{ row.value.column_3 }}</td>
+              <td class="py-4 pl-4 pr-2">
+                {{ row.value.column_3 }}
+                {% if row.value.social_media  and row.value.social_media_column == "3" %}
+                  {% include 'includes/social_media.html' with social_media=row.value.social_media %}
+                {% endif %}
+              </td>
             {% endif %}
             {% if 'column_4' in row.value %}
-              <td class="py-4 pl-4 pr-2">{{ row.value.column_4 }}</td>
+              <td class="py-4 pl-4 pr-2">
+                {{ row.value.column_4 }}
+                {% if row.value.social_media  and row.value.social_media_column == "4" %}
+                  {% include 'includes/social_media.html' with social_media=row.value.social_media %}
+                {% endif %}
+              </td>
             {% endif %}
             {% if 'column_5' in row.value %}
-              <td class="py-4 pl-4 pr-2">{{ row.value.column_5 }}</td>
+              <td class="py-4 pl-4 pr-2">
+                {{ row.value.column_5 }}
+                {% if row.value.social_media  and row.value.social_media_column == "5" %}
+                  {% include 'includes/social_media.html' with social_media=row.value.social_media %}
+                {% endif %}
+              </td>
             {% endif %}
           {% else %}
             <td class="py-4 pr-2">{{ row.value.column_1 }}</td>
