@@ -1,8 +1,8 @@
 env_name: "staging"
 
 k8s_domain_names:
+  - hip-staging.phila.gov
   - hip.caktus-built.com
-  # - hip-staging.phila.gov
 
 k8s_auth_api_key: !vault |
   $ANSIBLE_VAULT;1.1;AES256
@@ -75,7 +75,8 @@ k8s_environment_variables:
   DJANGO_DEBUG: "False"
   # DOMAIN is the ALLOWED_HOST
   DOMAIN: "{{ k8s_domain_names[0] }}"
-  ALLOWED_HOSTS: "{{ k8s_domain_names[0] }}"
+  # join ALLOWED_HOSTS with a colon, because they are split by colon in deploy.py
+  ALLOWED_HOSTS: "{{ k8s_domain_names|join(':') }}"
   ENVIRONMENT: "{{ env_name }}"
   CACHE_HOST: "{{ env_cache_host }}"
   # *** Uploaded media
