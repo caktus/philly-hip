@@ -66,4 +66,6 @@ def get_all_pages_visible_to_request(request):
 
 def closedpod_user_check(user):
     """A check to determine if a user is in the ClosedPOD Group."""
+    if user.is_superuser:
+        return True
     return not user.is_anonymous and user.groups.filter(name="Closed POD").exists()

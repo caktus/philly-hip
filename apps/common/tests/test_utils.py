@@ -340,3 +340,19 @@ def test_closedpod_user_check_multiple_groups(db):
     user.groups.add(Group.objects.get(name="Closed POD"))
     user.groups.add(Group.objects.get(name="Big Cities"))
     assert closedpod_user_check(user) is True
+
+
+def test_closedpod_user_check_no_groups_admin_staff(db):
+    """A staff user who is not in any Groups is not Closed POD user."""
+    user = UserFactory()
+    user.is_staff = True
+    user.save()
+    assert closedpod_user_check(user) is False
+
+
+def test_closedpod_user_check_no_groups_superuser(db):
+    """A superuser who is not in any Groups is a Closed POD user."""
+    user = UserFactory()
+    user.is_superuser = True
+    user.save()
+    assert closedpod_user_check(user) is True
