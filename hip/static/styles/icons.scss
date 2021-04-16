@@ -1,6 +1,7 @@
 @import "../font_awesome/scss/fontawesome.scss";
 @import "../font_awesome/scss/solid.scss";
 @import "../font_awesome/scss/regular.scss";
+@import "../font_awesome/scss/brands.scss";
 @import "./colors";
 
 /* Adding a new icon
@@ -25,6 +26,11 @@ To select that icon, do:
   @extend .fas; // solid icon
 }
 
+@mixin brand-icon {
+  @extend %fa-icon; // font-awesome icon
+  @extend .fab; // brand icon
+}
+
 @mixin regular-icon {
   @extend %fa-icon; // font-awesome icon
   @extend .far; // regular icon
@@ -47,6 +53,38 @@ To select that icon, do:
       content: fa-content($fa-var-external-link-alt);
       margin-left: 0.5rem;
     }
+  }
+}
+
+.twitter-icon-hip {
+  color: $dark-blue;
+  @include brand-icon;
+  &::before {
+    content: fa-content($fa-var-twitter);
+  }
+}
+
+.facebook-icon-hip {
+  color: $dark-blue;
+  @include brand-icon;
+  &::before {
+    content: fa-content($fa-var-facebook-f);
+  }
+}
+
+.instagram-icon-hip {
+  color: $dark-blue;
+  @include brand-icon;
+  &::before {
+    content: fa-content($fa-var-instagram);
+  }
+}
+
+.youtube-icon-hip {
+  color: $dark-blue;
+  @include brand-icon;
+  &::before {
+    content: fa-content($fa-var-youtube);
   }
 }
 
