@@ -5,6 +5,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core import blocks
 from wagtail.core.fields import RichTextField, StreamField
+from wagtail.documents.models import Document, DocumentQuerySet
 from wagtail.search import index
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
@@ -541,3 +542,40 @@ class HomePage(HipBasePage):
             pages_qs=pages_visible_to_user, object_count=10
         )
         return context
+
+
+class HIPDocumentQuerySet(DocumentQuerySet):
+    def search(
+        self,
+        query,
+        fields=None,
+        operator=None,
+        order_by_relevance=True,
+        partial_match=True,
+        backend="default",
+    ):
+        """
+        Implement our custom search method for HIPDocuments.
+
+        Because partial matching is not supported for wagtail.contrib.postgres_search,
+        we override this method to do a simple search for Documents with partial
+        matching.
+        """
+        # Split the search terms based on spaces.
+        search_terms = query.split(" ")
+        # Loop through the search_terms, and add to q_terms. All of the search
+        # terms have to be present for a HIPDocument to be matched.
+        q_terms = models.Q()
+        for term in search_terms:
+            if term:
+                q_terms &= models.Q(title__icontains=term)
+        if q_terms != models.Q():
+            return self.filter(q_terms)
+        else:
+            return self.none()
+
+
+class HIPDocument(Document):
+    """Define a custom document model, so that we can define a custom manager."""
+
+    objects = HIPDocumentQuerySet.as_manager()

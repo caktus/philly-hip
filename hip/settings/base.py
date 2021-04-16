@@ -268,6 +268,7 @@ WAGTAILDOCS_DOCUMENT_FORM_BASE = "apps.hip.forms.ValidateFileTypeForm"
 # have to include jpeg here because even if the file extension is 'jpg', the content
 # type is 'image/jpeg' and we compare against content type in our custom form
 WAGTAILDOCS_EXTENSIONS = ["pdf", "png", "jpg", "jpeg"]
+WAGTAILDOCS_DOCUMENT_MODEL = "hip.HIPDocument"
 
 
 LOGOUT_REDIRECT_URL = "/"
