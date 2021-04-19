@@ -8,6 +8,11 @@
     border-right: none;
     @include modals;
   }
+
+  h5 {
+    // menu dividers
+    text-transform: uppercase;
+  }
 }
 
 .sidebar-divider-hip {

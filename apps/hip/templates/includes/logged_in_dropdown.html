@@ -19,7 +19,6 @@
       {% if authenticated_home_pages %}
       <div class="pl-2 pb-4 is-flex is-justify-content-flex-start is-align-items-center {% if hidden_desktop %}is-hidden-desktop{% endif %}">
         <h5 class="is-size-7">Authenticated&nbsp;Content</h5>
-        <div class="ml-2 mr-6 sidebar-divider-hip"></div>
       </div>
       {% for page in authenticated_home_pages %}
       <a href="{{ page.url }}" class="dropdown-item">
@@ -29,7 +28,6 @@
       {% endif %}
       <div class="pl-2 py-4 is-flex is-justify-content-flex-start is-align-items-center {% if hidden_desktop %}is-hidden-desktop{% endif %}">
         <h5 class="is-size-7">Log&nbsp;Out</h5>
-        <div class="ml-2 mr-6 sidebar-divider-hip"></div>
       </div>
       <a href="{% url 'logout' %}" class="dropdown-item">
         <span class="signout-icon-red-hip"></span>
