@@ -502,7 +502,7 @@ virtualenv==20.4.2
     # via pre-commit
 wagtail-factories==2.0.1
     # via -r requirements/dev/dev.in
-wagtail==2.12.1
+wagtail==2.12.4
     # via
     #   -c requirements/dev/../base/base.txt
     #   wagtail-factories
