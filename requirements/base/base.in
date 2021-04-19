@@ -21,6 +21,8 @@ boto3
 libsass
 phonenumberslite
 
+social-auth-app-django
+
 # Postgres
 psycopg2-binary
 

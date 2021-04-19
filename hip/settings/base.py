@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "social_django",
     "wagtail.contrib.table_block",
     "webpack_loader",
 ]
@@ -98,6 +99,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "social_django.context_processors.backends",
+                "social_django.context_processors.login_redirect",
                 "wagtailmenus.context_processors.wagtailmenus",
                 "apps.common.context_processors.home_page_url",
                 "apps.common.context_processors.previous_url",
@@ -150,6 +153,18 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
+]
+
+# Azure auth using Python Social Auth
+# https://python-social-auth.readthedocs.io/en/latest/backends/azuread.html
+SOCIAL_AUTH_JSONFIELD_ENABLED = True
+SOCIAL_AUTH_AZUREAD_V2_TENANT_OAUTH2_KEY = os.environ.get("AZURE_CLIENT_ID")
+SOCIAL_AUTH_AZUREAD_V2_TENANT_OAUTH2_SECRET = os.environ.get("AZURE_CLIENT_SECRET")
+SOCIAL_AUTH_AZUREAD_V2_TENANT_OAUTH2_TENANT_ID = os.environ.get("AZURE_TENANT_ID")
+
+AUTHENTICATION_BACKENDS = [
+    "social_core.backends.azuread_tenant.AzureADV2TenantOAuth2",
+    "django.contrib.auth.backends.ModelBackend",
 ]
 
 
