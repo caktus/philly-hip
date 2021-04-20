@@ -187,10 +187,11 @@ class ClosedPODContactInformation(models.Model):
     primary_contact_work_email = models.EmailField(
         "Work Email*", max_length=255, help_text="The work email of the primary contact"
     )
-    primary_contact_personal_email = models.CharField(
-        "Personal / Home Email*",
+    primary_contact_personal_email = models.EmailField(
+        "Personal / Home Email",
         max_length=255,
         help_text="The personal email of the primary contact",
+        blank=True,
     )
     primary_contact_cell_phone = PhoneNumberField(
         "Cell Phone*", help_text="The cell phone number of the primary contact"
@@ -203,26 +204,34 @@ class ClosedPODContactInformation(models.Model):
     )
 
     secondary_contact_name = models.CharField(
-        "Name*", max_length=255, help_text="The name of the secondary contact"
+        "Name",
+        max_length=255,
+        help_text="The name of the secondary contact",
+        blank=True,
     )
     secondary_contact_work_email = models.EmailField(
-        "Work Email*",
+        "Work Email",
         max_length=255,
         help_text="The work email of the secondary contact",
+        blank=True,
     )
-    secondary_contact_personal_email = models.CharField(
-        "Personal / Home Email*",
+    secondary_contact_personal_email = models.EmailField(
+        "Personal / Home Email",
         max_length=255,
         help_text="The person email of the secondary contact",
+        blank=True,
     )
     secondary_contact_cell_phone = PhoneNumberField(
-        "Cell Phone*", help_text="The cell phone number of the secondary contact"
+        "Cell Phone",
+        help_text="The cell phone number of the secondary contact",
+        blank=True,
     )
     secondary_contact_cell_phone_provider = models.CharField(
-        "Provider*",
+        "Provider",
         max_length=8,
         choices=CELLPHONE_PROVIDERS.choices,
         help_text="The cell phone provider of the secondary contact",
+        blank=True,
     )
 
     class Meta:
