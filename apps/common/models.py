@@ -80,7 +80,10 @@ class HipBasePage(Page):
         descendant of the PCWMSAHomePage.
         """
         if hasattr(self, "pcwmsahomepage") or any(
-            [hasattr(ancestor, "pcwmsahomepage") for ancestor in self.get_ancestors()]
+            [
+                hasattr(ancestor.specific, "pcwmsahomepage")
+                for ancestor in self.get_ancestors()
+            ]
         ):
             return True
         return False
