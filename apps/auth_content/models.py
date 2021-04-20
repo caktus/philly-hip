@@ -131,10 +131,8 @@ class PCWMSAHomePage(StaticPage):
         StreamFieldPanel("body"),
     ]
 
-    search_fields = HipBasePage.search_fields + [
+    search_fields = StaticPage.search_fields + [
         index.SearchField("subtitle"),
-        index.SearchField("action_section"),
-        index.SearchField("body"),
     ]
 
     def get_context(self, request):
