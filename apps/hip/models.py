@@ -5,6 +5,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core import blocks
 from wagtail.core.fields import RichTextField, StreamField
+from wagtail.documents.models import Document, DocumentQuerySet
 from wagtail.search import index
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
@@ -39,6 +40,22 @@ class Contact(IndexedTimeStampedModel):
         return f'Contact Us - Created: {self.created.strftime("%b %d %Y %H:%M:%S")}'
 
 
+@register_snippet
+class SocialMedia(IndexedTimeStampedModel):
+    org_name = models.CharField("Organization Name", max_length=255)
+    twitter = models.URLField(max_length=255, blank=True)
+    facebook = models.URLField(max_length=255, blank=True)
+    instagram = models.URLField(max_length=255, blank=True)
+    youtube = models.URLField(max_length=255, blank=True)
+
+    class Meta:
+        verbose_name = "Social Media"
+        verbose_name_plural = "Social Media"
+
+    def __str__(self):
+        return f"Social Media for {self.org_name}"
+
+
 class TableRow(blocks.StructBlock):
     column_1 = blocks.RichTextBlock(
         max_length=255,
@@ -49,6 +66,21 @@ class TableRow(blocks.StructBlock):
         max_length=255,
         required=False,
         help_text=("Text for column 2"),
+    )
+    social_media = SnippetChooserBlock(
+        SocialMedia,
+        required=False,
+        help_text="Social media links will be shown with this row.",
+    )
+
+    class Column(models.IntegerChoices):
+        COLUMN_1 = 1
+        COLUMN_2 = 2
+
+    social_media_column = blocks.ChoiceBlock(
+        choices=Column.choices,
+        required=False,
+        help_text=("Under which column should social media links be placed?"),
     )
 
     class Meta:
@@ -88,6 +120,22 @@ class ThreeColumnTableRow(blocks.StructBlock):
         max_length=255,
         required=False,
         help_text=("Text for column 3"),
+    )
+    social_media = SnippetChooserBlock(
+        SocialMedia,
+        required=False,
+        help_text="Social media links will be shown with this row.",
+    )
+
+    class Column(models.IntegerChoices):
+        COLUMN_1 = 1
+        COLUMN_2 = 2
+        COLUMN_3 = 3
+
+    social_media_column = blocks.ChoiceBlock(
+        choices=Column.choices,
+        required=False,
+        help_text=("Under which column should social media links be placed?"),
     )
 
     class Meta:
@@ -132,6 +180,23 @@ class FourColumnTableRow(blocks.StructBlock):
         max_length=255,
         required=False,
         help_text=("Text for column 4"),
+    )
+    social_media = SnippetChooserBlock(
+        SocialMedia,
+        required=False,
+        help_text="Social media links will be shown with this row.",
+    )
+
+    class Column(models.IntegerChoices):
+        COLUMN_1 = 1
+        COLUMN_2 = 2
+        COLUMN_3 = 3
+        COLUMN_4 = 4
+
+    social_media_column = blocks.ChoiceBlock(
+        choices=Column.choices,
+        required=False,
+        help_text=("Under which column should social media links be placed?"),
     )
 
     class Meta:
@@ -181,6 +246,24 @@ class FiveColumnTableRow(blocks.StructBlock):
         max_length=255,
         required=False,
         help_text=("Text for column 5"),
+    )
+    social_media = SnippetChooserBlock(
+        SocialMedia,
+        required=False,
+        help_text="Social media links will be shown with this row.",
+    )
+
+    class Column(models.IntegerChoices):
+        COLUMN_1 = 1
+        COLUMN_2 = 2
+        COLUMN_3 = 3
+        COLUMN_4 = 4
+        COLUMN_5 = 5
+
+    social_media_column = blocks.ChoiceBlock(
+        choices=Column.choices,
+        required=False,
+        help_text=("Under which column should social media links be placed?"),
     )
 
     class Meta:
@@ -459,3 +542,40 @@ class HomePage(HipBasePage):
             pages_qs=pages_visible_to_user, object_count=10
         )
         return context
+
+
+class HIPDocumentQuerySet(DocumentQuerySet):
+    def search(
+        self,
+        query,
+        fields=None,
+        operator=None,
+        order_by_relevance=True,
+        partial_match=True,
+        backend="default",
+    ):
+        """
+        Implement our custom search method for HIPDocuments.
+
+        Because partial matching is not supported for wagtail.contrib.postgres_search,
+        we override this method to do a simple search for Documents with partial
+        matching.
+        """
+        # Split the search terms based on spaces.
+        search_terms = query.split(" ")
+        # Loop through the search_terms, and add to q_terms. All of the search
+        # terms have to be present for a HIPDocument to be matched.
+        q_terms = models.Q()
+        for term in search_terms:
+            if term:
+                q_terms &= models.Q(title__icontains=term)
+        if q_terms != models.Q():
+            return self.filter(q_terms)
+        else:
+            return self.none()
+
+
+class HIPDocument(Document):
+    """Define a custom document model, so that we can define a custom manager."""
+
+    objects = HIPDocumentQuerySet.as_manager()

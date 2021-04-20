@@ -30,7 +30,7 @@ else:
     default_smtp_port = 25
 EMAIL_PORT = os.getenv("EMAIL_PORT", default_smtp_port)
 EMAIL_SUBJECT_PREFIX = "[hip %s] " % ENVIRONMENT.title()
-DEFAULT_FROM_EMAIL = f"noreply@{os.getenv('DOMAIN', os.environ)}"
+DEFAULT_FROM_EMAIL = "healthresponse@phila.gov"
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 ### HTTPS

@@ -2,8 +2,7 @@
 @import "../colors";
 
 .page-section-hip {
-  @include headers;
-  @include paragraphs;
+  @include wagtail-richtext;
   @include tables;
 }
 

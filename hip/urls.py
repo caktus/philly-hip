@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.contrib.auth import views as django_auth_views
 from django.urls import path
 
+from social_django import urls as social_django_urls
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
@@ -36,6 +37,7 @@ urlpatterns = [
 
 # Authentication-related views
 urlpatterns += [
+    path("", include(social_django_urls, namespace="social")),
     path("accounts/login/", hip_views.HIPLoginView.as_view(), name="login"),
     path("accounts/logout/", django_auth_views.LogoutView.as_view(), name="logout"),
     path(
