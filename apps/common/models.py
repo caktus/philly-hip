@@ -79,15 +79,9 @@ class HipBasePage(Page):
         A page is a PCW MSA page if it is either the PCWMSAHomePage, or a
         descendant of the PCWMSAHomePage.
         """
-        # Note: the PCWMSAHomePage inherits from StaticPage, which inherits from
-        # HipBasePage, so we must check self.staticpage.pcwmsahomepage and
-        # ancestor.staticpage.pcwmsahomepage.
-        if (
-            hasattr(self, "staticpage") and hasattr(self.staticpage, "pcwmsahomepage")
-        ) or any(
+        if hasattr(self, "pcwmsahomepage") or any(
             [
-                hasattr(ancestor, "staticpage")
-                and hasattr(ancestor.staticpage, "pcwmsahomepage")
+                hasattr(ancestor.specific, "pcwmsahomepage")
                 for ancestor in self.get_ancestors()
             ]
         ):
