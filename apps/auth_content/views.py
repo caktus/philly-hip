@@ -72,7 +72,11 @@ def closedpod_contact_information_edit(request):
         # If the form is valid, then save it, and redirect the user to the
         # "closedpod_contact_information" view.
         if form.is_valid():
-            form.save()
+            instance = form.save(commit=False)
+            # 'user' field is not editable in the form since user is only able to edit
+            # their own info. Set user appropriately here.
+            instance.user = request.user
+            instance.save()
             messages.success(request, "Contact information has been updated")
             return redirect("closedpod_contact_information")
         else:

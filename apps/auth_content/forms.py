@@ -8,7 +8,10 @@ class ClosedPODContactInformationForm(ModelForm):
 
     class Meta:
         model = ClosedPODContactInformation
-        fields = "__all__"
+        exclude = [
+            # User is not able to choose a 'user' to edit
+            "user",
+        ]
 
     def facility_fields(self):
         return [
