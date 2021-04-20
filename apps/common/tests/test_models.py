@@ -89,7 +89,24 @@ def test_is_pcwmsa_page(db):
     for page in non_pcwmsa_pages:
         assert page.is_pcwmsa_page is False
 
-    pcwmsa_pages = [PCWMSAHomePageFactory(parent=home_page, title="PCW MSA Home Page")]
+    pcwmsa_home_page = PCWMSAHomePageFactory(
+        parent=home_page, title="PCW MSA Home Page"
+    )
+    pcwmsa_child_page1 = StaticPageFactory(
+        parent=pcwmsa_home_page, title="PCW MSA Child Page 1"
+    )
+    pcwmsa_grandchild_page = StaticPageFactory(
+        parent=pcwmsa_child_page1, title="PCW MSA Grandchild Page"
+    )
+    pcwmsa_child_page2 = StaticPageFactory(
+        parent=pcwmsa_home_page, title="PCW MSA Child Page 2"
+    )
+    pcwmsa_pages = [
+        pcwmsa_home_page,
+        pcwmsa_child_page1,
+        pcwmsa_grandchild_page,
+        pcwmsa_child_page2,
+    ]
     for page in pcwmsa_pages:
         assert page.is_pcwmsa_page is True
 
@@ -129,9 +146,20 @@ def test_is_bigcities_page(db):
     bigcities_home_page = BigCitiesHomePageFactory(
         parent=home_page, title="Big Cities Home Page"
     )
+    bigcities_child_page1 = StaticPageFactory(
+        parent=bigcities_home_page, title="Big Cities Child Page 1"
+    )
+    bigcities_grandchild_page = StaticPageFactory(
+        parent=bigcities_child_page1, title="Big Cities Grandchild Page"
+    )
+    bigcities_child_page2 = StaticPageFactory(
+        parent=bigcities_home_page, title="Big Cities Child Page 2"
+    )
     bigcities_pages = [
         bigcities_home_page,
-        StaticPageFactory(parent=bigcities_home_page, title="Big Cities Child Page"),
+        bigcities_child_page1,
+        bigcities_grandchild_page,
+        bigcities_child_page2,
     ]
     for page in bigcities_pages:
         assert page.is_bigcities_page is True
