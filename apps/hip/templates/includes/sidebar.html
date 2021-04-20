@@ -39,29 +39,29 @@
         Return to Public Site
       </li>
     </ul>
-    <ul class="mb-4 {% if hidden_desktop %}is-hidden-desktop{% endif %}">
-      <div class="pl-2 pb-4 is-flex is-justify-content-flex-start is-align-items-center {% if hidden_desktop %}is-hidden-desktop{% endif %}">
-        <h5 class="is-size-7">PCW&nbsp;MSA</h5>
-        <div class="ml-2 mr-6 sidebar-divider-hip"></div>
-      </div>
-      {% for auth_page in authenticated_home_pages %}
-        {% if auth_page.name == 'PCW-MSA Home' %}
-          {% with pcwmsa_home_url=auth_page.url %}
+    {% for auth_page in authenticated_home_pages %}
+      {% if auth_page.name == 'PCW-MSA Home' %}
+        {% with pcwmsa_home_url=auth_page.url %}
+          <ul class="mb-4 {% if hidden_desktop %}is-hidden-desktop{% endif %}">
+            <div class="pl-2 pb-4 is-flex is-justify-content-flex-start is-align-items-center {% if hidden_desktop %}is-hidden-desktop{% endif %}">
+              <h5 class="is-size-7">PCW&nbsp;MSA</h5>
+              <div class="ml-2 mr-6 sidebar-divider-hip"></div>
+            </div>
             <li class="pl-4 pb-2 sidenav-link-hip is-active-hip" data-href="{{ pcwmsa_home_url }}">Home</li>
             <li class="pl-4 pb-2 sidenav-link-hip" data-href="{{ pcwmsa_home_url }}emergency-contact-list/">Emergency Contact List</li>
             <li class="pl-4 pb-2 sidenav-link-hip" data-href="{{ pcwmsa_home_url }}lead-agency/">Lead Agency</li>
             <li class="pl-4 pb-2 sidenav-link-hip" data-href="{{ pcwmsa_home_url }}full-scale-exercices/">Full Scale Exercises</li>
-          {% endwith %}
-        {% endif %}
-      {% endfor %}
-    </ul>
-    <div class="pl-2 pb-4 is-flex is-justify-content-flex-start is-align-items-center {% if hidden_desktop %}is-hidden-desktop{% endif %}">
-      <h5 class="is-size-7">PIO&nbsp;Officers</h5>
-      <div class="ml-2 mr-6 sidebar-divider-hip"></div>
-    </div>
-    <ul class="mb-4 {% if hidden_desktop %}is-hidden-desktop{% endif %}">
-      <li class="pl-4 pb-2 sidenav-link-hip" data-href="#">PIO Contact Information</li>
-    </ul>
+          </ul>
+          <div class="pl-2 pb-4 is-flex is-justify-content-flex-start is-align-items-center {% if hidden_desktop %}is-hidden-desktop{% endif %}">
+            <h5 class="is-size-7">PIO&nbsp;Officers</h5>
+            <div class="ml-2 mr-6 sidebar-divider-hip"></div>
+          </div>
+          <ul class="mb-4 {% if hidden_desktop %}is-hidden-desktop{% endif %}">
+            <li class="pl-4 pb-2 sidenav-link-hip" data-href="{{ pcwmsa_home_url }}public-health-information-officers/">PIO Contact Information</li>
+          </ul>
+        {% endwith %}
+      {% endif %}
+    {% endfor %}
   {% elif page.is_bigcities_page %}
     <ul class="mb-4 {% if hidden_desktop %}is-hidden-desktop{% endif %}">
       <li class="pl-4 pb-2 sidenav-link-hip" data-href="{{ home_page_url }}">
