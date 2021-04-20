@@ -96,10 +96,7 @@ class HipBasePage(Page):
         A page is a Big Cities page if it is either the BigCitiesHomePage, or a
         descendant of the BigCitiesHomePage.
         """
-        if (
-            hasattr(self, "staticpage")
-            and hasattr(self.staticpage, "bigcitieshomepage")
-        ) or any(
+        if hasattr(self, "bigcitieshomepage") or any(
             [
                 hasattr(ancestor.specific, "bigcitieshomepage")
                 for ancestor in self.get_ancestors()
