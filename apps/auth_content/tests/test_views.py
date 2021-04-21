@@ -24,14 +24,8 @@ def contact_information_data():
         "phone_number": "(215) 555-4444",
         "primary_contact_name": "Me",
         "primary_contact_work_email": "me@phila.gov",
-        "primary_contact_personal_email": "me@myemail.com",
         "primary_contact_cell_phone": "(267) 345-6789",
         "primary_contact_cell_phone_provider": "AT&T",
-        "secondary_contact_name": "Someone Else",
-        "secondary_contact_work_email": "someoneelse@phila.gov",
-        "secondary_contact_personal_email": "someoneelse@example.com",
-        "secondary_contact_cell_phone": "610 333-4444",
-        "secondary_contact_cell_phone_provider": "Verizon",
     }
 
 
