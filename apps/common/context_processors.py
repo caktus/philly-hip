@@ -1,5 +1,7 @@
 from django.conf import settings
 
+from wagtail.documents import get_document_model
+
 from .utils import (
     get_bigcities_home_page_url,
     get_closedpod_home_page_url,
@@ -86,3 +88,10 @@ def authenticated_home_pages(request):
             )
 
         return {"authenticated_home_pages": auth_pages}
+
+
+def right_to_know_pdf_url(request):
+    """Return the URL for Document named "Right_to_Know.pdf"."""
+    document = get_document_model().objects.filter(title__iexact="right_to_know.pdf")
+    url = document.first().url if document.exists() else ""
+    return {"right_to_know_pdf_url": url}

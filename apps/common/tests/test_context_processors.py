@@ -1,8 +1,14 @@
 from django.contrib.auth.models import AnonymousUser, Group
 
+from apps.hip.tests.factories import DocumentFactory
 from apps.users.tests.factories import UserFactory
 
-from ..context_processors import authenticated_home_pages, previous_url
+
+from ..context_processors import (  # isort: skip
+    authenticated_home_pages,
+    previous_url,
+    right_to_know_pdf_url,
+)
 
 
 def test_previous_url_with_http_referrer(db, rf, mocker):
@@ -138,3 +144,25 @@ def test_authenticated_home_pages_authenticated_and_authorized(
         ]
     }
     assert expected_results == authenticated_home_pages(request)
+
+
+def test_right_to_know_pdf_url_no_pdf(db, rf):
+    """If there is no matching PDF, then right_to_know_pdf_url is empty."""
+    # Create some PDFs whose titles are not "Right_to_Know.pdf".
+    DocumentFactory(title="Other_pdf.pdf")
+    DocumentFactory(title="Right_now.pdf")
+    DocumentFactory(title="you have a right to know.pdf")
+    DocumentFactory(title="Right to know.pdf")
+
+    assert {"right_to_know_pdf_url": ""} == right_to_know_pdf_url(rf.get("/someurl"))
+
+
+def test_right_to_know_pdf_url_matching_pdf_exists(db, rf):
+    """If there is no matching PDF, then right_to_know_pdf_url is empty."""
+    DocumentFactory(title="Other_pdf.pdf")
+    # Create the 'Right to Know' PDF. Note: the casing of the title does not matter.
+    right_to_know_pdf = DocumentFactory(title="RiGhT_tO_kNOw.pdf")
+
+    assert {"right_to_know_pdf_url": right_to_know_pdf.url} == right_to_know_pdf_url(
+        rf.get("/someurl")
+    )
