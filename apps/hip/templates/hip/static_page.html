@@ -31,6 +31,12 @@
           {% endblock back_button %}
         {% endif %}
 
+        {% if page.action_section %}
+          <section class="action-section-hip py-4 pl-4">
+            {{ page.action_section|richtext }}
+          </section>
+        {% endif %}
+
         {% for block in page.body %}
           {% if block.value.nav_heading %}
             {# This is the div that the IntersectionObserver observes #}

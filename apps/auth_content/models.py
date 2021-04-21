@@ -124,10 +124,6 @@ class PCWMSAHomePage(StaticPage):
         blank=True,
         help_text="A subtitle for the page.",
     )
-    action_section = RichTextField(
-        blank=True,
-        help_text="This section will stand out to users, calling them to perform an action.",
-    )
 
     content_panels = HipBasePage.content_panels + [
         FieldPanel("subtitle"),
@@ -135,10 +131,8 @@ class PCWMSAHomePage(StaticPage):
         StreamFieldPanel("body"),
     ]
 
-    search_fields = HipBasePage.search_fields + [
+    search_fields = StaticPage.search_fields + [
         index.SearchField("subtitle"),
-        index.SearchField("action_section"),
-        index.SearchField("body"),
     ]
 
     def get_context(self, request):

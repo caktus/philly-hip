@@ -346,6 +346,10 @@ class StaticPage(HipBasePage):
         help_text="Should this page show a navigation of its sections on the right side of the page?",
     )
 
+    action_section = RichTextField(
+        blank=True,
+        help_text="This section will stand out to users, calling them to perform an action.",
+    )
     body = StreamField(
         [
             ("section", StreamAndNavHeadingBlock()),
@@ -357,10 +361,12 @@ class StaticPage(HipBasePage):
         FieldPanel("show_breadcrumb"),
         FieldPanel("show_back_button"),
         FieldPanel("show_right_nav"),
+        FieldPanel("action_section"),
         StreamFieldPanel("body"),
     ]
     search_fields = HipBasePage.search_fields + [
         index.SearchField("body"),
+        index.SearchField("action_section"),
     ]
 
     def get_context(self, request):
