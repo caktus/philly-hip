@@ -400,6 +400,39 @@ def test_post_closedpod_contact_information_edit_authenticated_in_closedpod_grou
     )
 
 
+def test_valid_post_trying_update_other_user_fails(
+    db, client, contact_information_data
+):
+    """
+    An authenticated user is not allowed to change the information for other users.
+    """
+    url = reverse("closedpod_contact_information_edit")
+    user = UserFactory()
+    ClosedPODContactInformationFactory(user=user)
+    user.groups.add(Group.objects.get(name="Closed POD"))
+    client.force_login(user)
+
+    # Trying to edit another user maliciously (form doesn't allow this, so user would
+    # have to craft a POST request) does NOT edit the other user, but only edits their
+    # own user instance.
+    data = contact_information_data.copy()
+    other_user = UserFactory()
+    ClosedPODContactInformationFactory(user=other_user)
+    data["user"] = other_user.pk
+    response = client.post(url, data)
+
+    user.refresh_from_db()
+    assert (
+        user.closedpodcontactinformation.facility_name
+        == contact_information_data["facility_name"]
+    )
+    other_user.refresh_from_db()
+    assert (
+        other_user.closedpodcontactinformation.facility_name
+        != contact_information_data["facility_name"]
+    )
+
+
 def test_post_closedpod_contact_information_edit_authenticated_in_closedpod_group_update_user(
     db, client, contact_information_data
 ):
