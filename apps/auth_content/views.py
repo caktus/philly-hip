@@ -33,6 +33,7 @@ def closedpod_contact_information(request):
         {
             "contact_info": contact_info,
             "show_closedpod_sidebar": True,
+            "closedpod_home_url": home_page.url,
             "closedpod_children_pages": home_page.get_children(),
         },
     )

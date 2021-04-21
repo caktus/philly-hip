@@ -116,6 +116,7 @@ def test_get_closepod_contact_information_live_closepodhomepage_no_children(db, 
 
     assert HTTPStatus.OK == response.status_code
     assert children_pages == list(response.context["closedpod_children_pages"])
+    assert closed_pod_home_page.url == list(response.context["closedpod_home_url"])
 
 
 def test_get_closepod_contact_information_live_closepodhomepage_with_children(
@@ -142,6 +143,7 @@ def test_get_closepod_contact_information_live_closepodhomepage_with_children(
 
     assert HTTPStatus.OK == response.status_code
     assert len(children_pages) == response.context["closedpod_children_pages"].count()
+    assert closed_pod_home_page.url == list(response.context["closedpod_home_url"])
 
 
 def test_get_closedpod_contact_information_authenticated_in_closedpod_group_no_info(
