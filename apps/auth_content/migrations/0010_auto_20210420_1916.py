@@ -8,7 +8,7 @@ import phonenumber_field.modelfields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('auth_content', '0008_closedpodcontactinformation'),
+        ('auth_content', '0009_remove_pcwmsahomepage_action_section'),
     ]
 
     operations = [
