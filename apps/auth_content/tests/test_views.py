@@ -98,28 +98,8 @@ def test_get_closepod_contact_information_non_live_closepodhomepage_raises_400(
     assert HTTPStatus.BAD_REQUEST == response.status_code
 
 
-def test_get_closepod_contact_information_live_closepodhomepage_no_children(db, client):
-    """Closed-Pod Contact Information GET, page renders successfully without
-    closed-pod homepage having child pages.
-    """
-    url = reverse("closedpod_contact_information")
-    user = UserFactory()
-    user.groups.add(Group.objects.get(name="Closed POD"))
-    client.force_login(user)
-
-    # create homepage
-    closed_pod_home_page = ClosedPODHomePageFactory()
-    # no children pages
-    children_pages = []
-
-    response = client.get(url)
-
-    assert HTTPStatus.OK == response.status_code
-    assert children_pages == list(response.context["closedpod_children_pages"])
-
-
-def test_get_closepod_contact_information_live_closepodhomepage_with_children(
-    db, client
+def test_get_closepod_contact_information_live_closepodhomepage_no_children(
+    db, client, closedpod_homepage
 ):
     """Closed-Pod Contact Information GET, page renders successfully without
     closed-pod homepage having child pages.
@@ -129,19 +109,41 @@ def test_get_closepod_contact_information_live_closepodhomepage_with_children(
     user.groups.add(Group.objects.get(name="Closed POD"))
     client.force_login(user)
 
-    # create homepage
-    closed_pod_home_page = ClosedPODHomePageFactory()
+    # Assert that the ClosedPODHomePage has no children.
+    assert 0 == len(closedpod_homepage.get_children())
+
+    response = client.get(url)
+
+    assert HTTPStatus.OK == response.status_code
+    assert [] == list(response.context["closedpod_children_pages"])
+    assert closedpod_homepage.url == response.context["closedpod_home_url"]
+
+
+def test_get_closepod_contact_information_live_closepodhomepage_with_children(
+    db, client, closedpod_homepage
+):
+    """Closed-Pod Contact Information GET, page renders successfully without
+    closed-pod homepage having child pages.
+    """
+    url = reverse("closedpod_contact_information")
+    user = UserFactory()
+    user.groups.add(Group.objects.get(name="Closed POD"))
+    client.force_login(user)
+
+    # Assert that the ClosedPODHomePage currently has no children.
+    assert 0 == len(closedpod_homepage.get_children())
     # create children of homepages
     children_pages = [
-        ClosedPODChildPageFactory(parent=closed_pod_home_page, title="test-child"),
-        ClosedPODChildPageFactory(parent=closed_pod_home_page, title="test-child-1"),
-        ClosedPODChildPageFactory(parent=closed_pod_home_page, title="test-child-2"),
+        ClosedPODChildPageFactory(parent=closedpod_homepage, title="test-child"),
+        ClosedPODChildPageFactory(parent=closedpod_homepage, title="test-child-1"),
+        ClosedPODChildPageFactory(parent=closedpod_homepage, title="test-child-2"),
     ]
 
     response = client.get(url)
 
     assert HTTPStatus.OK == response.status_code
     assert len(children_pages) == response.context["closedpod_children_pages"].count()
+    assert closedpod_homepage.url == response.context["closedpod_home_url"]
 
 
 def test_get_closedpod_contact_information_authenticated_in_closedpod_group_no_info(
