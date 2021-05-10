@@ -44,6 +44,8 @@ django-filter==2.4.0
     # via wagtail
 django-honeypot==0.9.0
     # via -r requirements/base/base.in
+django-ipware==3.0.2
+    # via -r requirements/base/base.in
 django-model-utils==4.1.1
     # via -r requirements/base/base.in
 django-modelcluster==5.1
