@@ -1,10 +1,12 @@
 from django.contrib import admin
 
+from import_export.admin import ExportMixin
+
 from .models import HealthAlertSubscriber
 
 
 @admin.register(HealthAlertSubscriber)
-class HealthAlertSubscriberAdmin(admin.ModelAdmin):
+class HealthAlertSubscriberAdmin(ExportMixin, admin.ModelAdmin):
     list_display = (
         "full_name",
         "agency_name",

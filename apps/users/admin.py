@@ -2,10 +2,12 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _
 
+from import_export.admin import ExportMixin
+
 from .models import User
 
 
-class CustomUserAdmin(UserAdmin):
+class CustomUserAdmin(ExportMixin, UserAdmin):
     list_display = ("id", "email", "created", "modified")
     list_filter = ("is_active", "is_staff", "groups")
     search_fields = ("email",)

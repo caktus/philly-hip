@@ -12,6 +12,7 @@ django-storages
 django-compressor
 django-taggit
 django-ipware
+django-import-export
 
 django-sass-processor
 
