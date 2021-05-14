@@ -3,6 +3,8 @@ from django.conf import settings
 
 from wagtail.documents.forms import BaseDocumentForm
 
+from .utils import scan_pdf_for_malicious_content
+
 
 class ValidateFileTypeForm(BaseDocumentForm):
     """
@@ -20,4 +22,12 @@ class ValidateFileTypeForm(BaseDocumentForm):
                 raise forms.ValidationError(
                     f"Only files with these extensions are allowed: {settings.WAGTAILDOCS_EXTENSIONS}. Your file had this type: {content_type}."
                 )
+
+            # If the file is a PDF, then scan it to verify that it does not have
+            # malicious content.
+            if extension.lower() == "pdf":
+                try:
+                    scan_pdf_for_malicious_content(uploaded_file.temporary_file_path())
+                except Exception as error:
+                    raise forms.ValidationError(error)
             return uploaded_file
