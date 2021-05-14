@@ -67,6 +67,10 @@ urlpatterns += [
 
 
 urlpatterns += [
+    # Intercept requests for adding documents here, so we can use our custom
+    # HIPDocumentAddView. Note: this view must be before the wagtailadmin_urls,
+    # so that we can intercept the request successfully.
+    path("cms/documents/multiple/add/", hip_views.HIPDocumentAddView.as_view()),
     path("cms/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
     path("", include(wagtail_urls)),
