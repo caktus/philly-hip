@@ -1,9 +1,50 @@
+import os
+
 from django.utils.timezone import now, timedelta
 
+import pytest
 from wagtail.core.models import Page
 
-from ..utils import get_most_recent_objects
+from ..utils import get_most_recent_objects, scan_pdf_for_malicious_content
 from .factories import HomePageFactory, StaticPageFactory
+
+
+TESTDATA_DIR = os.path.join(os.path.dirname(__file__), "testdata")
+
+
+@pytest.fixture
+def pdfid_scan_results_valid():
+    """Return the scan results for a valid PDF."""
+    return dict(
+        reports=[
+            {
+                "version": "0.2.7",
+                "filename": "/temporary_file_path/for/this/file.pdf",
+                "header": "%PDF-1.4",
+                "obj": 5948,
+                "endobj": 5948,
+                "stream": 2871,
+                "endstream": 2871,
+                "xref": 2,
+                "trailer": 2,
+                "startxref": 2,
+                "/Page": 88,
+                "/Encrypt": 0,
+                "/ObjStm": 171,
+                "/JS": 0,
+                "/JavaScript": 0,
+                "/AA": 0,
+                "/OpenAction": 0,
+                "/AcroForm": 0,
+                "/JBIG2Decode": 0,
+                "/RichMedia": 0,
+                "/Launch": 0,
+                "/EmbeddedFile": 0,
+                "/XFA": 0,
+                "/Colors > 2^24": 0,
+            }
+        ]
+    )
 
 
 def test_get_most_recent_objects_zero(db):
@@ -181,3 +222,104 @@ def test_get_most_recent_objects_pages_parameter(db):
             ]
         )
     )
+
+
+def test_scan_pdf_for_malicious_content_no_file(db):
+    """Not passing a file to scan_pdf_for_malicious_content() raises an error."""
+    with pytest.raises(Exception) as error:
+        scan_pdf_for_malicious_content()
+
+
+def test_scan_pdf_for_malicious_content_not_pdf(db):
+    """Scanning a non-PDF file raises an error."""
+    text_file_path = os.path.join(TESTDATA_DIR, "test.txt")
+    with pytest.raises(Exception) as error:
+        scan_pdf_for_malicious_content(text_file_path)
+    assert "Invalid PDF" == str(error.value)
+
+
+def test_scan_pdf_for_malicious_content_zero_pages(
+    db, mocker, pdfid_scan_results_valid
+):
+    """Scanning a PDF file with 0 pages raises an error."""
+    # Mock the pdfid.PDFiDMain() method to return a result with 0 pages.
+    mock_scan_results = mocker.patch("apps.hip.utils.pdfid")
+    pdfid_scan_results_valid["reports"][0]["/Page"] = 0
+    mock_scan_results.PDFiDMain.return_value = pdfid_scan_results_valid
+
+    pdf_file_path = os.path.join(TESTDATA_DIR, "test.pdf")
+    with pytest.raises(Exception) as error:
+        scan_pdf_for_malicious_content(pdf_file_path)
+    assert "Invalid PDF" == str(error.value)
+
+
+def test_scan_pdf_for_malicious_content_open_or_auto_action_no_js(
+    db, mocker, pdfid_scan_results_valid
+):
+    """Scanning a PDF file that has an open or automatic action, with no JS, is ok."""
+    # Mock the pdfid.PDFiDMain() method to return a result with 1 open action and
+    # 1 automatic action, but no JavaScript.
+    mock_scan_results = mocker.patch("apps.hip.utils.pdfid")
+    results_open_actions = pdfid_scan_results_valid.copy()
+    results_open_actions["reports"][0]["/OpenAction"] = 1
+    results_open_actions["reports"][0]["/AA"] = 1
+    results_open_actions["reports"][0]["/JS"] = 0
+    results_open_actions["reports"][0]["/JavaScript"] = 0
+    mock_scan_results.PDFiDMain.return_value = results_open_actions
+
+    pdf_file_path = os.path.join(TESTDATA_DIR, "test.pdf")
+    # Scanning the PDF file does not raise any errors.
+    scan_pdf_for_malicious_content(pdf_file_path)
+
+
+@pytest.mark.parametrize(
+    "scan_results_js_javascript", [(1, 0), (0, 1), (1, 1), (2, 25)]
+)
+def test_scan_pdf_for_malicious_content_open_or_auto_action_with_js(
+    db, mocker, pdfid_scan_results_valid, scan_results_js_javascript
+):
+    """Scanning a PDF file that has an open or automatic action, with JS, raises an error."""
+    # These are the values for the scan results, determining that the PDF file has
+    # some JavaScript. If the file has an open or automatic action along with any
+    # JavaScript, then scan_pdf_for_malicious_content() raises an error.
+    js_value, javascript_value = scan_results_js_javascript
+    # Mock the pdfid.PDFiDMain() method to return a result with 1 open action and
+    # 1 automatic action, with JavaScript.
+    mock_scan_results = mocker.patch("apps.hip.utils.pdfid")
+    results_open_actions = pdfid_scan_results_valid.copy()
+    results_open_actions["reports"][0]["/OpenAction"] = 1
+    results_open_actions["reports"][0]["/AA"] = 1
+    results_open_actions["reports"][0]["/JS"] = js_value
+    results_open_actions["reports"][0]["/JavaScript"] = javascript_value
+    mock_scan_results.PDFiDMain.return_value = results_open_actions
+
+    pdf_file_path = os.path.join(TESTDATA_DIR, "test.pdf")
+    with pytest.raises(Exception) as error:
+        scan_pdf_for_malicious_content(pdf_file_path)
+    assert "This PDF file has suspicious content." == str(error.value)
+
+
+def test_scan_pdf_for_malicious_content_javascript_no_open_or_automatic_action(
+    db, mocker, pdfid_scan_results_valid
+):
+    """Scanning a PDF file that has JavaScript, but no open action or automatic action is ok."""
+    # Mock the pdfid.PDFiDMain() method to return a result with 0 open action and
+    # 0 automatic action, but some JavaScript.
+    mock_scan_results = mocker.patch("apps.hip.utils.pdfid")
+    results_open_actions = pdfid_scan_results_valid.copy()
+    results_open_actions["reports"][0]["/OpenAction"] = 0
+    results_open_actions["reports"][0]["/AA"] = 0
+    results_open_actions["reports"][0]["/JS"] = 100
+    results_open_actions["reports"][0]["/JavaScript"] = 123
+    mock_scan_results.PDFiDMain.return_value = results_open_actions
+
+    pdf_file_path = os.path.join(TESTDATA_DIR, "test.pdf")
+    # Scanning the PDF file does not raise any errors.
+    scan_pdf_for_malicious_content(pdf_file_path)
+
+
+def test_scan_pdf_for_malicious_content_valid_pdf(db):
+    """Scanning a non-malicious PDF file succeeds."""
+    pdf_file_path = os.path.join(TESTDATA_DIR, "test.pdf")
+    # Scanning the PDF file does not raise any errors.
+    scan_pdf_for_malicious_content(pdf_file_path)
