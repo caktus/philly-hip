@@ -21,6 +21,7 @@ whitenoise
 boto3
 libsass
 phonenumberslite
+pdfid
 
 social-auth-app-django
 

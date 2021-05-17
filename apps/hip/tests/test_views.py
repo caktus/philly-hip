@@ -1,9 +1,17 @@
+import os
+
 from django.contrib.auth.models import Group
+from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.shortcuts import reverse
 
 import pytest
+from wagtail.core.models import Collection
+from wagtail.documents import get_document_model
 
 from apps.users.tests.factories import GroupFactory, UserFactory
+
+
+TESTDATA_DIR = os.path.join(os.path.dirname(__file__), "testdata")
 
 
 def test_hip_login_view_post_remember_user(db, client):
@@ -177,3 +185,69 @@ def test_authenticated_view_router_authenticated(
         assert mock_pcwmsa_homepage_url == response.url
     elif expected_redirect == "get_bigcities_home_page_url":
         assert mock_bigcities_homepage_url == response.url
+
+
+def test_upload_document_get(db, client):
+    """GETting the view to upload a document works."""
+    # Log in the user.
+    user = UserFactory(email="test-user")
+    user.is_superuser = True
+    user.save()
+    client.force_login(user)
+
+    response = client.get(reverse("wagtaildocs:add_multiple"))
+
+    assert 200 == response.status_code
+
+
+def test_upload_document_permission(db, client):
+    """Regular users may not use the 'add_multiple' view."""
+    # Log in the user.
+    user = UserFactory(email="test-user")
+    user.is_superuser = False
+    user.is_staff = False
+    user.save()
+    client.force_login(user)
+
+    response_get = client.get(reverse("wagtaildocs:add_multiple"))
+    assert 403 == response_get.status_code
+    response_post = client.post(reverse("wagtaildocs:add_multiple"))
+    assert 403 == response_post.status_code
+
+
+def test_upload_document_post(db, client):
+    """
+    Test uploading a Document in Wagtail.
+
+    Since we have a custom HIPDocumentAddView, test that this view still works.
+    """
+    # Log in the user.
+    user = UserFactory(email="test-user")
+    user.is_superuser = True
+    user.save()
+    client.force_login(user)
+
+    pdf_file_path = os.path.join(TESTDATA_DIR, "test.pdf")
+
+    with open(pdf_file_path, "rb") as pdf_file:
+        url = reverse("wagtaildocs:add_multiple")
+        uploaded_file = TemporaryUploadedFile(
+            pdf_file_path, "application/pdf", 1, "utf-8"
+        )
+        uploaded_file.write(pdf_file.read())
+        uploaded_file.seek(0)
+
+        response = client.post(
+            url, {"files[]": uploaded_file}, HTTP_X_REQUESTED_WITH="XMLHttpRequest"
+        )
+
+        # The response was successful.
+        assert 200 == response.status_code
+        assert "doc" in response.context
+        expected_file_name = pdf_file_path.split("/")[-1]
+        assert expected_file_name == response.context["doc"].title
+        pdf_file.seek(0)
+        assert len(pdf_file.read()) == response.context["doc"].file_size
+        # Verify that the HIPDocument was created.
+        document = get_document_model().objects.get(title=expected_file_name)
+        assert document.collection == Collection.get_first_root_node()
