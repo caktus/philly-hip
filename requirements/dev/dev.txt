@@ -21,7 +21,10 @@ appdirs==1.4.4
     #   black
     #   virtualenv
 appnope==0.1.2
-    # via -r requirements/dev/dev.in
+    # via
+    #   -r requirements/dev/dev.in
+    #   ipykernel
+    #   ipython
 argon2-cffi==20.1.0
     # via notebook
 asgiref==3.3.1
@@ -103,6 +106,7 @@ defusedxml==0.7.1
     # via
     #   -c requirements/dev/../base/base.txt
     #   nbconvert
+    #   odfpy
 distlib==0.3.1
     # via virtualenv
 django-debug-toolbar==3.2
@@ -256,6 +260,10 @@ l18n==2020.6.1
     # via
     #   -c requirements/dev/../base/base.txt
     #   wagtail
+markuppy==1.14
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   tablib
 markupsafe==1.1.1
     # via jinja2
 mccabe==0.6.1
@@ -288,6 +296,10 @@ oauthlib==3.1.0
     # via
     #   -c requirements/dev/../base/base.txt
     #   requests-oauthlib
+odfpy==1.4.1
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   tablib
 openpyxl==3.0.6
     # via
     #   -c requirements/dev/../base/base.txt
@@ -391,6 +403,7 @@ pytz==2021.1
     #   l18n
 pyyaml==5.4.1
     # via
+    #   -c requirements/dev/../base/base.txt
     #   -r requirements/dev/dev.in
     #   ansible-base
     #   awscli
@@ -398,6 +411,7 @@ pyyaml==5.4.1
     #   kubernetes
     #   kubernetes-validate
     #   pre-commit
+    #   tablib
 pyzmq==22.0.3
     # via
     #   jupyter-client
@@ -457,7 +471,7 @@ sqlparse==0.4.1
     #   -c requirements/dev/../base/base.txt
     #   django
     #   django-debug-toolbar
-tablib[xls,xlsx]==3.0.0
+tablib[html,ods,xls,xlsx,yaml]==3.0.0
     # via
     #   -c requirements/dev/../base/base.txt
     #   wagtail

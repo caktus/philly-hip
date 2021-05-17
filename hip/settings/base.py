@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "social_django",
     "wagtail.contrib.table_block",
     "webpack_loader",
+    "import_export",
 ]
 
 
