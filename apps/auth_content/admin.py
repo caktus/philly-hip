@@ -14,7 +14,7 @@ class ClosedPODContactInformationAdmin(ExportMixin, admin.ModelAdmin):
         "facility_id",
     )
     search_fields = (
-        "user",
+        "user__email",
         "facility_name",
         "facility_id",
         "primary_contact_name",
