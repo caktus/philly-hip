@@ -12,15 +12,6 @@ class ClosedPODContactInformationAdmin(ExportMixin, admin.ModelAdmin):
         "user",
         "facility_name",
         "facility_id",
-        "primary_contact_name",
-        "secondary_contact_name",
-    )
-    list_filter = (
-        "user",
-        "facility_name",
-        "facility_id",
-        "primary_contact_name",
-        "secondary_contact_name",
     )
     search_fields = (
         "user",
