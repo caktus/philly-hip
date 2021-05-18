@@ -2,10 +2,13 @@ import os
 
 from django.core.files.uploadedfile import SimpleUploadedFile, TemporaryUploadedFile
 
+import pytest
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
 
+from apps.hip.forms import HIPAuthenticationForm
 from apps.hip.tests.factories import DocumentFactory
+from apps.users.tests.factories import UserFactory
 
 
 TESTDATA_DIR = os.path.join(os.path.dirname(__file__), "testdata")
@@ -128,3 +131,35 @@ def test_edit_document_when_changing_file_fails_if_file_is_wrong_type(db):
     form = DocumentForm(instance=document, data=data, files={"file": f})
     assert not form.is_valid()
     assert "Only files with these extensions are allowed" in form.errors["file"][0]
+
+
+@pytest.mark.parametrize(
+    "is_sso_user,expected_validity",
+    [
+        (True, False),
+        (False, True),
+    ],
+)
+def test_hip_authentication_form_sso_user(db, mocker, is_sso_user, expected_validity):
+    """Only non-SSO users' data is valid for the HIPAuthenticationForm."""
+    # Mock the is_sso_user() function.
+    mock_is_sso_user = mocker.patch("apps.hip.forms.is_sso_user")
+    mock_is_sso_user.return_value = is_sso_user
+
+    # Instantiate the HIPAuthenticationForm form.
+    user = UserFactory(password="testpassword1")
+    form = HIPAuthenticationForm(
+        data={"username": user.email, "password": "testpassword1"}
+    )
+
+    # If the user is an SSO user, then the user is not allowed to login.
+    if expected_validity:
+        assert form.is_valid() is True
+    else:
+        assert form.is_valid() is False
+        expected_error = (
+            "Users with a Single Sign On (SSO) account must log in via SSO."
+        )
+        assert [expected_error] == [error for error in form.errors["__all__"]]
+    # The mock_is_sso_user was called.
+    assert mock_is_sso_user.called is True
