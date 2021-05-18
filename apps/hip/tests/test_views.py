@@ -10,6 +10,8 @@ from wagtail.documents import get_document_model
 
 from apps.users.tests.factories import GroupFactory, UserFactory
 
+from ..forms import HIPAuthenticationForm
+
 
 TESTDATA_DIR = os.path.join(os.path.dirname(__file__), "testdata")
 
@@ -87,6 +89,8 @@ def test_hip_login_view_get_unauthenticated(db, client):
     response = client.get(reverse("login"))
     assert 200 == response.status_code
     assert ["registration/login.html"] == response.template_name
+    # The form used is the HIPAuthenticationForm.
+    assert isinstance(response.context_data["form"], HIPAuthenticationForm) is True
 
 
 def test_hip_login_view_get_authenticated(db, client):
