@@ -10,9 +10,9 @@ asgiref==3.3.1
     # via django
 beautifulsoup4==4.8.2
     # via wagtail
-boto3==1.17.9
+boto3==1.17.74
     # via -r requirements/base/base.in
-botocore==1.20.48
+botocore==1.20.74
     # via
     #   boto3
     #   s3transfer
@@ -147,7 +147,7 @@ requests==2.25.1
     #   wagtail
 rjsmin==1.1.0
     # via django-compressor
-s3transfer==0.3.4
+s3transfer==0.4.2
     # via boto3
 six==1.15.0
     # via
