@@ -77,9 +77,10 @@ class DataReportListPage(HipBasePage):
         for report in self.external_reports.raw_data:
             report_data = report["value"].copy()
             report_data["external"] = True
-            report_data["last_updated"] = datetime.strptime(
-                report["value"]["last_updated"], "%Y-%m-%d"
-            ).date()
+            if type(report["value"]["last_updated"]) is str:
+                report_data["last_updated"] = datetime.strptime(
+                    report["value"]["last_updated"], "%Y-%m-%d"
+                ).date()
             external_reports.append(report_data)
         reports = internal_reports + external_reports
         reports.sort(key=lambda r: r["title"].lower())
