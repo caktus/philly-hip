@@ -32,6 +32,10 @@ urlpatterns = [
         health_alert_views.subscribe,
         name="health_alert_subscriber",
     ),
+    # Send attempts to log in to the Django admin to the cms_and_admin_login view.
+    # Note: this URL pattern must be before the admin.site.urls patterns, so that
+    # we can intercept the request successfully.
+    path("admin/login/", hip_views.cms_and_admin_login),
     path("admin/", admin.site.urls),
 ]
 
@@ -71,6 +75,10 @@ urlpatterns += [
     # HIPDocumentAddView. Note: this view must be before the wagtailadmin_urls,
     # so that we can intercept the request successfully.
     path("cms/documents/multiple/add/", hip_views.HIPDocumentAddView.as_view()),
+    # Send attempts to log in to the Wagtail CMS to the cms_and_admin_login view.
+    # Note: this url pattern must be before the wagtailadmin_urls patterns, so
+    # that we can intercept the request successfully.
+    path("cms/login/", hip_views.cms_and_admin_login),
     path("cms/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
     path("", include(wagtail_urls)),

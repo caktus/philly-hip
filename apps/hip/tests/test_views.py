@@ -255,3 +255,67 @@ def test_upload_document_post(db, client):
         # Verify that the HIPDocument was created.
         document = get_document_model().objects.get(title=expected_file_name)
         assert document.collection == Collection.get_first_root_node()
+
+
+@pytest.mark.parametrize("next_url", ["", "next_url"])
+def test_wagtail_login_redirects_to_cms_and_admin_login_get(db, client, next_url):
+    """Attempting to GET the Wagtail login redirects the user to the cms_and_admin_login view."""
+    url = reverse("wagtailadmin_login")
+    if next_url:
+        url += f"?next={next_url}"
+    response = client.get(url)
+    # The user is redirected to the regular login page, and the 'next' parameter
+    # persists to the regular login page.
+    assert 302 == response.status_code
+    assert f"{reverse('login')}?next={next_url}" == response.url
+
+
+@pytest.mark.parametrize("next_url", ["", "next_url"])
+def test_wagtail_login_redirects_to_cms_and_admin_login_post(db, client, next_url):
+    """Attempting to POST to Wagtail login redirects user to cms_and_admin_login view."""
+    user = UserFactory(email="test-user")
+    user.set_password("testpassword1")
+    user.save()
+
+    url = reverse("wagtailadmin_login")
+    if next_url:
+        url += f"?next={next_url}"
+
+    response = client.post(url, {"username": user.email, "password": "testpassword1"})
+
+    # The user is redirected to the regular login page, and the 'next' parameter
+    # persists to the regular login page.
+    assert 302 == response.status_code
+    assert f"{reverse('login')}?next={next_url}" == response.url
+
+
+@pytest.mark.parametrize("next_url", ["", "next_url"])
+def test_djangoadmin_login_redirects_to_cms_and_admin_login_get(db, client, next_url):
+    """Attempting to GET Django admin login redirects user to cms_and_admin_login view."""
+    url = reverse("admin:login")
+    if next_url:
+        url += f"?next={next_url}"
+    response = client.get(url)
+    # The user is redirected to the regular login page, and the 'next' parameter
+    # persists to the regular login page.
+    assert 302 == response.status_code
+    assert f"{reverse('login')}?next={next_url}" == response.url
+
+
+@pytest.mark.parametrize("next_url", ["", "next_url"])
+def test_djangoadmin_login_redirects_to_cms_and_admin_login_post(db, client, next_url):
+    """Attempting to POST to Django admin login redirects user to cms_and_admin_login view."""
+    user = UserFactory(email="test-user")
+    user.set_password("testpassword1")
+    user.save()
+
+    url = reverse("admin:login")
+    if next_url:
+        url += f"?next={next_url}"
+
+    response = client.post(url, {"username": user.email, "password": "testpassword1"})
+
+    # The user is redirected to the regular login page, and the 'next' parameter
+    # persists to the regular login page.
+    assert 302 == response.status_code
+    assert f"{reverse('login')}?next={next_url}" == response.url
