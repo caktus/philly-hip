@@ -69,3 +69,10 @@ def closedpod_user_check(user):
     if user.is_superuser:
         return True
     return not user.is_anonymous and user.groups.filter(name="Closed POD").exists()
+
+
+def is_sso_user(user):
+    """A user is an SSO user if the user has a django-social-auth object, or a phila.gov email address."""
+    if user.social_auth.exists() or user.email.endswith("phila.gov"):
+        return True
+    return False

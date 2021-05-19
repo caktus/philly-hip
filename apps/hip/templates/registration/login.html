@@ -10,15 +10,24 @@
     <h2 class="pb-5">Response Partner Log In</h2>
 
     {% if form.errors %}
-      <p class="message is-danger p-4 mb-4">Your username and password didn't match. Please try again.</p>
+      {% for error in form.non_field_errors %}
+        <p class="message is-danger p-4 mb-4">{{ error }}</p>
+      {% endfor %}
+
     {% endif %}
 
     <form class="login-form-hip" method="post" action="{% url 'login' %}">
       {% csrf_token %}
 
       <label class="label pb-2" for="id_username">Username:</label>
+      {% if form.errors.username %}
+        {{ form.errors.username }}
+      {% endif %}
       <input class="input is-normal mb-4"type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" required="" id="id_username">
       <label class="label pb-2" for="id_password">Password:</label>
+      {% if form.errors.password %}
+        {{ form.errors.password }}
+      {% endif %}
       <input class="input is-normal mb-4" type="password" name="password" autocomplete="current-password" required="" id="id_password">
       <div class="mb-4">
         <input type="checkbox" name="remember_me" id="id_remember_me">
