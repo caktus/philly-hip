@@ -72,6 +72,7 @@ def test_datareportslistpage_context_only_external_reports(db, rf):
         "title": "Hepatitis A",
         "url": "example.com/report-hepatitis-a",
         "update_frequency": "Annually",
+        # The context should handle if last_updated is a string
         "last_updated": "2020-01-01",
         "external": True,
     }
@@ -79,7 +80,8 @@ def test_datareportslistpage_context_only_external_reports(db, rf):
         "title": "HIV/AIDS",
         "url": "example.com/report-hiv-aids",
         "update_frequency": "Sometime",
-        "last_updated": "2021-01-01",
+        # The context should handle if last_updated is a date object
+        "last_updated": date(year=2021, month=1, day=1),
         "external": True,
     }
     reports_list_page = DataReportListPageFactory(
