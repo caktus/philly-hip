@@ -16,14 +16,6 @@
   @include light-blue-bg;
   border-radius: 0;
 }
-.btn-on-partnercard-hip {
-  @media screen and (min-width:$breakpoint-tablet) and (max-width: $breakpoint-desktop) {
-    max-width: 75%;
-  }
-  @media screen and (min-width:$breakpoint-widescreen) {
-    width: 80%;
-  }
-}
 .login-icon-hip {
   @include black-bg;
   border-radius: 0;
