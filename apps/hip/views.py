@@ -102,3 +102,9 @@ class HIPDocumentAddView(AddView):
     def _dispatch(self, request):
         """A private CSRF-protected view, returned from self.dispatch()."""
         return super().dispatch(request)
+
+
+def cms_and_admin_login(request, *args, **kwargs):
+    next_url = request.GET.get("next", "")
+    login_url = f"{reverse('login')}?next={next_url}"
+    return redirect(login_url)
