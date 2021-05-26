@@ -135,3 +135,16 @@ body.modal-is-open-hip {
 .alert-hip {
   color: $alert;
 }
+
+
+.divider-vertical-hip {
+  display: flex;
+  flex-direction: column;
+
+  &:before {
+    content: '';
+    flex: 1;
+    background-color: $grey;
+    width: 1px;
+  }
+}
