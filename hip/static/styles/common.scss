@@ -140,11 +140,11 @@ body.modal-is-open-hip {
 .divider-vertical-hip {
     display: flex;
     flex-direction: column;
-}
 
-.divider-vertical-hip:before {
-    content: '';
-    flex: 1;
-    background-color: $grey;
-    width: 1px;
+    &:before {
+      content: '';
+      flex: 1;
+      background-color: $grey;
+      width: 1px;
+    }
 }
