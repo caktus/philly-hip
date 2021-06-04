@@ -30,11 +30,10 @@ def create_redirects(apps, schema_editor):
             "/EmergencyResponse/PCWMSA",
             Page.objects.filter(title="PCW MSA Secure Site").first(),
         ),
-        # TODO: uncomment after this Page is created.
-        # (
-        #     "/EmergentHealthTopics/2019-nCoV/VaccineAdvisoryCommittee",
-        #     Page.objects.filter(title="Vaccine Advisory Committee").first()
-        # ),
+        (
+            "/EmergentHealthTopics/2019-nCoV/VaccineAdvisoryCommittee",
+            Page.objects.filter(title="Health Information Portal (HIP)").first()
+        ),
     ]
     for (old_url, new_page) in redirect_to_pages_list:
         if not Redirect.objects.filter(
