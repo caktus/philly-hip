@@ -1,0 +1,7 @@
+from django.forms import Form
+
+
+# TODO for DIS-1700: make this form a ModelForm, similar to the HealthAlertSubscriberForm.
+class InternalAlertsSubscriberForm(Form):
+    def save(self, *args, **kwargs):
+        pass
