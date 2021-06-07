@@ -54,11 +54,26 @@ def create_redirects(apps, schema_editor):
             "/HealthAlerts/SignUpHealthAlerts",
             f"{scheme}://{domain}{reverse('health_alert_subscriber')}",
         ),
-        # TODO: uncomment after this form is created.
-        # (
-        #     "/EmergencyResponse/EmployeeAlertSystem/ContactForm",
-        #     f"{scheme}://{domain}{reverse('employee_alerts_signup')}"
-        # ),
+        (
+            "/EmergencyResponse/EmployeeAlertSystem/ContactForm",
+            f"{scheme}://{domain}{reverse('internal_alerts_signup')}",
+        ),
+        (
+            "/EmergencyResponse/CommunityResponse",
+            f"{scheme}://{domain}{reverse('community_notifications_signup')}",
+        ),
+        (
+            "/EmergentHealthTopics/Opioids/OpioidNotificationNetwork",
+            f"{scheme}://{domain}{reverse('opioid_notifications_signup')}",
+        ),
+        (
+            "/EmergencyResponse/CodeBlueNotificationForm",
+            f"{scheme}://{domain}{reverse('codeblue_codered_notifications_signup')}",
+        ),
+        (
+            "/EmergencyResponse/PHPOutreachReqForm",
+            f"{scheme}://{domain}{reverse('public_health_preparedness_signup')}",
+        ),
     ]
     for (old_url, new_url) in redirect_to_urls_list:
         if not Redirect.objects.filter(
