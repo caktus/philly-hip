@@ -10,6 +10,7 @@ from ..forms import (
     CommunityResponseSubscriberForm,
     InternalAlertsSubscriberForm,
     OpioidOverdoseSubscriberForm,
+    PublicHealthPreparednessSubscriberForm,
 )
 
 
@@ -136,6 +137,38 @@ def test_codeblue_codered_notifications_signup_valid_data(db, client):
 #     data = {}
 #     expected_errors = []
 #     response = client.post(reverse("codeblue_codered_notifications_signup"), data)
+#     assert HTTPStatus.OK == response.status_code
+#     for error in expected_errors:
+#         assert error in str(response.content)
+
+
+def test_get_public_health_preparedness_signup_page(db, client):
+    """GETting the public health preparedness signup page shows the form to the user."""
+    response = client.get(reverse("public_health_preparedness_signup"))
+    assert HTTPStatus.OK == response.status_code
+    assertTemplateUsed("notifications/subscriber_signup.html")
+    assert isinstance(response.context["form"], PublicHealthPreparednessSubscriberForm)
+
+
+def test_public_health_preparedness_signup_valid_data(db, client):
+    """POSTting valid data redirects the user, and shows a success message."""
+    response = client.post(reverse("public_health_preparedness_signup"), {})
+    messages = get_messages(response.wsgi_request)
+    expected_message = (
+        "You are now subscribed to notifications from the Philadelphia Department "
+        "of Public Health related to public health preparedness."
+    )
+    assert "/" == response.url
+    assert HTTPStatus.FOUND == response.status_code
+    assert [str(message) for message in messages] == [expected_message]
+
+
+# TODO: implement in DIS-1700
+# def test_public_health_preparedness_signup_invalid_data(db, client):
+#     """POSTting invalid data shows errors to the user."""
+#     data = {}
+#     expected_errors = []
+#     response = client.post(reverse("public_health_preparedness_signup"), data)
 #     assert HTTPStatus.OK == response.status_code
 #     for error in expected_errors:
 #         assert error in str(response.content)

@@ -6,6 +6,7 @@ from .forms import (
     CommunityResponseSubscriberForm,
     InternalAlertsSubscriberForm,
     OpioidOverdoseSubscriberForm,
+    PublicHealthPreparednessSubscriberForm,
 )
 
 
@@ -102,4 +103,22 @@ def codeblue_codered_notifications_signup(request):
         close_url,
         "notifications/notification_signup.html",
         {"title": "Code Red and Blue Notifications"},
+    )
+
+
+def public_health_preparedness_signup(request):
+    """View for managing sign ups for public health preparedness notifications."""
+    success_message = (
+        "You are now subscribed to notifications from the Philadelphia Department "
+        "of Public Health related to public health preparedness."
+    )
+    success_url = close_url = "/"
+    return generic_notification_signup(
+        request,
+        PublicHealthPreparednessSubscriberForm,
+        success_message,
+        success_url,
+        close_url,
+        "notifications/notification_signup.html",
+        {"title": "Public Health Preparedness Notifications"},
     )

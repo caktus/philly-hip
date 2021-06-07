@@ -23,3 +23,9 @@ class OpioidOverdoseSubscriberForm(Form):
 class CodeBlueCodeRedSubscriberForm(Form):
     def save(self, *args, **kwargs):
         pass
+
+
+# TODO for DIS-1700: make this form a ModelForm, similar to the HealthAlertSubscriberForm.
+class PublicHealthPreparednessSubscriberForm(Form):
+    def save(self, *args, **kwargs):
+        pass

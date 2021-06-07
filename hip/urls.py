@@ -58,6 +58,12 @@ urlpatterns = [
         notifications_views.codeblue_codered_notifications_signup,
         name="codeblue_codered_notifications_signup",
     ),
+    path(
+        "public-health-preparedness-signup/",
+        notifications_views.public_health_preparedness_signup,
+        name="public_health_preparedness_signup",
+    ),
+    # Admin view.
     path("admin/", admin.site.urls),
 ]
 
