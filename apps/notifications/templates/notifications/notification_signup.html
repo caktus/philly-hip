@@ -24,6 +24,28 @@
         <div>
           {% include 'includes/field_errors.html' with errors=form.non_field_errors %}
         </div>
+
+        {% for form_section in form.form_sections %}
+          <div>
+            <h6 class="is-size-6 py-2"><strong>{{ form_section.header }}</strong></h6>
+            {% for field in form_section.fields %}
+              <div class="py-2 field form-sections-hip">
+                <label class="label is-block is-size-7" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                <div class="control">
+                  {% if field|widget_class == "Select" %}
+                    <div class="select is-small">
+                      {{ field }}
+                    </div>
+                  {% else %}
+                    {{ field }}
+                  {% endif %}
+                </div>
+                {% include 'includes/field_errors.html' with errors=field.errors %}
+              </div>
+            {% endfor %}
+          </div>
+        {% endfor %}
+
         {# Submit #}
         <div class="py-4">
           <button class="button is-size-7-touch header-btn-hip ml-0" type="submit">
