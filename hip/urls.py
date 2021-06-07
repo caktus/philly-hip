@@ -43,6 +43,16 @@ urlpatterns = [
         notifications_views.internal_alerts_signup,
         name="internal_alerts_signup",
     ),
+    path(
+        "community-response-notifications-signup/",
+        notifications_views.community_notifications_signup,
+        name="community_notifications_signup",
+    ),
+    path(
+        "opiod-overdose-notifications-signup/",
+        notifications_views.opioid_notifications_signup,
+        name="opioid_notifications_signup",
+    ),
     path("admin/", admin.site.urls),
 ]
 

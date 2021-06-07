@@ -1,7 +1,11 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
-from .forms import InternalAlertsSubscriberForm
+from .forms import (
+    CommunityResponseSubscriberForm,
+    InternalAlertsSubscriberForm,
+    OpioidOverdoseSubscriberForm,
+)
 
 
 def generic_notification_signup(
@@ -43,4 +47,40 @@ def internal_alerts_signup(request):
         close_url,
         "notifications/notification_signup.html",
         {"title": "Internal Employee Alert System"},
+    )
+
+
+def community_notifications_signup(request):
+    """View for managing sign ups for community response notifications."""
+    success_message = (
+        "You are now subscribed to notifications from the Philadelphia Department "
+        "of Public Health for sharing with communities within Philadelphia."
+    )
+    success_url = close_url = "/"
+    return generic_notification_signup(
+        request,
+        CommunityResponseSubscriberForm,
+        success_message,
+        success_url,
+        close_url,
+        "notifications/notification_signup.html",
+        {"title": "Community Response Partner Network"},
+    )
+
+
+def opioid_notifications_signup(request):
+    """View for managing sign ups for opioid overdose notifications."""
+    success_message = (
+        "You are now subscribed to notifications from the Philadelphia Department "
+        "of Public Health related to opioid overdoses."
+    )
+    success_url = close_url = "/"
+    return generic_notification_signup(
+        request,
+        OpioidOverdoseSubscriberForm,
+        success_message,
+        success_url,
+        close_url,
+        "notifications/notification_signup.html",
+        {"title": "Opioid Overdose Notification Network"},
     )
