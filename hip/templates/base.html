@@ -66,6 +66,7 @@
         {% include 'includes/sidebar.html' with hidden_desktop=False %}
       {% endblock %}
       <div class="column full-height-hip">
+        {% include 'includes/message.html' with messages=messages %}
         {% block content %}{% endblock %}
       </div>
     </div>
