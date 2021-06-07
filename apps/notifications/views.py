@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 
 from .forms import (
+    CodeBlueCodeRedSubscriberForm,
     CommunityResponseSubscriberForm,
     InternalAlertsSubscriberForm,
     OpioidOverdoseSubscriberForm,
@@ -83,4 +84,22 @@ def opioid_notifications_signup(request):
         close_url,
         "notifications/notification_signup.html",
         {"title": "Opioid Overdose Notification Network"},
+    )
+
+
+def codeblue_codered_notifications_signup(request):
+    """View for managing sign ups for Code Red/Code Blue notifications."""
+    success_message = (
+        "You are now subscribed to notifications from the Philadelphia Department "
+        "of Public Health related to Code Red/Code Blue events."
+    )
+    success_url = close_url = "/"
+    return generic_notification_signup(
+        request,
+        CodeBlueCodeRedSubscriberForm,
+        success_message,
+        success_url,
+        close_url,
+        "notifications/notification_signup.html",
+        {"title": "Code Red and Blue Notifications"},
     )

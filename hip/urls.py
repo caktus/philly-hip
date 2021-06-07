@@ -53,6 +53,11 @@ urlpatterns = [
         notifications_views.opioid_notifications_signup,
         name="opioid_notifications_signup",
     ),
+    path(
+        "codeblue-codered-notifications-signup/",
+        notifications_views.codeblue_codered_notifications_signup,
+        name="codeblue_codered_notifications_signup",
+    ),
     path("admin/", admin.site.urls),
 ]
 
