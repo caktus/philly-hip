@@ -56,6 +56,20 @@ class SocialMedia(IndexedTimeStampedModel):
         return f"Social Media for {self.org_name}"
 
 
+@register_snippet
+class ButtonSnippet(IndexedTimeStampedModel):
+    button_text = models.CharField(max_length=255)
+    relative_url = models.CharField(
+        max_length=255,
+        help_text=(
+            "The URL, relative to the domain of this site. For example, /internal-alerts-signup/"
+        ),
+    )
+
+    def __str__(self):
+        return f"Button '{self.button_text}' to {self.relative_url}"
+
+
 class TableRow(blocks.StructBlock):
     column_1 = blocks.RichTextBlock(
         max_length=255,
