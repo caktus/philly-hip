@@ -35,15 +35,18 @@ def test_internal_alerts_signup_valid_data(db, client):
     assert [str(message) for message in messages] == [expected_message]
 
 
-# TODO: implement in DIS-1700
-# def test_internal_alerts_signup_invalid_data(db, client):
-#     """POSTting invalid data shows errors to the user."""
-#     data = {}
-#     expected_errors = []
-#     response = client.post(reverse("internal_alerts_signup"), data)
-#     assert HTTPStatus.OK == response.status_code
-#     for error in expected_errors:
-#         assert error in str(response.content)
+def test_internal_alerts_signup_invalid_data(db, client, internal_alert_data):
+    """POSTting invalid data shows errors to the user."""
+    data = internal_alert_data.copy()
+    data.pop("first_name")
+
+    response = client.post(reverse("internal_alerts_signup"), data)
+
+    assert HTTPStatus.OK == response.status_code
+    assert "This field is required." in str(response.content)
+    assert {"first_name": ["This field is required."]} == response.context[
+        "form"
+    ].errors
 
 
 def test_get_community_response_notification_signup_page(db, client):
