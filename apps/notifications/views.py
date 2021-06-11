@@ -1,6 +1,8 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
+from apps.common.utils import get_emergency_communications_page_url
+
 from .forms import (
     CodeBlueCodeRedSubscriberForm,
     CommunityResponseSubscriberForm,
@@ -40,7 +42,11 @@ def internal_alerts_signup(request):
         "You are now subscribed to alerts from the Philadelphia Department of "
         "Public Health Internal Employee Alert System"
     )
-    success_url = close_url = "/"
+    previous_page_url = request.META.get("HTTP_REFERER", None)
+    if previous_page_url:
+        success_url = close_url = previous_page_url
+    else:
+        success_url = close_url = get_emergency_communications_page_url()
     return generic_notification_signup(
         request,
         InternalAlertsSubscriberForm,
