@@ -332,6 +332,7 @@ class StreamAndNavHeadingBlock(blocks.StructBlock):
     )
     body = TextOrTableStreamBlock()
     contact_info = SnippetChooserBlock(Contact, required=False)
+    button = SnippetChooserBlock(ButtonSnippet, required=False)
 
 
 class StaticPage(HipBasePage):
