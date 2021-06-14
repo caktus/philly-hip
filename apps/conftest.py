@@ -221,3 +221,24 @@ def public_pages_with_descendants():
         disease_and_condition_ebola_page.page_ptr,
         emergency_response_page.page_ptr,
     ]
+
+
+@pytest.fixture
+def internal_alert_data():
+    """Create data for an InternalAlertsSubscriber."""
+    return dict(
+        first_name="SpongeBob",
+        last_name="SquarePants",
+        professional_license="Other",
+        languages_spoken="English",
+        division="Get Healthy Philly",
+        work_phone="(215) 555-0123",
+        work_email="spongebob@phila.gov",
+        cell_phone="(215)333-4567",
+        personal_email="spongebob@squarepants.net",
+        home_phone="(215) 444-1234",
+        street_address="124 Conch St",
+        city="Bikini Bottom",
+        state="HI",
+        zip_code=98765,
+    )
