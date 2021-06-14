@@ -1,8 +1,8 @@
 export default function() {
-  const healthAlertSubscriberEl = document.querySelector(".health-alert-subscriber-modal");
+  const notificationSubscriberEl = document.querySelector(".notification-signup-modal");
   const mobileHeader = document.getElementById("mobile-header-hip");
-  
-  if (healthAlertSubscriberEl) {
+
+  if (notificationSubscriberEl) {
     document.body.classList.add("modal-is-open-hip");
     if (mobileHeader) {
       mobileHeader.classList.remove("is-sticky-hip");
@@ -25,7 +25,7 @@ export default function() {
   };
 
   function closeBtnClicked() {
-    const closeBtn = document.querySelector("#health-alert-subscriber-close-btn-hip");
+    const closeBtn = document.querySelector("#notification-signup-close-btn-hip");
     closeBtn.addEventListener("click", function () {
       window.location.href = this.dataset.href;
     });
