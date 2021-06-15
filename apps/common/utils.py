@@ -78,6 +78,20 @@ def get_all_pages_visible_to_request(request):
     return Page.objects.filter(id__in=pages_for_user.values_list("id", flat=True))
 
 
+def get_next_url_from_request(request):
+    """
+    Get the next URL from the request.
+
+    If the request has a 'next' parameter, then return its value. Otherwise,
+    return the value of the HTTP_REFERER header.
+    """
+    next_parameter = request.GET.get("next", "")
+    if next_parameter:
+        return next_parameter
+    else:
+        return request.META.get("HTTP_REFERER", None) or None
+
+
 def closedpod_user_check(user):
     """A check to determine if a user is in the ClosedPOD Group."""
     if user.is_superuser:

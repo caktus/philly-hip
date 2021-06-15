@@ -36,6 +36,7 @@ def generic_notification_signup(
         subscribe_form = form()
 
     context["close_url"] = close_url
+    context["next"] = success_url
     context["form"] = subscribe_form
     return render(request, template_name, context)
 
@@ -46,11 +47,12 @@ def internal_alerts_signup(request):
         "You are now subscribed to alerts from the Philadelphia Department of "
         "Public Health Internal Employee Alert System"
     )
-    previous_page_url = request.META.get("HTTP_REFERER", None)
-    if previous_page_url:
-        success_url = close_url = previous_page_url
+    next_url = get_next_url_from_request(request)
+    if next_url:
+        success_url = close_url = next_url
     else:
         success_url = close_url = get_emergency_communications_page_url()
+
     return generic_notification_signup(
         request,
         InternalAlertsSubscriberForm,

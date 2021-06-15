@@ -23,65 +23,65 @@ def test_get_internal_alerts_signup_page(db, client):
     assert isinstance(response.context["form"], InternalAlertsSubscriberForm)
 
 
-def test_internal_alerts_signup_valid_data_no_previous_referrer(
-    db, client, mocker, internal_alert_data
+@pytest.mark.parametrize(
+    "next_url,http_referrer_header,expected_success_url",
+    [
+        ("", "", "/the_emergency_communications_page/"),
+        ("/next_url/", "", "/next_url/"),
+        ("", "/http_referrer_header/", "/http_referrer_header/"),
+        ("/next_url/", "/http_referrer_header/", "/next_url/"),
+    ],
+)
+def test_internal_alerts_signup_valid_data(
+    db,
+    client,
+    mocker,
+    internal_alert_data,
+    next_url,
+    http_referrer_header,
+    expected_success_url,
 ):
     """
     POSTting valid data redirects the user, and shows a success message.
 
-    If the request has no HTTP_REFERER, then the get_emergency_communications_page_url()
-    utility function is used to determine where the user should be redirected upon
-    POSTing valid data.
+    If the request has a "next" parameter, then the user should be sent to that URL.
+    Otherwise, if the request has an HTTP_REFERER header, then the user should be
+    redirected to it.
+    Otherwise, the get_emergency_communications_page_url() utility function is
+    used to determine where the user should be redirected to.
     """
-    # The request in this test has no HTTP_REFERER header, so we mock the
-    # get_emergency_communications_page() function, since it is used to determine
-    # the URL for a successful POST.
+    # Mock the get_emergency_communications_page() function, since it is sometimes
+    # used to determine the redirect URL for a successful POST.
     mock_get_emergency_communications_page_url = mocker.patch(
         "apps.notifications.views.get_emergency_communications_page_url"
     )
     mock_url = "/the_emergency_communications_page/"
     mock_get_emergency_communications_page_url.return_value = mock_url
 
-    response = client.post(reverse("internal_alerts_signup"), internal_alert_data)
+    url = reverse("internal_alerts_signup")
+    if next_url:
+        url += f"?next={next_url}"
+    if http_referrer_header:
+        response = client.post(
+            url, internal_alert_data, HTTP_REFERER=http_referrer_header
+        )
+    else:
+        response = client.post(url, internal_alert_data)
 
     assert HTTPStatus.FOUND == response.status_code
+    assert expected_success_url == response.url
     messages = get_messages(response.wsgi_request)
     expected_message = (
         "You are now subscribed to alerts from the Philadelphia Department of "
         "Public Health Internal Employee Alert System"
     )
-    assert mock_url == response.url
+    assert expected_success_url == response.url
     assert [str(message) for message in messages] == [expected_message]
-
-
-def test_internal_alerts_signup_valid_data_with_previous_referrer(
-    db, client, internal_alert_data
-):
-    """
-    POSTting valid data redirects the user, and shows a success message.
-
-    If the request has an HTTP_REFERER, then the user is redirected to it upon
-    POSTing valid data.
-    """
-    # The request in this test has an HTTP_REFERER header.
-    http_referrer_header = "/the_last_page_url/"
-
-    response = client.post(
-        reverse("internal_alerts_signup"),
-        internal_alert_data,
-        HTTP_REFERER=http_referrer_header,
-    )
-
-    assert HTTPStatus.FOUND == response.status_code
-    # Since the request in this test has an HTTP_REFERER header, that header should
-    # be used as the URL the user is redirected to.
-    assert http_referrer_header == response.url
-    messages = get_messages(response.wsgi_request)
-    expected_message = (
-        "You are now subscribed to alerts from the Philadelphia Department of "
-        "Public Health Internal Employee Alert System"
-    )
-    assert [str(message) for message in messages] == [expected_message]
+    # If the expected_success_url is neither the next_url nor the http_referrer_header,
+    # then it must be from the mocked get_emergency_communications_page() function,
+    # so verify that the get_emergency_communications_page() function was called.
+    if expected_success_url not in [next_url, http_referrer_header]:
+        assert 1 == mock_get_emergency_communications_page_url.call_count
 
 
 def test_internal_alerts_signup_invalid_data(db, client, internal_alert_data):
