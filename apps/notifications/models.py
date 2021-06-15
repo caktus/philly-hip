@@ -137,3 +137,198 @@ class InternalEmployeeAlertSubscriber(models.Model):
         return (
             f"Internal Employee Alerts Subscriber: {self.first_name} {self.last_name}"
         )
+
+
+class CommunityResponseSubscriber(models.Model):
+    """A model to keep track of people who subscribe to community alerts."""
+
+    class COMMUNITY_MEMBERS_CHOICES(models.TextChoices):
+        CHILDREN_YOUTH = (
+            "Children/Youth",
+            "Children/Youth",
+        )
+        OLDER_ADULTS = (
+            "Older Adults",
+            "Older Adults",
+        )
+        MARGINALIZED_RACIAL_OR_ETHNIC_GROUP = (
+            "Marginalized racial or ethnic group",
+            "Marginalized racial or ethnic group",
+        )
+        IMMIGRANT = (
+            "Immigrant",
+            "Immigrant",
+        )
+        REFUGEE_OR_UNDOCUMENTED_COMMUNITIES = (
+            "refugee or undocumented communities",
+            "refugee or undocumented communities",
+        )
+        GENDER_NON_CONFORMING_NON_BINARY = (
+            "Gender non-conforming/non-binary",
+            "Gender non-conforming/non-binary",
+        )
+        LGBTQ_PLUS = (
+            "LGBTQ+",
+            "LGBTQ+",
+        )
+        UNEMPLOYED = (
+            "Unemployed",
+            "Unemployed",
+        )
+        UNINSURED_UNDERINSURED = (
+            "Uninsured/Underinsured",
+            "Uninsured/Underinsured",
+        )
+        EXPERIENCING_HOMELESSNESS = (
+            "Experiencing homelessness",
+            "Experiencing homelessness",
+        )
+        LOW_INCOME_COMMUNITIES = (
+            "Low-income communities",
+            "Low-income communities",
+        )
+        PEOPLE_WITH_DISABILITIES = (
+            "People with disabilities",
+            "People with disabilities",
+        )
+        PEOPLE_WHO_ARE_HOMEBOUND = (
+            "People who are homebound",
+            "People who are homebound",
+        )
+        LIVING_WITH_A_MENTAL_ILLNESS = (
+            "Living with a mental illness",
+            "Living with a mental illness",
+        )
+        LIVING_WITH_A_SUBSTANCE_USE_DISORDER = (
+            "Living with a substance use disorder",
+            "Living with a substance use disorder",
+        )
+        CHRONICALLY_ILL = (
+            "Chronically ill",
+            "Chronically ill",
+        )
+        RETURNING_CITIZENS = (
+            "Returning citizens",
+            "Returning citizens",
+        )
+        CURRENTLY_INCARCERATED = (
+            "Currently incarcerated",
+            "Currently incarcerated",
+        )
+        FAITH_COMMUNITIES = (
+            "Faith communities",
+            "Faith communities",
+        )
+        MINIMAL_TO_NO_DIGITAL_ACCESS = (
+            "Minimal to no digital access",
+            "Minimal to no digital access",
+        )
+        PREGNANT = (
+            "Pregnant",
+            "Pregnant",
+        )
+        SINGLE_PARENT = (
+            "Single parent",
+            "Single parent",
+        )
+        VETERANS = (
+            "Veterans",
+            "Veterans",
+        )
+        LIMITED_ENGLISH_PROFICIENT = (
+            "Limited English proficient",
+            "Limited English proficient",
+        )
+        CAREGIVER_DEPENDENT = (
+            "Caregiver dependent",
+            "Caregiver dependent",
+        )
+        NO_ACCESS_TO_PRIVATE_VEHICLE = (
+            "No access to private vehicle",
+            "No access to private vehicle",
+        )
+        DEPENDENT_ON_PRESCRIPTION_MEDICATIONS = (
+            "Dependent on prescription medications",
+            "Dependent on prescription medications",
+        )
+        LIVING_IN_A_CONGREGATE_SETTING = (
+            "Living in a congregate setting",
+            "Living in a congregate setting",
+        )
+        STUDENTS = (
+            "Students",
+            "Students",
+        )
+        SURVIVORS_OF_VIOLENCE_OR_ABUSE = (
+            "Survivors of violence or abuse",
+            "Survivors of violence or abuse",
+        )
+        ESSENTIAL_WORKER = (
+            "Essential worker",
+            "Essential worker",
+        )
+        GENERAL_PUBLIC = (
+            "General public",
+            "General public",
+        )
+        OTHER = (
+            "Other",
+            "Other",
+        )
+        ALL_OF_THESE = (
+            "All of these",
+            "All of these",
+        )
+
+    first_name = models.CharField(
+        "First Name*",
+        max_length=255,
+        default="",
+    )
+    last_name = models.CharField(
+        "Last Name*",
+        max_length=255,
+        default="",
+    )
+    organization_name = models.CharField(
+        "Organization Name*",
+        max_length=255,
+        default="",
+    )
+    title = models.CharField(
+        "Title/Position*",
+        max_length=255,
+        default="",
+    )
+
+    email_address = models.EmailField("Email Address*")
+    cell_phone = PhoneNumberField("Cell Phone*")
+
+    organization_street_address = models.CharField(
+        "Street Address of Organization*", max_length=255
+    )
+    organization_po_box = models.CharField(
+        "Organization PO Box", max_length=255, blank=True
+    )
+    organization_zip_code = models.CharField(
+        "Zip Code of Organization*",
+        max_length=10,
+        default="",
+        validators=[zipcode_validator],
+    )
+    organization_zip_codes_served = models.CharField(
+        "Zip Codes Served by Your Organization*", max_length=255, default=""
+    )
+    organization_community_members_served = models.CharField(
+        "Community Members Served by Your Organization*",
+        max_length=100,
+        choices=COMMUNITY_MEMBERS_CHOICES.choices,
+    )
+
+    class Meta:
+        verbose_name_plural = "Community Response Subscribers"
+
+    def __str__(self):
+        return (
+            f"Community Response Network Subscriber: {self.first_name} {self.last_name}"
+        )
