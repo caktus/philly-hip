@@ -1,14 +1,18 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
-from apps.common.utils import get_emergency_communications_page_url
-
 from .forms import (
     CodeBlueCodeRedSubscriberForm,
     CommunityResponseSubscriberForm,
     InternalAlertsSubscriberForm,
     OpioidOverdoseSubscriberForm,
     PublicHealthPreparednessSubscriberForm,
+)
+
+
+from apps.common.utils import (  # isort: skip
+    get_emergency_communications_page_url,
+    get_next_url_from_request,
 )
 
 
@@ -64,7 +68,12 @@ def community_notifications_signup(request):
         "You are now subscribed to notifications from the Philadelphia Department "
         "of Public Health for sharing with communities within Philadelphia."
     )
-    success_url = close_url = "/"
+    next_url = get_next_url_from_request(request)
+    if next_url:
+        success_url = close_url = next_url
+    else:
+        success_url = close_url = get_emergency_communications_page_url()
+
     return generic_notification_signup(
         request,
         CommunityResponseSubscriberForm,
