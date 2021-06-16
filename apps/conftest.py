@@ -276,3 +276,17 @@ def opioid_overdose_notification_data():
         email_address="spongebob@phila.gov",
         mobile_phone="(215)333-4567",
     )
+
+
+@pytest.fixture
+def codered_codeblue_notification_data():
+    """Create data for a CodeRedCodeBlueSubscriber."""
+    return dict(
+        first_name="SpongeBob",
+        last_name="SquarePants",
+        agency_name="Krusty Krab",
+        work_phone="(215)333-4567",
+        work_email="spongebob@phila.gov",
+        cell_phone="(215)333-4567",
+        personal_email="spongebob@phila.gov",
+    )

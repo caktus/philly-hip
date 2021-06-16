@@ -1,6 +1,7 @@
 import pytest
 
 from ..forms import (
+    CodeRedCodeBlueSubscriberForm,
     CommunityResponseSubscriberForm,
     InternalAlertsSubscriberForm,
     OpioidOverdoseSubscriberForm,
@@ -10,6 +11,7 @@ from ..forms import (
 @pytest.mark.parametrize(
     "form_class",
     [
+        CodeRedCodeBlueSubscriberForm,
         CommunityResponseSubscriberForm,
         InternalAlertsSubscriberForm,
         OpioidOverdoseSubscriberForm,
@@ -116,3 +118,26 @@ def test_invalid_phone_number_opioid_overdose_form(
         "with an international call prefix."
     )
     assert {"mobile_phone": [expected_error]} == form.errors
+
+
+def test_form_valid_codered_codeblue_form(db, codered_codeblue_notification_data):
+    """Test putting valid data into the form."""
+    form = CodeRedCodeBlueSubscriberForm(codered_codeblue_notification_data)
+    assert form.is_valid()
+
+
+def test_invalid_phone_number_codered_codeblue_form(
+    db, codered_codeblue_notification_data
+):
+    """Having invalid data means the form is not valid."""
+    # The 'work_phone' field value is not valid.
+    codered_codeblue_notification_data["work_phone"] = "0"
+
+    form = CodeRedCodeBlueSubscriberForm(codered_codeblue_notification_data)
+
+    assert form.is_valid() is False
+    expected_error = (
+        "Enter a valid phone number (e.g. (201) 555-0123) or a number "
+        "with an international call prefix."
+    )
+    assert {"work_phone": [expected_error]} == form.errors
