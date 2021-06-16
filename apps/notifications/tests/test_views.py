@@ -202,7 +202,7 @@ def test_opioid_overdose_notification_signup_valid_data(
     db,
     client,
     mocker,
-    community_response_notification_data,
+    opioid_overdose_notification_data,
     next_url,
     http_referrer_header,
     expected_success_url,
@@ -229,10 +229,10 @@ def test_opioid_overdose_notification_signup_valid_data(
         url += f"?next={next_url}"
     if http_referrer_header:
         response = client.post(
-            url, community_response_notification_data, HTTP_REFERER=http_referrer_header
+            url, opioid_overdose_notification_data, HTTP_REFERER=http_referrer_header
         )
     else:
-        response = client.post(url, community_response_notification_data)
+        response = client.post(url, opioid_overdose_notification_data)
 
     assert HTTPStatus.FOUND == response.status_code
     assert expected_success_url == response.url
