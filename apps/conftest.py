@@ -242,3 +242,21 @@ def internal_alert_data():
         state="HI",
         zip_code=98765,
     )
+
+
+@pytest.fixture
+def community_response_notification_data():
+    """Create data for a CommunityResponseSubscriber."""
+    return dict(
+        first_name="SpongeBob",
+        last_name="SquarePants",
+        organization_name="Krabby Patty Organization",
+        title="Fry Cook",
+        email_address="spongebob@phila.gov",
+        cell_phone="(215)333-4567",
+        organization_street_address="831 Bottom Feeder Lane",
+        organization_po_box="1",
+        organization_zip_code=98765,
+        organization_zip_codes_served="98765,99999",
+        organization_community_members_served="All of these",
+    )
