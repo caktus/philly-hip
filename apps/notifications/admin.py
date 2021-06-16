@@ -2,7 +2,11 @@ from django.contrib import admin
 
 from import_export.admin import ExportMixin
 
-from .models import CommunityResponseSubscriber, InternalEmployeeAlertSubscriber
+from .models import (
+    CommunityResponseSubscriber,
+    InternalEmployeeAlertSubscriber,
+    OpioidOverdoseSubscriber,
+)
 
 
 @admin.register(InternalEmployeeAlertSubscriber)
@@ -40,6 +44,26 @@ class CommunityResponseSubscriberAdmin(ExportMixin, admin.ModelAdmin):
         "first_name",
         "last_name",
         "organization_name",
+        "title",
+        "email_address",
+    )
+
+    def full_name(self, obj):
+        return f"{obj.first_name} {obj.last_name}"
+
+
+@admin.register(OpioidOverdoseSubscriber)
+class OpioidOverdoseSubscriberAdmin(ExportMixin, admin.ModelAdmin):
+    list_display = (
+        "full_name",
+        "title",
+        "email_address",
+    )
+    list_filter = ("notification_group",)
+    search_fields = (
+        "first_name",
+        "last_name",
+        "medical_specialty",
         "title",
         "email_address",
     )
