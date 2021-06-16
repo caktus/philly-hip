@@ -1,6 +1,10 @@
 from django.forms import Form, ModelForm
 
-from .models import CommunityResponseSubscriber, InternalEmployeeAlertSubscriber
+from .models import (
+    CommunityResponseSubscriber,
+    InternalEmployeeAlertSubscriber,
+    OpioidOverdoseSubscriber,
+)
 
 
 class InternalAlertsSubscriberForm(ModelForm):
@@ -96,10 +100,45 @@ class CommunityResponseSubscriberForm(ModelForm):
         ]
 
 
-# TODO for DIS-1700: make this form a ModelForm, similar to the HealthAlertSubscriberForm.
-class OpioidOverdoseSubscriberForm(Form):
-    def save(self, *args, **kwargs):
-        pass
+class OpioidOverdoseSubscriberForm(ModelForm):
+    use_required_attribute = False
+
+    class Meta:
+        model = OpioidOverdoseSubscriber
+        fields = "__all__"
+
+    def personal_information_fields(self):
+        personal_info_field_names = ["first_name", "last_name", "medical_specialty"]
+        return [self[name] for name in self.fields if name in personal_info_field_names]
+
+    def company_info_fields(self):
+        company_info_field_names = ["company_name", "title", "work_phone"]
+        return [self[name] for name in self.fields if name in company_info_field_names]
+
+    def notification_group_fields(self):
+        notification_group_field_names = ["notification_group"]
+        return [
+            self[name] for name in self.fields if name in notification_group_field_names
+        ]
+
+    def contact_info_fields(self):
+        contact_info_field_names = ["email_address", "mobile_phone"]
+        return [self[name] for name in self.fields if name in contact_info_field_names]
+
+    def form_sections(self):
+        """Return the sections of this form, including a header, and the fields in the section."""
+        return [
+            {
+                "header": "Personal Information",
+                "fields": self.personal_information_fields(),
+            },
+            {"header": "Company Information", "fields": self.company_info_fields()},
+            {
+                "header": "Notification Group",
+                "fields": self.notification_group_fields(),
+            },
+            {"header": "Contact Information", "fields": self.contact_info_fields()},
+        ]
 
 
 # TODO for DIS-1700: make this form a ModelForm, similar to the HealthAlertSubscriberForm.

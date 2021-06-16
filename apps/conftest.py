@@ -260,3 +260,19 @@ def community_response_notification_data():
         organization_zip_codes_served="98765,99999",
         organization_community_members_served="All of these",
     )
+
+
+@pytest.fixture
+def opioid_overdose_notification_data():
+    """Create data for a OpioidOverdoseSubscriber."""
+    return dict(
+        first_name="SpongeBob",
+        last_name="SquarePants",
+        medical_specialty="Laughter",
+        company_name="Krusty Krab",
+        title="Fry Cook",
+        work_phone="(215)333-4567",
+        notification_group="Community Members",
+        email_address="spongebob@phila.gov",
+        mobile_phone="(215)333-4567",
+    )
