@@ -332,3 +332,56 @@ class CommunityResponseSubscriber(models.Model):
         return (
             f"Community Response Network Subscriber: {self.first_name} {self.last_name}"
         )
+
+
+class OpioidOverdoseSubscriber(models.Model):
+    """A model to keep track of people who subscribe to opioid overdose notifications."""
+
+    class NOTIFICATION_GROUP_CHOICES(models.TextChoices):
+        AGENCIES = ("Agencies", "Agencies")
+        HOSPITALS = ("Hospitals", "Hospitals")
+        COMMUNITY_MEMBERS = ("Community Members", "Community Members")
+        MEDIA_PRESS = ("Media/Press", "Media/Press")
+
+    first_name = models.CharField(
+        "First Name*",
+        max_length=255,
+        default="",
+    )
+    last_name = models.CharField(
+        "Last Name*",
+        max_length=255,
+        default="",
+    )
+    medical_specialty = models.CharField(
+        "Medical Specialty/Area of Expertise*",
+        max_length=255,
+        default="",
+    )
+
+    company_name = models.CharField(
+        "Company Name*",
+        max_length=255,
+        default="",
+    )
+    title = models.CharField(
+        "Your Title/Position*",
+        max_length=255,
+        default="",
+    )
+    work_phone = PhoneNumberField("Work Phone*")
+
+    notification_group = models.CharField(
+        "Notification Group*",
+        max_length=100,
+        choices=NOTIFICATION_GROUP_CHOICES.choices,
+    )
+
+    email_address = models.EmailField("Email Address*")
+    mobile_phone = PhoneNumberField("Mobile Phone*")
+
+    class Meta:
+        verbose_name_plural = "Opioid Overdose Subscribers"
+
+    def __str__(self):
+        return f"Opioid Overdose Notification Subscriber: {self.first_name} {self.last_name}"
