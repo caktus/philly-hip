@@ -1,5 +1,5 @@
 from .factories import (
-    CodeRedCodeBlueSubscriber,
+    CodeRedCodeBlueSubscriberFactory,
     CommunityResponseSubscriberFactory,
     InternalEmployeeAlertSubscriberFactory,
     OpioidOverdoseSubscriberFactory,
@@ -36,7 +36,7 @@ def test_opioid_overdose_subscriber_string_representation(db):
 
 def test_codered_codeblue_subscriber_string_representation(db):
     """Test the string representation for a CodeRedCodeBlueSubscriber."""
-    codered_codeblue_subscriber = CodeRedCodeBlueSubscriber()
+    codered_codeblue_subscriber = CodeRedCodeBlueSubscriberFactory()
     expected_string = (
         f"Code Red/Code Blue Notification Subscriber: {codered_codeblue_subscriber.first_name} "
         f"{codered_codeblue_subscriber.last_name}"
