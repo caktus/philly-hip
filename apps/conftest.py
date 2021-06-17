@@ -290,3 +290,18 @@ def codered_codeblue_notification_data():
         cell_phone="(215)333-4567",
         personal_email="spongebob@phila.gov",
     )
+
+
+@pytest.fixture
+def php_notification_data():
+    """Create data for a PublicHealthPreparednessSubscriber."""
+    return dict(
+        first_name="SpongeBob",
+        last_name="SquarePants",
+        phone_number="(215)333-4567",
+        email_address="spongebob@phila.gov",
+        organization_name="Krusty Krab",
+        organization_zip_code=98765,
+        outreach_request_choice="Meeting",
+        outreach_request_additional_info="",
+    )

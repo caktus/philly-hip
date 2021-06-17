@@ -5,6 +5,7 @@ from ..forms import (
     CommunityResponseSubscriberForm,
     InternalAlertsSubscriberForm,
     OpioidOverdoseSubscriberForm,
+    PublicHealthPreparednessSubscriberForm,
 )
 
 
@@ -15,6 +16,7 @@ from ..forms import (
         CommunityResponseSubscriberForm,
         InternalAlertsSubscriberForm,
         OpioidOverdoseSubscriberForm,
+        PublicHealthPreparednessSubscriberForm,
     ],
 )
 def test_asterisks_mark_required_fields(db, form_class):
@@ -141,3 +143,38 @@ def test_invalid_phone_number_codered_codeblue_form(
         "with an international call prefix."
     )
     assert {"work_phone": [expected_error]} == form.errors
+
+
+def test_form_valid_public_health_preparedness_form(db, php_notification_data):
+    """Test putting valid data into the form."""
+    form = PublicHealthPreparednessSubscriberForm(php_notification_data)
+    assert form.is_valid()
+
+
+def test_invalid_phone_number_public_health_preparedness_form(
+    db, php_notification_data
+):
+    """Having invalid data means the form is not valid."""
+    # The 'cell_phone' field value is not valid.
+    php_notification_data["phone_number"] = "0"
+
+    form = PublicHealthPreparednessSubscriberForm(php_notification_data)
+
+    assert form.is_valid() is False
+    expected_error = (
+        "Enter a valid phone number (e.g. (201) 555-0123) or a number "
+        "with an international call prefix."
+    )
+    assert {"phone_number": [expected_error]} == form.errors
+
+
+def test_invalid_zip_code_public_health_preparedness_form(db, php_notification_data):
+    """Having invalid data means the form is not valid."""
+    # The 'zip_code' field value is not valid.
+    php_notification_data["organization_zip_code"] = "1234"
+
+    form = PublicHealthPreparednessSubscriberForm(php_notification_data)
+
+    assert form.is_valid() is False
+    expected_error = "Either provide a 5 or 9 digit zipcode Ex: 12345 or 12345-1234"
+    assert {"organization_zip_code": [expected_error]} == form.errors
