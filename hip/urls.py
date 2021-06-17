@@ -12,6 +12,7 @@ from wagtail.documents import urls as wagtaildocs_urls
 from apps.auth_content import views as auth_content_views
 from apps.health_alerts import views as health_alert_views
 from apps.hip import views as hip_views
+from apps.notifications import views as notifications_views
 from apps.search import views as search_views
 
 
@@ -27,11 +28,42 @@ urlpatterns = [
         auth_content_views.closedpod_contact_information_edit,
         name="closedpod_contact_information_edit",
     ),
+    # Send attempts to log in to the Django admin to the cms_and_admin_login view.
+    # Note: this URL pattern must be before the admin.site.urls patterns, so that
+    # we can intercept the request successfully.
+    path("admin/login/", hip_views.cms_and_admin_login),
+    # Views for alerts/notifications.
     path(
         "health-alerts-subscriber-signup/",
         health_alert_views.subscribe,
         name="health_alert_subscriber",
     ),
+    path(
+        "internal-alerts-signup/",
+        notifications_views.internal_alerts_signup,
+        name="internal_alerts_signup",
+    ),
+    path(
+        "community-response-notifications-signup/",
+        notifications_views.community_notifications_signup,
+        name="community_notifications_signup",
+    ),
+    path(
+        "opiod-overdose-notifications-signup/",
+        notifications_views.opioid_notifications_signup,
+        name="opioid_notifications_signup",
+    ),
+    path(
+        "codeblue-codered-notifications-signup/",
+        notifications_views.codeblue_codered_notifications_signup,
+        name="codeblue_codered_notifications_signup",
+    ),
+    path(
+        "public-health-preparedness-signup/",
+        notifications_views.public_health_preparedness_signup,
+        name="public_health_preparedness_signup",
+    ),
+    # Admin view.
     path("admin/", admin.site.urls),
 ]
 
@@ -71,6 +103,10 @@ urlpatterns += [
     # HIPDocumentAddView. Note: this view must be before the wagtailadmin_urls,
     # so that we can intercept the request successfully.
     path("cms/documents/multiple/add/", hip_views.HIPDocumentAddView.as_view()),
+    # Send attempts to log in to the Wagtail CMS to the cms_and_admin_login view.
+    # Note: this url pattern must be before the wagtailadmin_urls patterns, so
+    # that we can intercept the request successfully.
+    path("cms/login/", hip_views.cms_and_admin_login),
     path("cms/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
     path("", include(wagtail_urls)),

@@ -16,6 +16,8 @@ from apps.common.utils import (
     get_pcwmsa_home_page_url,
 )
 
+from .forms import HIPAuthenticationForm
+
 
 def handler404(request, *args, **argv):
     response = render(request, "404.html", {})
@@ -30,6 +32,8 @@ def handler500(request, *args, **argv):
 
 
 class HIPLoginView(LoginView):
+    authentication_form = HIPAuthenticationForm
+
     def get(self, request, *args, **kwargs):
         """GETting the HIPLoginView redirects authenticated users to the auth_view_router."""
         if request.user.is_authenticated:
@@ -98,3 +102,9 @@ class HIPDocumentAddView(AddView):
     def _dispatch(self, request):
         """A private CSRF-protected view, returned from self.dispatch()."""
         return super().dispatch(request)
+
+
+def cms_and_admin_login(request, *args, **kwargs):
+    next_url = request.GET.get("next", "")
+    login_url = f"{reverse('login')}?next={next_url}"
+    return redirect(login_url)

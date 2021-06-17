@@ -1,0 +1,7 @@
+@import "../mixins";
+
+.notification-signup-modal {
+  @include modals;
+  @include headers;
+  @include paragraphs;
+}

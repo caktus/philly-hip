@@ -34,6 +34,20 @@ def get_bigcities_home_page_url():
     return bigcities_home_page.url if bigcities_home_page else get_home_page_url()
 
 
+def get_emergency_communications_page_url():
+    """
+    If live "Emergency Communications" Page exists, return its URL. Otherwise, get_home_page_url().
+    """
+    emergency_communications_page = (
+        Page.objects.filter(title="Emergency Communications").live().first()
+    )
+    return (
+        emergency_communications_page.url
+        if emergency_communications_page
+        else get_home_page_url()
+    )
+
+
 def get_all_pages_visible_to_request(request):
     """Return all of the Pages that a request (user) has permission to see."""
     # Get the Pages with no view_restrictions. Note: it may seem like unauthenticated
@@ -64,8 +78,29 @@ def get_all_pages_visible_to_request(request):
     return Page.objects.filter(id__in=pages_for_user.values_list("id", flat=True))
 
 
+def get_next_url_from_request(request):
+    """
+    Get the next URL from the request.
+
+    If the request has a 'next' parameter, then return its value. Otherwise,
+    return the value of the HTTP_REFERER header.
+    """
+    next_parameter = request.GET.get("next", "")
+    if next_parameter:
+        return next_parameter
+    else:
+        return request.META.get("HTTP_REFERER", None) or None
+
+
 def closedpod_user_check(user):
     """A check to determine if a user is in the ClosedPOD Group."""
     if user.is_superuser:
         return True
     return not user.is_anonymous and user.groups.filter(name="Closed POD").exists()
+
+
+def is_sso_user(user):
+    """A user is an SSO user if the user has a django-social-auth object, or a phila.gov email address."""
+    if user.social_auth.exists() or user.email.endswith("phila.gov"):
+        return True
+    return False

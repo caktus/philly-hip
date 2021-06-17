@@ -1,9 +1,15 @@
 from django import forms
 from django.conf import settings
+from django.contrib.auth.forms import AuthenticationForm
 
 from wagtail.documents.forms import BaseDocumentForm
 
 from .utils import scan_pdf_for_malicious_content
+
+
+# TODO from DIS-1695: uncomment this section once HIP SSO issues are worked out.
+# from django.core.exceptions import ValidationError
+# from apps.common.utils import is_sso_user
 
 
 class ValidateFileTypeForm(BaseDocumentForm):
@@ -31,3 +37,16 @@ class ValidateFileTypeForm(BaseDocumentForm):
                 except Exception as error:
                     raise forms.ValidationError(error)
             return uploaded_file
+
+
+class HIPAuthenticationForm(AuthenticationForm):
+    def confirm_login_allowed(self, user):
+        """SSO users are not allowed to login using the HIPAuthenticationForm."""
+        # Run the AuthenticationForm's confirmation checks.
+        super().confirm_login_allowed(user)
+        # Raise an error if the user is an SSO user.
+        # TODO from DIS-1695: uncomment this section once HIP SSO issues are worked out.
+        # if is_sso_user(user):
+        #     raise ValidationError(
+        #         "Users with a Single Sign On (SSO) account must log in via SSO.",
+        #     )

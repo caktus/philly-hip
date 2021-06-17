@@ -1,6 +1,9 @@
+import random
+
 from django.contrib.auth.models import AnonymousUser, Group
 
 import pytest
+from social_django.models import UserSocialAuth
 from wagtail.core.models import Page
 
 from apps.auth_content.tests.factories import (
@@ -8,7 +11,7 @@ from apps.auth_content.tests.factories import (
     ClosedPODHomePageFactory,
     PCWMSAHomePageFactory,
 )
-from apps.hip.tests.factories import HomePageFactory
+from apps.hip.tests.factories import HomePageFactory, StaticPageFactory
 from apps.users.tests.factories import UserFactory
 
 from ..utils import (
@@ -16,8 +19,11 @@ from ..utils import (
     get_all_pages_visible_to_request,
     get_bigcities_home_page_url,
     get_closedpod_home_page_url,
+    get_emergency_communications_page_url,
     get_home_page_url,
+    get_next_url_from_request,
     get_pcwmsa_home_page_url,
+    is_sso_user,
 )
 
 
@@ -130,6 +136,49 @@ def test_get_bigcities_home_page_url_with_bigcities_homepage(db, mocker):
     """If a live BigCitiesHomePage exists, then the function returns its URL."""
     bigcities_home_page = BigCitiesHomePageFactory(live=True)
     assert bigcities_home_page.url == get_bigcities_home_page_url()
+
+
+def test_get_emergency_communications_page_url_no_emergency_communications_page(
+    db, mocker
+):
+    """If no "Emergency Communications" Page exists, then function returns get_home_page_url()."""
+    # Mock the apps.common.utils.get_home_page_url function, since it is used
+    # to determine the homepage URL.
+    mock_get_home_page_url = mocker.patch("apps.common.utils.get_home_page_url")
+    mock_homepage_url = "/the_home_page_url/"
+    mock_get_home_page_url.return_value = mock_homepage_url
+
+    assert mock_homepage_url == get_emergency_communications_page_url()
+
+
+def test_get_emergency_communications_page_url_no_live_emergency_communications_page(
+    db, mocker
+):
+    """
+    If no live "Emergency Communications" Page exists, then function returns get_home_page_url().
+    """
+    # Mock the apps.common.utils.get_home_page_url function, since it is used
+    # to determine the homepage URL.
+    mock_get_home_page_url = mocker.patch("apps.common.utils.get_home_page_url")
+    mock_homepage_url = "/the_home_page_url/"
+    mock_get_home_page_url.return_value = mock_homepage_url
+    # Create an "Emergency Communications" page that is not live.
+    emergency_communications_page = StaticPageFactory(
+        title="Emergency Communications", live=False
+    )
+
+    assert mock_homepage_url == get_emergency_communications_page_url()
+    assert emergency_communications_page.url != get_emergency_communications_page_url()
+
+
+def test_get_emergency_communications_page_url_with_emergency_communications_page(
+    db, mocker
+):
+    """If a live "Emergency Communications" Page exists, then the function returns its URL."""
+    emergency_communications_page = StaticPageFactory(
+        title="Emergency Communications", live=True
+    )
+    assert emergency_communications_page.url == get_emergency_communications_page_url()
 
 
 def test_get_all_pages_visible_to_request_unauthenticated(
@@ -356,3 +405,72 @@ def test_closedpod_user_check_no_groups_superuser(db):
     user.is_superuser = True
     user.save()
     assert closedpod_user_check(user) is True
+
+
+@pytest.mark.parametrize(
+    "social_auth_exists,philagov_email,is_superuser,is_admin,expected_result",
+    [
+        (False, False, False, False, False),
+        (True, False, False, False, True),  # users with social auth are SSO users
+        (False, True, False, False, True),  # users with a phila.gov email are SSO users
+        (False, False, True, False, False),
+        (False, False, False, True, False),
+        (True, True, False, False, True),  # users with social auth are SSO users
+        (True, False, True, False, True),  # users with social auth are SSO users
+        (True, False, False, True, True),  # users with social auth are SSO users
+        (False, True, True, False, True),  # users with a phila.gov email are SSO users
+        (False, True, False, True, True),  # users with a phila.gov email are SSO users
+        (False, False, True, True, False),
+        (True, True, True, False, True),  # users with social auth are SSO users
+        (True, True, False, True, True),  # users with social auth are SSO users
+        (True, False, True, True, True),  # users with social auth are SSO users
+        (False, True, True, True, True),  # users with social auth are SSO users
+        (True, True, True, True, True),  # users with social auth are SSO users
+    ],
+)
+def test_is_sso_user(
+    db,
+    social_auth_exists,
+    philagov_email,
+    is_superuser,
+    is_admin,
+    expected_result,
+):
+    """Test the is_sso_user() utility function."""
+    # Set up the test user.
+    user = UserFactory()
+    if social_auth_exists:
+        social_auth_for_user = UserSocialAuth.objects.create(user=user)
+    if philagov_email:
+        user.email = f"{random.random()}@phila.gov"
+    if is_superuser:
+        user.is_superuser = True
+    if is_admin:
+        user.is_staff = True
+    user.save()
+
+    # Verify the value of the is_sso_user() utility function for the user.
+    assert is_sso_user(user) is expected_result
+
+
+@pytest.mark.parametrize(
+    "next_url,http_referrer_header,expected_url",
+    [
+        (None, None, None),
+        ("", "", None),
+        ("/the_next_url/", "", "/the_next_url/"),
+        ("", "/the_http_referer_header/", "/the_http_referer_header/"),
+        ("/the_next_url/", "/the_http_referer_header/", "/the_next_url/"),
+    ],
+)
+def test_get_next_url_from_request(
+    db, rf, next_url, http_referrer_header, expected_url
+):
+    """Test the get_next_url_from_request() utility function."""
+    request_url = "/test_url/"
+    if next_url is not None:
+        request_url += f"?next={next_url}"
+    request = rf.get(request_url, HTTP_REFERER=http_referrer_header)
+
+    result = get_next_url_from_request(request)
+    assert expected_url == result
