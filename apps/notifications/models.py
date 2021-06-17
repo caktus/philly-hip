@@ -416,3 +416,55 @@ class CodeRedCodeBlueSubscriber(models.Model):
 
     def __str__(self):
         return f"Code Red/Code Blue Notification Subscriber: {self.first_name} {self.last_name}"
+
+
+class PublicHealthPreparednessSubscriber(models.Model):
+    """A model to keep track of people who subscribe to public health preparedness notifications."""
+
+    class OUTREACH_REQUEST_CHOICES(models.TextChoices):
+        MEETING = ("Meeting", "Meeting")
+        TRAINING = ("Training", "Training")
+        RESOURCE = ("Resource", "Resource")
+
+    first_name = models.CharField(
+        "First Name*",
+        max_length=255,
+        default="",
+    )
+    last_name = models.CharField(
+        "Last Name*",
+        max_length=255,
+        default="",
+    )
+    phone_number = PhoneNumberField("Phone Number*")
+    email_address = models.EmailField("Email Address*")
+
+    organization_name = models.CharField(
+        "Organization Name*",
+        max_length=255,
+        default="",
+    )
+    organization_zip_code = models.CharField(
+        "Organization Zip Code*",
+        max_length=10,
+        default="",
+        validators=[zipcode_validator],
+    )
+
+    outreach_request_choice = models.CharField(
+        "I would like to request a*",
+        max_length=10,
+        choices=OUTREACH_REQUEST_CHOICES.choices,
+    )
+    outreach_request_additional_info = models.TextField(
+        "Please provide additional information about your request below.",
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name_plural = "Public Health Preparedness Subscribers"
+
+    def __str__(self):
+        return (
+            f"Public Health Preparedness Subscriber: {self.first_name} {self.last_name}"
+        )

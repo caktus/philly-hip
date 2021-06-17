@@ -3,6 +3,7 @@ from .factories import (
     CommunityResponseSubscriberFactory,
     InternalEmployeeAlertSubscriberFactory,
     OpioidOverdoseSubscriberFactory,
+    PublicHealthPreparednessSubscriberFactory,
 )
 
 
@@ -41,3 +42,13 @@ def test_codered_codeblue_subscriber_string_representation(db):
         f"{codered_codeblue_subscriber.last_name}"
     )
     assert expected_string == str(codered_codeblue_subscriber)
+
+
+def test_public_health_preparedness_subscriber_string_representation(db):
+    """Test the string representation for a PublicHealthPreparednessSubscriber."""
+    php_subscriber = PublicHealthPreparednessSubscriberFactory()
+    expected_string = (
+        f"Public Health Preparedness Subscriber: {php_subscriber.first_name} "
+        f"{php_subscriber.last_name}"
+    )
+    assert expected_string == str(php_subscriber)
