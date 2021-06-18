@@ -174,6 +174,13 @@ class CodeRedCodeBlueSubscriberForm(ModelForm):
 class PublicHealthPreparednessSubscriberForm(ModelForm):
     use_required_attribute = False
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Give the 'outreach_request_additional_info' field a CSS class.
+        self.fields["outreach_request_additional_info"].widget.attrs.update(
+            {"class": "textarea"}
+        )
+
     class Meta:
         model = PublicHealthPreparednessSubscriber
         fields = "__all__"
