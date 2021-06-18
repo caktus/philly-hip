@@ -3,10 +3,24 @@ import random
 import factory
 
 from ..models import (
+    CodeRedCodeBlueSubscriber,
     CommunityResponseSubscriber,
     InternalEmployeeAlertSubscriber,
     OpioidOverdoseSubscriber,
 )
+
+
+class CodeRedCodeBlueSubscriberFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = CodeRedCodeBlueSubscriber
+
+    first_name = factory.faker.Faker("first_name")
+    last_name = factory.faker.Faker("last_name")
+    agency_name = factory.faker.Faker("company")
+    work_phone = factory.faker.Faker("phone_number")
+    work_email = factory.faker.Faker("email")
+    cell_phone = factory.faker.Faker("phone_number")
+    personal_email = factory.faker.Faker("email")
 
 
 class CommunityResponseSubscriberFactory(factory.django.DjangoModelFactory):

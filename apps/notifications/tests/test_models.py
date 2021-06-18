@@ -1,4 +1,5 @@
 from .factories import (
+    CodeRedCodeBlueSubscriberFactory,
     CommunityResponseSubscriberFactory,
     InternalEmployeeAlertSubscriberFactory,
     OpioidOverdoseSubscriberFactory,
@@ -30,3 +31,13 @@ def test_opioid_overdose_subscriber_string_representation(db):
         f"{opioid_subscriber.last_name}"
     )
     assert expected_string == str(opioid_subscriber)
+
+
+def test_codered_codeblue_subscriber_string_representation(db):
+    """Test the string representation for a CodeRedCodeBlueSubscriber."""
+    codered_codeblue_subscriber = CodeRedCodeBlueSubscriberFactory()
+    expected_string = (
+        f"Code Red/Code Blue Notification Subscriber: {codered_codeblue_subscriber.first_name} "
+        f"{codered_codeblue_subscriber.last_name}"
+    )
+    assert expected_string == str(codered_codeblue_subscriber)

@@ -1,6 +1,7 @@
 from django.forms import Form, ModelForm
 
 from .models import (
+    CodeRedCodeBlueSubscriber,
     CommunityResponseSubscriber,
     InternalEmployeeAlertSubscriber,
     OpioidOverdoseSubscriber,
@@ -141,10 +142,32 @@ class OpioidOverdoseSubscriberForm(ModelForm):
         ]
 
 
-# TODO for DIS-1700: make this form a ModelForm, similar to the HealthAlertSubscriberForm.
-class CodeBlueCodeRedSubscriberForm(Form):
-    def save(self, *args, **kwargs):
-        pass
+class CodeRedCodeBlueSubscriberForm(ModelForm):
+    use_required_attribute = False
+
+    class Meta:
+        model = CodeRedCodeBlueSubscriber
+        fields = "__all__"
+
+    def about_you_fields(self):
+        personal_info_field_names = ["first_name", "last_name", "agency_name"]
+        return [self[name] for name in self.fields if name in personal_info_field_names]
+
+    def contact_info_fields(self):
+        contact_info_field_names = [
+            "work_phone",
+            "work_email",
+            "cell_phone",
+            "personal_email",
+        ]
+        return [self[name] for name in self.fields if name in contact_info_field_names]
+
+    def form_sections(self):
+        """Return the sections of this form, including a header, and the fields in the section."""
+        return [
+            {"header": "About You", "fields": self.about_you_fields()},
+            {"header": "Contact Information", "fields": self.contact_info_fields()},
+        ]
 
 
 # TODO for DIS-1700: make this form a ModelForm, similar to the HealthAlertSubscriberForm.

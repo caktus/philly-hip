@@ -385,3 +385,34 @@ class OpioidOverdoseSubscriber(models.Model):
 
     def __str__(self):
         return f"Opioid Overdose Notification Subscriber: {self.first_name} {self.last_name}"
+
+
+class CodeRedCodeBlueSubscriber(models.Model):
+    """A model to keep track of people who subscribe to Code Red/Code Blue notifications."""
+
+    first_name = models.CharField(
+        "First Name*",
+        max_length=255,
+        default="",
+    )
+    last_name = models.CharField(
+        "Last Name*",
+        max_length=255,
+        default="",
+    )
+    agency_name = models.CharField(
+        "Agency Name*",
+        max_length=255,
+        default="",
+    )
+
+    work_phone = PhoneNumberField("Work Phone*")
+    work_email = models.EmailField("Work Email*")
+    cell_phone = PhoneNumberField("Cell Phone*")
+    personal_email = models.EmailField("Personal Email*")
+
+    class Meta:
+        verbose_name_plural = "Code Red/Code Blue Subscribers"
+
+    def __str__(self):
+        return f"Code Red/Code Blue Notification Subscriber: {self.first_name} {self.last_name}"
