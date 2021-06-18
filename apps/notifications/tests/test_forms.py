@@ -1,10 +1,19 @@
 import pytest
 
-from ..forms import CommunityResponseSubscriberForm, InternalAlertsSubscriberForm
+from ..forms import (
+    CommunityResponseSubscriberForm,
+    InternalAlertsSubscriberForm,
+    OpioidOverdoseSubscriberForm,
+)
 
 
 @pytest.mark.parametrize(
-    "form_class", [CommunityResponseSubscriberForm, InternalAlertsSubscriberForm]
+    "form_class",
+    [
+        CommunityResponseSubscriberForm,
+        InternalAlertsSubscriberForm,
+        OpioidOverdoseSubscriberForm,
+    ],
 )
 def test_asterisks_mark_required_fields(db, form_class):
     """Required field names end with an asterisk."""
@@ -84,3 +93,26 @@ def test_invalid_zip_code_community_response_form(
     assert form.is_valid() is False
     expected_error = "Either provide a 5 or 9 digit zipcode Ex: 12345 or 12345-1234"
     assert {"organization_zip_code": [expected_error]} == form.errors
+
+
+def test_form_valid_opioid_overdose_form(db, opioid_overdose_notification_data):
+    """Test putting valid data into the form."""
+    form = OpioidOverdoseSubscriberForm(opioid_overdose_notification_data)
+    assert form.is_valid()
+
+
+def test_invalid_phone_number_opioid_overdose_form(
+    db, opioid_overdose_notification_data
+):
+    """Having invalid data means the form is not valid."""
+    # The 'mobile_phone' field value is not valid.
+    opioid_overdose_notification_data["mobile_phone"] = "0"
+
+    form = OpioidOverdoseSubscriberForm(opioid_overdose_notification_data)
+
+    assert form.is_valid() is False
+    expected_error = (
+        "Enter a valid phone number (e.g. (201) 555-0123) or a number "
+        "with an international call prefix."
+    )
+    assert {"mobile_phone": [expected_error]} == form.errors

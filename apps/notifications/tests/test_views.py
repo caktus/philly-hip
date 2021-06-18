@@ -189,28 +189,79 @@ def test_get_opioid_overdose_notification_signup_page(db, client):
     assert isinstance(response.context["form"], OpioidOverdoseSubscriberForm)
 
 
-def test_opioid_overdose_notification_signup_valid_data(db, client):
-    """POSTting valid data redirects the user, and shows a success message."""
-    response = client.post(reverse("opioid_notifications_signup"), {})
+@pytest.mark.parametrize(
+    "next_url,http_referrer_header,expected_success_url",
+    [
+        ("", "", "/the_emergency_communications_page/"),
+        ("/next_url/", "", "/next_url/"),
+        ("", "/http_referrer_header/", "/http_referrer_header/"),
+        ("/next_url/", "/http_referrer_header/", "/next_url/"),
+    ],
+)
+def test_opioid_overdose_notification_signup_valid_data(
+    db,
+    client,
+    mocker,
+    opioid_overdose_notification_data,
+    next_url,
+    http_referrer_header,
+    expected_success_url,
+):
+    """
+    POSTting valid data redirects the user, and shows a success message.
+
+    If the request has a "next" parameter, then the user should be sent to that URL.
+    Otherwise, if the request has an HTTP_REFERER header, then the user should be
+    redirected to it.
+    Otherwise, the get_emergency_communications_page_url() utility function is
+    used to determine where the user should be redirected to.
+    """
+    # Mock the get_emergency_communications_page() function, since it is sometimes
+    # used to determine the redirect URL for a successful POST.
+    mock_get_emergency_communications_page_url = mocker.patch(
+        "apps.notifications.views.get_emergency_communications_page_url"
+    )
+    mock_url = "/the_emergency_communications_page/"
+    mock_get_emergency_communications_page_url.return_value = mock_url
+
+    url = reverse("opioid_notifications_signup")
+    if next_url:
+        url += f"?next={next_url}"
+    if http_referrer_header:
+        response = client.post(
+            url, opioid_overdose_notification_data, HTTP_REFERER=http_referrer_header
+        )
+    else:
+        response = client.post(url, opioid_overdose_notification_data)
+
+    assert HTTPStatus.FOUND == response.status_code
+    assert expected_success_url == response.url
     messages = get_messages(response.wsgi_request)
     expected_message = (
         "You are now subscribed to notifications from the Philadelphia Department "
         "of Public Health related to opioid overdoses."
     )
-    assert "/" == response.url
-    assert HTTPStatus.FOUND == response.status_code
     assert [str(message) for message in messages] == [expected_message]
+    # If the expected_success_url is neither the next_url nor the http_referrer_header,
+    # then it must be from the mocked get_emergency_communications_page() function,
+    # so verify that the get_emergency_communications_page() function was called.
+    if expected_success_url not in [next_url, http_referrer_header]:
+        assert 1 == mock_get_emergency_communications_page_url.call_count
 
 
-# TODO: implement in DIS-1700
-# def test_opioid_overdose_notification_signup_invalid_data(db, client):
-#     """POSTting invalid data shows errors to the user."""
-#     data = {}
-#     expected_errors = []
-#     response = client.post(reverse("opioid_notifications_signup"), data)
-#     assert HTTPStatus.OK == response.status_code
-#     for error in expected_errors:
-#         assert error in str(response.content)
+def test_opioid_overdose_notification_signup_invalid_data(
+    db, client, opioid_overdose_notification_data
+):
+    """POSTting invalid data shows errors to the user."""
+    data = opioid_overdose_notification_data.copy()
+    data.pop("first_name")
+
+    response = client.post(reverse("opioid_notifications_signup"), data)
+
+    assert HTTPStatus.OK == response.status_code
+    assert {"first_name": ["This field is required."]} == response.context[
+        "form"
+    ].errors
 
 
 def test_get_codeblue_codered_notifications_signup_page(db, client):

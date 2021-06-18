@@ -1,6 +1,7 @@
-from .factories import (  # isort: skip
+from .factories import (
     CommunityResponseSubscriberFactory,
     InternalEmployeeAlertSubscriberFactory,
+    OpioidOverdoseSubscriberFactory,
 )
 
 
@@ -19,3 +20,13 @@ def test_community_response_subscriber_string_representation(db):
         f"{community_response_subscriber.last_name}"
     )
     assert expected_string == str(community_response_subscriber)
+
+
+def test_opioid_overdose_subscriber_string_representation(db):
+    """Test the string representation for an InternalEmployeeAlertSubscriber."""
+    opioid_subscriber = OpioidOverdoseSubscriberFactory()
+    expected_string = (
+        f"Opioid Overdose Notification Subscriber: {opioid_subscriber.first_name} "
+        f"{opioid_subscriber.last_name}"
+    )
+    assert expected_string == str(opioid_subscriber)
