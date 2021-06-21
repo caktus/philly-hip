@@ -96,6 +96,47 @@ class InternalEmployeeAlertSubscriber(models.Model):
             "Other",
         )
 
+    class AMBULATORY_HEALTH_CENTER_CHOICES(models.TextChoices):
+        ADMINISTRATION = ("Administration", "Administration")
+        HEALTH_CENTER_2 = ("Health Center 2", "Health Center 2")
+        HEALTH_CENTER_3 = ("Health Center 3", "Health Center 3")
+        HEALTH_CENTER_4 = ("Health Center 4", "Health Center 4")
+        HEALTH_CENTER_5 = ("Health Center 5", "Health Center 5")
+        HEALTH_CENTER_6 = ("Health Center 6", "Health Center 6")
+        HEALTH_CENTER_9 = ("Health Center 9", "Health Center 9")
+        HEALTH_CENTER_10 = ("Health Center 10", "Health Center 10")
+        HEALTH_CENTER_SM = (
+            "Health Center Strawberry Mansion",
+            "Health Center Strawberry Mansion",
+        )
+
+    class EHS_PROGRAM_CHOICES(models.TextChoices):
+        ADMINISTRATION = ("Administration", "Administration")
+        ENVIRONMENTAL_ENGINEERING = (
+            "Environmental Engineering",
+            "Environmental Engineering",
+        )
+        FOOD_PROTECTION = ("Food Protection", "Food Protection")
+        VECTOR_CONTROL = ("Vector Control", "Vector Control")
+        CHILDHOOD_LEAD = ("Childhood Lead", "Childhood Lead")
+
+    class DISEASE_CONTROL_PROGRAM_CHOICES(models.TextChoices):
+        ADMINISTRATION = ("Administration", "Administration")
+        ACUTE_COMMUNICABLE_DISEASE = (
+            "Acute Communicable Disease",
+            "Acute Communicable Disease",
+        )
+        BIOTERRORISM = ("Bioterrorism", "Bioterrorism")
+        EPIDEMIOLOGY = ("Epidemiology", "Epidemiology")
+        HEALTH_CENTER_1 = ("Health Center 1", "Health Center 1")
+        HEALTH_CENTER_5 = ("Health Center 5", "Health Center 5")
+        IMMUNIZATIONS = ("Immunizations", "Immunizations")
+        STD_CONTROL = ("STD Control", "STD Control")
+        SUPPORT_STAFF = ("Support Staff", "Support Staff")
+        TUBERCULOSIS = ("Tuberculosis", "Tuberculosis")
+        HEPATITIS = ("Hepatitis", "Hepatitis")
+        HAI_AR = ("HAI-AR", "HAI-AR")
+
     first_name = models.CharField(
         "First Name*",
         max_length=255,
@@ -116,6 +157,24 @@ class InternalEmployeeAlertSubscriber(models.Model):
         "Division*",
         max_length=100,
         choices=DIVISION_CHOICES.choices,
+    )
+    ambulatory_health_center = models.CharField(
+        "Ambulatory Health Center*",
+        max_length=100,
+        blank=True,
+        choices=AMBULATORY_HEALTH_CENTER_CHOICES.choices,
+    )
+    ehs_program = models.CharField(
+        "EHS Program*",
+        max_length=100,
+        blank=True,
+        choices=EHS_PROGRAM_CHOICES.choices,
+    )
+    disease_control_program = models.CharField(
+        "Disease Control Program*",
+        max_length=100,
+        blank=True,
+        choices=DISEASE_CONTROL_PROGRAM_CHOICES.choices,
     )
 
     work_phone = PhoneNumberField("Work Phone*")
