@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, ValidationError
 
 from .models import (
     CodeRedCodeBlueSubscriber,
@@ -23,6 +23,9 @@ class InternalAlertsSubscriberForm(ModelForm):
             "professional_license",
             "languages_spoken",
             "division",
+            "ambulatory_health_center",
+            "disease_control_program",
+            "ehs_program",
         ]
         return [self[name] for name in self.fields if name in about_you_field_names]
 
@@ -50,6 +53,36 @@ class InternalAlertsSubscriberForm(ModelForm):
                 "fields": self.contact_information_fields(),
             },
         ]
+
+    def clean(self):
+        """
+        If the user chooses a specific "division", then another field becomes required.
+
+        A user in the AMBULATORY_HEALTH_SERVICES division must fill in their
+        "ambulatory_health_center".
+        A user in the DIVISION_OF_DISEASE_CONTROL division must fill in their
+        "disease_control_program".
+        A user in the ENVIRONMENTAL_HEALTH_SERVICES division must fill in their
+        "ehs_program".
+        """
+        division = self.cleaned_data.get("division")
+
+        required_field_msg = "This field is required."
+        if division == str(
+            InternalEmployeeAlertSubscriber.DIVISION_CHOICES.AMBULATORY_HEALTH_SERVICES
+        ):
+            if not self.cleaned_data.get("ambulatory_health_center"):
+                raise ValidationError({"ambulatory_health_center": required_field_msg})
+        elif division == str(
+            InternalEmployeeAlertSubscriber.DIVISION_CHOICES.DIVISION_OF_DISEASE_CONTROL
+        ):
+            if not self.cleaned_data.get("disease_control_program"):
+                raise ValidationError({"disease_control_program": required_field_msg})
+        elif division == str(
+            InternalEmployeeAlertSubscriber.DIVISION_CHOICES.ENVIRONMENTAL_HEALTH_SERVICES
+        ):
+            if not self.cleaned_data.get("ehs_program"):
+                raise ValidationError({"ehs_program": required_field_msg})
 
 
 class CommunityResponseSubscriberForm(ModelForm):
