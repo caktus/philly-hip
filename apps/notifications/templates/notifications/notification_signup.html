@@ -19,7 +19,7 @@
     </div>
     <div class="px-4 columns is-widescreen">
       {# Form Section #}
-      <form class="column is-half-desktop" method="post" action="{{ request.path }}?next={{ next }}">
+      <form {% if form.form_id %}id="{{ form.form_id }}"{% endif %} class="column is-half-desktop" method="post" action="{{ request.path }}?next={{ next }}">
         {% csrf_token %}
         <div>
           {% include 'includes/field_errors.html' with errors=form.non_field_errors %}

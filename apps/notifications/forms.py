@@ -11,6 +11,7 @@ from .models import (
 
 class InternalAlertsSubscriberForm(ModelForm):
     use_required_attribute = False
+    form_id = "internal-alerts-subscriber-form"
 
     class Meta:
         model = InternalEmployeeAlertSubscriber
@@ -87,6 +88,7 @@ class InternalAlertsSubscriberForm(ModelForm):
 
 class CommunityResponseSubscriberForm(ModelForm):
     use_required_attribute = False
+    form_id = "community-response-subscriber-form"
 
     class Meta:
         model = CommunityResponseSubscriber
@@ -137,6 +139,7 @@ class CommunityResponseSubscriberForm(ModelForm):
 
 class OpioidOverdoseSubscriberForm(ModelForm):
     use_required_attribute = False
+    form_id = "opioid-overdose-subscriber-form"
 
     class Meta:
         model = OpioidOverdoseSubscriber
@@ -178,6 +181,7 @@ class OpioidOverdoseSubscriberForm(ModelForm):
 
 class CodeRedCodeBlueSubscriberForm(ModelForm):
     use_required_attribute = False
+    form_id = "codered-codeblue-subscriber-form"
 
     class Meta:
         model = CodeRedCodeBlueSubscriber
@@ -206,6 +210,7 @@ class CodeRedCodeBlueSubscriberForm(ModelForm):
 
 class PublicHealthPreparednessSubscriberForm(ModelForm):
     use_required_attribute = False
+    form_id = "public-health-preparedness-subscriber-form"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
