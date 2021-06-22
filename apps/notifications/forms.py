@@ -3,8 +3,8 @@ from django.forms import ModelForm
 from .models import (
     CodeRedCodeBlueSubscriber,
     CommunityResponseSubscriber,
+    DrugOverdoseSubscriber,
     InternalEmployeeAlertSubscriber,
-    OpioidOverdoseSubscriber,
     PublicHealthPreparednessSubscriber,
 )
 
@@ -102,11 +102,11 @@ class CommunityResponseSubscriberForm(ModelForm):
         ]
 
 
-class OpioidOverdoseSubscriberForm(ModelForm):
+class DrugOverdoseSubscriberForm(ModelForm):
     use_required_attribute = False
 
     class Meta:
-        model = OpioidOverdoseSubscriber
+        model = DrugOverdoseSubscriber
         fields = "__all__"
 
     def personal_information_fields(self):

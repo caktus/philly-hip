@@ -3,8 +3,8 @@ import pytest
 from ..forms import (
     CodeRedCodeBlueSubscriberForm,
     CommunityResponseSubscriberForm,
+    DrugOverdoseSubscriberForm,
     InternalAlertsSubscriberForm,
-    OpioidOverdoseSubscriberForm,
     PublicHealthPreparednessSubscriberForm,
 )
 
@@ -15,7 +15,7 @@ from ..forms import (
         CodeRedCodeBlueSubscriberForm,
         CommunityResponseSubscriberForm,
         InternalAlertsSubscriberForm,
-        OpioidOverdoseSubscriberForm,
+        DrugOverdoseSubscriberForm,
         PublicHealthPreparednessSubscriberForm,
     ],
 )
@@ -99,20 +99,18 @@ def test_invalid_zip_code_community_response_form(
     assert {"organization_zip_code": [expected_error]} == form.errors
 
 
-def test_form_valid_opioid_overdose_form(db, opioid_overdose_notification_data):
+def test_form_valid_drug_overdose_form(db, drug_overdose_notification_data):
     """Test putting valid data into the form."""
-    form = OpioidOverdoseSubscriberForm(opioid_overdose_notification_data)
+    form = DrugOverdoseSubscriberForm(drug_overdose_notification_data)
     assert form.is_valid()
 
 
-def test_invalid_phone_number_opioid_overdose_form(
-    db, opioid_overdose_notification_data
-):
+def test_invalid_phone_number_drug_overdose_form(db, drug_overdose_notification_data):
     """Having invalid data means the form is not valid."""
     # The 'mobile_phone' field value is not valid.
-    opioid_overdose_notification_data["mobile_phone"] = "0"
+    drug_overdose_notification_data["mobile_phone"] = "0"
 
-    form = OpioidOverdoseSubscriberForm(opioid_overdose_notification_data)
+    form = DrugOverdoseSubscriberForm(drug_overdose_notification_data)
 
     assert form.is_valid() is False
     expected_error = (
