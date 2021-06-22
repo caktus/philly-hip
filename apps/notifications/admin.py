@@ -5,8 +5,8 @@ from import_export.admin import ExportMixin
 from .models import (
     CodeRedCodeBlueSubscriber,
     CommunityResponseSubscriber,
+    DrugOverdoseSubscriber,
     InternalEmployeeAlertSubscriber,
-    OpioidOverdoseSubscriber,
     PublicHealthPreparednessSubscriber,
 )
 
@@ -54,8 +54,8 @@ class CommunityResponseSubscriberAdmin(ExportMixin, admin.ModelAdmin):
         return f"{obj.first_name} {obj.last_name}"
 
 
-@admin.register(OpioidOverdoseSubscriber)
-class OpioidOverdoseSubscriberAdmin(ExportMixin, admin.ModelAdmin):
+@admin.register(DrugOverdoseSubscriber)
+class DrugOverdoseSubscriberAdmin(ExportMixin, admin.ModelAdmin):
     list_display = (
         "full_name",
         "title",

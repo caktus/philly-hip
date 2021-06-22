@@ -334,8 +334,8 @@ class CommunityResponseSubscriber(models.Model):
         )
 
 
-class OpioidOverdoseSubscriber(models.Model):
-    """A model to keep track of people who subscribe to opioid overdose notifications."""
+class DrugOverdoseSubscriber(models.Model):
+    """A model to keep track of people who subscribe to drug overdose notifications."""
 
     class NOTIFICATION_GROUP_CHOICES(models.TextChoices):
         AGENCIES = ("Agencies", "Agencies")
@@ -381,10 +381,12 @@ class OpioidOverdoseSubscriber(models.Model):
     mobile_phone = PhoneNumberField("Mobile Phone*")
 
     class Meta:
-        verbose_name_plural = "Opioid Overdose Subscribers"
+        verbose_name_plural = "Drug Overdose Subscribers"
 
     def __str__(self):
-        return f"Opioid Overdose Notification Subscriber: {self.first_name} {self.last_name}"
+        return (
+            f"Drug Overdose Notification Subscriber: {self.first_name} {self.last_name}"
+        )
 
 
 class CodeRedCodeBlueSubscriber(models.Model):
