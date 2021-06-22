@@ -450,25 +450,25 @@ class CodeRedCodeBlueSubscriber(models.Model):
     """A model to keep track of people who subscribe to Code Red/Code Blue notifications."""
 
     first_name = models.CharField(
-        "First Name*",
+        "First Name",
         max_length=255,
-        default="",
+        blank=True,
     )
     last_name = models.CharField(
-        "Last Name*",
+        "Last Name",
         max_length=255,
-        default="",
+        blank=True,
     )
     agency_name = models.CharField(
-        "Agency Name*",
+        "Agency Name",
         max_length=255,
-        default="",
+        blank=True,
     )
 
-    work_phone = PhoneNumberField("Work Phone*")
-    work_email = models.EmailField("Work Email*")
-    cell_phone = PhoneNumberField("Cell Phone*")
-    personal_email = models.EmailField("Personal Email*")
+    work_phone = PhoneNumberField("Work Phone", blank=True)
+    work_email = models.EmailField("Work Email", blank=True)
+    cell_phone = PhoneNumberField("Cell Phone", blank=True)
+    personal_email = models.EmailField("Personal Email", blank=True)
 
     class Meta:
         verbose_name_plural = "Code Red/Code Blue Subscribers"
