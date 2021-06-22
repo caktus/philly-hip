@@ -7,6 +7,7 @@ from ..models import (
     CommunityResponseSubscriber,
     InternalEmployeeAlertSubscriber,
     OpioidOverdoseSubscriber,
+    PublicHealthPreparednessSubscriber,
 )
 
 
@@ -83,3 +84,19 @@ class OpioidOverdoseSubscriberFactory(factory.django.DjangoModelFactory):
     )
     email_address = factory.faker.Faker("email")
     mobile_phone = factory.faker.Faker("phone_number")
+
+
+class PublicHealthPreparednessSubscriberFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = PublicHealthPreparednessSubscriber
+
+    first_name = factory.faker.Faker("first_name")
+    last_name = factory.faker.Faker("last_name")
+    phone_number = factory.faker.Faker("phone_number")
+    email_address = factory.faker.Faker("email")
+    organization_name = factory.faker.Faker("company")
+    organization_zip_code = factory.faker.Faker("postcode")
+    outreach_request_choice = random.choice(
+        [str(n) for n in PublicHealthPreparednessSubscriber.OUTREACH_REQUEST_CHOICES]
+    )
+    outreach_request_additional_info = factory.faker.Faker("text")

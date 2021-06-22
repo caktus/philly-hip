@@ -7,6 +7,7 @@ from .models import (
     CommunityResponseSubscriber,
     InternalEmployeeAlertSubscriber,
     OpioidOverdoseSubscriber,
+    PublicHealthPreparednessSubscriber,
 )
 
 
@@ -85,6 +86,24 @@ class CodeRedCodeBlueSubscriberAdmin(ExportMixin, admin.ModelAdmin):
         "last_name",
         "work_email",
         "personal_email",
+    )
+
+    def full_name(self, obj):
+        return f"{obj.first_name} {obj.last_name}"
+
+
+@admin.register(PublicHealthPreparednessSubscriber)
+class PublicHealthPreparednessSubscriberAdmin(ExportMixin, admin.ModelAdmin):
+    list_display = (
+        "full_name",
+        "email_address",
+        "organization_name",
+    )
+    list_filter = ("outreach_request_choice",)
+    search_fields = (
+        "first_name",
+        "last_name",
+        "email_address",
     )
 
     def full_name(self, obj):

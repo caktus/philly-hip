@@ -1,10 +1,11 @@
-from django.forms import Form, ModelForm
+from django.forms import ModelForm
 
 from .models import (
     CodeRedCodeBlueSubscriber,
     CommunityResponseSubscriber,
     InternalEmployeeAlertSubscriber,
     OpioidOverdoseSubscriber,
+    PublicHealthPreparednessSubscriber,
 )
 
 
@@ -170,7 +171,51 @@ class CodeRedCodeBlueSubscriberForm(ModelForm):
         ]
 
 
-# TODO for DIS-1700: make this form a ModelForm, similar to the HealthAlertSubscriberForm.
-class PublicHealthPreparednessSubscriberForm(Form):
-    def save(self, *args, **kwargs):
-        pass
+class PublicHealthPreparednessSubscriberForm(ModelForm):
+    use_required_attribute = False
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Give the 'outreach_request_additional_info' field a CSS class.
+        self.fields["outreach_request_additional_info"].widget.attrs.update(
+            {"class": "textarea"}
+        )
+
+    class Meta:
+        model = PublicHealthPreparednessSubscriber
+        fields = "__all__"
+
+    def contact_info_fields(self):
+        contact_info_field_names = [
+            "first_name",
+            "last_name",
+            "phone_number",
+            "email_address",
+        ]
+        return [self[name] for name in self.fields if name in contact_info_field_names]
+
+    def organization_info_fields(self):
+        organization_info_field_names = ["organization_name", "organization_zip_code"]
+        return [
+            self[name] for name in self.fields if name in organization_info_field_names
+        ]
+
+    def outreach_request_fields(self):
+        outreach_request_field_names = [
+            "outreach_request_choice",
+            "outreach_request_additional_info",
+        ]
+        return [
+            self[name] for name in self.fields if name in outreach_request_field_names
+        ]
+
+    def form_sections(self):
+        """Return the sections of this form, including a header, and the fields in the section."""
+        return [
+            {"header": "Contact Information", "fields": self.contact_info_fields()},
+            {
+                "header": "Organization Information",
+                "fields": self.organization_info_fields(),
+            },
+            {"header": "Outreach Request", "fields": self.outreach_request_fields()},
+        ]
