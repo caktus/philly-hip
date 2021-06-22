@@ -4,8 +4,8 @@ from django.shortcuts import redirect, render
 from .forms import (
     CodeRedCodeBlueSubscriberForm,
     CommunityResponseSubscriberForm,
+    DrugOverdoseSubscriberForm,
     InternalAlertsSubscriberForm,
-    OpioidOverdoseSubscriberForm,
     PublicHealthPreparednessSubscriberForm,
 )
 
@@ -87,11 +87,11 @@ def community_notifications_signup(request):
     )
 
 
-def opioid_notifications_signup(request):
-    """View for managing sign ups for opioid overdose notifications."""
+def drug_notifications_signup(request):
+    """View for managing sign ups for drug overdose notifications."""
     success_message = (
         "You are now subscribed to notifications from the Philadelphia Department "
-        "of Public Health related to opioid overdoses."
+        "of Public Health related to drug overdoses."
     )
     next_url = get_next_url_from_request(request)
     if next_url:
@@ -101,12 +101,12 @@ def opioid_notifications_signup(request):
 
     return generic_notification_signup(
         request,
-        OpioidOverdoseSubscriberForm,
+        DrugOverdoseSubscriberForm,
         success_message,
         success_url,
         close_url,
         "notifications/notification_signup.html",
-        {"title": "Opioid Overdose Notification Network"},
+        {"title": "Drug Overdose Notification Network"},
     )
 
 
