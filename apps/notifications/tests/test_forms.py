@@ -210,6 +210,18 @@ def test_invalid_phone_number_codered_codeblue_form(
     assert {"work_phone": [expected_error]} == form.errors
 
 
+def test_empty_data_codered_codeblue_form(db):
+    """Though all CodeRedCodeBlueSubscriberForm fields are optional, at least 1 is required."""
+    # Having empty data means the form is not valid.
+    form = CodeRedCodeBlueSubscriberForm({})
+    assert form.is_valid() is False
+    assert {"__all__": ["Please fill in at least 1 field."]} == form.errors
+
+    # Entering at least 1 field makes the form valid.
+    form = CodeRedCodeBlueSubscriberForm({"first_name": "Name"})
+    assert form.is_valid() is True
+
+
 def test_form_valid_public_health_preparedness_form(db, php_notification_data):
     """Test putting valid data into the form."""
     form = PublicHealthPreparednessSubscriberForm(php_notification_data)

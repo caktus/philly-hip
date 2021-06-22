@@ -207,6 +207,17 @@ class CodeRedCodeBlueSubscriberForm(ModelForm):
             {"header": "Contact Information", "fields": self.contact_info_fields()},
         ]
 
+    def clean(self):
+        """
+        At least 1 field must not be blank.
+
+        Since all CodeRedCodeBlueSubscriber fields are optional, we must verify
+        that at least 1 field has been filled in. Otherwise, we could end up with
+        CodeRedCodeBlueSubscriber objects with all empty fields.
+        """
+        if not [field_name for field_name, value in self.cleaned_data.items() if value]:
+            raise ValidationError("Please fill in at least 1 field.")
+
 
 class PublicHealthPreparednessSubscriberForm(ModelForm):
     use_required_attribute = False
