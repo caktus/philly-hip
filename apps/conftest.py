@@ -263,8 +263,8 @@ def community_response_notification_data():
 
 
 @pytest.fixture
-def opioid_overdose_notification_data():
-    """Create data for a OpioidOverdoseSubscriber."""
+def drug_overdose_notification_data():
+    """Create data for a DrugOverdoseSubscriber."""
     return dict(
         first_name="SpongeBob",
         last_name="SquarePants",
