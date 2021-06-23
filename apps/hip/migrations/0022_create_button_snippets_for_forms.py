@@ -18,8 +18,8 @@ def create_button_snippets_for_forms(apps, schema_editor):
             "relative_url": reverse("community_notifications_signup"),
         },
         {
-            "button_text": "Sign Up For Opioid Notifications",
-            "relative_url": reverse("opioid_notifications_signup"),
+            "button_text": "Sign Up For Drug Overdose Notifications",
+            "relative_url": reverse("drug_notifications_signup"),
         },
         {
             "button_text": "Sign Up For Code Blue/Code Red Notifications",

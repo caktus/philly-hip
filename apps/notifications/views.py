@@ -2,10 +2,10 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 
 from .forms import (
-    CodeBlueCodeRedSubscriberForm,
+    CodeRedCodeBlueSubscriberForm,
     CommunityResponseSubscriberForm,
+    DrugOverdoseSubscriberForm,
     InternalAlertsSubscriberForm,
-    OpioidOverdoseSubscriberForm,
     PublicHealthPreparednessSubscriberForm,
 )
 
@@ -87,21 +87,26 @@ def community_notifications_signup(request):
     )
 
 
-def opioid_notifications_signup(request):
-    """View for managing sign ups for opioid overdose notifications."""
+def drug_notifications_signup(request):
+    """View for managing sign ups for drug overdose notifications."""
     success_message = (
         "You are now subscribed to notifications from the Philadelphia Department "
-        "of Public Health related to opioid overdoses."
+        "of Public Health related to drug overdoses."
     )
-    success_url = close_url = "/"
+    next_url = get_next_url_from_request(request)
+    if next_url:
+        success_url = close_url = next_url
+    else:
+        success_url = close_url = get_emergency_communications_page_url()
+
     return generic_notification_signup(
         request,
-        OpioidOverdoseSubscriberForm,
+        DrugOverdoseSubscriberForm,
         success_message,
         success_url,
         close_url,
         "notifications/notification_signup.html",
-        {"title": "Opioid Overdose Notification Network"},
+        {"title": "Drug Overdose Notification Network"},
     )
 
 
@@ -111,10 +116,15 @@ def codeblue_codered_notifications_signup(request):
         "You are now subscribed to notifications from the Philadelphia Department "
         "of Public Health related to Code Red/Code Blue events."
     )
-    success_url = close_url = "/"
+    next_url = get_next_url_from_request(request)
+    if next_url:
+        success_url = close_url = next_url
+    else:
+        success_url = close_url = get_emergency_communications_page_url()
+
     return generic_notification_signup(
         request,
-        CodeBlueCodeRedSubscriberForm,
+        CodeRedCodeBlueSubscriberForm,
         success_message,
         success_url,
         close_url,
@@ -129,7 +139,12 @@ def public_health_preparedness_signup(request):
         "You are now subscribed to notifications from the Philadelphia Department "
         "of Public Health related to public health preparedness."
     )
-    success_url = close_url = "/"
+    next_url = get_next_url_from_request(request)
+    if next_url:
+        success_url = close_url = next_url
+    else:
+        success_url = close_url = get_emergency_communications_page_url()
+
     return generic_notification_signup(
         request,
         PublicHealthPreparednessSubscriberForm,

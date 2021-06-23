@@ -64,7 +64,7 @@ def create_redirects(apps, schema_editor):
         ),
         (
             "/EmergentHealthTopics/Opioids/OpioidNotificationNetwork",
-            f"{scheme}://{domain}{reverse('opioid_notifications_signup')}",
+            f"{scheme}://{domain}{reverse('drug_notifications_signup')}",
         ),
         (
             "/EmergencyResponse/CodeBlueNotificationForm",

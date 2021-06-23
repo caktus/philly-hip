@@ -49,9 +49,9 @@ urlpatterns = [
         name="community_notifications_signup",
     ),
     path(
-        "opiod-overdose-notifications-signup/",
-        notifications_views.opioid_notifications_signup,
-        name="opioid_notifications_signup",
+        "drug-overdose-notifications-signup/",
+        notifications_views.drug_notifications_signup,
+        name="drug_notifications_signup",
     ),
     path(
         "codeblue-codered-notifications-signup/",

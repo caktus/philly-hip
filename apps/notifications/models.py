@@ -332,3 +332,141 @@ class CommunityResponseSubscriber(models.Model):
         return (
             f"Community Response Network Subscriber: {self.first_name} {self.last_name}"
         )
+
+
+class DrugOverdoseSubscriber(models.Model):
+    """A model to keep track of people who subscribe to drug overdose notifications."""
+
+    class NOTIFICATION_GROUP_CHOICES(models.TextChoices):
+        AGENCIES = ("Agencies", "Agencies")
+        HOSPITALS = ("Hospitals", "Hospitals")
+        COMMUNITY_MEMBERS = ("Community Members", "Community Members")
+        MEDIA_PRESS = ("Media/Press", "Media/Press")
+
+    first_name = models.CharField(
+        "First Name*",
+        max_length=255,
+        default="",
+    )
+    last_name = models.CharField(
+        "Last Name*",
+        max_length=255,
+        default="",
+    )
+    medical_specialty = models.CharField(
+        "Medical Specialty/Area of Expertise*",
+        max_length=255,
+        default="",
+    )
+
+    company_name = models.CharField(
+        "Company Name*",
+        max_length=255,
+        default="",
+    )
+    title = models.CharField(
+        "Your Title/Position*",
+        max_length=255,
+        default="",
+    )
+    work_phone = PhoneNumberField("Work Phone*")
+
+    notification_group = models.CharField(
+        "Notification Group*",
+        max_length=100,
+        choices=NOTIFICATION_GROUP_CHOICES.choices,
+    )
+
+    email_address = models.EmailField("Email Address*")
+    mobile_phone = PhoneNumberField("Mobile Phone*")
+
+    class Meta:
+        verbose_name_plural = "Drug Overdose Subscribers"
+
+    def __str__(self):
+        return (
+            f"Drug Overdose Notification Subscriber: {self.first_name} {self.last_name}"
+        )
+
+
+class CodeRedCodeBlueSubscriber(models.Model):
+    """A model to keep track of people who subscribe to Code Red/Code Blue notifications."""
+
+    first_name = models.CharField(
+        "First Name*",
+        max_length=255,
+        default="",
+    )
+    last_name = models.CharField(
+        "Last Name*",
+        max_length=255,
+        default="",
+    )
+    agency_name = models.CharField(
+        "Agency Name*",
+        max_length=255,
+        default="",
+    )
+
+    work_phone = PhoneNumberField("Work Phone*")
+    work_email = models.EmailField("Work Email*")
+    cell_phone = PhoneNumberField("Cell Phone*")
+    personal_email = models.EmailField("Personal Email*")
+
+    class Meta:
+        verbose_name_plural = "Code Red/Code Blue Subscribers"
+
+    def __str__(self):
+        return f"Code Red/Code Blue Notification Subscriber: {self.first_name} {self.last_name}"
+
+
+class PublicHealthPreparednessSubscriber(models.Model):
+    """A model to keep track of people who subscribe to public health preparedness notifications."""
+
+    class OUTREACH_REQUEST_CHOICES(models.TextChoices):
+        MEETING = ("Meeting", "Meeting")
+        TRAINING = ("Training", "Training")
+        RESOURCE = ("Resource", "Resource")
+
+    first_name = models.CharField(
+        "First Name*",
+        max_length=255,
+        default="",
+    )
+    last_name = models.CharField(
+        "Last Name*",
+        max_length=255,
+        default="",
+    )
+    phone_number = PhoneNumberField("Phone Number*")
+    email_address = models.EmailField("Email Address*")
+
+    organization_name = models.CharField(
+        "Organization Name*",
+        max_length=255,
+        default="",
+    )
+    organization_zip_code = models.CharField(
+        "Organization Zip Code*",
+        max_length=10,
+        default="",
+        validators=[zipcode_validator],
+    )
+
+    outreach_request_choice = models.CharField(
+        "I would like to request a*",
+        max_length=10,
+        choices=OUTREACH_REQUEST_CHOICES.choices,
+    )
+    outreach_request_additional_info = models.TextField(
+        "Please provide additional information about your request below.",
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name_plural = "Public Health Preparedness Subscribers"
+
+    def __str__(self):
+        return (
+            f"Public Health Preparedness Subscriber: {self.first_name} {self.last_name}"
+        )
