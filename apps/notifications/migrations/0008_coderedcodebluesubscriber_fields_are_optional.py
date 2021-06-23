@@ -8,7 +8,7 @@ import phonenumber_field.modelfields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("notifications", "0006_internal_alerts_new_division_fields"),
+        ("notifications", "0007_internal_alerts_new_division_fields"),
     ]
 
     operations = [
