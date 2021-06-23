@@ -3,8 +3,8 @@ from django.forms import ModelForm, ValidationError
 from .models import (
     CodeRedCodeBlueSubscriber,
     CommunityResponseSubscriber,
+    DrugOverdoseSubscriber,
     InternalEmployeeAlertSubscriber,
-    OpioidOverdoseSubscriber,
     PublicHealthPreparednessSubscriber,
 )
 
@@ -137,12 +137,12 @@ class CommunityResponseSubscriberForm(ModelForm):
         ]
 
 
-class OpioidOverdoseSubscriberForm(ModelForm):
+class DrugOverdoseSubscriberForm(ModelForm):
     use_required_attribute = False
     form_id = "opioid-overdose-subscriber-form"
 
     class Meta:
-        model = OpioidOverdoseSubscriber
+        model = DrugOverdoseSubscriber
         fields = "__all__"
 
     def personal_information_fields(self):

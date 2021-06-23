@@ -5,8 +5,8 @@ import factory
 from ..models import (
     CodeRedCodeBlueSubscriber,
     CommunityResponseSubscriber,
+    DrugOverdoseSubscriber,
     InternalEmployeeAlertSubscriber,
-    OpioidOverdoseSubscriber,
     PublicHealthPreparednessSubscriber,
 )
 
@@ -69,9 +69,9 @@ class InternalEmployeeAlertSubscriberFactory(factory.django.DjangoModelFactory):
     zip_code = factory.faker.Faker("postcode")
 
 
-class OpioidOverdoseSubscriberFactory(factory.django.DjangoModelFactory):
+class DrugOverdoseSubscriberFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = OpioidOverdoseSubscriber
+        model = DrugOverdoseSubscriber
 
     first_name = factory.faker.Faker("first_name")
     last_name = factory.faker.Faker("last_name")
@@ -80,7 +80,7 @@ class OpioidOverdoseSubscriberFactory(factory.django.DjangoModelFactory):
     title = factory.faker.Faker("job")
     work_phone = factory.faker.Faker("phone_number")
     notification_group = random.choice(
-        [str(n) for n in OpioidOverdoseSubscriber.NOTIFICATION_GROUP_CHOICES]
+        [str(n) for n in DrugOverdoseSubscriber.NOTIFICATION_GROUP_CHOICES]
     )
     email_address = factory.faker.Faker("email")
     mobile_phone = factory.faker.Faker("phone_number")

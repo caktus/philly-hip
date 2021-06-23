@@ -9,8 +9,8 @@ from pytest_django.asserts import assertTemplateUsed
 from ..forms import (
     CodeRedCodeBlueSubscriberForm,
     CommunityResponseSubscriberForm,
+    DrugOverdoseSubscriberForm,
     InternalAlertsSubscriberForm,
-    OpioidOverdoseSubscriberForm,
     PublicHealthPreparednessSubscriberForm,
 )
 
@@ -181,12 +181,12 @@ def test_community_response_notification_signup_invalid_data(
     ].errors
 
 
-def test_get_opioid_overdose_notification_signup_page(db, client):
-    """GETting the opioid overdose signup page shows the form to the user."""
-    response = client.get(reverse("opioid_notifications_signup"))
+def test_get_drug_overdose_notification_signup_page(db, client):
+    """GETting the drug overdose signup page shows the form to the user."""
+    response = client.get(reverse("drug_notifications_signup"))
     assert HTTPStatus.OK == response.status_code
     assertTemplateUsed("notifications/subscriber_signup.html")
-    assert isinstance(response.context["form"], OpioidOverdoseSubscriberForm)
+    assert isinstance(response.context["form"], DrugOverdoseSubscriberForm)
 
 
 @pytest.mark.parametrize(
@@ -198,11 +198,11 @@ def test_get_opioid_overdose_notification_signup_page(db, client):
         ("/next_url/", "/http_referrer_header/", "/next_url/"),
     ],
 )
-def test_opioid_overdose_notification_signup_valid_data(
+def test_drug_overdose_notification_signup_valid_data(
     db,
     client,
     mocker,
-    opioid_overdose_notification_data,
+    drug_overdose_notification_data,
     next_url,
     http_referrer_header,
     expected_success_url,
@@ -224,22 +224,22 @@ def test_opioid_overdose_notification_signup_valid_data(
     mock_url = "/the_emergency_communications_page/"
     mock_get_emergency_communications_page_url.return_value = mock_url
 
-    url = reverse("opioid_notifications_signup")
+    url = reverse("drug_notifications_signup")
     if next_url:
         url += f"?next={next_url}"
     if http_referrer_header:
         response = client.post(
-            url, opioid_overdose_notification_data, HTTP_REFERER=http_referrer_header
+            url, drug_overdose_notification_data, HTTP_REFERER=http_referrer_header
         )
     else:
-        response = client.post(url, opioid_overdose_notification_data)
+        response = client.post(url, drug_overdose_notification_data)
 
     assert HTTPStatus.FOUND == response.status_code
     assert expected_success_url == response.url
     messages = get_messages(response.wsgi_request)
     expected_message = (
         "You are now subscribed to notifications from the Philadelphia Department "
-        "of Public Health related to opioid overdoses."
+        "of Public Health related to drug overdoses."
     )
     assert [str(message) for message in messages] == [expected_message]
     # If the expected_success_url is neither the next_url nor the http_referrer_header,
@@ -249,14 +249,14 @@ def test_opioid_overdose_notification_signup_valid_data(
         assert 1 == mock_get_emergency_communications_page_url.call_count
 
 
-def test_opioid_overdose_notification_signup_invalid_data(
-    db, client, opioid_overdose_notification_data
+def test_drug_overdose_notification_signup_invalid_data(
+    db, client, drug_overdose_notification_data
 ):
     """POSTting invalid data shows errors to the user."""
-    data = opioid_overdose_notification_data.copy()
+    data = drug_overdose_notification_data.copy()
     data.pop("first_name")
 
-    response = client.post(reverse("opioid_notifications_signup"), data)
+    response = client.post(reverse("drug_notifications_signup"), data)
 
     assert HTTPStatus.OK == response.status_code
     assert {"first_name": ["This field is required."]} == response.context[
