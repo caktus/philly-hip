@@ -5,6 +5,7 @@ from .models import HealthAlertSubscriber
 
 class HealthAlertSubscriberForm(ModelForm):
     use_required_attribute = False
+    form_id = "health-alerts-subscriber-form"
 
     class Meta:
         model = HealthAlertSubscriber
