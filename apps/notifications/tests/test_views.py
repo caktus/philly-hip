@@ -332,18 +332,13 @@ def test_codeblue_codered_notifications_signup_valid_data(
         assert 1 == mock_get_emergency_communications_page_url.call_count
 
 
-def test_codeblue_codered_notifications_signup_invalid_data(
-    db, client, codered_codeblue_notification_data
-):
+def test_codeblue_codered_notifications_signup_invalid_data(db, client):
     """POSTting invalid data shows errors to the user."""
-    data = codered_codeblue_notification_data.copy()
-    data.pop("first_name")
-
+    data = {}
     response = client.post(reverse("codeblue_codered_notifications_signup"), data)
     assert HTTPStatus.OK == response.status_code
-    assert {"first_name": ["This field is required."]} == response.context[
-        "form"
-    ].errors
+    expected_error = {"__all__": ["Please fill in at least 1 field."]}
+    assert expected_error == response.context["form"].errors
 
 
 def test_get_public_health_preparedness_signup_page(db, client):
