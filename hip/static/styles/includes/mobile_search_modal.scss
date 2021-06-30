@@ -1,0 +1,27 @@
+@import "../colors";
+@import "../mixins";
+
+.mobile-search-modal {
+  @include modals;
+
+  .search-title-hip {
+    text-transform: uppercase;
+  }
+
+  .search-input-hip {
+    text-indent: 0;
+  }
+
+  .no-results-hip {
+    padding-top: 10rem;
+  }
+
+  .filter-btn-hip {
+    color: $black;
+    background-color: $light-grey;
+  }
+
+  .clear-filters-btn-hip {
+    color: $dark-blue;
+  }
+}

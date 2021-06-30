@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% include 'includes/breadcrumb.html' %}
+  <div class="reports-archive-list-page-hip px-4">
+    <h2 class="is-inline-block pt-0">{{ page.title }}</h2>
+    <table class="table-grid-pattern-hip my-4 is-full-width-hip">
+      <thead>
+        <tr class="py-2">
+          <th class="table-grid-pattern-hip__th py-4 pl-4 dark-grey-bg-hip">Year</th>
+          <th class="table-grid-pattern-hip__th py-4 pl-4 dark-grey-bg-hip">Report Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        {# Loop through the archived reports, and show a row for each one. #}
+        {% for row in archived_reports %}
+          <tr>
+            <td class="py-4 pl-4 pr-2 is-flex is-vcentered">{{ row.specific.year }}</td>
+            <td class="py-4 pl-4 pr-2"><a href="{{ row.url }}">{{ row.title }}</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

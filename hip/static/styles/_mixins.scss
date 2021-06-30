@@ -1,0 +1,142 @@
+@import "./colors";
+@import "./variables";
+
+@mixin headers {
+  h2 {
+    font-size: $is-size-2;
+    padding: 1.5rem 0 0.25rem 0;
+    color: $black;
+  };
+  h3 {
+    font-size: $is-size-4;
+    margin: 1rem 0;
+    font-weight: bold;
+    color: $dark-grey;
+  };
+  h4 {
+    font-size: $is-size-5;
+    color: $black;
+  };
+}
+
+@mixin a-tags {
+  a {
+    color: $dark-blue;
+    word-break: break-word;
+  }
+}
+
+
+@mixin paragraphs {
+  p {
+    padding: 0.5rem 0;
+    line-height: $line-height;
+    @include a-tags;
+  }
+}
+
+@mixin lists {
+  ul:not(#breadcrumb-ul-hip) {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+      display: block;
+      vertical-align: middle;
+      margin-left: 1rem;
+      line-height: $line-height;
+      @include a-tags;
+      &:before {
+        content: "•";
+        display: inline-block;
+        vertical-align: middle;
+        color: $grey;
+        font-size: 2rem;
+        margin-right: 0.5rem;
+        margin-bottom: 0rem;
+      }
+    }
+  }
+}
+
+@mixin wagtail-richtext {
+  @include headers;
+  @include paragraphs;
+  @include lists;
+  @include a-tags;
+}
+
+@mixin tables {
+  table {
+    width: 100%;
+    table-layout: fixed;
+    border-spacing: 2px;
+    border-collapse: separate;
+  }
+}
+
+@mixin dark-blue-bg {
+  background-color: $dark-blue;
+  color: $white;
+}
+
+@mixin light-blue-bg {
+  background-color: $light-blue;
+  color: $black;
+}
+
+@mixin black-bg {
+  background-color: $black;
+  color: $white;
+}
+
+@mixin very-dark-grey-bg {
+  color: $white;
+  background-color: $very-dark-grey;
+}
+
+@mixin dark-grey-bg {
+  background-color: $dark-grey;
+  color: $white;
+}
+
+@mixin light-grey-bg {
+  background-color: $light-grey;
+  color: $black;
+}
+@mixin modals {
+  position: absolute;
+  background-color: $white;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  min-height: 100vh;
+  max-height: auto;
+  z-index: 1000;
+  
+}
+
+@mixin rich-text-hip {
+  p {
+    color: $black;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+      display: flex;
+      margin-left: 1rem;
+      line-height: 2rem;
+      &:before {
+        content: "•";
+        display: block;
+        color: $grey;
+        font-size: 2rem;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}

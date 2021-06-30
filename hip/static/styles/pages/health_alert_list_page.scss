@@ -1,0 +1,61 @@
+@import "../mixins";
+@import "../colors";
+
+.health-alert-page {
+  margin: 0 3rem;
+  @media screen and (max-width: $breakpoint-widescreen) {
+    margin: 0 1.5rem;
+  }
+
+  @include tables;
+}
+
+.filter-widget-hip {
+  background-color: $light-grey;
+  .tag {
+    background-color: $grey-300;
+  }
+}
+
+.alert-table-hip {
+  th {
+    background-color: $dark-grey;
+    color: $white;
+    border-width: 0;
+    height: 3.5rem;
+    vertical-align: middle;
+  }
+
+  td {
+    border-width: 0;
+    vertical-align: middle;
+    overflow-wrap: break-word;
+  }
+
+  .row-bg-white-hip {
+    background-color: $white;
+  }
+
+  .row-bg-grey-hip {
+    background-color: $light-grey;
+  }
+
+  .year-hip {
+    color: $grey;
+    font-weight: 700;
+  }
+
+  .topic {
+    font-size: 18px;
+    min-width: 8rem;
+  }
+
+  .priority {
+    width: 12rem;
+    text-transform: uppercase;
+  }
+
+  .alert-date {
+    width: 12rem;
+  }
+}

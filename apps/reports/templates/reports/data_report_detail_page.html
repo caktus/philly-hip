@@ -1,0 +1,16 @@
+{% extends "hip/static_page.html" %}
+
+{% block sidebar %}
+  {% include 'includes/sidebar.html' %}
+{% endblock %}
+
+{% block main_area_css_class %}reports-detail-page-mainarea-hip{% endblock main_area_css_class %}
+
+{% block before_staticpage_content %}
+  {% include 'includes/breadcrumb.html' %}
+  <h2 class="is-inline-block px-4 pt-0">{{ page.title }}</h2>
+  {% if archive %}
+    <a class="pl-4" href="{{ archive.url }}">View Previous Years</a>
+  {% endif %}
+{% endblock %}
+{% block back_button %}{% endblock back_button %}

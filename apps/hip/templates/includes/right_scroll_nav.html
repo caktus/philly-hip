@@ -1,0 +1,38 @@
+{% load wagtailcore_tags %}
+
+{% comment %}
+  Right Scroll Navigation for Anchor Links on desktop only
+
+  To add a right scroll navigation to your page, make sure that your context includes a
+  key named right_nav_headings which should be a list of strings representing the
+  actual text to be shown as each right nav link. Each of the actual sections in the
+  body of your page should then have an empty div at the top of the section with an id
+  value of section-{{nav_heading|slugify}}
+
+  Example template use:
+  <div class="columns">
+    <div class="column">other content column container</div>
+    {% include 'right_scroll_nav.html' %}
+  </div>
+
+  The column for the 'other content' div will
+  default to being is-three-quarter
+{% endcomment %}
+
+{% if page.healthalertlistpage %}
+  <div class="column is-one-quarter right-scroll-container-hip is-desktop is-hidden-touch mt-5" data-isClicked="false">
+{% else %}
+  <div class="column is-one-quarter right-scroll-container-hip is-desktop is-hidden-touch" data-isClicked="false">
+{% endif %}
+  <div class="is-fixed">
+    {% for nav_heading in right_nav_headings %}
+      <div class="nav-title" data-ref="section-{{nav_heading|slugify}}">
+        <a class="right-scroll-link-hip" href="#section-{{nav_heading|slugify}}">
+          <h4 class="is-size-4 my-3 ml-4">
+            <strong>{{ nav_heading }}</strong>
+          </h4>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</div>

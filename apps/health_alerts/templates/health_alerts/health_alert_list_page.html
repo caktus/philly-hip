@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+  <div class="health-alert-page">
+    <div class="columns">
+      <div class="column">
+        <div class="level">
+          {# Title is on the left #}
+          <div class="level-left">
+            <div class="level-item">
+              <p class="title">
+                {{ page.title }}
+              </p>
+            </div>
+          </div>
+
+          {# Sign up button is on the right #}
+          <div class="level-right">
+            <div class="level-item">
+              <a href="{% url 'health_alert_subscriber' %}" class="is-block">
+                <span class="button is-size-7-mobile header-icon-hip">
+                  <i class="email-icon-hip"></i>
+                </span>
+                <span class="button is-size-7-mobile header-btn-hip">
+                  <strong>Sign Up For Alerts</strong>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {# Filter widget #}
+        <div class="filter-widget-hip columns m-0">
+          <div class="column">
+            <div class="select">
+              <select class="select-condition">
+                <option value="All">Filter by disease/condition</option>
+                {% for condition in conditions %}
+                  <option value="{{ condition.slug }}">{{ condition }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column is-one-quarter"></div>
+    </div>
+    <div class="columns">
+      <div class="column">
+        {# Main content table of Health Alerts #}
+        <table class="table alert-table-hip">
+          {% regroup health_alerts by alert_date.year as health_alert_list %}
+          {% for year in health_alert_list %}
+            <tr
+              data-condition="{% for alert in year.list %}{{ alert.disease.slug }} {% endfor %}"
+              data-year="{{ year.grouper }}"
+            >
+              <td colspan="3" class="pl-0">
+                {# nav-heading-hip is used by right_scroll_nav as link targets #}
+                <div class="nav-heading-hip" id="section-{{ year.grouper }}"></div>
+                <div class="is-size-4 pt-5 year-hip row-bg-white-hip">{{ year.grouper }}</div>
+              </td>
+            </tr>
+            {# only the first year has the table header #}
+            {% if forloop.counter == 1 %}
+              {% include "includes/health_alert_table_header.html" %}
+            {% endif %}
+
+            {% for alert in year.list %}
+              {% include "includes/health_alert_table_row.html" %}
+            {% endfor %}
+          {% endfor %}
+        </table>
+      </div>
+      {% include 'includes/right_scroll_nav.html' with page=page %}
+    </div>
+  </div>
+{% endblock %}

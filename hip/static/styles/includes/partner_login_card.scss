@@ -1,0 +1,25 @@
+@import "../colors";
+@import "../mixins";
+@import "../variables";
+
+.response-partner-login-hip {
+  background-color: $light-grey;
+}
+.response-partner-login__list-hip {
+  line-height: $is-size-3;
+  @include rich-text-hip;
+}
+.response-partner-login__paragraph-hip {
+  font-size: 0.9rem;
+}
+.login-btn-hip {
+  @include light-blue-bg;
+  border-radius: 0;
+}
+.login-icon-hip {
+  @include black-bg;
+  border-radius: 0;
+  @media screen and (min-width:$breakpoint-tablet) and (max-width: $breakpoint-desktop) {
+    max-width: 20%;
+  }
+}

@@ -1,0 +1,31 @@
+
+/* Font Awesome Config Variable
+
+Points to location of webfonts directory
+for font awesome. The path to this
+directory is relative to bundle.css
+in ROOT_DIR/static/
+*/
+$fa-font-path: "../webfonts";
+
+// SIZES - Corresponding to Bulma.io sizes
+// https://bulma.io/documentation/helpers/typography-helpers/#size
+
+$is-size-1: 3rem;
+$is-size-2: 2.5rem;
+$is-size-3: 2rem;
+$is-size-4: 1.5rem;
+$is-size-5: 1.25rem;
+$is-size-6: 1rem;
+$is-size-7: 0.75rem;
+
+// BREAKPOINTS - Corresponding to Bulma.io breakpoints
+
+$breakpoint-xs-mobile: 499px;
+$breakpoint-mobile: 768px;
+$breakpoint-tablet: 1023px;
+$breakpoint-desktop: 1215px;
+$breakpoint-widescreen: 1407px;
+
+// Line height of paragraphs and lists (see _mixins.scss for use)
+$line-height: 2rem;

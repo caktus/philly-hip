@@ -1,0 +1,36 @@
+{
+  "name": "hip",
+  "version": "0.0.1",
+  "private": true,
+  "description": "hip",
+  "main": "index.js",
+  "prettier": "eslint-config-vinta/prettier",
+  "scripts": {
+    "test": "jest",
+    "dev": "webpack -w --progress --colors --config  webpack.local.config.js",
+    "build": "NODE_ENV=production ./node_modules/.bin/webpack --progress --colors --config webpack.prod.config.js --bail",
+    "build-test": "NODE_ENV=development ./node_modules/.bin/webpack --progress --colors --config webpack.local.config.js --bail",
+    "coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "autoprefixer": "^9.7.6",
+    "awesomplete": "^1.1.5",
+    "jquery": "^3.4.1",
+    "postcss-cli": "^7.1.0",
+    "webpack": "~4.41.5",
+    "webpack-bundle-tracker": "^0.4.3",
+    "webpack-cli": "~3.3.2",
+    "webpack-merge": "^4.2.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@sentry/webpack-plugin": "^1.12.0",
+    "babel-loader": "^8.1.0"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  }
+}

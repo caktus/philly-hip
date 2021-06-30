@@ -1,0 +1,7 @@
+@import "../colors";
+@import "../mixins";
+
+.poster-card-hip {
+  height: 100%;
+  @include light-grey-bg;
+}

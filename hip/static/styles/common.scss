@@ -1,0 +1,150 @@
+@import "./mixins";
+@import "./icons.scss";
+@import "./colors";
+
+// ---------------- Background Colors ----------- //
+
+.dark-blue-bg-hip {
+  @include dark-blue-bg;
+};
+
+.light-blue-bg-hip {
+  @include light-blue-bg;
+}
+
+.black-bg-hip {
+  @include black-bg;
+}
+
+.light-grey-bg-hip {
+  @include light-grey-bg;
+}
+
+.dark-grey-bg-hip {
+  @include dark-grey-bg;
+}
+
+.bg-very-dark-grey-hip {
+  @include very-dark-grey-bg;
+}
+
+// ---------------- Colors ----------- //
+
+.is-dark-blue-hip {
+  color: $dark-blue;
+}
+.is-black-hip {
+  color: $black;
+}
+
+.is-green-hip {
+  color: $green;
+}
+
+.is-red-hip {
+  color: $red;
+}
+
+// ---------------- Button/Links----------- //
+
+.button {
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+}
+
+.btn-no-border-hip {
+  border: none;
+}
+
+.btn-footer {
+  color: $white;
+  &:hover {
+    color: $white;
+  }
+}
+
+.external-link-domain-hip {
+  color: $grey;
+  font-size: $is-size-7;
+}
+
+
+// -------------------- Show/Hide ------------- //
+
+.mobile-hidden-hip {
+  display: inline-block;
+  @media screen and (max-width: $breakpoint-tablet) {
+    display: none;
+  }
+}
+
+.desktop-hidden-hip {
+  display: block;
+  @media screen and (min-width: $breakpoint-tablet) {
+    display: none;
+  }
+}
+
+// -------------------- Height & Width ------------- //
+
+.is-full-height-hip {
+  height: 100%;
+}
+
+.is-full-width-hip {
+  width: 100%;
+  @media screen and (max-width: $breakpoint-tablet) {
+    width: 100% + 2%;
+  }
+  @media screen and (max-width: $breakpoint-mobile) {
+    width: 100% + 3%;
+  }
+}
+
+// -------------------- Tables ------------- //
+
+.th-mobile-hip {
+  @media screen and (max-width: $breakpoint-mobile) {
+    padding-right: 1rem;
+  }
+}
+
+.td-break-word {
+  a {
+    word-break: break-word;
+  }
+}
+
+// -------------------- Modals ------------- //
+
+body.modal-is-open-hip {
+  height: 100vh;
+  overflow-y: hidden;
+  padding-right: 15px;
+}
+
+// -------------------- Errors --------------- //
+
+.errorlist {
+  li {
+    font-size: $is-size-7;
+    font-weight: bold;
+    color: $alert !important;
+  }
+}
+.alert-hip {
+  color: $alert;
+}
+
+
+.divider-vertical-hip {
+  display: flex;
+  flex-direction: column;
+
+  &:before {
+    content: '';
+    flex: 1;
+    background-color: $grey;
+    width: 1px;
+  }
+}

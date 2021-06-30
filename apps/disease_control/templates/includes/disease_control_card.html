@@ -1,0 +1,41 @@
+{% load wagtailcore_tags %}
+
+<div class="disease-control-card-hip py-4">
+  <div class="columns">
+    <div class="column is-4">
+      <a class="card-link-hip is-size-5 is-block" href="{{ page.get_url }}"><strong>{{ page.title }}</strong></a>
+      {% if page.diseaseandconditiondetailpage %}
+        <p class="emergent-dates-hip pt-2">
+          {% if page.specific.is_emergent %}{{ page.specific.emergent_date_range }}{% endif %}
+        </p>
+        {% if page.specific.is_emergent and not page.specific.description %}
+          <a class="button is-rounded is-small mt-2 emergent-btn-hip" href="{{ page.get_url }}">Emergent</a>
+        {% endif %}
+      {% endif %}
+    </div>
+    {% if page.diseaseandconditiondetailpage %}
+      <div class="page-description-hip column">
+        {{ page.specific.description|richtext }}
+        {% if not page.specific.description %}
+          <span class="is-block">Updated {{ page.latest_revision_created_at|date:"M d, Y" }}</span>
+        {% endif %}
+      </div>
+    {% else %}
+      <div class="page-description-hip column">
+        {{ page.description|richtext }}
+      </div>
+    {% endif %}
+  </div>
+  {% if page.diseaseandconditiondetailpage and page.specific.description %}
+    <div class="columns">
+      <div class="column is-4">
+        {% if page.specific.is_emergent %}
+          <a class="button is-small is-rounded emergent-btn-hip" href="{{ page.get_url }}">Emergent</a>
+        {% endif %}
+      </div>
+      <div class="column">
+        <p>Updated {{ page.latest_revision_created_at|date:"M d, Y" }}</p>
+      </div>
+    </div>
+{% endif %}
+</div>

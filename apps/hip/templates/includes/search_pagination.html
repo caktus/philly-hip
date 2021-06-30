@@ -1,0 +1,41 @@
+{% if search_results.has_other_pages %}
+  <nav class="pagination" role="navigation" aria-label="pagination">
+    <ul class="pagination-list">
+      <li>
+        {% if search_results.has_previous %}
+          <a class="pagination-previous"
+             href="{{ base_params }}&page={{ search_results.previous_page_number }}">
+            <i class="fas fa-chevron-left"></i>
+          </a>
+        {% else %}
+          <a class="pagination-previous" disabled>
+            <i class="fas fa-chevron-left"></i>
+          </a>
+        {% endif %}
+      </li>
+      {% for i in search_results.paginator.page_range %}
+        <li>
+          {% if search_results.number == i %}
+            <a class="pagination-link is-current"
+               aria-label="Page {{ i }}"
+               aria-current="page">{{ i }}</a>
+          {% else %}
+            <a class="pagination-link"
+               href="{{ base_params }}&page={{ i }}"
+               aria-label="Goto page {{ i }}">{{ i }}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+      <li>
+        {% if search_results.has_next %}
+          <a class="pagination-next"
+             href="{{ base_params }}&page={{ search_results.next_page_number }}">
+            <i class="fas fa-chevron-right"></i>
+          </a>
+        {% else %}
+          <a class="pagination-next" disabled><i class="fas fa-chevron-right"></i></a>
+        {% endif %}
+      </li>
+    </ul>
+  </nav>
+{% endif %}

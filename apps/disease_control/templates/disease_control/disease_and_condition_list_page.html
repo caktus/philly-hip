@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+{%  if not breadcrumb_is_hidden %}
+  {% include 'includes/breadcrumb.html' %}
+{% endif %}
+<div>
+  <div class="disease-control-index-page-hip px-4">
+    <h2><strong>{{ page.title }}</strong></h2>
+    <div>
+      {% for disease in ordered_diseases %}
+        {% include 'includes/disease_control_card.html' with page=disease %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock content %}

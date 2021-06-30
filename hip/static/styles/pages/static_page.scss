@@ -1,0 +1,47 @@
+@import "../mixins";
+@import "../colors";
+
+.page-section-hip {
+  @include wagtail-richtext;
+  @include tables;
+}
+
+.card-hip {
+  border: 1px solid $grey;
+  h4:first-child {
+    font-size: $is-size-4;
+    padding: 1rem;
+    @include dark-grey-bg;
+    font-weight: bold;
+  }
+  p {
+    max-width: 100%;
+  }
+  table {
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 2rem 0;
+    @media screen and (max-width: $breakpoint-mobile) {
+      overflow-wrap: break-word;
+      border-spacing: 0.75rem 0;
+    }
+    td {
+      vertical-align: middle;
+    }
+    p {
+      padding: 0;
+    }
+  }
+  p {
+    padding: 0 1rem;
+  }
+}
+
+.right-scroll-link-hip {
+  // links are grey unless they are current
+  color: $grey;
+
+  &.is-current-hip {
+    color: $light-blue;
+  }
+}

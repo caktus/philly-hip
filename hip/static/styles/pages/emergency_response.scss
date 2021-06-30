@@ -1,0 +1,41 @@
+@import "../colors";
+@import "../mixins";
+@import "../variables";
+
+.emergency-response-page-hip {
+  @include headers;
+}
+
+.emergency-response-description-hip {
+  font-size: $is-size-5;
+  line-height: $is-size-3;
+}
+
+.action-section-hip {
+  background-color: $light-grey;
+  border-left: 12px solid $orange;
+}
+
+.section-of-links-hip {
+  @include rich-text-hip;
+}
+
+.section-of-links__subsection-hip {
+  line-height: $is-size-3;
+  a {
+    font-weight: bold;
+  }
+}
+
+.section-of-links__subsection-title-hip {
+  font-weight: bold;
+}
+
+.section-of-links-twocolumns-hip {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 0.5rem;
+  @media screen and (max-width: $breakpoint-mobile) {
+    display: block;
+  }
+}

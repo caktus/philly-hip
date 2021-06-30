@@ -1,0 +1,86 @@
+{% if value.has_grid_pattern %}
+  <table class="table-grid-pattern-hip my-4 is-fullwidth">
+{% else %}
+  <table class="my-4">
+{% endif %}
+  {# If the first row should be a header, then include it in the <thead> #}
+  {% if value.is_first_row_header %}
+  <thead>
+    <tr class="py-2">
+      <th class="table-grid-pattern-hip__th py-4 pl-4 dark-grey-bg-hip">{{ value.rows.0.value.column_1 }}</th>
+      <th class="table-grid-pattern-hip__th py-4 pl-4 dark-grey-bg-hip">{{ value.rows.0.value.column_2 }}</th>
+      {% if 'column_3' in value.rows.0.value %}
+        <th class="table-grid-pattern-hip__th py-4 pl-4 dark-grey-bg-hip">{{ value.rows.0.value.column_3 }}</th>
+      {% endif %}
+      {% if 'column_4' in value.rows.0.value %}
+        <th class="table-grid-pattern-hip__th py-4 pl-4 dark-grey-bg-hip">{{ value.rows.0.value.column_4 }}</th>
+      {% endif %}
+      {% if 'column_5' in value.rows.0.value %}
+        <th class="table-grid-pattern-hip__th py-4 pl-4 dark-grey-bg-hip">{{ value.rows.0.value.column_5 }}</th>
+      {% endif %}
+    </tr>
+  </thead>
+  {% endif %}
+  <tbody>
+    {# Loop through the rows, and show their value, except for the header row. #}
+    {% for row in value.rows %}
+      {% if forloop.counter != 1 or not value.is_first_row_header %}
+        <tr>
+          {% if value.has_grid_pattern %}
+            <td class="py-4 pl-4 pr-2">
+              <div class="is-flex is-vcentered">
+                {{ row.value.column_1 }}
+                <span class="external-link-icon-hip pt-3 pl-4 is-hidden"></span>
+              </div>
+              {% if row.value.social_media  and row.value.social_media_column == "1" %}
+                {% include 'includes/social_media.html' with social_media=row.value.social_media %}
+              {% endif %}
+            </td>
+            <td class="py-4 pl-4 pr-2">
+              {{ row.value.column_2 }}
+              {% if row.value.social_media  and row.value.social_media_column == "2" %}
+                {% include 'includes/social_media.html' with social_media=row.value.social_media %}
+              {% endif %}
+            </td>
+            {% if 'column_3' in row.value %}
+              <td class="py-4 pl-4 pr-2">
+                {{ row.value.column_3 }}
+                {% if row.value.social_media  and row.value.social_media_column == "3" %}
+                  {% include 'includes/social_media.html' with social_media=row.value.social_media %}
+                {% endif %}
+              </td>
+            {% endif %}
+            {% if 'column_4' in row.value %}
+              <td class="py-4 pl-4 pr-2">
+                {{ row.value.column_4 }}
+                {% if row.value.social_media  and row.value.social_media_column == "4" %}
+                  {% include 'includes/social_media.html' with social_media=row.value.social_media %}
+                {% endif %}
+              </td>
+            {% endif %}
+            {% if 'column_5' in row.value %}
+              <td class="py-4 pl-4 pr-2">
+                {{ row.value.column_5 }}
+                {% if row.value.social_media  and row.value.social_media_column == "5" %}
+                  {% include 'includes/social_media.html' with social_media=row.value.social_media %}
+                {% endif %}
+              </td>
+            {% endif %}
+          {% else %}
+            <td class="py-4 pr-2">{{ row.value.column_1 }}</td>
+            <td class="py-4 pr-2">{{ row.value.column_2 }}</td>
+            {% if 'column_3' in row.value %}
+              <td class="py-4 pl-4 pr-2">{{ row.value.column_3 }}</td>
+            {% endif %}
+            {% if 'column_4' in row.value %}
+              <td class="py-4 pl-4 pr-2">{{ row.value.column_4 }}</td>
+            {% endif %}
+            {% if 'column_5' in row.value %}
+              <td class="py-4 pl-4 pr-2">{{ row.value.column_5 }}</td>
+            {% endif %}
+          {% endif %}
+        </tr>
+      {% endif %}
+    {% endfor %}
+  </tbody>
+</table>

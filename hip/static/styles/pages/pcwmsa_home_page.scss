@@ -1,0 +1,6 @@
+@import "../mixins";
+
+.pcwmsa-homepage-hip {
+  @include headers;
+  @include paragraphs;
+}

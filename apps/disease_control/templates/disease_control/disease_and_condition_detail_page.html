@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+  <div class="columns is-desktop">
+    <div class="column">
+      {% include 'includes/breadcrumb.html' %}
+
+      <div class="disease-page-hip px-4">
+        <div class="nav-heading-hip" id="section-{{ page.title|slugify }}"></div>
+        <h2>{{ page.title }}</h2>
+
+        {% if page.at_a_glance %}
+          <div class="at-a-glance-hip">
+            <h3>At a Glance</h3>
+            {{ page.at_a_glance|richtext }}
+          </div>
+        {% endif %}
+
+        {% if page.current_recommendations %}
+          <div class="current-recommendations-hip">
+            <h3>Current Recommendations</h3>
+            {{ page.current_recommendations|richtext }}
+          </div>
+        {% endif %}
+
+        <div class="nav-heading-hip" id="section-{{ "Health Alerts"|slugify }}"></div>
+        <div class="level">
+          <div class="level-left is-align-items-baseline is-block-desktop-only">
+            <div class="level-item">
+              <h2>Health Alerts</h2>
+            </div>
+            <div class="level-item pl-2">
+              {% if show_more_health_alerts %}
+                <a href="{% pageurl page.health_alerts.first.get_parent %}?condition={{ page.slug }}">View all alerts for {{ page.title }}</a>
+              {% endif %}
+            </div>
+          </div>
+
+          {# Sign up button is on the right #}
+          <div class="level-right">
+            <div class="level-item">
+              <a href="{% url 'health_alert_subscriber' %}" class="is-block">
+                <span class="button is-size-7-touch header-icon-hip">
+                  <i class="email-icon-hip"></i>
+                </span>
+                <span class="button is-size-7-touch header-btn-hip">
+                  <strong>Sign Up For Alerts</strong>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <table class="table alert-table-hip">
+          {% include "includes/health_alert_table_header.html" %}
+          {% for alert in health_alerts %}
+            {% include "includes/health_alert_table_row.html" %}
+          {% endfor %}
+        </table>
+
+        <div class="nav-heading-hip" id="section-{{ "Surveillance"|slugify }}"></div>
+        <h2>Surveillance</h2>
+        {% if page.surveillance %}
+          {{ page.surveillance|richtext }}
+        {% else %}
+          There is no surveillance information available for {{ page.title }}.
+        {% endif %}
+
+        <div class="nav-heading-hip" id="section-{{ "Vaccine info"|slugify }}"></div>
+        <h2>Vaccine Information</h2>
+        {% if page.vaccine_info %}
+          {{ page.vaccine_info|richtext }}
+        {% else %}
+          There is no vaccine information available for {{ page.title }}.
+        {% endif %}
+
+        <div class="nav-heading-hip" id="section-{{ "Diagnosis & Management"|slugify }}"></div>
+        <h2>Diagnosis & Management</h2>
+        {% if page.diagnosis_info %}
+          {{ page.diagnosis_info|richtext }}
+        {% else %}
+          There is no diagnosis and management information available for {{ page.title }}.
+        {% endif %}
+
+        <div class="nav-heading-hip" id="section-{{ "Resources"|slugify }}"></div>
+        <h2>Resources</h2>
+        <h3>For Healthcare Providers:</h3>
+        {% if page.provider_resources %}
+          {{ page.provider_resources|richtext }}
+        {% else %}
+          There are no healthcare provider resources available for {{ page.title }}.
+        {% endif %}
+        <h3>For Patients and Community Members:</h3>
+        <div>
+          <div>
+            {% for document in documents %}
+              <p>
+                <a href="{{ document.url }}"><strong>{{ document.title }}</strong>
+                  <span class="pdf-icon-hip pl-2 is-size-6"></span>
+                </a>
+              </p>
+            {% empty %}
+              <p>There are no patient or community resources for {{ page.title }}.<p>
+            {% endfor %}
+          </div>
+        </div>
+        <h3>Posters:</h3>
+        {% if page.posters.all %}
+          <div class="columns is-multiline">
+            {% for poster in page.posters.all %}
+              {% include "includes/poster_card.html" %}
+            {% endfor %}
+          </div>
+        {% else %}
+          <p>There are no posters for {{ page.title }}.</p>
+        {% endif %}
+      </div>
+    </div>
+    {% include 'includes/right_scroll_nav.html' %}
+  </div>
+{% endblock content %}

@@ -1,0 +1,10 @@
+@import "../mixins";
+@import "../colors";
+
+.disease-control-index-page-hip {
+  @include headers;
+  .disease-control-header {
+    // done because styles are not consistent with report a disease page styles.
+    color: $black;
+  }
+}

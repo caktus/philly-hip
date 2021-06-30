@@ -1,0 +1,5 @@
+@import "../mixins";
+
+.closed-pod-childpage-hip {
+  @include wagtail-richtext;
+}

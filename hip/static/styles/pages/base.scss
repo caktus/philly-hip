@@ -1,0 +1,45 @@
+@import "../colors";
+@import "../mixins";
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.is-fixed {
+  position: fixed;
+}
+
+.is-active {
+  font-weight: 700;
+}
+
+.footer-section-blue-hip {
+  @include dark-blue-bg;
+  height: 75px;
+}
+
+.footer-section-black-hip {
+  @include black-bg;
+  height: 75px;
+}
+
+.bg-lt-grey {
+  background-color: $light-grey;
+}
+
+.is-white-hip {
+  color: $white;
+}
+
+.richtext-area-hip {
+  @include headers;
+  @include paragraphs;
+}
+
+.full-width-hip {
+  width: 100%;
+}
+
+.full-height-hip {
+  min-height: 100vh;
+}

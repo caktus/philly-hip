@@ -1,0 +1,12 @@
+{% load wagtailcore_tags %}
+
+<div class="disease-control-card-hip py-4">
+  <div class="columns">
+    <div class="column is-4">
+      <a class="card-link-hip is-size-5 is-block" href="{{ row.value.page.url }}"><strong>{{ row.value.page.title }}</strong></a>
+    </div>
+    <div class="page-description-hip column">
+      {{ row.value.description|richtext }}
+    </div>
+  </div>
+</div>

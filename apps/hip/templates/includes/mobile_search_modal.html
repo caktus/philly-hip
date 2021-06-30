@@ -1,0 +1,44 @@
+<div id="searchMobileContainer" class="mobile-search-modal is-hidden-desktop is-hidden-touch">
+  <div class="my-2">
+    <div class="is-flex is-justify-content-space-between is-vcentered">
+      <h6 class="is-size-6 pt-2 pl-4 search-title-hip"><strong>Search</strong></h6>
+      <div class="is-vcentered">
+        <button class="button btn-no-border-hip mobile-search-close-btn-hip">
+          <i class="close-icon-hip"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="px-4">
+    <form action="{% url "search" %}" class="field has-addons is-full-width-hip">
+      <div class="control is-inline-block has-icons-right is-full-width-hip">
+        <input type="hidden" name="initial_url" value="{{ initial_url|default:request.get_full_path }}" />
+        <input class="input is-normal search-input-hip is-full-width-hip" name="query" type="text" value="{{ search_query|default:"" }}" placeholder="Enter Search Terms...">
+      </div>
+      <div class="control is-inline-block">
+        <button type="submit" class="icon button dark-blue-bg-hip is-full-width-hip is-full-height-hip btn-no-border-hip">
+          <i class="search-icon-hip"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="pt-4 pl-4">
+    {# replace with the variable from backend for the number of results the user has for the search #}
+    <h6 class="is-size-6">
+      {{ search_results.paginator.count|default:0 }} results
+    </h6>
+  </div>
+  {% if search_results %}
+    <div class="py-4 px-4">
+      {% for result in search_results %}
+        {% include 'includes/search_result_card.html' %}
+      {% endfor%}
+      {% include 'includes/search_pagination.html' %}
+    </div>
+  {% else %}
+    <div class="px-6 has-text-centered no-results-hip">
+      <p>No results, please enter a search term above</p>
+    </div>
+  {% endif %}
+
+</div>

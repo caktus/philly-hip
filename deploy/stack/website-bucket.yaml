@@ -1,0 +1,41 @@
+Outputs:
+  WebsiteBucketSecureURL:
+    Description: Secure URL for website hosted on S3
+    Value: !Join
+      - ''
+      - - https://
+        - !GetAtt 'WebsiteBucket.DomainName'
+  WebsiteBucketURL:
+    Description: URL for website hosted on S3
+    Value: !GetAtt 'WebsiteBucket.WebsiteURL'
+Parameters:
+  WebsiteBucketName:
+    Description: Name for the website asset bucket
+    Type: String
+Resources:
+  WebsiteBucket:
+    DeletionPolicy: Retain
+    Properties:
+      AccessControl: PublicRead
+      BucketName: !Ref 'WebsiteBucketName'
+      VersioningConfiguration:
+        Status: Enabled
+      WebsiteConfiguration:
+        IndexDocument: index.html
+    Type: AWS::S3::Bucket
+  WebsiteBucketPolicy:
+    Properties:
+      Bucket: !Ref 'WebsiteBucket'
+      PolicyDocument:
+        Statement:
+          Action:
+            - s3:GetObject
+          Effect: Allow
+          Principal: '*'
+          Resource: !Join
+            - ''
+            - - 'arn:aws:s3:::'
+              - !Ref 'WebsiteBucket'
+              - /*
+    Type: AWS::S3::BucketPolicy
+

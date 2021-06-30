@@ -1,0 +1,90 @@
+@import "../colors";
+@import "../mixins";
+@import "../variables";
+
+.navbar-hip {
+  border-bottom: 2px solid $grey;
+  height: 6rem;
+  @media screen and (max-width: $breakpoint-tablet) {
+    border-bottom: none;
+  }
+
+  h5 {
+    // logged-in dropdown dividers
+    text-transform: uppercase;
+    color: $grey;
+  }
+}
+
+.logo-hip {
+  outline: none;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  height: 100%;
+  width: 300px;
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+  text-align: none;
+  margin-left: 1rem;
+  @media screen and (min-width: $breakpoint-xs-mobile) and (max-width: $breakpoint-tablet) {
+    margin-left: 0rem;
+    float: right;
+  }
+  @media screen and (min-width: $breakpoint-xs-mobile) and (max-width: $breakpoint-mobile) {
+    margin-right: 1.75rem;
+  }
+  @media screen and (max-width: $breakpoint-xs-mobile) {
+    float: left;
+    padding-left: 2rem;
+    margin-right: 0rem;
+  }
+}
+
+.search-input-hip {
+  width: auto;
+  text-indent: 1rem;
+  border-radius: 0px;
+  border: 2px solid $dark-blue;
+}
+
+.search-img-hip {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.search-border-radius-hip {
+  border-radius: 0px 6.25px 6.25px 0px;
+}
+
+.header-btn-hip {
+  @include light-blue-bg;
+  border-radius: 0;
+}
+
+.header-icon-hip {
+  @include black-bg;
+  border-radius: 0;
+}
+
+.alt-header-btn-hip {
+  color: $dark-blue;
+  border: none;
+}
+
+.is-sticky-parent-hip {
+  @media screen and (max-width: $breakpoint-tablet) {
+    // on small screens, remove the margin so that sticky navbar extends full width
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+.is-sticky-hip {
+  // keep top navbar fixed on scroll
+  position: fixed;
+  top: 0;
+  margin-top: 0;
+  background-color: $white;
+  border-bottom: 2px solid $grey;
+}

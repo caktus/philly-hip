@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load wagtailcore_tags hip_tags %}
+
+{% block content %}
+<div class="pcwmsa-homepage-hip px-4">
+  <h2 class="is-inline-block pr-4 pb-0">{{ page.title }}</h2>
+  <h4 class="mt-0 mb-4">{{ page.subtitle }}</h4>
+  {% if page.action_section %}
+    <section class="action-section-hip py-4 pl-4">
+      {{ page.action_section|richtext }}
+    </section>
+  {% endif %}
+
+  {% for block in page.body %}
+    {% if block.value.is_card %}
+      <section class="page-section-hip card-hip mt-4 mb-6 mx-4">
+    {% else %}
+      <section class="page-section-hip mx-4">
+    {% endif %}
+        {{ block.value.body }}
+        {% if block.value.contact_info %}
+          <div class="columns is-desktop">
+            <div class="column is-7 pl-5 pr-5">
+              {% contact_info %}
+            </div>
+            <div class="column is-5"></div>
+          </div>
+        {% endif %}
+      </section>
+  {% endfor %}
+</div>
+{% endblock content %}

@@ -1,0 +1,6 @@
+[k8s]
+staging
+production
+
+[cluster]
+aws.amazon.com

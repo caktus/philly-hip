@@ -1,0 +1,6 @@
+@import "../mixins";
+
+.reports-archive-list-page-hip {
+  @include wagtail-richtext;
+  @include tables;
+}

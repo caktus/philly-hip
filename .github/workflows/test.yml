@@ -1,0 +1,70 @@
+name: Lint and Test code
+
+on:
+  pull_request:
+  schedule:
+    # run once a week on early monday mornings
+    - cron: '22 2 * * 1'
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    env:
+      DJANGO_SETTINGS_MODULE: hip.settings.dev
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: hip_ci
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - run: npm install
+      - run: npm run build-test
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.8.9'  # Specify bugfix version to avoid regression in 3.8.10
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements/**.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - name: Cache pre-commit
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pre-commit
+          key: ${{ runner.os }}-precommit-${{ hashFiles('.pre-commit-config.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-precommit-
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip wheel pip-tools
+          pip-sync requirements/base/base.txt requirements/dev/dev.txt
+      - uses: pre-commit/action@v2.0.0
+      - name: Run Tests
+        run: make run-tests
+        env:
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/hip_ci

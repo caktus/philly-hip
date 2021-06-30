@@ -1,0 +1,10 @@
+<tr
+  data-condition="{{ alert.disease.slug }}"
+>
+  <td class="topic"><a href="{{ alert.specific.alert_file.url }}">{{ alert.title }}</a></td>
+  <td class="priority {{ alert.get_priority_display|lower }}-hip">
+    <i class="fa {{ alert.get_priority_icon }}" aria-hidden="true"></i>
+    {{ alert.get_priority_display }}
+  </td>
+  <td class="alert-date">{{ alert.specific.alert_date | date:"M j, Y" }}</td>
+</tr>

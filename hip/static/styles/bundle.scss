@@ -1,0 +1,56 @@
+/* Initialization File
+
+This file will manage all scss file imports.
+*/
+
+// ------- bulma.io css framework ----------------- //
+
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css";
+
+// ----------------- Page Imports ---------------- //
+
+@import "./pages/base";
+@import "./pages/big_cities_home_page";
+@import "./pages/closed_pod_child_page";
+@import "./pages/closed_pod_home_page";
+@import "./pages/data_report_archive_detail_page";
+@import "./pages/data_report_archive_list_page";
+@import "./pages/data_report_detail_page";
+@import "./pages/data_report_list_page";
+@import "./pages/disease_control_list_page.scss";
+@import "./pages/disease_and_condition_detail_page.scss";
+@import "./pages/emergency_response.scss";
+@import "./pages/health_alert_list_page";
+@import "./pages/home";
+@import "./pages/home_page";
+@import "./pages/list_page";
+@import "./pages/pcwmsa_home_page";
+@import "./pages/login";
+@import "./pages/poster_list_page";
+@import "./pages/search";
+@import "./pages/static_page";
+@import "./pages/text_or_table_stream";
+
+// ----------------- Includes Imports ---------------- //
+
+@import "./includes/breadcrumbs.scss";
+@import "./includes/disease_control_card.scss";
+@import "./includes/header";
+@import "./includes/health_alert_legend.scss";
+@import "./includes/health_alert_subscriber.scss";
+@import "./includes/mobile_search_modal.scss";
+@import "./includes/notification_signup.scss";
+@import "./includes/partner_login_card.scss";
+@import "./includes/poster_card";
+@import "./includes/right_scroll_nav";
+@import "./includes/sidebar";
+@import "./includes/closepod_contact_information_edit.scss";
+
+// ----------------- Includes Imports ---------------- //
+
+@import "./tags/contact_info";
+
+// ----------------- Misc ---------------- //
+
+@import "./common.scss";
+@import "./icons.scss";

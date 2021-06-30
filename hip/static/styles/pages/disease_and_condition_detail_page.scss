@@ -1,0 +1,21 @@
+@import "../mixins";
+@import "../colors";
+
+.disease-page-hip {
+  @include wagtail-richtext;
+  @include tables;
+
+  .at-a-glance-hip {
+    background-color: $light-grey;
+    padding: 0.25rem 1rem 1rem 1rem;
+    border-left: 1rem solid $orange;
+    margin-top: 2rem;
+  }
+
+  .current-recommendations-hip {
+    background-color: $light-grey;
+    padding: 0.25rem 1rem 1rem 1rem;
+    border-left: 1rem solid $purple;
+    margin-top: 2rem;
+  }
+}

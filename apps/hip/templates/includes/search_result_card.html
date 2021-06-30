@@ -1,0 +1,37 @@
+{% load wagtailcore_tags %}
+
+<div class="card my-4 search-page-result-card-hip">
+  <div class="card-content">
+    <div class="content">
+
+      <p><a href="{% pageurl result %}"><strong>{{ result }}</strong></a></p>
+
+      <div class="level">
+        <div class="level-left">
+          <div class="level-item">
+            <p class="search-page-url-hip">{{ result.full_url }}</p>
+          </div>
+        </div>
+        <div class="level-right">
+          {% if result.specific.get_priority_display %}
+            {# Health alert pages show the icon for their priority and the word to describe their priority #}
+            <div class="level-item search-page-priority-badge-hip {{ result.specific.get_priority_display|slugify }}-hip">
+              <i class="fa {{ result.specific.get_priority_icon }} pr-2"></i>
+              {{ result.specific.get_priority_display|upper }}
+            </div>
+          {% else %}
+            {# Non-health-alert pages show the page icon and the word 'PAGE' #}
+            <div class="level-item search-page-priority-badge-hip">
+              <i class="fa fa-link pr-2" aria-hidden="true"></i>
+              PAGE
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      {% if result.search_description %}
+        <p>{{ result.search_description|safe }}</p>
+      {% endif %}
+    </div>
+  </div>
+</div>

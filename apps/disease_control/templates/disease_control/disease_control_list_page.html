@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="columns is-desktop">
+  <div class="disease-control-index-page-hip px-4">
+    <h2>{{ page.title }}</h2>
+    {% if topic_pages.exists %}
+      <div class="nav-heading-hip" id="section-{{'Topic-specific Guidance'|slugify}}"></div>
+      <div>
+        <h3>Topic-specific Guidance</h3>
+        <div>
+          {% for sub_page in topic_pages %}
+            {% include 'includes/disease_control_card.html' with page=sub_page %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+    {% if facility_pages.exists %}
+      <div class="nav-heading-hip" id="section-{{'Facility-specific Guidance'|slugify}}"></div>
+      <div>
+        <h3>Facility-specific Guidance</h3>
+        <div>
+          {% for sub_page in facility_pages %}
+            {% include 'includes/disease_control_card.html' with page=sub_page %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+    {% if disease_control_pages.exists %}
+      <div class="nav-heading-hip" id="section-{{'Disease Control Services'|slugify}}"></div>
+      <div>
+        <h3>Disease Control Services</h3>
+        <div>
+          {% for sub_page in disease_control_pages %}
+              {% include 'includes/disease_control_card.html' with page=sub_page %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+  {% include 'includes/right_scroll_nav.html' %}
+</div>
+{% endblock %}

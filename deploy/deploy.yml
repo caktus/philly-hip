@@ -1,0 +1,9 @@
+---
+# Playbook to run every time we need to update the app.
+- name: Deploy app to an environment
+  hosts: k8s
+  vars:
+    ansible_connection: local
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+  roles:
+  - role: caktus.django-k8s

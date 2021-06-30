@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags hip_tags %}
+
+{% block title %}
+  Philadelphia Department of Public Health - {{ page.title }}
+{% endblock %}
+
+{% block content %}
+  <div class="px-4">
+    {% if page.title %}
+      <section class="pb-4 px-2">
+        <h2 class="is-size-2"><strong>{{ page.title }}</strong></h2>
+        {% if page.short_description %}
+          <p>{{ page.short_description }}</p>
+        {% endif %}
+      </section>
+    {% endif %}
+    <section class="columns is-multiline">
+      {% for quick_link in page.quick_links %}
+        <div class="column is-relative is-one-quarter has-text-centered quicklink-padding-hip">
+          <div class="arrow-right-hip ml-4 mt-4"></div>
+          <div class="p-4 is-fullheight-hip quicklink-color-hip">
+            <a href="{{ quick_link.value.link }}">
+              <div class="pt-0 pr-4 pb-4 pl-4">{{ quick_link.value.title }}</div>
+            </a>
+            <div>Updated {{ quick_link.value.updated_date | date:"M j, Y" }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    </section>
+
+    <section class="columns is-desktop">
+      <div class="column is-6-desktop">
+        <h3 class="is-size-4"><strong>Report A Disease</strong></h3>
+        <div class="column">
+          {% contact_info %}
+        </div>
+      </div>
+      <div class="column">
+        <div class="bg-lt-grey p-4 richtext-area-hip is-full-height-hip">
+          {{ page.about|richtext }}
+        </div>
+      </div>
+    </section>
+
+    <section class="recently-updated-hip">
+      <h3>Recently Updated</h3>
+      <table class="table-grid-pattern-hip full-width-hip">
+        <thead>
+          <tr class="py-2">
+            <th class="py-4 pl-4 is-white-hip dark-grey-bg-hip th-mobile-hip">Name</th>
+            <th class="py-4 pl-4 is-white-hip dark-grey-bg-hip th-mobile-hip">Type</th>
+            <th class="py-4 pl-4 is-white-hip dark-grey-bg-hip th-mobile-hip">Updated</th>
+          </tr>
+        </thead>
+        {% for recent_update in recent_updates %}
+          <tr class="py-2">
+            <td class="py-4 pl-4 pr-2 td-break-word">
+              {% if recent_update.model_name == "page" %}
+                <a href="{% pageurl recent_update %}">
+              {% elif recent_update.model_name == "document"%}
+                <a href="{{ recent_update.url }}">
+              {% endif %}
+                {{ recent_update.name }}
+              </a>
+            </td>
+            {% if recent_update.healthalertdetailpage %}
+              <td class="py-4 pl-4 pr-2 {{ recent_update.healthalertdetailpage.get_priority_color }}">
+            {% else %}
+              <td class="py-4 pl-4 pr-2">
+            {% endif %}
+              {% if recent_update.model_name == "page" and not recent_update.healthalertdetailpage %}
+                <i class="fa fa-link" aria-hidden="true"></i>
+              {% elif recent_update.healthalertdetailpage %}
+                <i class="fa {{ recent_update.healthalertdetailpage.get_priority_icon }}"></i>
+              {% elif recent_update.model_name == "document"%}
+                <i class="fa fa-download" aria-hidden="true"></i>
+              {% endif %}
+              {% if recent_update.healthalertdetailpage %}
+                {{ recent_update.healthalertdetailpage.get_priority_display|upper }}
+              {% else %}
+                {{ recent_update.type_of_object }}
+              {% endif %}
+            </td>
+            <td class="py-4 pl-4 pr-2">{{ recent_update.updated_at | date:"M j, Y" }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    </section>
+  </div>
+{% endblock %}
