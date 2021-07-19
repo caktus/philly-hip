@@ -30,15 +30,25 @@ export default function () {
   }
 
   function addExternalLinkIconsAndDomain () {
-    /* Add External Link Icons to Wagtail Hook Generated Links of
-    type external across the site.
+    /* Add External Link Icons to anchor elements with:
+     *  - the "external-linktype" CSS class, and
+     *  - an "href" that does not have a domain that matches the window.location.host
+     * Note: the "external-linktype" CSS class is added in a Wagtail Hook.
+     *
      * Also, some external links get the link's domain inside of parentheses
      * added just after the icon. For example: for a link with an href to
      * cdc.gov/somethinig, we might add (cdc.gov) just after the icon.
      * We determine if the domain name needs to be added by seeing if the external
      * link is a child of an HTML element with a specific CSS class.
-    */
-   const externalLinks = Array.from(document.querySelectorAll('a.external-linktype'));
+     */
+    const externalLinks = Array.from(document.querySelectorAll('a.external-linktype')).filter(link => {
+      // If the link's href's domain name is different from the window.location.host,
+      // then it's an external link.
+      const domainName = link.href.split("://").pop().split("/")[0];
+      if (domainName !== window.location.host) {
+        return link
+      }
+    });
 
    // External links that are children of an HTML element with the following CSS
    // class will also get a domain name just after the icon.
