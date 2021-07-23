@@ -7,3 +7,22 @@
   gather_facts: false
   roles:
     - role: caktus.k8s-web-cluster
+  tasks:
+    - name: Add AWS for fluent bit helm chart (centralized logging)
+      community.kubernetes.helm:
+        context: "{{ k8s_context|mandatory }}"
+        kubeconfig: "{{ k8s_kubeconfig }}"
+        chart_repo_url: "https://aws.github.io/eks-charts"
+        chart_ref: aws-for-fluent-bit
+        # https://artifacthub.io/packages/helm/aws/aws-for-fluent-bit
+        chart_version: "{{ k8s_aws_fluent_bit_chart_version }}"
+        release_name: aws-for-fluent-bit
+        release_namespace: kube-system
+        release_values:
+          firehose:
+            enabled: false
+          kinesis:
+            enabled: false
+          elasticsearch:
+            enabled: false
+        wait: yes

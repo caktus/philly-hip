@@ -75,6 +75,7 @@ k8s_ingress_nginx_chart_version: "3.29.0"
 k8s_cert_manager_chart_version: "v1.3.0"
 k8s_letsencrypt_email: admin@caktusgroup.com
 k8s_iam_users: [noop]  # https://github.com/caktus/ansible-role-k8s-web-cluster/issues/17
+k8s_aws_fluent_bit_chart_version: "0.1.11"  # https://artifacthub.io/packages/helm/aws/aws-for-fluent-bit
 
 # ----------------------------------------------------------------------------
 # caktus.django-k8s: Shared configuration variables for staging and production
