@@ -2,12 +2,8 @@
 @import "../colors";
 
 .health-alert-page {
-  margin: 0 3rem;
-  @media screen and (max-width: $breakpoint-widescreen) {
-    margin: 0 1.5rem;
-  }
-
   @include tables;
+  @include headers;
 }
 
 .filter-widget-hip {
