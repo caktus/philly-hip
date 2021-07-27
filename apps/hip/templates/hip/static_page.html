@@ -31,6 +31,8 @@
           {% endblock back_button %}
         {% endif %}
 
+        {% block staticpage_title %}{% endblock staticpage_title %}
+
         {% if page.action_section %}
           <section class="action-section-hip py-4 pl-4">
             {{ page.action_section|richtext }}
