@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="columns is-desktop">
-  <div class="disease-control-index-page-hip px-4">
+<div class="disease-control-index-page-hip columns is-desktop px-4">
+  <div class="disease-control-index-page-maincolumn-hip column is-three-fourths-desktop is-full-mobile">
     <h2>{{ page.title }}</h2>
     {% if topic_pages.exists %}
       <div class="nav-heading-hip" id="section-{{'Topic-specific Guidance'|slugify}}"></div>

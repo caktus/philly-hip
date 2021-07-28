@@ -6,8 +6,8 @@
   {% include 'includes/breadcrumb.html' %}
 {% endif %}
 <div>
-  <div class="disease-control-index-page-hip px-4">
-    <h2><strong>{{ page.title }}</strong></h2>
+  <div class="disease-condition-list-page-hip px-4">
+    <h2>{{ page.title }}</h2>
     <div>
       {% for disease in ordered_diseases %}
         {% include 'includes/disease_control_card.html' with page=disease %}
