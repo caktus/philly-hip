@@ -4,9 +4,6 @@ k8s_domain_names:
   - hip.phila.gov
   - hip-prod.caktus-built.com
 
-# delete this entry once we go live on hip.phila.gov
-k8s_container_htpasswd: "hip:{SHA}Y2fEjdGT1W6nsLqtJbGUVeUp9e4="
-
 k8s_auth_api_key: !vault |
   $ANSIBLE_VAULT;1.1;AES256
   30313262666139663438383530303837383464366461353834366366626136646336316261656235
