@@ -95,28 +95,30 @@ export default function() {
   }
 
   const internalAlertsFormDivisionSelect = document.querySelector("#internal-alerts-subscriber-form #id_division");
-  // Hide all of the extra fields on the internal alerts form, except the field
-  // for the selected "Division" field option (if there is one).
-  internalAlertsFormDivisionSelect.querySelectorAll("option").forEach(element => {
-    if (element.selected === true) {
-      const fieldName = getInternalAlertsFieldNameForDivisionOption(element);
-      hideInternalAlertFormExtraFieldsExcept(fieldName);
-    }
-  })
-
-  // Add an event listener to the "Division" field dropdown.
-  // If a user selects the Ambulatory <option>, then the internalAlertsAmbulatoryFieldName field
-  // should become visible.
-  // If a user selects the Disease Control <option>, then the internalAlertsDiseaseControlFieldName field
-  // should become visible.
-  // If a user selects the Environmental <option>, then the internalAlertsEnvironmentalFieldName field
-  // should become visible.
-  internalAlertsFormDivisionSelect.addEventListener("change", (event) => {
+  if (internalAlertsFormDivisionSelect) {
+    // Hide all of the extra fields on the internal alerts form, except the field
+    // for the selected "Division" field option (if there is one).
     internalAlertsFormDivisionSelect.querySelectorAll("option").forEach(element => {
       if (element.selected === true) {
         const fieldName = getInternalAlertsFieldNameForDivisionOption(element);
         hideInternalAlertFormExtraFieldsExcept(fieldName);
       }
     })
-  })
+
+    // Add an event listener to the "Division" field dropdown.
+    // If a user selects the Ambulatory <option>, then the internalAlertsAmbulatoryFieldName field
+    // should become visible.
+    // If a user selects the Disease Control <option>, then the internalAlertsDiseaseControlFieldName field
+    // should become visible.
+    // If a user selects the Environmental <option>, then the internalAlertsEnvironmentalFieldName field
+    // should become visible.
+    internalAlertsFormDivisionSelect.addEventListener("change", (event) => {
+      internalAlertsFormDivisionSelect.querySelectorAll("option").forEach(element => {
+        if (element.selected === true) {
+          const fieldName = getInternalAlertsFieldNameForDivisionOption(element);
+          hideInternalAlertFormExtraFieldsExcept(fieldName);
+        }
+      })
+    })
+  }
 }

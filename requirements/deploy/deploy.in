@@ -1,7 +1,7 @@
 # Deploy.in
 -c ../base/base.txt
 
-python-memcached
+pymemcache
 newrelic
 sentry-sdk
 uwsgi
