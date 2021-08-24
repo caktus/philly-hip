@@ -101,6 +101,26 @@
   }
 }
 
+.at-least-width-content-hip {
+  min-width: fit-content;
+}
+
+// -------------------- Padding ------------- //
+
+.px-0-mobile-hip {
+  @media screen and (max-width: $breakpoint-mobile) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.px-6-desktop-hip {
+  @media screen and (min-width: $breakpoint-tablet) {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
 // -------------------- Tables ------------- //
 
 .th-mobile-hip {
@@ -134,4 +154,17 @@ body.modal-is-open-hip {
 }
 .alert-hip {
   color: $alert;
+}
+
+
+.divider-vertical-hip {
+  display: flex;
+  flex-direction: column;
+
+  &:before {
+    content: '';
+    flex: 1;
+    background-color: $grey;
+    width: 1px;
+  }
 }

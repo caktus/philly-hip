@@ -31,6 +31,8 @@
           {% endblock back_button %}
         {% endif %}
 
+        {% block staticpage_title %}{% endblock staticpage_title %}
+
         {% if page.action_section %}
           <section class="action-section-hip py-4 pl-4">
             {{ page.action_section|richtext }}
@@ -54,6 +56,17 @@
                     {% contact_info %}
                   </div>
                   <div class="column is-5"></div>
+                </div>
+              {% endif %}
+              {% if block.value.button %}
+                <div class="level-left">
+                  <div class="level-item">
+                    <a href="{{ block.value.button.relative_url }}" class="is-block">
+                      <span class="button is-size-7-mobile header-btn-hip">
+                        <strong>{{ block.value.button.button_text }}</strong>
+                      </span>
+                    </a>
+                  </div>
                 </div>
               {% endif %}
             </section>

@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "apps.emergency_response",
     "apps.health_alerts",
     "apps.hip",
+    "apps.notifications",
     "apps.posters",
     "apps.reports",
     "apps.search",
@@ -187,6 +188,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+# By default, a model's primary key is an AutoField.
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -291,6 +294,10 @@ WAGTAILDOCS_DOCUMENT_FORM_BASE = "apps.hip.forms.ValidateFileTypeForm"
 WAGTAILDOCS_EXTENSIONS = ["pdf", "png", "jpg", "jpeg"]
 WAGTAILDOCS_DOCUMENT_MODEL = "hip.HIPDocument"
 
+# Explicitly set the file upload handler to be django.core.files.uploadhandler.TemporaryFileUploadHandler,
+# so that all uploaded files are written to a temporary file. Writing to a file
+# is required for the ValidateFileTypeForm.clean_file() method to scan PDF files.
+FILE_UPLOAD_HANDLERS = ["django.core.files.uploadhandler.TemporaryFileUploadHandler"]
 
 LOGOUT_REDIRECT_URL = "/"
 
