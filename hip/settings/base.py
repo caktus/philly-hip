@@ -294,6 +294,10 @@ WAGTAILDOCS_DOCUMENT_FORM_BASE = "apps.hip.forms.ValidateFileTypeForm"
 WAGTAILDOCS_EXTENSIONS = ["pdf", "png", "jpg", "jpeg"]
 WAGTAILDOCS_DOCUMENT_MODEL = "hip.HIPDocument"
 
+# Explicitly set the file upload handler to be django.core.files.uploadhandler.TemporaryFileUploadHandler,
+# so that all uploaded files are written to a temporary file. Writing to a file
+# is required for the ValidateFileTypeForm.clean_file() method to scan PDF files.
+FILE_UPLOAD_HANDLERS = ["django.core.files.uploadhandler.TemporaryFileUploadHandler"]
 
 LOGOUT_REDIRECT_URL = "/"
 
