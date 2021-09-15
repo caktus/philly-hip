@@ -3,7 +3,6 @@
 The services configured for this project are:
 * PostgreSQL database backups to S3 (within HIP AWS account)
 * Cloudwatch logging (within HIP AWS account)
-* New Relic Infrastructure monitoring (Caktus account)
 
 
 ## Production database disaster recovery
