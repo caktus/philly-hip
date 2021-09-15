@@ -124,3 +124,31 @@ k8s_environment_variables:
     6566353938396366660a653934313861653134343761633866383264343739616136363034303366
     61633635323438666565656630316162636365303430373662363937656533343434316165366532
     3239613431386239656133333466633030633638626232623532
+
+# ----------------------------------------------------------------------------
+# caktus.TS-Backups
+# ----------------------------------------------------------------------------
+
+k8s_hosting_services_project_name: "{{ app_name }}"
+k8s_hosting_services_healthcheck_url: https://hc-ping.com/7d334762-8f35-453e-85b7-55e0b3147723
+k8s_hosting_services_database_url: "{{ env_database_url }}"
+k8s_hosting_services_backup_base_bucket: hip-production-philly-backups
+k8s_hosting_services_aws_region: us-east-1
+k8s_hosting_services_aws_access_key: AKIAQ4VHAAV5UM2FBDUB
+k8s_hosting_services_aws_secret_access_key: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  31643834663763333735303761306539303863656436303234336466376432383834373739613230
+  3839643639333866393134366536353333633662343134660a366532633034333463393365326465
+  61613364393930313361666631343731383161323964323266356566323935376638626635616632
+  3431333864623432390a393331633934386332396462356638376234353863346337396239396535
+  30646330363034393534313430633662643336393233316465623663323962623766343766323665
+  3664326363623562343463383130383761343862306639346666
+
+# k8s_hosting_services_environment:
+#   PROJECT_NAME: "{{ k8s_hosting_services_project_name }}"
+#   BACKUP_BASE_BUCKET: "{{k8s_hosting_services_backup_base_bucket}}"
+#   AWS_DEFAULT_REGION: us-east-1
+#   AWS_ACCESS_KEY_ID: "{{k8s_hosting_services_aws_access_key}}"
+#   AWS_SECRET_ACCESS_KEY: "{{ k8s_hosting_services_aws_secret_access_key }}"
+#   DATABASE_URL: "{{ k8s_hosting_services_database_url }}"
+#   BACKUP_HEALTHCHECK_URL: "{{ k8s_hosting_services_healthcheck_url }}"

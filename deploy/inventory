@@ -3,4 +3,4 @@ staging
 production
 
 [cluster]
-aws.amazon.com
+production
