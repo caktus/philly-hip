@@ -63,6 +63,7 @@ ns.add_collection(kubesae.aws)
 ns.add_collection(kubesae.deploy)
 ns.add_collection(kubesae.pod)
 ns.add_collection(kubesae.info)
+ns.add_collection(kubesae.utils)
 ns.add_collection(project)
 ns.add_task(staging)
 ns.add_task(production)
@@ -76,6 +77,8 @@ ns.configure(
         },
         "cluster": "philly-hip-stack-cluster",
         "container_name": "app",
+        "hosting_services_backup_bucket": "hip-production-philly-backups",
+        "hosting_services_backup_folder": "hip",
         "repository": "061553509755.dkr.ecr.us-east-1.amazonaws.com/philly-hip-stack-applicationrepository-kk92mehevd86",
         "run": {
             "echo": True,
