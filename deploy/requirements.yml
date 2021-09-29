@@ -9,4 +9,4 @@
   version: v1.2.0
 - src: https://github.com/caktus/ansible-role-k8s-hosting-services
   name: caktus.k8s-hosting-services
-  version: client-bucket-improvements
+  version: v0.3.0
