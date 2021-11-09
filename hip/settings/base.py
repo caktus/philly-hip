@@ -245,13 +245,13 @@ LOGGING = {
     },
     "loggers": {
         "django.request": {
-            # only log to console (but errors will still be sent to Sentry)
+            # only log to console (but errors will still be sent to AWS CloudWatch)
             "handlers": ["console"],
             "level": "ERROR",
             "propagate": True,
         },
         "django.security": {
-            # only log to console (but errors will still be sent to Sentry)
+            # only log to console (but errors will still be sent to AWS CloudWatch)
             "handlers": ["console"],
             "level": "ERROR",
             "propagate": True,
