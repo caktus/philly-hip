@@ -50,7 +50,7 @@ project, certain developers are notified when an error is logged:
    by the filter, then the alarm is triggered, and posts to a Simple Notification Service
    (SNS) topic named "HIP_Errors_CloudWatch_Alarms_Topic"
  - the SNS topic emails the Caktus HIP development team (hip-philly-team@caktusgroup.com)
-   that the ararm has been triggered due to an error on the site.
+   that the alarm has been triggered due to an error on the site.
 
 You may also view error logs in the AWS Console:
  - log in to the AWS Console
