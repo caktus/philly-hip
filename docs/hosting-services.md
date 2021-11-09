@@ -54,7 +54,7 @@ project, certain developers are notified when an error is logged:
 
 You may also view error logs in the AWS Console:
  - log in to the AWS Console
- - switch to the HIP role (https://signin.aws.amazon.com/switchrole?roleName=CaktusAccountAccessRole-Admins&account=061553509755&displayName=Philly-PDPH)
+ - switch to the [HIP role](https://signin.aws.amazon.com/switchrole?roleName=CaktusAccountAccessRole-Admins&account=061553509755&displayName=Philly-PDPH)
  - navigate to the AWS CloudWatch service, and go to the "/aws/eks/fluentbit-cloudwatch/logs" log group
 
 To watch for error logs in the terminal using `awslogs`:
