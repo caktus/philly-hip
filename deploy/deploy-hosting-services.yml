@@ -1,0 +1,13 @@
+- name: caktus hosting services
+  hosts: production
+  gather_facts: false
+  vars:
+    ansible_connection: local
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+  roles:
+    - role: caktus.k8s-hosting-services  # backups only
+  # Install configured monitoring tools (optional):
+  tasks:
+    - import_role:
+        name: caktus.k8s-hosting-services
+        tasks_from: monitoring

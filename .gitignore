@@ -14,6 +14,8 @@ env-local.sh
 .postgres
 .python-version
 .vsls.json
+.envrc
+.direnv
 
 # Project Static Files
 node_modules/*

@@ -115,7 +115,6 @@ env_default_file_storage: "{{ app_name }}.storages.MediaBoto3Storage"
 env_media_storage_bucket_name: "{{ app_name }}-{{ env_name }}-philly-private-assets"
 env_aws_default_acl: ""
 env_media_location: media/
-env_sentry_dsn: https://405bfdc63a414dd88ef44d3fd2633982@o168020.ingest.sentry.io/5599363
 
 # S3 bucket configuration:
 k8s_s3_cluster_name: "{{ cluster_name }}"

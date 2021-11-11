@@ -6,7 +6,7 @@ RUN npm install --silent
 COPY . /code/
 RUN npm run build
 
-FROM python:3.8-slim as base
+FROM python:3.8-slim-buster as base
 
 # Install packages needed to run your application (not build deps):
 #   mime-support -- for mime types when serving static files
@@ -17,10 +17,13 @@ RUN set -ex \
     && RUN_DEPS=" \
     libpcre3 \
     mime-support \
-    postgresql-client \
+    postgresql-client-12 \
     vim \
     " \
     && seq 1 8 | xargs -I{} mkdir -p /usr/share/man/man{} \
+    && apt-get update && apt-get -y install wget gnupg2 lsb-release \
+    && sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' \
+    && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
     && apt-get update && apt-get install -y --no-install-recommends $RUN_DEPS \
     && rm -rf /var/lib/apt/lists/*
 

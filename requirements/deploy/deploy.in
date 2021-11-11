@@ -3,5 +3,4 @@
 
 pymemcache
 newrelic
-sentry-sdk
 uwsgi

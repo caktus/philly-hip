@@ -71,21 +71,9 @@ for backend in TEMPLATES:
             ]
 
 ### ADMINS and MANAGERS
-ADMINS = []  # we use sentry for this
+ADMINS = []  # we use AWS CloudWatch for this
 
 ### 3rd-party appplications
-
-SENTRY_DSN = os.getenv("SENTRY_DSN")
-if SENTRY_DSN:
-    import sentry_sdk
-    from sentry_sdk.integrations.django import DjangoIntegration
-
-    sentry_sdk.init(
-        dsn=SENTRY_DSN,
-        integrations=[DjangoIntegration()],
-        environment=ENVIRONMENT,
-    )
-
 
 WEBPACK_LOADER = {
     "DEFAULT": {
