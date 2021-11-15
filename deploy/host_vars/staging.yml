@@ -2,7 +2,6 @@ env_name: "staging"
 
 k8s_domain_names:
   - hip-staging.phila.gov
-  - hip.caktus-built.com
 
 k8s_auth_api_key: !vault |
   $ANSIBLE_VAULT;1.1;AES256

@@ -11,7 +11,6 @@ aws_region: us-east-1
 stack_name: "{{ long_app_name }}-stack"
 aws_profile: "{{ long_app_name }}"
 cluster_name: "{{ stack_name }}-cluster"
-aws_account_id: "061553509755"
 
 # CloudFormation Outputs
 # These values are taken from the CF 'Output' tab
@@ -70,9 +69,9 @@ cloudformation_stack:
 # --------------------------------------------------------------------------
 
 k8s_cluster_type: aws
-k8s_context: "arn:aws:eks:us-east-1:{{ aws_account_id }}:cluster/{{ cluster_name }}"
-k8s_ingress_nginx_chart_version: "3.29.0"
-k8s_cert_manager_chart_version: "v1.3.0"
+k8s_context: "arn:aws:eks:us-east-1:061553509755:cluster/{{ cluster_name }}"
+k8s_ingress_nginx_chart_version: "3.39.0"
+k8s_cert_manager_chart_version: "v1.6.1"
 k8s_letsencrypt_email: admin@caktusgroup.com
 k8s_iam_users: [noop]  # https://github.com/caktus/ansible-role-k8s-web-cluster/issues/17
 k8s_aws_fluent_bit_chart_version: "0.1.11"  # https://artifacthub.io/packages/helm/aws/aws-for-fluent-bit
