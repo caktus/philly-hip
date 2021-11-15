@@ -28,14 +28,6 @@
     <meta name="description" content="{% if page.search_description %}{{ page.search_description }}{% endif %}" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    {% if not debug %}
-      <script
-        src="https://browser.sentry-cdn.com/5.19.1/bundle.min.js"
-        integrity="sha384-ibWewy8LWP0FdvEBD3iLjNmbFkkh/FKtOz8GR9C8ZBWjDTbjbdIDpa4nc/AasWns"
-        crossorigin="anonymous">
-      </script>
-    {% endif %}
-
     {# favicon #}
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
 
@@ -66,6 +58,7 @@
         {% include 'includes/sidebar.html' with hidden_desktop=False %}
       {% endblock %}
       <div class="column full-height-hip">
+        {% include 'includes/message.html' with messages=messages %}
         {% block content %}{% endblock %}
       </div>
     </div>

@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="login-page-hip columns px-5">
-  <div class="column is-half px-6">
+  <div class="column is-half px-0-mobile-hip px-6-desktop-hip">
     <h2 class="pb-5">Response Partner Log In</h2>
 
     {% if form.errors %}
@@ -46,10 +46,10 @@
 
   <div class="divider-vertical-hip pt-6"></div>
 
-  <div class="column is-half px-6">
+  <div class="column is-half px-0-mobile-hip px-6-desktop-hip">
     <h2 class="pb-5">City Log In</h2>
 
-    <a class="button login-btn-hip full-width-hip mb-4"
+    <a class="button login-btn-hip full-width-hip at-least-width-content-hip px-0-mobile-hip mb-4"
        href="{% url 'social:begin' 'azuread-v2-tenant-oauth2' %}">
       Login via City of Philadelphia SSO
     </a>

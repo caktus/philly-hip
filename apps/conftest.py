@@ -221,3 +221,87 @@ def public_pages_with_descendants():
         disease_and_condition_ebola_page.page_ptr,
         emergency_response_page.page_ptr,
     ]
+
+
+@pytest.fixture
+def internal_alert_data():
+    """Create data for an InternalAlertsSubscriber."""
+    return dict(
+        first_name="SpongeBob",
+        last_name="SquarePants",
+        professional_license="Other",
+        languages_spoken="English",
+        division="Get Healthy Philly",
+        work_phone="(215) 555-0123",
+        work_email="spongebob@phila.gov",
+        cell_phone="(215)333-4567",
+        personal_email="spongebob@squarepants.net",
+        home_phone="(215) 444-1234",
+        street_address="124 Conch St",
+        city="Bikini Bottom",
+        state="HI",
+        zip_code=98765,
+    )
+
+
+@pytest.fixture
+def community_response_notification_data():
+    """Create data for a CommunityResponseSubscriber."""
+    return dict(
+        first_name="SpongeBob",
+        last_name="SquarePants",
+        organization_name="Krabby Patty Organization",
+        title="Fry Cook",
+        email_address="spongebob@phila.gov",
+        cell_phone="(215)333-4567",
+        organization_street_address="831 Bottom Feeder Lane",
+        organization_po_box="1",
+        organization_zip_code=98765,
+        organization_zip_codes_served="98765,99999",
+        organization_community_members_served="All of these",
+    )
+
+
+@pytest.fixture
+def drug_overdose_notification_data():
+    """Create data for a DrugOverdoseSubscriber."""
+    return dict(
+        first_name="SpongeBob",
+        last_name="SquarePants",
+        medical_specialty="Laughter",
+        company_name="Krusty Krab",
+        title="Fry Cook",
+        work_phone="(215)333-4567",
+        notification_group="Community Members",
+        email_address="spongebob@phila.gov",
+        mobile_phone="(215)333-4567",
+    )
+
+
+@pytest.fixture
+def codered_codeblue_notification_data():
+    """Create data for a CodeRedCodeBlueSubscriber."""
+    return dict(
+        first_name="SpongeBob",
+        last_name="SquarePants",
+        agency_name="Krusty Krab",
+        work_phone="(215)333-4567",
+        work_email="spongebob@phila.gov",
+        cell_phone="(215)333-4567",
+        personal_email="spongebob@phila.gov",
+    )
+
+
+@pytest.fixture
+def php_notification_data():
+    """Create data for a PublicHealthPreparednessSubscriber."""
+    return dict(
+        first_name="SpongeBob",
+        last_name="SquarePants",
+        phone_number="(215)333-4567",
+        email_address="spongebob@phila.gov",
+        organization_name="Krusty Krab",
+        organization_zip_code=98765,
+        outreach_request_choice="Meeting",
+        outreach_request_additional_info="",
+    )
