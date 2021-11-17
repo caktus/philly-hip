@@ -1,11 +1,7 @@
 env_name: "production"
 
 k8s_domain_names:
-  - hip-prod.caktus-built.com
-  # - hip.phila.gov
-
-# delete this entry once we go live on hip.phila.gov
-k8s_container_htpasswd: "hip:{SHA}Y2fEjdGT1W6nsLqtJbGUVeUp9e4="
+  - hip.phila.gov
 
 k8s_auth_api_key: !vault |
   $ANSIBLE_VAULT;1.1;AES256
