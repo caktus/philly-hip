@@ -51,7 +51,7 @@ class HealthAlertDetailPage(HipBasePage):
     parent_page_types = ["health_alerts.HealthAlertListPage"]
     subpage_types = []
     alert_file = models.ForeignKey(
-        "wagtaildocs.Document", null=True, blank=True, on_delete=models.SET_NULL
+        "hip.HIPDocument", null=True, blank=True, on_delete=models.SET_NULL
     )
 
     class Priority(models.IntegerChoices):
