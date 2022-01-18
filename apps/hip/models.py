@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import reverse
 from django.utils.timezone import localtime
 
 from phonenumber_field.modelfields import PhoneNumberField
@@ -600,3 +601,12 @@ class HIPDocument(Document):
     """Define a custom document model, so that we can define a custom manager."""
 
     objects = HIPDocumentQuerySet.as_manager()
+
+    @property
+    def url(self, *args, **kwargs):
+        if self.file:
+            return reverse(
+                "get_document",
+                kwargs={"document_id": self.id, "document_name": self.filename},
+            )
+        return ""
