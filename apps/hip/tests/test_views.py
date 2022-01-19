@@ -8,6 +8,7 @@ import pytest
 from wagtail.core.models import Collection
 from wagtail.documents import get_document_model
 
+from apps.hip.tests.factories import DocumentFactory
 from apps.users.tests.factories import GroupFactory, UserFactory
 
 from ..forms import HIPAuthenticationForm
@@ -319,3 +320,58 @@ def test_djangoadmin_login_redirects_to_cms_and_admin_login_post(db, client, nex
     # persists to the regular login page.
     assert 302 == response.status_code
     assert f"{reverse('login')}?next={next_url}" == response.url
+
+
+def test_get_document_success(db, client):
+    """Sending valid parameters should return the expected document."""
+    document = DocumentFactory()
+    url = reverse(
+        "get_document",
+        kwargs={"document_id": document.id, "document_name": document.filename},
+    )
+    response = client.get(url)
+    assert response.status_code == 200
+    assert (
+        response.headers.get("Content-Disposition")
+        == f'inline; filename="{document.filename}"'
+    )
+
+
+def test_get_document_no_parameters(db, client):
+    """Sending no parameters to the get_document view returns a 404 error."""
+    document = DocumentFactory()
+    # Create a URL without the document_id and document_name parameters.
+    url = reverse(
+        "get_document",
+        kwargs={"document_id": document.id, "document_name": document.filename},
+    )
+    url = url.replace(f"{document.id}/", "").replace(f"{document.filename}/", "")
+    response = client.get(url)
+    assert response.status_code == 404
+
+
+def test_get_document_non_existent_parameters(db, client):
+    """Sending non-existent parameter values, like id=1000000000, returns a 404 error."""
+    document = DocumentFactory()
+    # A URL with a document_id that doesn't exist.
+    url = reverse(
+        "get_document",
+        kwargs={"document_id": 1_000_000_000, "document_name": document.filename},
+    )
+
+    response = client.get(url)
+    assert response.status_code == 404
+
+
+def test_get_document_non_matching_parameters(db, client):
+    """Sending parameters that don't match returns a 404 error."""
+    document1 = DocumentFactory()
+    document2 = DocumentFactory()
+    # A URL with the id of document1 and name of document2.
+    url = reverse(
+        "get_document",
+        kwargs={"document_id": document1.id, "document_name": document2.filename},
+    )
+
+    response = client.get(url)
+    assert response.status_code == 404
