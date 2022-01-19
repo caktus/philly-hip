@@ -375,3 +375,40 @@ def test_get_document_non_matching_parameters(db, client):
 
     response = client.get(url)
     assert response.status_code == 404
+
+
+def test_get_document_empty_parameters(db, client):
+    """Sending empty parameters to the get_document view returns a 404 error."""
+    document = DocumentFactory()
+    # Create a URL without empty document_id and document_name parameters.
+    url = reverse(
+        "get_document",
+        kwargs={"document_id": document.id, "document_name": document.filename},
+    )
+    url = url.replace(f"{document.id}", "").replace(f"{document.filename}", "")
+    response = client.get(url)
+    assert response.status_code == 404
+
+
+def test_get_document_wrong_type_parameters(db, client):
+    """Sending parameters of the wrong type to the get_document view returns a 404 error."""
+    document = DocumentFactory()
+    # Create a URL with document_id and document_name parameters of the wrong type.
+    url = reverse(
+        "get_document",
+        kwargs={"document_id": document.id, "document_name": document.filename},
+    )
+    url = url.replace(f"{document.id}", "2.4").replace(f"{document.filename}", "2.4")
+    response = client.get(url)
+    assert response.status_code == 404
+
+
+def test_get_document_no_file(db, client):
+    """Sending parameters for a document with no file returns a 404 error."""
+    document = DocumentFactory(file=None)
+    url = reverse(
+        "get_document",
+        kwargs={"document_id": document.id, "document_name": None},
+    )
+    response = client.get(url)
+    assert response.status_code == 404
