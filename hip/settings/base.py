@@ -83,6 +83,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
+    "social_django.middleware.SocialAuthExceptionMiddleware",
 ]
 
 ROOT_URLCONF = "hip.urls"
@@ -164,6 +165,8 @@ SOCIAL_AUTH_JSONFIELD_ENABLED = True
 SOCIAL_AUTH_AZUREAD_V2_TENANT_OAUTH2_KEY = os.environ.get("AZURE_CLIENT_ID")
 SOCIAL_AUTH_AZUREAD_V2_TENANT_OAUTH2_SECRET = os.environ.get("AZURE_CLIENT_SECRET")
 SOCIAL_AUTH_AZUREAD_V2_TENANT_OAUTH2_TENANT_ID = os.environ.get("AZURE_TENANT_ID")
+
+SOCIAL_AUTH_LOGIN_ERROR_URL = "login"
 
 AUTHENTICATION_BACKENDS = [
     # This specific backend is not currently documented in the PSA docs, but it includes
