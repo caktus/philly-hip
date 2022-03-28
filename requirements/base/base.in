@@ -4,9 +4,7 @@ django
 django-dotenv
 django_extensions
 django_model_utils
-django-webpack-loader
 dj-database-url
-django-webpack-loader
 django-model-utils
 django-storages
 django-compressor
