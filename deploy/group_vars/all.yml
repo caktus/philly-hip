@@ -92,7 +92,7 @@ k8s_container_port: 8000
 k8s_container_image: "{{ RepositoryURL }}"
 k8s_container_image_pull_policy: Always
 k8s_container_replicas: 2
-k8s_migrations_enabled: true
+k8s_migrations_enabled: false
 k8s_collectstatic_enabled: false
 k8s_container_ingress_annotations:
   nginx.ingress.kubernetes.io/proxy-body-size: 100m
