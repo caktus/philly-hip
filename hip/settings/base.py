@@ -307,17 +307,6 @@ LOGOUT_REDIRECT_URL = "/"
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = os.getenv("DOMAIN", "http://hip.caktus-built.com")
 
-WEBPACK_LOADER = {
-    "DEFAULT": {
-        "CACHE": not DEBUG,
-        "BUNDLE_DIR_NAME": "bundles/",  # must end with slash
-        "STATS_FILE": os.path.join(BASE_DIR, "webpack-stats.json"),
-        "POLL_INTERVAL": 0.1,
-        "TIMEOUT": None,
-        "IGNORE": [r".+\.hot-update.js", r".+\.map"],
-    }
-}
-
 VIDEOJS_HERO_ID = "video-hero"
 
 PHONENUMBER_DB_FORMAT = "NATIONAL"
