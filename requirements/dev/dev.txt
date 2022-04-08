@@ -76,16 +76,12 @@ cffi==1.14.5
     #   cryptography
 cfgv==3.2.0
     # via pre-commit
-cfn-flip==1.2.3
-    # via troposphere
 chardet==4.0.0
     # via
     #   -c requirements/dev/../base/base.txt
     #   requests
 click==7.1.2
-    # via
-    #   black
-    #   cfn-flip
+    # via black
 colorama==0.4.3
     # via
     #   awscli
@@ -407,7 +403,6 @@ pyyaml==5.4.1
     #   -r requirements/dev/dev.in
     #   ansible-base
     #   awscli
-    #   cfn-flip
     #   kubernetes
     #   kubernetes-validate
     #   pre-commit
@@ -434,7 +429,7 @@ rsa==4.5
     # via
     #   awscli
     #   google-auth
-ruamel.yaml==0.16.12
+ruamel-yaml==0.16.12
     # via openshift
 s3transfer==0.4.2
     # via
@@ -450,7 +445,6 @@ six==1.15.0
     #   -c requirements/dev/../base/base.txt
     #   argon2-cffi
     #   bleach
-    #   cfn-flip
     #   google-auth
     #   html5lib
     #   jsonschema
@@ -513,8 +507,6 @@ traitlets==5.0.5
     #   nbconvert
     #   nbformat
     #   notebook
-troposphere==2.6.3
-    # via -r requirements/dev/dev.in
 typed-ast==1.4.2
     # via black
 typing-extensions==3.7.4.3
