@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "social_django",
     "wagtail.contrib.table_block",
-    "webpack_loader",
     "import_export",
 ]
 
@@ -83,6 +82,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
+    "social_django.middleware.SocialAuthExceptionMiddleware",
 ]
 
 ROOT_URLCONF = "hip.urls"
@@ -164,6 +164,8 @@ SOCIAL_AUTH_JSONFIELD_ENABLED = True
 SOCIAL_AUTH_AZUREAD_V2_TENANT_OAUTH2_KEY = os.environ.get("AZURE_CLIENT_ID")
 SOCIAL_AUTH_AZUREAD_V2_TENANT_OAUTH2_SECRET = os.environ.get("AZURE_CLIENT_SECRET")
 SOCIAL_AUTH_AZUREAD_V2_TENANT_OAUTH2_TENANT_ID = os.environ.get("AZURE_TENANT_ID")
+
+SOCIAL_AUTH_LOGIN_ERROR_URL = "login"
 
 AUTHENTICATION_BACKENDS = [
     # This specific backend is not currently documented in the PSA docs, but it includes
@@ -304,17 +306,6 @@ LOGOUT_REDIRECT_URL = "/"
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = os.getenv("DOMAIN", "http://hip.caktus-built.com")
-
-WEBPACK_LOADER = {
-    "DEFAULT": {
-        "CACHE": not DEBUG,
-        "BUNDLE_DIR_NAME": "bundles/",  # must end with slash
-        "STATS_FILE": os.path.join(BASE_DIR, "webpack-stats.json"),
-        "POLL_INTERVAL": 0.1,
-        "TIMEOUT": None,
-        "IGNORE": [r".+\.hot-update.js", r".+\.map"],
-    }
-}
 
 VIDEOJS_HERO_ID = "video-hero"
 

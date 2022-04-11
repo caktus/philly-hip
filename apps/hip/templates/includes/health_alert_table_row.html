@@ -1,7 +1,15 @@
 <tr
   data-condition="{{ alert.disease.slug }}"
 >
-  <td class="topic"><a href="{{ alert.specific.alert_file.url }}">{{ alert.title }}</a></td>
+  <td class="topic">
+    <!-- Only link to alert file if the alert has a file -->
+    {% if alert.specific.alert_file %}
+      <a href="{{ alert.specific.alert_file.url }}">{{ alert.title }}</a>
+    {% else %}
+      <span>{{ alert.title }}</span>
+    {% endif %}
+  </td>
+
   <td class="priority {{ alert.get_priority_display|lower }}-hip">
     <i class="fa {{ alert.get_priority_icon }}" aria-hidden="true"></i>
     {{ alert.get_priority_display }}

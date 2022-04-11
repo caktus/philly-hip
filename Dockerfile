@@ -1,7 +1,7 @@
-FROM node:12.16-alpine as static_files
+FROM node:16-alpine as static_files
 WORKDIR /code
 ENV PATH /code/node_modules/.bin:$PATH
-COPY package.json package-lock.json webpack.base.config.js webpack.prod.config.js /code/
+COPY package.json package-lock.json webpack.config.js /code/
 RUN npm install --silent
 COPY . /code/
 RUN npm run build
@@ -61,7 +61,6 @@ FROM base AS deploy
 ARG APP_USER=appuser
 RUN groupadd -r ${APP_USER} && useradd --no-log-init -r -g ${APP_USER} ${APP_USER}
 
-COPY --from=static_files /code/webpack-stats-production.json /code/
 # uWSGI will listen on this port
 EXPOSE 8000
 

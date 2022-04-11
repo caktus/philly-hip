@@ -72,7 +72,7 @@ class PosterDetailPage(HipBasePage):
     subpage_types = []
 
     main_poster = models.ForeignKey(
-        "wagtaildocs.Document", null=True, blank=False, on_delete=models.SET_NULL
+        "hip.HIPDocument", null=True, blank=False, on_delete=models.SET_NULL
     )
 
     thumbnail = models.ForeignKey(
@@ -112,7 +112,7 @@ class PosterDocumentVersion(Orderable):
         PosterDetailPage, on_delete=models.CASCADE, related_name="additional_versions"
     )
     document = models.ForeignKey(
-        "wagtaildocs.Document", on_delete=models.CASCADE, related_name="+"
+        "hip.HIPDocument", on_delete=models.CASCADE, related_name="+"
     )
     label = models.CharField(
         blank=False,
