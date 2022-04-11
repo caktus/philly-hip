@@ -9,7 +9,6 @@
     "test": "jest",
     "dev": "gulp",
     "build": "NODE_ENV=production ./node_modules/.bin/webpack --progress --config webpack.config.js --bail",
-    "build:css": "sass ./hip/static/styles/bundle.scss:./static/styles/bundle.css --style compressed",
     "coverage": "jest --coverage"
   },
   "dependencies": {
