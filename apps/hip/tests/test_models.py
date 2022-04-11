@@ -1,3 +1,5 @@
+from django.shortcuts import reverse
+
 from wagtail.core.models import Page
 
 from apps.hip.models import HIPDocument
@@ -93,3 +95,19 @@ def test_hipdocument_search_partial_term_partial_matches(db):
     assert_document_match(
         [document_small_chance, document_smallpox, document_another], "a"
     )
+
+
+def test_hipdocument_url_with_file(db):
+    """Test the HIPDocument.url property for a HIPDocument with a file."""
+    document = DocumentFactory(title="Smallpox Document")
+    expected_url = reverse(
+        "get_document",
+        kwargs={"document_id": document.id, "document_name": document.filename},
+    )
+    assert expected_url == document.url
+
+
+def test_hipdocument_url_without_file(db):
+    """Test the HIPDocument.url property for a HIPDocument without a file."""
+    document_no_file = DocumentFactory(title="Other Document", file=None)
+    assert "" == document_no_file.url
