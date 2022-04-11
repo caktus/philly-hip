@@ -33,7 +33,7 @@ diff-match-patch==20200713
     # via django-import-export
 dj-database-url==0.5.0
     # via -r requirements/base/base.in
-django==3.2.12
+django==3.2.13
     # via
     #   -r requirements/base/base.in
     #   django-appconf
