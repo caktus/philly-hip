@@ -2,19 +2,20 @@
 -c ../base/base.txt
 
 pyyaml
-black
+black==22.6.0
 isort
 ipython
 jupyterlab
 
 # deploy
+ansible==5.9.0
 invoke-kubesae==0.0.16
-troposphere
 
 # AWS tools
 awscli
 awslogs
-openshift
+openshift==0.12
+kubernetes==12.0.0
 kubernetes-validate
 
 pre-commit
