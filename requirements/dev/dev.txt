@@ -201,8 +201,9 @@ jdcal==1.4.1
     #   openpyxl
 jedi==0.18.0
     # via ipython
-jinja2==2.11.3
+jinja2==3.0.3
     # via
+    #   -r requirements/dev/dev.in
     #   ansible-core
     #   jupyter-server
     #   jupyterlab
@@ -262,7 +263,7 @@ markuppy==1.14
     # via
     #   -c requirements/dev/../base/base.txt
     #   tablib
-markupsafe==1.1.1
+markupsafe==2.1.1
     # via jinja2
 mccabe==0.6.1
     # via flake8
