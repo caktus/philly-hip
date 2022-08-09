@@ -1,9 +1,11 @@
+import mimetypes
 from distutils.util import strtobool
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.core.files.uploadhandler import TemporaryFileUploadHandler
-from django.shortcuts import redirect, render, reverse
+from django.http import FileResponse, Http404
+from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
@@ -15,6 +17,7 @@ from apps.common.utils import (
     get_home_page_url,
     get_pcwmsa_home_page_url,
 )
+from apps.hip.models import HIPDocument
 
 from .forms import HIPAuthenticationForm
 
@@ -108,3 +111,33 @@ def cms_and_admin_login(request, *args, **kwargs):
     next_url = request.GET.get("next", "")
     login_url = f"{reverse('login')}?next={next_url}"
     return redirect(login_url)
+
+
+def get_document(request, *args, **kwargs):
+    """
+    A view for serving HIPDocuemnts.
+
+    Due to the fact that our S3 bucket is private, objects in that bucket end up
+    having a really long URL (including the signing data), so when we redirect users
+    to a document, the users see the really long URL in the URL bar. When a user
+    tries to share the link with others, they don't like that the link is so long.
+    Our client prefers to not make the S3 bucket public, so instead we serve the
+    HIPDocuments from our own Django view.
+    """
+    # Verify that the HIPDocument exists.
+    try:
+        document_id = int(kwargs.get("document_id", ""))
+    except ValueError:
+        raise Http404("Document not found")
+    document = get_object_or_404(HIPDocument, id=document_id)
+    # If the "document_id" parameter does not match the "document_name" parameter,
+    # then raise a 404 error.
+    if document.filename != kwargs.get("document_name", ""):
+        raise Http404("Document not found")
+
+    # Return a FileResponse with the HIPDocument.
+    filename = document.filename
+    content_type = mimetypes.guess_type(filename)[0] or "application-x/octet-stream"
+    response = FileResponse(document.file, content_type=content_type)
+    response["Content-Disposition"] = f'inline; filename="{filename}"'
+    return response
