@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "social_django",
     "wagtail.contrib.table_block",
-    "webpack_loader",
     "import_export",
 ]
 
@@ -307,17 +306,6 @@ LOGOUT_REDIRECT_URL = "/"
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = os.getenv("DOMAIN", "http://hip.caktus-built.com")
-
-WEBPACK_LOADER = {
-    "DEFAULT": {
-        "CACHE": not DEBUG,
-        "BUNDLE_DIR_NAME": "bundles/",  # must end with slash
-        "STATS_FILE": os.path.join(BASE_DIR, "webpack-stats.json"),
-        "POLL_INTERVAL": 0.1,
-        "TIMEOUT": None,
-        "IGNORE": [r".+\.hot-update.js", r".+\.map"],
-    }
-}
 
 VIDEOJS_HERO_ID = "video-hero"
 

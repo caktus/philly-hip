@@ -16,6 +16,7 @@ env-local.sh
 .vsls.json
 .envrc
 .direnv
+webpack-stats.json
 
 # Project Static Files
 node_modules/*
@@ -23,7 +24,6 @@ static/*
 public/static/
 public/media/
 media/*
-webpack-stats.json
 hip/static/bundles/main.js
 
 # Ansible
