@@ -63,6 +63,12 @@ urlpatterns = [
         notifications_views.public_health_preparedness_signup,
         name="public_health_preparedness_signup",
     ),
+    # A custom view for serving HIPDocuments (rather than serving them from AWS S3).
+    path(
+        "document/<int:document_id>/<str:document_name>/",
+        hip_views.get_document,
+        name="get_document",
+    ),
     # Admin view.
     path("admin/", admin.site.urls),
 ]
