@@ -44,6 +44,7 @@ body {
   min-height: 100vh;
 }
 
+// This class allows us to hide content from sighted users, while allowing the content to remain accessible via screen reader.
 .visually-hidden {
   clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
   clip: rect(1px, 1px, 1px, 1px);
