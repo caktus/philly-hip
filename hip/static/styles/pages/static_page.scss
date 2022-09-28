@@ -39,9 +39,18 @@
 
 .right-scroll-link-hip {
   // links are grey unless they are current
-  color: $grey;
+  color: $dark-grey;
 
   &.is-current-hip {
-    color: $light-blue;
+    color: $dark-blue;
+
+    // This creates an arrow to indicate the active heading without relying on color alone.
+    ::before {
+      content:"\27A4";
+      border-style: solid;
+      border-color: transparent;
+      position: absolute;
+      left: -12px;
+    }
   }
 }
