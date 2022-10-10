@@ -9,7 +9,7 @@
       </a>
     </div>
     <div class="card-content px-2">
-      <h4>{{ poster.title }}</h4>
+      <h4>{{ poster.title }} (PDF)</h4>
       <ul>
         {% for version in poster.additional_versions.all %}
           <li><a class="card-link-hip" href="{{ version.document.url }}">{{ version.label }}</a></li>
