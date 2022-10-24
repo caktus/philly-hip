@@ -3,7 +3,7 @@
 import django.db.models.deletion
 from django.db import migrations, models
 
-import wagtail.core.fields
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
                         to="wagtailcore.page",
                     ),
                 ),
-                ("description", wagtail.core.fields.RichTextField(blank=True)),
+                ("description", wagtail.fields.RichTextField(blank=True)),
                 (
                     "is_emergent",
                     models.BooleanField(

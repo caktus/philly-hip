@@ -62,7 +62,7 @@ INSTALLED_APPS += [
     "wagtail.images",
     "wagtail.search",
     "wagtail.admin",
-    "wagtail.core",
+    "wagtail",
     "modelcluster",
     # Full list of icons available @ https://fontawesome.com/v4.7.0/icons/
     "wagtailfontawesome",

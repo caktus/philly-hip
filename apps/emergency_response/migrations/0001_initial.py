@@ -3,8 +3,8 @@
 import django.db.models.deletion
 from django.db import migrations, models
 
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -30,25 +30,25 @@ class Migration(migrations.Migration):
                         to="wagtailcore.page",
                     ),
                 ),
-                ("description", wagtail.core.fields.RichTextField(blank=True)),
+                ("description", wagtail.fields.RichTextField(blank=True)),
                 (
                     "action_section",
-                    wagtail.core.fields.RichTextField(
+                    wagtail.fields.RichTextField(
                         blank=True,
                         help_text="This section will stand out to users, calling them to perform an action.",
                     ),
                 ),
                 (
                     "sections_of_links",
-                    wagtail.core.fields.StreamField(
+                    wagtail.fields.StreamField(
                         [
                             (
                                 "section_of_links",
-                                wagtail.core.blocks.StructBlock(
+                                wagtail.blocks.StructBlock(
                                     [
                                         (
                                             "title",
-                                            wagtail.core.blocks.CharBlock(
+                                            wagtail.blocks.CharBlock(
                                                 help_text="The title for this section.",
                                                 max_length=255,
                                                 required=True,
@@ -56,7 +56,7 @@ class Migration(migrations.Migration):
                                         ),
                                         (
                                             "number_of_columns",
-                                            wagtail.core.blocks.IntegerBlock(
+                                            wagtail.blocks.IntegerBlock(
                                                 default=1,
                                                 help_text="The number of columns in which to show this section.",
                                                 max_value=2,
@@ -65,15 +65,15 @@ class Migration(migrations.Migration):
                                         ),
                                         (
                                             "link_blocks",
-                                            wagtail.core.blocks.StreamBlock(
+                                            wagtail.blocks.StreamBlock(
                                                 [
                                                     (
                                                         "block_of_links",
-                                                        wagtail.core.blocks.StructBlock(
+                                                        wagtail.blocks.StructBlock(
                                                             [
                                                                 (
                                                                     "subtitle",
-                                                                    wagtail.core.blocks.CharBlock(
+                                                                    wagtail.blocks.CharBlock(
                                                                         help_text="The subtitle for this block of links.",
                                                                         max_length=255,
                                                                         required=True,
@@ -81,7 +81,7 @@ class Migration(migrations.Migration):
                                                                 ),
                                                                 (
                                                                     "text",
-                                                                    wagtail.core.blocks.RichTextBlock(),
+                                                                    wagtail.blocks.RichTextBlock(),
                                                                 ),
                                                             ],
                                                             blank=True,

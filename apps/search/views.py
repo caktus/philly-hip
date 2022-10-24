@@ -1,7 +1,7 @@
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import render
 
-from wagtail.core.models import Page
+from wagtail.models import Page
 from wagtail.search.models import Query
 
 from apps.common.utils import get_all_pages_visible_to_request, get_home_page_url

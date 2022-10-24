@@ -4,7 +4,7 @@ from django.db import models
 from django.shortcuts import redirect
 
 from phonenumber_field.modelfields import PhoneNumberField
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.admin.panels import FieldPanel
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.search import index
 

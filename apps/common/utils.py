@@ -1,4 +1,4 @@
-from wagtail.core.models import Page, PageViewRestriction
+from wagtail.models import Page, PageViewRestriction
 
 from apps.hip.models import HomePage
 

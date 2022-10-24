@@ -67,7 +67,7 @@ django-ipware==3.0.2
     # via -r requirements/base/base.in
 django-model-utils==4.1.1
     # via -r requirements/base/base.in
-django-modelcluster==5.1
+django-modelcluster==6.0
     # via wagtail
 django-phonenumber-field==5.0.0
     # via -r requirements/base/base.in
@@ -173,7 +173,7 @@ urllib3==1.26.4
     # via
     #   botocore
     #   requests
-wagtail==2.15
+wagtail==3.0
     # via
     #   -r requirements/base/base.in
     #   wagtailfontawesome

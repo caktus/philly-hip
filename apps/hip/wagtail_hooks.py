@@ -1,8 +1,8 @@
 from django.utils.html import escape, format_html
 
 from sass_processor.processor import sass_processor
-from wagtail.core import hooks
-from wagtail.core.rich_text import LinkHandler
+from wagtail import hooks
+from wagtail.rich_text import LinkHandler
 
 
 class ExternalLinkHandler(LinkHandler):

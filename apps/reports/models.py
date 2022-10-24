@@ -2,9 +2,9 @@ from datetime import datetime
 
 from django.db import models
 
-from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, StreamFieldPanel
-from wagtail.core import blocks
-from wagtail.core.fields import RichTextField, StreamField
+from wagtail import blocks
+from wagtail.admin.panels import FieldPanel, PageChooserPanel, StreamFieldPanel
+from wagtail.fields import RichTextField, StreamField
 from wagtail.search import index
 
 from apps.common.models import HipBasePage

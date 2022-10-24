@@ -3,7 +3,7 @@ import os
 from django.utils.timezone import now, timedelta
 
 import pytest
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 from ..utils import get_most_recent_objects, scan_pdf_for_malicious_content
 from .factories import HomePageFactory, StaticPageFactory

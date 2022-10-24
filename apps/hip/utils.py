@@ -1,7 +1,7 @@
 from django.db.models import CharField, F, Value
 
 from pdfid import pdfid
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 
 def get_most_recent_objects(pages_qs=None, object_count=10):

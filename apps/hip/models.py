@@ -3,10 +3,10 @@ from django.shortcuts import reverse
 from django.utils.timezone import localtime
 
 from phonenumber_field.modelfields import PhoneNumberField
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
-from wagtail.core import blocks
-from wagtail.core.fields import RichTextField, StreamField
+from wagtail import blocks
+from wagtail.admin.panels import FieldPanel, StreamFieldPanel
 from wagtail.documents.models import Document, DocumentQuerySet
+from wagtail.fields import RichTextField, StreamField
 from wagtail.search import index
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.edit_handlers import SnippetChooserPanel

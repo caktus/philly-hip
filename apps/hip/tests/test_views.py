@@ -5,8 +5,8 @@ from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.shortcuts import reverse
 
 import pytest
-from wagtail.core.models import Collection
 from wagtail.documents import get_document_model
+from wagtail.models import Collection
 
 from apps.hip.tests.factories import DocumentFactory
 from apps.users.tests.factories import GroupFactory, UserFactory

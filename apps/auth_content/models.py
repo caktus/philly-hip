@@ -1,8 +1,8 @@
 from django.db import models
 
 from phonenumber_field.modelfields import PhoneNumberField
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
-from wagtail.core.fields import RichTextField
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.fields import RichTextField
 from wagtail.search import index
 
 from apps.common.models import HipBasePage

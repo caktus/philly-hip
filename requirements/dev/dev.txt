@@ -118,7 +118,7 @@ django-filter==2.4.0
     # via
     #   -c requirements/dev/../base/base.txt
     #   wagtail
-django-modelcluster==5.1
+django-modelcluster==6.0
     # via
     #   -c requirements/dev/../base/base.txt
     #   wagtail
@@ -525,7 +525,7 @@ urwid==2.1.2
     # via pudb
 virtualenv==20.4.2
     # via pre-commit
-wagtail==2.15
+wagtail==3.0
     # via
     #   -c requirements/dev/../base/base.txt
     #   wagtail-factories

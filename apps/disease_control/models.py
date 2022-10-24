@@ -1,8 +1,8 @@
 from django.db import models
 
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
-from wagtail.core.fields import RichTextField, StreamField
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.documents import get_document_model
+from wagtail.fields import RichTextField, StreamField
 from wagtail.search import index
 
 from apps.common.models import HipBasePage
