@@ -53,7 +53,6 @@ INSTALLED_APPS = [
 
 INSTALLED_APPS += [
     "wagtail.contrib.forms",
-    "wagtail.contrib.postgres_search",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
     "wagtail.sites",
@@ -284,7 +283,7 @@ WAGTAIL_FRONTEND_LOGIN_URL = "login"
 
 WAGTAILSEARCH_BACKENDS = {
     "default": {
-        "BACKEND": "wagtail.contrib.postgres_search.backend",
+        "BACKEND": "wagtail.search.backends.database",
         "SEARCH_CONFIG": "english",
     },
 }
