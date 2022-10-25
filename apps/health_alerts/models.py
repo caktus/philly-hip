@@ -5,7 +5,6 @@ from django.shortcuts import redirect
 
 from phonenumber_field.modelfields import PhoneNumberField
 from wagtail.admin.panels import FieldPanel
-from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.search import index
 
 from apps.common.models import HipBasePage
@@ -73,7 +72,7 @@ class HealthAlertDetailPage(HipBasePage):
     )
 
     content_panels = HipBasePage.content_panels + [
-        DocumentChooserPanel("alert_file"),
+        FieldPanel("alert_file"),
         FieldPanel("priority"),
         FieldPanel("alert_date"),
         FieldPanel("disease"),

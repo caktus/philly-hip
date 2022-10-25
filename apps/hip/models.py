@@ -4,12 +4,11 @@ from django.utils.timezone import localtime
 
 from phonenumber_field.modelfields import PhoneNumberField
 from wagtail import blocks
-from wagtail.admin.panels import FieldPanel, StreamFieldPanel
+from wagtail.admin.panels import FieldPanel
 from wagtail.documents.models import Document, DocumentQuerySet
 from wagtail.fields import RichTextField, StreamField
 from wagtail.search import index
 from wagtail.snippets.blocks import SnippetChooserBlock
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
 from apps.common.models import HipBasePage, IndexedTimeStampedModel
@@ -378,7 +377,7 @@ class StaticPage(HipBasePage):
         FieldPanel("show_back_button"),
         FieldPanel("show_right_nav"),
         FieldPanel("action_section"),
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
     ]
     search_fields = HipBasePage.search_fields + [
         index.SearchField("body"),
@@ -452,7 +451,7 @@ class ListPage(HipBasePage):
     content_panels = HipBasePage.content_panels + [
         FieldPanel("show_breadcrumb"),
         FieldPanel("show_right_nav"),
-        StreamFieldPanel("list_section"),
+        FieldPanel("list_section"),
     ]
     search_fields = HipBasePage.search_fields + [
         index.SearchField("list_section"),
@@ -541,8 +540,8 @@ class HomePage(HipBasePage):
 
     content_panels = HipBasePage.content_panels + [
         FieldPanel("short_description"),
-        SnippetChooserPanel("contact_info"),
-        StreamFieldPanel("quick_links"),
+        FieldPanel("contact_info"),
+        FieldPanel("quick_links"),
         FieldPanel("about"),
     ]
 

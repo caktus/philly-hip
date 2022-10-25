@@ -3,7 +3,7 @@ from datetime import datetime
 from django.db import models
 
 from wagtail import blocks
-from wagtail.admin.panels import FieldPanel, PageChooserPanel, StreamFieldPanel
+from wagtail.admin.panels import FieldPanel, PageChooserPanel
 from wagtail.fields import RichTextField, StreamField
 from wagtail.search import index
 
@@ -42,7 +42,7 @@ class DataReportListPage(HipBasePage):
 
     content_panels = HipBasePage.content_panels + [
         FieldPanel("description"),
-        StreamFieldPanel("external_reports"),
+        FieldPanel("external_reports"),
     ]
 
     search_fields = HipBasePage.search_fields + [

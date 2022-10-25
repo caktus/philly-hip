@@ -1,6 +1,6 @@
 from django.db import models
 
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.documents import get_document_model
 from wagtail.fields import RichTextField, StreamField
 from wagtail.search import index
@@ -99,7 +99,7 @@ class DiseaseControlChildStaticPage(DiseaseControlPage):
         FieldPanel("show_back_button"),
         FieldPanel("show_right_nav"),
         FieldPanel("description"),
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
         FieldPanel("page_type"),
     ]
     search_fields = HipBasePage.search_fields + [
@@ -147,7 +147,7 @@ class DiseaseControlChildListPage(DiseaseControlPage):
     content_panels = HipBasePage.content_panels + [
         FieldPanel("show_breadcrumb"),
         FieldPanel("show_right_nav"),
-        StreamFieldPanel("list_section"),
+        FieldPanel("list_section"),
         FieldPanel("description"),
         FieldPanel("page_type"),
     ]
