@@ -173,7 +173,7 @@ urllib3==1.26.4
     # via
     #   botocore
     #   requests
-wagtail==4.0
+wagtail==4.0.4
     # via
     #   -r requirements/base/base.in
     #   wagtailfontawesome

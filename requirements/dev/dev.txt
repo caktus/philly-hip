@@ -525,7 +525,7 @@ urwid==2.1.2
     # via pudb
 virtualenv==20.4.2
     # via pre-commit
-wagtail==4.0
+wagtail==4.0.4
     # via
     #   -c requirements/dev/../base/base.txt
     #   wagtail-factories
