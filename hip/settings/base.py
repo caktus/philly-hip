@@ -304,7 +304,7 @@ LOGOUT_REDIRECT_URL = "/"
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = os.getenv("DOMAIN", "http://hip.caktus-built.com")
+WAGTAILADMIN_BASE_URL = os.getenv("DOMAIN", "http://hip.caktus-built.com")
 
 VIDEOJS_HERO_ID = "video-hero"
 
