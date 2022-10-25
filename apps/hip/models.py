@@ -368,7 +368,8 @@ class StaticPage(HipBasePage):
     body = StreamField(
         [
             ("section", StreamAndNavHeadingBlock()),
-        ]
+        ],
+        use_json_field=True,
     )
 
     content_panels = HipBasePage.content_panels + [
@@ -445,7 +446,8 @@ class ListPage(HipBasePage):
     list_section = StreamField(
         [
             ("list_section", ListSectionBlock()),
-        ]
+        ],
+        use_json_field=True,
     )
 
     content_panels = HipBasePage.content_panels + [
@@ -532,6 +534,7 @@ class HomePage(HipBasePage):
             ("quick_links", QuickLinkCard()),
         ],
         blank=True,
+        use_json_field=True,
     )
     about = RichTextField(blank=True)
     contact_info = models.ForeignKey(

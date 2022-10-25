@@ -38,6 +38,7 @@ class DataReportListPage(HipBasePage):
             ("external_reports", ExternalReportBlock()),
         ],
         blank=True,
+        use_json_field=True,
     )
 
     content_panels = HipBasePage.content_panels + [

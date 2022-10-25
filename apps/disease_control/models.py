@@ -90,7 +90,8 @@ class DiseaseControlChildStaticPage(DiseaseControlPage):
     body = StreamField(
         [
             ("section", StreamAndNavHeadingBlock()),
-        ]
+        ],
+        use_json_field=True,
     )
 
     content_panels = HipBasePage.content_panels + [
@@ -141,7 +142,8 @@ class DiseaseControlChildListPage(DiseaseControlPage):
     list_section = StreamField(
         [
             ("list_section", ListSectionBlock()),
-        ]
+        ],
+        use_json_field=True,
     )
 
     content_panels = HipBasePage.content_panels + [

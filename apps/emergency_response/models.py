@@ -48,6 +48,7 @@ class EmergencyResponsePage(HipBasePage):
             ("section_of_links", SectionOfLinkBlocks()),
         ],
         blank=True,
+        use_json_field=True,
     )
 
     content_panels = [
