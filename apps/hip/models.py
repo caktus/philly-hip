@@ -72,12 +72,10 @@ class ButtonSnippet(IndexedTimeStampedModel):
 
 class TableRow(blocks.StructBlock):
     column_1 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 1"),
     )
     column_2 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 2"),
     )
@@ -121,17 +119,14 @@ class TwoColumnBlock(blocks.StructBlock):
 
 class ThreeColumnTableRow(blocks.StructBlock):
     column_1 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 1"),
     )
     column_2 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 2"),
     )
     column_3 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 3"),
     )
@@ -176,22 +171,18 @@ class ThreeColumnBlock(blocks.StructBlock):
 
 class FourColumnTableRow(blocks.StructBlock):
     column_1 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 1"),
     )
     column_2 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 2"),
     )
     column_3 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 3"),
     )
     column_4 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 4"),
     )
@@ -237,27 +228,22 @@ class FourColumnBlock(blocks.StructBlock):
 
 class FiveColumnTableRow(blocks.StructBlock):
     column_1 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 1"),
     )
     column_2 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 2"),
     )
     column_3 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 3"),
     )
     column_4 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 4"),
     )
     column_5 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 5"),
     )
