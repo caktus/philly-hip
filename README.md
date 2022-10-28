@@ -183,6 +183,12 @@ following shell environment variables:
     export PGDATABASE=hip
 ```
 
+If you're setting up your database with a dump from staging or production, 
+your local server may not be configured to allow for page previews in the 
+Wagtail admin. 
+If the preview feature returns with a DisallowedHost error, visit [/cms/sites](http://localhost:8000/cms/sites/) 
+and change the first entry's `Hostname` field to `localhost`.
+
 
 **7. Migrate and create a superuser**
 
@@ -253,3 +259,7 @@ To reset your local database from a deployed environment:
 ```sh
     (hip)$ inv staging project.reset-local-db
 ```
+
+As mentioned in the Database setup instructions, you may need to visit 
+[/cms/sites](http://localhost:8000/cms/sites/) and change the first entry's 
+`Hostname` field to `localhost` to enable page previews in the Wagtail admin.
