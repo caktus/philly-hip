@@ -281,6 +281,11 @@ LOGIN_REDIRECT_URL = "auth_view_router"
 WAGTAIL_SITE_NAME = "hip"
 WAGTAIL_FRONTEND_LOGIN_URL = "login"
 
+# These changes enable automatic changes to the Wagtail page preview feature in the Wagtail Admin page. These are the default values that are set when creating new Wagtail projects.
+WAGTAIL_AUTO_UPDATE_PREVIEW = True
+WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL = 500
+
+
 WAGTAILSEARCH_BACKENDS = {
     "default": {
         "BACKEND": "wagtail.search.backends.database",
