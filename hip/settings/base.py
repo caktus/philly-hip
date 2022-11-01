@@ -285,6 +285,8 @@ WAGTAIL_FRONTEND_LOGIN_URL = "login"
 WAGTAIL_AUTO_UPDATE_PREVIEW = True
 WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL = 500
 
+# This setting prevents the iframe in the live preview panel in Wagtail Admin from breaking when clicking on links.
+X_FRAME_OPTIONS = "SAMEORIGIN"
 
 WAGTAILSEARCH_BACKENDS = {
     "default": {
