@@ -110,6 +110,11 @@ class HealthAlertDetailPage(HipBasePage):
     def serve(self, request):
         return redirect(self.alert_file.url)
 
+    # Because we have overridden the serve() method of this model, we also need to
+    # override serve_preview in order for the live preview panel to work in Wagtail admin
+    def serve_preview(self, request, mode_name):
+        return self.serve(request)
+
 
 class HealthAlertSubscriber(models.Model):
     """Stores users that indicate they would like to
