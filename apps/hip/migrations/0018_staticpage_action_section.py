@@ -2,7 +2,7 @@
 
 from django.db import migrations
 
-import wagtail.core.fields
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="staticpage",
             name="action_section",
-            field=wagtail.core.fields.RichTextField(
+            field=wagtail.fields.RichTextField(
                 blank=True,
                 help_text="This section will stand out to users, calling them to perform an action.",
             ),

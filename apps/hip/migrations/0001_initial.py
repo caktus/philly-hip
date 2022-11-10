@@ -3,8 +3,8 @@
 import django.db.models.deletion
 from django.db import migrations, models
 
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
             name='StaticPage',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.page')),
-                ('body', wagtail.core.fields.StreamField([('section', wagtail.core.blocks.StructBlock([('nav_heading', wagtail.core.blocks.CharBlock(help_text='The heading that should appear for this section in the scrolling navigation on the side of the page.', max_length=80, required=False)), ('is_card', wagtail.core.blocks.BooleanBlock(help_text='Is this content block a card?', required=False)), ('body', wagtail.core.blocks.StreamBlock([('rich_text', wagtail.core.blocks.RichTextBlock()), ('two_column_table', wagtail.core.blocks.StructBlock([('has_grid_pattern', wagtail.core.blocks.BooleanBlock(help_text="Does this table's styling have a grid pattern?", required=False)), ('is_first_row_header', wagtail.core.blocks.BooleanBlock(help_text='Should the first row be displayed as a header?', required=False)), ('rows', wagtail.core.blocks.StreamBlock([('rows', wagtail.core.blocks.StructBlock([('column_1', wagtail.core.blocks.RichTextBlock(help_text='Text for column 1', max_length=255, required=False)), ('column_2', wagtail.core.blocks.RichTextBlock(help_text='Text for column 2', max_length=255, required=False))]))]))]))]))]))])),
+                ('body', wagtail.fields.StreamField([('section', wagtail.blocks.StructBlock([('nav_heading', wagtail.blocks.CharBlock(help_text='The heading that should appear for this section in the scrolling navigation on the side of the page.', max_length=80, required=False)), ('is_card', wagtail.blocks.BooleanBlock(help_text='Is this content block a card?', required=False)), ('body', wagtail.blocks.StreamBlock([('rich_text', wagtail.blocks.RichTextBlock()), ('two_column_table', wagtail.blocks.StructBlock([('has_grid_pattern', wagtail.blocks.BooleanBlock(help_text="Does this table's styling have a grid pattern?", required=False)), ('is_first_row_header', wagtail.blocks.BooleanBlock(help_text='Should the first row be displayed as a header?', required=False)), ('rows', wagtail.blocks.StreamBlock([('rows', wagtail.blocks.StructBlock([('column_1', wagtail.blocks.RichTextBlock(help_text='Text for column 1', max_length=255, required=False)), ('column_2', wagtail.blocks.RichTextBlock(help_text='Text for column 2', max_length=255, required=False))]))]))]))]))]))])),
             ],
             options={
                 'abstract': False,

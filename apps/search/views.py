@@ -1,7 +1,7 @@
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import render
 
-from wagtail.core.models import Page
+from wagtail.models import Page
 from wagtail.search.models import Query
 
 from apps.common.utils import get_all_pages_visible_to_request, get_home_page_url
@@ -28,7 +28,9 @@ def search(request):
     # Search
     if search_query:
         pages_for_request_user = get_all_pages_visible_to_request(request)
-        search_results = pages_for_request_user.live().search(search_query)
+        search_results = pages_for_request_user.live().search(
+            search_query, partial_match=False
+        )
 
         # Log the query so Wagtail can suggest promoted results
         query = Query.get(search_query).add_hit()

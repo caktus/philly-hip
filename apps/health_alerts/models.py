@@ -4,8 +4,7 @@ from django.db import models
 from django.shortcuts import redirect
 
 from phonenumber_field.modelfields import PhoneNumberField
-from wagtail.admin.edit_handlers import FieldPanel
-from wagtail.documents.edit_handlers import DocumentChooserPanel
+from wagtail.admin.panels import FieldPanel
 from wagtail.search import index
 
 from apps.common.models import HipBasePage
@@ -73,7 +72,7 @@ class HealthAlertDetailPage(HipBasePage):
     )
 
     content_panels = HipBasePage.content_panels + [
-        DocumentChooserPanel("alert_file"),
+        FieldPanel("alert_file"),
         FieldPanel("priority"),
         FieldPanel("alert_date"),
         FieldPanel("disease"),
@@ -110,6 +109,11 @@ class HealthAlertDetailPage(HipBasePage):
 
     def serve(self, request):
         return redirect(self.alert_file.url)
+
+    # Because we have overridden the serve() method of this model, we also need to
+    # override serve_preview in order for the live preview panel to work in Wagtail admin
+    def serve_preview(self, request, mode_name):
+        return self.serve(request)
 
 
 class HealthAlertSubscriber(models.Model):

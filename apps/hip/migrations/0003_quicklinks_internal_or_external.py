@@ -2,8 +2,8 @@
 
 from django.db import migrations
 
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -16,15 +16,15 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="homepage",
             name="quick_links",
-            field=wagtail.core.fields.StreamField(
+            field=wagtail.fields.StreamField(
                 [
                     (
                         "quick_links",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
                                 (
                                     "title",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         help_text="The linked text that will be visible to the reader",
                                         max_length=255,
                                         required=True,
@@ -32,13 +32,13 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "link_page",
-                                    wagtail.core.blocks.PageChooserBlock(
+                                    wagtail.blocks.PageChooserBlock(
                                         help_text="An internal page", required=False
                                     ),
                                 ),
                                 (
                                     "link_url",
-                                    wagtail.core.blocks.URLBlock(
+                                    wagtail.blocks.URLBlock(
                                         help_text="An external URL (if not linking to an internal page)",
                                         max_length=255,
                                         required=False,
@@ -46,7 +46,7 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "updated_at",
-                                    wagtail.core.blocks.DateTimeBlock(
+                                    wagtail.blocks.DateTimeBlock(
                                         help_text="If the link is to an external URL, this will be the displayed as the updated date",
                                         required=False,
                                     ),

@@ -1,7 +1,7 @@
 from django.contrib.auth.models import Group
 
 import pytest
-from wagtail.core.models import Page, PageViewRestriction
+from wagtail.models import Page, PageViewRestriction
 
 from apps.auth_content.tests.factories import (
     BigCitiesHomePageFactory,

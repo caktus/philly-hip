@@ -2,8 +2,8 @@
 
 from django.db import migrations
 
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -16,15 +16,15 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="datareportlistpage",
             name="external_reports",
-            field=wagtail.core.fields.StreamField(
+            field=wagtail.fields.StreamField(
                 [
                     (
                         "external_reports",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
                                 (
                                     "title",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         help_text="The title of the external report.",
                                         max_length=255,
                                         required=True,
@@ -32,14 +32,14 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "url",
-                                    wagtail.core.blocks.URLBlock(
+                                    wagtail.blocks.URLBlock(
                                         help_text="The URL to the external report.",
                                         required=True,
                                     ),
                                 ),
                                 (
                                     "update_frequency",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         help_text="How often this external is udpated (Annually, Quarterly, etc.).",
                                         max_length=255,
                                         required=True,
@@ -47,7 +47,7 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "last_updated",
-                                    wagtail.core.blocks.DateBlock(required=True),
+                                    wagtail.blocks.DateBlock(required=True),
                                 ),
                             ]
                         ),

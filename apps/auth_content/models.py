@@ -1,8 +1,8 @@
 from django.db import models
 
 from phonenumber_field.modelfields import PhoneNumberField
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
-from wagtail.core.fields import RichTextField
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.fields import RichTextField
 from wagtail.search import index
 
 from apps.common.models import HipBasePage
@@ -104,7 +104,7 @@ class ClosedPODChildPage(StaticPage):
     content_panels = HipBasePage.content_panels + [
         FieldPanel("title"),
         FieldPanel("description"),
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
     ]
 
     def get_context(self, request):
@@ -128,7 +128,7 @@ class PCWMSAHomePage(StaticPage):
     content_panels = HipBasePage.content_panels + [
         FieldPanel("subtitle"),
         FieldPanel("action_section"),
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
     ]
 
     search_fields = StaticPage.search_fields + [

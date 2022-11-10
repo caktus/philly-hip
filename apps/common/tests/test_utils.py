@@ -4,7 +4,7 @@ from django.contrib.auth.models import AnonymousUser, Group
 
 import pytest
 from social_django.models import UserSocialAuth
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 from apps.auth_content.tests.factories import (
     BigCitiesHomePageFactory,

@@ -1,10 +1,8 @@
 from django.db import models
 
 from modelcluster.fields import ParentalKey
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
-from wagtail.core.models import Orderable
-from wagtail.documents.edit_handlers import DocumentChooserPanel
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel
+from wagtail.models import Orderable
 from wagtail.snippets.models import register_snippet
 
 from apps.common.models import HipBasePage
@@ -92,8 +90,8 @@ class PosterDetailPage(HipBasePage):
     )
 
     content_panels = HipBasePage.content_panels + [
-        DocumentChooserPanel("main_poster"),
-        ImageChooserPanel("thumbnail"),
+        FieldPanel("main_poster"),
+        FieldPanel("thumbnail"),
         InlinePanel("additional_versions", label="Additional versions of this poster"),
         FieldPanel("category"),
         FieldPanel("disease"),
@@ -121,6 +119,6 @@ class PosterDocumentVersion(Orderable):
     )
 
     panels = [
-        DocumentChooserPanel("document"),
+        FieldPanel("document"),
         FieldPanel("label"),
     ]

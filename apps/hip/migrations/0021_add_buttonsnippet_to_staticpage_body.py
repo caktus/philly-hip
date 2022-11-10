@@ -2,8 +2,8 @@
 
 from django.db import migrations
 
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 import wagtail.snippets.blocks
 
 import apps.hip.models
@@ -19,15 +19,15 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="staticpage",
             name="body",
-            field=wagtail.core.fields.StreamField(
+            field=wagtail.fields.StreamField(
                 [
                     (
                         "section",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
                                 (
                                     "nav_heading",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         help_text="The heading that should appear for this section in the scrolling navigation on the side of the page.",
                                         max_length=80,
                                         required=False,
@@ -35,48 +35,48 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "is_card",
-                                    wagtail.core.blocks.BooleanBlock(
+                                    wagtail.blocks.BooleanBlock(
                                         help_text="Is this content block a card?",
                                         required=False,
                                     ),
                                 ),
                                 (
                                     "body",
-                                    wagtail.core.blocks.StreamBlock(
+                                    wagtail.blocks.StreamBlock(
                                         [
                                             (
                                                 "rich_text",
-                                                wagtail.core.blocks.RichTextBlock(),
+                                                wagtail.blocks.RichTextBlock(),
                                             ),
                                             (
                                                 "two_column_table",
-                                                wagtail.core.blocks.StructBlock(
+                                                wagtail.blocks.StructBlock(
                                                     [
                                                         (
                                                             "has_grid_pattern",
-                                                            wagtail.core.blocks.BooleanBlock(
+                                                            wagtail.blocks.BooleanBlock(
                                                                 help_text="Does this table's styling have a grid pattern?",
                                                                 required=False,
                                                             ),
                                                         ),
                                                         (
                                                             "is_first_row_header",
-                                                            wagtail.core.blocks.BooleanBlock(
+                                                            wagtail.blocks.BooleanBlock(
                                                                 help_text="Should the first row be displayed as a header?",
                                                                 required=False,
                                                             ),
                                                         ),
                                                         (
                                                             "rows",
-                                                            wagtail.core.blocks.StreamBlock(
+                                                            wagtail.blocks.StreamBlock(
                                                                 [
                                                                     (
                                                                         "rows",
-                                                                        wagtail.core.blocks.StructBlock(
+                                                                        wagtail.blocks.StructBlock(
                                                                             [
                                                                                 (
                                                                                     "column_1",
-                                                                                    wagtail.core.blocks.RichTextBlock(
+                                                                                    wagtail.blocks.RichTextBlock(
                                                                                         help_text="Text for column 1",
                                                                                         max_length=255,
                                                                                         required=False,
@@ -84,7 +84,7 @@ class Migration(migrations.Migration):
                                                                                 ),
                                                                                 (
                                                                                     "column_2",
-                                                                                    wagtail.core.blocks.RichTextBlock(
+                                                                                    wagtail.blocks.RichTextBlock(
                                                                                         help_text="Text for column 2",
                                                                                         max_length=255,
                                                                                         required=False,
@@ -100,7 +100,7 @@ class Migration(migrations.Migration):
                                                                                 ),
                                                                                 (
                                                                                     "social_media_column",
-                                                                                    wagtail.core.blocks.ChoiceBlock(
+                                                                                    wagtail.blocks.ChoiceBlock(
                                                                                         choices=[
                                                                                             (
                                                                                                 1,
@@ -126,33 +126,33 @@ class Migration(migrations.Migration):
                                             ),
                                             (
                                                 "three_column_table",
-                                                wagtail.core.blocks.StructBlock(
+                                                wagtail.blocks.StructBlock(
                                                     [
                                                         (
                                                             "has_grid_pattern",
-                                                            wagtail.core.blocks.BooleanBlock(
+                                                            wagtail.blocks.BooleanBlock(
                                                                 help_text="Does this table's styling have a grid pattern?",
                                                                 required=False,
                                                             ),
                                                         ),
                                                         (
                                                             "is_first_row_header",
-                                                            wagtail.core.blocks.BooleanBlock(
+                                                            wagtail.blocks.BooleanBlock(
                                                                 help_text="Should the first row be displayed as a header?",
                                                                 required=False,
                                                             ),
                                                         ),
                                                         (
                                                             "rows",
-                                                            wagtail.core.blocks.StreamBlock(
+                                                            wagtail.blocks.StreamBlock(
                                                                 [
                                                                     (
                                                                         "rows",
-                                                                        wagtail.core.blocks.StructBlock(
+                                                                        wagtail.blocks.StructBlock(
                                                                             [
                                                                                 (
                                                                                     "column_1",
-                                                                                    wagtail.core.blocks.RichTextBlock(
+                                                                                    wagtail.blocks.RichTextBlock(
                                                                                         help_text="Text for column 1",
                                                                                         max_length=255,
                                                                                         required=False,
@@ -160,7 +160,7 @@ class Migration(migrations.Migration):
                                                                                 ),
                                                                                 (
                                                                                     "column_2",
-                                                                                    wagtail.core.blocks.RichTextBlock(
+                                                                                    wagtail.blocks.RichTextBlock(
                                                                                         help_text="Text for column 2",
                                                                                         max_length=255,
                                                                                         required=False,
@@ -168,7 +168,7 @@ class Migration(migrations.Migration):
                                                                                 ),
                                                                                 (
                                                                                     "column_3",
-                                                                                    wagtail.core.blocks.RichTextBlock(
+                                                                                    wagtail.blocks.RichTextBlock(
                                                                                         help_text="Text for column 3",
                                                                                         max_length=255,
                                                                                         required=False,
@@ -184,7 +184,7 @@ class Migration(migrations.Migration):
                                                                                 ),
                                                                                 (
                                                                                     "social_media_column",
-                                                                                    wagtail.core.blocks.ChoiceBlock(
+                                                                                    wagtail.blocks.ChoiceBlock(
                                                                                         choices=[
                                                                                             (
                                                                                                 1,
@@ -214,33 +214,33 @@ class Migration(migrations.Migration):
                                             ),
                                             (
                                                 "four_column_table",
-                                                wagtail.core.blocks.StructBlock(
+                                                wagtail.blocks.StructBlock(
                                                     [
                                                         (
                                                             "has_grid_pattern",
-                                                            wagtail.core.blocks.BooleanBlock(
+                                                            wagtail.blocks.BooleanBlock(
                                                                 help_text="Does this table's styling have a grid pattern?",
                                                                 required=False,
                                                             ),
                                                         ),
                                                         (
                                                             "is_first_row_header",
-                                                            wagtail.core.blocks.BooleanBlock(
+                                                            wagtail.blocks.BooleanBlock(
                                                                 help_text="Should the first row be displayed as a header?",
                                                                 required=False,
                                                             ),
                                                         ),
                                                         (
                                                             "rows",
-                                                            wagtail.core.blocks.StreamBlock(
+                                                            wagtail.blocks.StreamBlock(
                                                                 [
                                                                     (
                                                                         "rows",
-                                                                        wagtail.core.blocks.StructBlock(
+                                                                        wagtail.blocks.StructBlock(
                                                                             [
                                                                                 (
                                                                                     "column_1",
-                                                                                    wagtail.core.blocks.RichTextBlock(
+                                                                                    wagtail.blocks.RichTextBlock(
                                                                                         help_text="Text for column 1",
                                                                                         max_length=255,
                                                                                         required=False,
@@ -248,7 +248,7 @@ class Migration(migrations.Migration):
                                                                                 ),
                                                                                 (
                                                                                     "column_2",
-                                                                                    wagtail.core.blocks.RichTextBlock(
+                                                                                    wagtail.blocks.RichTextBlock(
                                                                                         help_text="Text for column 2",
                                                                                         max_length=255,
                                                                                         required=False,
@@ -256,7 +256,7 @@ class Migration(migrations.Migration):
                                                                                 ),
                                                                                 (
                                                                                     "column_3",
-                                                                                    wagtail.core.blocks.RichTextBlock(
+                                                                                    wagtail.blocks.RichTextBlock(
                                                                                         help_text="Text for column 3",
                                                                                         max_length=255,
                                                                                         required=False,
@@ -264,7 +264,7 @@ class Migration(migrations.Migration):
                                                                                 ),
                                                                                 (
                                                                                     "column_4",
-                                                                                    wagtail.core.blocks.RichTextBlock(
+                                                                                    wagtail.blocks.RichTextBlock(
                                                                                         help_text="Text for column 4",
                                                                                         max_length=255,
                                                                                         required=False,
@@ -280,7 +280,7 @@ class Migration(migrations.Migration):
                                                                                 ),
                                                                                 (
                                                                                     "social_media_column",
-                                                                                    wagtail.core.blocks.ChoiceBlock(
+                                                                                    wagtail.blocks.ChoiceBlock(
                                                                                         choices=[
                                                                                             (
                                                                                                 1,
@@ -314,33 +314,33 @@ class Migration(migrations.Migration):
                                             ),
                                             (
                                                 "five_column_table",
-                                                wagtail.core.blocks.StructBlock(
+                                                wagtail.blocks.StructBlock(
                                                     [
                                                         (
                                                             "has_grid_pattern",
-                                                            wagtail.core.blocks.BooleanBlock(
+                                                            wagtail.blocks.BooleanBlock(
                                                                 help_text="Does this table's styling have a grid pattern?",
                                                                 required=False,
                                                             ),
                                                         ),
                                                         (
                                                             "is_first_row_header",
-                                                            wagtail.core.blocks.BooleanBlock(
+                                                            wagtail.blocks.BooleanBlock(
                                                                 help_text="Should the first row be displayed as a header?",
                                                                 required=False,
                                                             ),
                                                         ),
                                                         (
                                                             "rows",
-                                                            wagtail.core.blocks.StreamBlock(
+                                                            wagtail.blocks.StreamBlock(
                                                                 [
                                                                     (
                                                                         "rows",
-                                                                        wagtail.core.blocks.StructBlock(
+                                                                        wagtail.blocks.StructBlock(
                                                                             [
                                                                                 (
                                                                                     "column_1",
-                                                                                    wagtail.core.blocks.RichTextBlock(
+                                                                                    wagtail.blocks.RichTextBlock(
                                                                                         help_text="Text for column 1",
                                                                                         max_length=255,
                                                                                         required=False,
@@ -348,7 +348,7 @@ class Migration(migrations.Migration):
                                                                                 ),
                                                                                 (
                                                                                     "column_2",
-                                                                                    wagtail.core.blocks.RichTextBlock(
+                                                                                    wagtail.blocks.RichTextBlock(
                                                                                         help_text="Text for column 2",
                                                                                         max_length=255,
                                                                                         required=False,
@@ -356,7 +356,7 @@ class Migration(migrations.Migration):
                                                                                 ),
                                                                                 (
                                                                                     "column_3",
-                                                                                    wagtail.core.blocks.RichTextBlock(
+                                                                                    wagtail.blocks.RichTextBlock(
                                                                                         help_text="Text for column 3",
                                                                                         max_length=255,
                                                                                         required=False,
@@ -364,7 +364,7 @@ class Migration(migrations.Migration):
                                                                                 ),
                                                                                 (
                                                                                     "column_4",
-                                                                                    wagtail.core.blocks.RichTextBlock(
+                                                                                    wagtail.blocks.RichTextBlock(
                                                                                         help_text="Text for column 4",
                                                                                         max_length=255,
                                                                                         required=False,
@@ -372,7 +372,7 @@ class Migration(migrations.Migration):
                                                                                 ),
                                                                                 (
                                                                                     "column_5",
-                                                                                    wagtail.core.blocks.RichTextBlock(
+                                                                                    wagtail.blocks.RichTextBlock(
                                                                                         help_text="Text for column 5",
                                                                                         max_length=255,
                                                                                         required=False,
@@ -388,7 +388,7 @@ class Migration(migrations.Migration):
                                                                                 ),
                                                                                 (
                                                                                     "social_media_column",
-                                                                                    wagtail.core.blocks.ChoiceBlock(
+                                                                                    wagtail.blocks.ChoiceBlock(
                                                                                         choices=[
                                                                                             (
                                                                                                 1,
