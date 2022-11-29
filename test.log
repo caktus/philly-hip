@@ -1,0 +1,468 @@
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/django/apps/registry.py:91: RemovedInDjango41Warning: 'sass_processor' defines default_app_config = 'sass_processor.apps.SassProcessorConfig'. Django now detects this configuration automatically. You can remove default_app_config.
+  app_config = AppConfig.create(entry)
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:671: ImportWarning: _SixMetaPathImporter.exec_module() not found; falling back to load_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:671: ImportWarning: _SixMetaPathImporter.exec_module() not found; falling back to load_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:671: ImportWarning: _SixMetaPathImporter.exec_module() not found; falling back to load_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:671: ImportWarning: _SixMetaPathImporter.exec_module() not found; falling back to load_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/django/apps/registry.py:91: RemovedInDjango41Warning: 'social_django' defines default_app_config = 'social_django.config.PythonSocialAuthConfig'. However, Django's automatic detection did not find this configuration. You should move the default config class to the apps submodule of your application and, if this module defines several config classes, mark the default one with default = True.
+  app_config = AppConfig.create(entry)
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/django/apps/registry.py:91: RemovedInDjango41Warning: 'wagtailmenus' defines default_app_config = 'wagtailmenus.apps.WagtailMenusConfig'. Django now detects this configuration automatically. You can remove default_app_config.
+  app_config = AppConfig.create(entry)
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/django/apps/registry.py:91: RemovedInDjango41Warning: 'debug_toolbar' defines default_app_config = 'debug_toolbar.apps.DebugToolbarConfig'. Django now detects this configuration automatically. You can remove default_app_config.
+  app_config = AppConfig.create(entry)
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/django/apps/registry.py:91: RemovedInDjango41Warning: 'django_extensions' defines default_app_config = 'django_extensions.apps.DjangoExtensionsConfig'. Django now detects this configuration automatically. You can remove default_app_config.
+  app_config = AppConfig.create(entry)
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/panels.py:21: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  'heading': _('Menu items'),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/panels.py:22: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  'label': _('menu item'),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/panels.py:53: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  heading=_("Menu details"),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/panels.py:21: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  'heading': _('Menu items'),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/panels.py:22: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  'label': _('menu item'),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/panels.py:67: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  heading=_('Render settings'),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/panels.py:90: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  linkpage_panels, heading=_("Settings"), classname="settings"
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/panels.py:101: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  heading=_("Advanced menu behaviour"),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/panels.py:111: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  heading=_("Scheduled publishing"),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/panels.py:124: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  menupage_settings_panels, heading=_("Settings"), classname="settings"
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/pages.py:19: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name=_("repeat in sub-navigation"),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/pages.py:21: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  help_text=_(
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/pages.py:27: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name=_('repeated item link text'),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/pages.py:30: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  help_text=_(
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/pages.py:142: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name=_('link to an internal page'),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/pages.py:149: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name=_('link to a custom URL'),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/pages.py:155: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name=_("append to URL"),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/pages.py:158: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  help_text=_(
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/pages.py:163: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name=_('menu item css classes'),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/pages.py:166: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  help_text=_(
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/conf/constants.py:5: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  (1, _('1: No sub-navigation (flat)')),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/conf/constants.py:6: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  (2, _('2: Allow 1 level of sub-navigation')),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/conf/constants.py:7: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  (3, _('3: Allow 2 levels of sub-navigation')),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/conf/constants.py:8: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  (4, _('4: Allow 3 levels of sub-navigation')),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menuitems.py:32: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name=_('link to an internal page'),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menuitems.py:38: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name=_('link to a custom URL'),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menuitems.py:44: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name=_("append to URL"),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menuitems.py:47: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  help_text=_(
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menuitems.py:53: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name=_('handle'),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menuitems.py:56: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  help_text=_(
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menuitems.py:63: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name=_('link text'),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menuitems.py:66: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  help_text=_(
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menuitems.py:76: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name = _("menu item")
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menuitems.py:77: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name_plural = _("menu items")
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menuitems.py:157: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name=_("allow sub-menu for this item"),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menuitems.py:159: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  help_text=_(
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menuitems.py:173: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name=_("allow sub-menu for this item"),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menuitems.py:175: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  help_text=_(
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menus.py:1030: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name=_('site'),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menus.py:1037: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name=_('maximum levels'),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menus.py:1040: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  help_text=mark_safe_lazy(_(
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menus.py:1050: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name = _("main menu")
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menus.py:1051: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name_plural = _("main menu")
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menus.py:1106: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name=_('site'),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menus.py:1112: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name=_('title'),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menus.py:1114: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  help_text=_("For internal reference only.")
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menus.py:1117: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name=_('handle'),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menus.py:1119: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  help_text=_(
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menus.py:1125: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name=_('heading'),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menus.py:1128: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  help_text=_("If supplied, appears above the menu when rendered.")
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menus.py:1131: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name=_('maximum levels'),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menus.py:1134: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  help_text=mark_safe_lazy(_(
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menus.py:1145: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name = _("flat menu")
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/models/menus.py:1146: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name_plural = _("flat menus")
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/social_django/urls.py:15: RemovedInDjango40Warning: django.conf.urls.url() is deprecated in favor of django.urls.re_path().
+  url(r'^login/(?P<backend>[^/]+){0}$'.format(extra), views.auth,
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/social_django/urls.py:17: RemovedInDjango40Warning: django.conf.urls.url() is deprecated in favor of django.urls.re_path().
+  url(r'^complete/(?P<backend>[^/]+){0}$'.format(extra), views.complete,
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/social_django/urls.py:20: RemovedInDjango40Warning: django.conf.urls.url() is deprecated in favor of django.urls.re_path().
+  url(r'^disconnect/(?P<backend>[^/]+){0}$'.format(extra), views.disconnect,
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/social_django/urls.py:22: RemovedInDjango40Warning: django.conf.urls.url() is deprecated in favor of django.urls.re_path().
+  url(r'^disconnect/(?P<backend>[^/]+)/(?P<association_id>\d+){0}$'
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:671: ImportWarning: _SixMetaPathImporter.exec_module() not found; falling back to load_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:671: ImportWarning: _SixMetaPathImporter.exec_module() not found; falling back to load_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:671: ImportWarning: _SixMetaPathImporter.exec_module() not found; falling back to load_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:671: ImportWarning: _SixMetaPathImporter.exec_module() not found; falling back to load_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/views.py:71: RemovedInDjango40Warning: django.utils.translation.ugettext() is deprecated in favor of django.utils.translation.gettext().
+  page_title = _('Editing')
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/views.py:145: RemovedInDjango40Warning: django.utils.translation.ugettext() is deprecated in favor of django.utils.translation.gettext().
+  page_title = _('Copying')
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/modeladmin.py:14: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  menu_label = _('Main menu')
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/modeladmin.py:65: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  menu_label = _('Flat menus')
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/modeladmin.py:103: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  handle_formatted.short_description = _('handle')
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/modeladmin.py:111: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  items.short_description = _('no. of items')
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/modeladmin.py:27: RemovedInDjango40Warning: django.conf.urls.url() is deprecated in favor of django.urls.re_path().
+  url(self.url_helper.get_action_url_pattern('index'),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/modeladmin.py:30: RemovedInDjango40Warning: django.conf.urls.url() is deprecated in favor of django.urls.re_path().
+  url(self.url_helper.get_action_url_pattern('edit'),
+/Users/sputnam/caktus_projects/philly-hip/venv/lib/python3.10/site-packages/wagtailmenus/modeladmin.py:85: RemovedInDjango40Warning: django.conf.urls.url() is deprecated in favor of django.urls.re_path().
+  url(self.url_helper.get_action_url_pattern('copy'),
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+System check identified no issues (0 silenced).
+
+----------------------------------------------------------------------
+Ran 0 tests in 0.000s
+
+OK

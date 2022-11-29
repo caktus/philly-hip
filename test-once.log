@@ -1,0 +1,46 @@
+/Users/sputnam/.virtualenvs/pressweb/lib/python3.10/site-packages/django/apps/registry.py:91: RemovedInDjango41Warning: 'sass_processor' defines default_app_config = 'sass_processor.apps.SassProcessorConfig'. Django now detects this configuration automatically. You can remove default_app_config.
+  app_config = AppConfig.create(entry)
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:671: ImportWarning: _SixMetaPathImporter.exec_module() not found; falling back to load_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+/Users/sputnam/.virtualenvs/pressweb/lib/python3.10/site-packages/django/apps/registry.py:91: RemovedInDjango41Warning: 'social_django' defines default_app_config = 'social_django.config.PythonSocialAuthConfig'. However, Django's automatic detection did not find this configuration. You should move the default config class to the apps submodule of your application and, if this module defines several config classes, mark the default one with default = True.
+  app_config = AppConfig.create(entry)
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+/Users/sputnam/.virtualenvs/pressweb/lib/python3.10/site-packages/django/apps/registry.py:91: RemovedInDjango41Warning: 'wagtailmenus' defines default_app_config = 'wagtailmenus.apps.WagtailMenusConfig'. Django now detects this configuration automatically. You can remove default_app_config.
+  app_config = AppConfig.create(entry)
+/Users/sputnam/.virtualenvs/pressweb/lib/python3.10/site-packages/django/apps/registry.py:91: RemovedInDjango41Warning: 'debug_toolbar' defines default_app_config = 'debug_toolbar.apps.DebugToolbarConfig'. Django now detects this configuration automatically. You can remove default_app_config.
+  app_config = AppConfig.create(entry)
+/Users/sputnam/.virtualenvs/pressweb/lib/python3.10/site-packages/django/apps/registry.py:91: RemovedInDjango41Warning: 'django_extensions' defines default_app_config = 'django_extensions.apps.DjangoExtensionsConfig'. Django now detects this configuration automatically. You can remove default_app_config.
+  app_config = AppConfig.create(entry)
+<frozen importlib._bootstrap>:671: ImportWarning: _SixMetaPathImporter.exec_module() not found; falling back to load_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+/Users/sputnam/.virtualenvs/pressweb/lib/python3.10/site-packages/wagtailmenus/panels.py:1: DeprecationWarning: The distutils package is deprecated and slated for removal in Python 3.12. Use setuptools or check PEP 632 for potential alternatives
+  from distutils.version import LooseVersion
+/Users/sputnam/.virtualenvs/pressweb/lib/python3.10/site-packages/wagtailmenus/panels.py:21: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  'heading': _('Menu items'),
+/Users/sputnam/.virtualenvs/pressweb/lib/python3.10/site-packages/wagtailmenus/models/pages.py:19: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name=_("repeat in sub-navigation"),
+/Users/sputnam/.virtualenvs/pressweb/lib/python3.10/site-packages/wagtailmenus/conf/constants.py:5: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  (1, _('1: No sub-navigation (flat)')),
+/Users/sputnam/.virtualenvs/pressweb/lib/python3.10/site-packages/wagtailmenus/models/menuitems.py:32: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name=_('link to an internal page'),
+/Users/sputnam/.virtualenvs/pressweb/lib/python3.10/site-packages/wagtailmenus/models/menus.py:1030: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  verbose_name=_('site'),
+/Users/sputnam/.virtualenvs/pressweb/lib/python3.10/site-packages/social_django/urls.py:15: RemovedInDjango40Warning: django.conf.urls.url() is deprecated in favor of django.urls.re_path().
+  url(r'^login/(?P<backend>[^/]+){0}$'.format(extra), views.auth,
+<frozen importlib._bootstrap>:671: ImportWarning: _SixMetaPathImporter.exec_module() not found; falling back to load_module()
+<frozen importlib._bootstrap>:914: ImportWarning: _SixMetaPathImporter.find_spec() not found; falling back to find_module()
+<frozen importlib._bootstrap>:671: ImportWarning: _SixMetaPathImporter.exec_module() not found; falling back to load_module()
+/Users/sputnam/.virtualenvs/pressweb/lib/python3.10/site-packages/wagtailmenus/views.py:71: RemovedInDjango40Warning: django.utils.translation.ugettext() is deprecated in favor of django.utils.translation.gettext().
+  page_title = _('Editing')
+/Users/sputnam/.virtualenvs/pressweb/lib/python3.10/site-packages/wagtailmenus/modeladmin.py:14: RemovedInDjango40Warning: django.utils.translation.ugettext_lazy() is deprecated in favor of django.utils.translation.gettext_lazy().
+  menu_label = _('Main menu')
+/Users/sputnam/.virtualenvs/pressweb/lib/python3.10/site-packages/wagtailmenus/modeladmin.py:27: RemovedInDjango40Warning: django.conf.urls.url() is deprecated in favor of django.urls.re_path().
+  url(self.url_helper.get_action_url_pattern('index'),
+System check identified no issues (0 silenced).
+
+----------------------------------------------------------------------
+Ran 0 tests in 0.000s
+
+OK

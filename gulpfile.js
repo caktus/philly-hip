@@ -20,7 +20,7 @@ gulp.task('styles', function() {
   return gulp
     .src("./hip/static/styles/bundle.scss")
     .pipe(sass().on('error', sass.logError))
-    .pipe(rename("main.css"))
+    .pipe(rename("bundle.css"))
     .pipe(gulp.dest("./static/styles/"));
 });
 
