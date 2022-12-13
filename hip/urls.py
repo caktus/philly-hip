@@ -5,8 +5,8 @@ from django.contrib.auth import views as django_auth_views
 from django.urls import path
 
 from social_django import urls as social_django_urls
+from wagtail import urls as wagtail_urls
 from wagtail.admin import urls as wagtailadmin_urls
-from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 from apps.auth_content import views as auth_content_views

@@ -2,8 +2,8 @@
 
 from django.db import migrations
 
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -16,15 +16,15 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="listpage",
             name="list_section",
-            field=wagtail.core.fields.StreamField(
+            field=wagtail.fields.StreamField(
                 [
                     (
                         "list_section",
-                        wagtail.core.blocks.StructBlock(
+                        wagtail.blocks.StructBlock(
                             [
                                 (
                                     "header",
-                                    wagtail.core.blocks.CharBlock(
+                                    wagtail.blocks.CharBlock(
                                         help_text="The heading for this section of rows (maximum of 80 characters).",
                                         max_length=80,
                                         required=False,
@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "show_header_in_right_nav",
-                                    wagtail.core.blocks.BooleanBlock(
+                                    wagtail.blocks.BooleanBlock(
                                         default=True,
                                         help_text="Should this header be shown in the navigation on the right side of the page?",
                                         required=False,
@@ -40,22 +40,22 @@ class Migration(migrations.Migration):
                                 ),
                                 (
                                     "rows",
-                                    wagtail.core.blocks.StreamBlock(
+                                    wagtail.blocks.StreamBlock(
                                         [
                                             (
                                                 "rows",
-                                                wagtail.core.blocks.StructBlock(
+                                                wagtail.blocks.StructBlock(
                                                     [
                                                         (
                                                             "page",
-                                                            wagtail.core.blocks.PageChooserBlock(
+                                                            wagtail.blocks.PageChooserBlock(
                                                                 help_text="An internal page",
                                                                 required=True,
                                                             ),
                                                         ),
                                                         (
                                                             "description",
-                                                            wagtail.core.blocks.RichTextBlock(
+                                                            wagtail.blocks.RichTextBlock(
                                                                 help_text="Description for this row",
                                                                 required=False,
                                                             ),

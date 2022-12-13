@@ -2,7 +2,7 @@
 
 from django.db import migrations
 
-import wagtail.core.fields
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="diseasecontrolpage",
             name="description",
-            field=wagtail.core.fields.RichTextField(
+            field=wagtail.fields.RichTextField(
                 blank=True,
                 help_text="Text that that will show up as a description of this page on the disease control list page.",
             ),

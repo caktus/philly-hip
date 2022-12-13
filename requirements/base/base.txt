@@ -33,7 +33,7 @@ diff-match-patch==20200713
     # via django-import-export
 dj-database-url==0.5.0
     # via -r requirements/base/base.in
-django==3.2.15
+django==3.2.16
     # via
     #   -r requirements/base/base.in
     #   django-appconf
@@ -67,7 +67,7 @@ django-ipware==3.0.2
     # via -r requirements/base/base.in
 django-model-utils==4.1.1
     # via -r requirements/base/base.in
-django-modelcluster==5.1
+django-modelcluster==6.0
     # via wagtail
 django-phonenumber-field==5.0.0
     # via -r requirements/base/base.in
@@ -75,11 +75,11 @@ django-sass-processor==0.8.2
     # via -r requirements/base/base.in
 django-storages==1.11.1
     # via -r requirements/base/base.in
-django-taggit==1.3.0
+django-taggit==3.0.0
     # via
     #   -r requirements/base/base.in
     #   wagtail
-django-treebeard==4.4
+django-treebeard==4.5.1
     # via wagtail
 djangorestframework==3.12.2
     # via wagtail
@@ -173,7 +173,7 @@ urllib3==1.26.4
     # via
     #   botocore
     #   requests
-wagtail==2.13.2
+wagtail==4.0.4
     # via
     #   -r requirements/base/base.in
     #   wagtailfontawesome

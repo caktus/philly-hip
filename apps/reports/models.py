@@ -2,9 +2,9 @@ from datetime import datetime
 
 from django.db import models
 
-from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, StreamFieldPanel
-from wagtail.core import blocks
-from wagtail.core.fields import RichTextField, StreamField
+from wagtail import blocks
+from wagtail.admin.panels import FieldPanel, PageChooserPanel
+from wagtail.fields import RichTextField, StreamField
 from wagtail.search import index
 
 from apps.common.models import HipBasePage
@@ -38,11 +38,12 @@ class DataReportListPage(HipBasePage):
             ("external_reports", ExternalReportBlock()),
         ],
         blank=True,
+        use_json_field=True,
     )
 
     content_panels = HipBasePage.content_panels + [
         FieldPanel("description"),
-        StreamFieldPanel("external_reports"),
+        FieldPanel("external_reports"),
     ]
 
     search_fields = HipBasePage.search_fields + [

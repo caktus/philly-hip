@@ -1,8 +1,8 @@
 from django.db import models
 
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
-from wagtail.core.fields import RichTextField, StreamField
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.documents import get_document_model
+from wagtail.fields import RichTextField, StreamField
 from wagtail.search import index
 
 from apps.common.models import HipBasePage
@@ -90,7 +90,8 @@ class DiseaseControlChildStaticPage(DiseaseControlPage):
     body = StreamField(
         [
             ("section", StreamAndNavHeadingBlock()),
-        ]
+        ],
+        use_json_field=True,
     )
 
     content_panels = HipBasePage.content_panels + [
@@ -99,7 +100,7 @@ class DiseaseControlChildStaticPage(DiseaseControlPage):
         FieldPanel("show_back_button"),
         FieldPanel("show_right_nav"),
         FieldPanel("description"),
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
         FieldPanel("page_type"),
     ]
     search_fields = HipBasePage.search_fields + [
@@ -141,13 +142,14 @@ class DiseaseControlChildListPage(DiseaseControlPage):
     list_section = StreamField(
         [
             ("list_section", ListSectionBlock()),
-        ]
+        ],
+        use_json_field=True,
     )
 
     content_panels = HipBasePage.content_panels + [
         FieldPanel("show_breadcrumb"),
         FieldPanel("show_right_nav"),
-        StreamFieldPanel("list_section"),
+        FieldPanel("list_section"),
         FieldPanel("description"),
         FieldPanel("page_type"),
     ]

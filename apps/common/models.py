@@ -2,8 +2,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy
 
 from model_utils.fields import AutoCreatedField, AutoLastModifiedField
-from wagtail.admin.edit_handlers import FieldPanel, HelpPanel, MultiFieldPanel
-from wagtail.core.models import Page
+from wagtail.admin.panels import FieldPanel, HelpPanel, MultiFieldPanel
+from wagtail.models import Page
 from wagtail.search import index
 
 
@@ -36,7 +36,7 @@ class HipBasePage(Page):
     ]
 
     promote_panels = [
-        # This MultiFieldPanel is copy-pasted from wagtail.admin.edit_handlers so we can override
+        # This MultiFieldPanel is copy-pasted from wagtail.admin.panels so we can override
         MultiFieldPanel(
             [
                 FieldPanel("slug"),

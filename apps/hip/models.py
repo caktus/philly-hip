@@ -3,13 +3,12 @@ from django.shortcuts import reverse
 from django.utils.timezone import localtime
 
 from phonenumber_field.modelfields import PhoneNumberField
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
-from wagtail.core import blocks
-from wagtail.core.fields import RichTextField, StreamField
+from wagtail import blocks
+from wagtail.admin.panels import FieldPanel
 from wagtail.documents.models import Document, DocumentQuerySet
+from wagtail.fields import RichTextField, StreamField
 from wagtail.search import index
 from wagtail.snippets.blocks import SnippetChooserBlock
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
 from apps.common.models import HipBasePage, IndexedTimeStampedModel
@@ -73,12 +72,10 @@ class ButtonSnippet(IndexedTimeStampedModel):
 
 class TableRow(blocks.StructBlock):
     column_1 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 1"),
     )
     column_2 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 2"),
     )
@@ -122,17 +119,14 @@ class TwoColumnBlock(blocks.StructBlock):
 
 class ThreeColumnTableRow(blocks.StructBlock):
     column_1 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 1"),
     )
     column_2 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 2"),
     )
     column_3 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 3"),
     )
@@ -177,22 +171,18 @@ class ThreeColumnBlock(blocks.StructBlock):
 
 class FourColumnTableRow(blocks.StructBlock):
     column_1 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 1"),
     )
     column_2 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 2"),
     )
     column_3 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 3"),
     )
     column_4 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 4"),
     )
@@ -238,27 +228,22 @@ class FourColumnBlock(blocks.StructBlock):
 
 class FiveColumnTableRow(blocks.StructBlock):
     column_1 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 1"),
     )
     column_2 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 2"),
     )
     column_3 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 3"),
     )
     column_4 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 4"),
     )
     column_5 = blocks.RichTextBlock(
-        max_length=255,
         required=False,
         help_text=("Text for column 5"),
     )
@@ -369,7 +354,8 @@ class StaticPage(HipBasePage):
     body = StreamField(
         [
             ("section", StreamAndNavHeadingBlock()),
-        ]
+        ],
+        use_json_field=True,
     )
 
     content_panels = HipBasePage.content_panels + [
@@ -378,7 +364,7 @@ class StaticPage(HipBasePage):
         FieldPanel("show_back_button"),
         FieldPanel("show_right_nav"),
         FieldPanel("action_section"),
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
     ]
     search_fields = HipBasePage.search_fields + [
         index.SearchField("body"),
@@ -446,13 +432,14 @@ class ListPage(HipBasePage):
     list_section = StreamField(
         [
             ("list_section", ListSectionBlock()),
-        ]
+        ],
+        use_json_field=True,
     )
 
     content_panels = HipBasePage.content_panels + [
         FieldPanel("show_breadcrumb"),
         FieldPanel("show_right_nav"),
-        StreamFieldPanel("list_section"),
+        FieldPanel("list_section"),
     ]
     search_fields = HipBasePage.search_fields + [
         index.SearchField("list_section"),
@@ -533,6 +520,7 @@ class HomePage(HipBasePage):
             ("quick_links", QuickLinkCard()),
         ],
         blank=True,
+        use_json_field=True,
     )
     about = RichTextField(blank=True)
     contact_info = models.ForeignKey(
@@ -541,8 +529,8 @@ class HomePage(HipBasePage):
 
     content_panels = HipBasePage.content_panels + [
         FieldPanel("short_description"),
-        SnippetChooserPanel("contact_info"),
-        StreamFieldPanel("quick_links"),
+        FieldPanel("contact_info"),
+        FieldPanel("quick_links"),
         FieldPanel("about"),
     ]
 

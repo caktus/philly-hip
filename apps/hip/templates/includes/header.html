@@ -33,10 +33,10 @@
         <form action="{% url "search" %}" class="field has-addons is-full-width-hip pl-6 pr-4">
           <div class="control is-inline-block has-icons-right is-full-width-hip">
             <input type="hidden" name="initial_url" value="{{ initial_url|default:request.get_full_path }}" />
-            <input class="input is-normal search-input-hip is-full-width-hip" name="query" type="text" value="{{ search_query|default:"" }}" placeholder="Enter Search Terms...">
+            <input class="input is-normal search-input-hip is-full-width-hip" name="query" aria-label="query" type="text" value="{{ search_query|default:"" }}" placeholder="Enter Search Terms...">
           </div>
           <div class="control is-inline-block">
-            <button type="submit" class="icon button dark-blue-bg-hip is-full-width-hip is-full-height-hip btn-no-border-hip">
+            <button type="submit" aria-label="Submit" class="icon button dark-blue-bg-hip is-full-width-hip is-full-height-hip btn-no-border-hip">
               <i class="search-icon-hip"></i>
             </button>
           </div>

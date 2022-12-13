@@ -1,6 +1,6 @@
 from django.shortcuts import reverse
 
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 from apps.hip.models import HIPDocument
 from apps.hip.tests.factories import DocumentFactory, HomePageFactory, StaticPageFactory

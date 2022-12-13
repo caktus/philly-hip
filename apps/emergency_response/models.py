@@ -1,6 +1,6 @@
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
-from wagtail.core import blocks
-from wagtail.core.fields import RichTextField, StreamField
+from wagtail import blocks
+from wagtail.admin.panels import FieldPanel
+from wagtail.fields import RichTextField, StreamField
 from wagtail.search import index
 
 from apps.common.models import HipBasePage
@@ -48,13 +48,14 @@ class EmergencyResponsePage(HipBasePage):
             ("section_of_links", SectionOfLinkBlocks()),
         ],
         blank=True,
+        use_json_field=True,
     )
 
     content_panels = [
         FieldPanel("title"),
         FieldPanel("description"),
         FieldPanel("action_section"),
-        StreamFieldPanel("sections_of_links"),
+        FieldPanel("sections_of_links"),
     ]
 
     search_fields = HipBasePage.search_fields + [

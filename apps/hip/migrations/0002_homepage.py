@@ -3,8 +3,8 @@
 import django.db.models.deletion
 from django.db import migrations, models
 
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -31,15 +31,15 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "quick_links",
-                    wagtail.core.fields.StreamField(
+                    wagtail.fields.StreamField(
                         [
                             (
                                 "quick_links",
-                                wagtail.core.blocks.StructBlock(
+                                wagtail.blocks.StructBlock(
                                     [
                                         (
                                             "title",
-                                            wagtail.core.blocks.CharBlock(
+                                            wagtail.blocks.CharBlock(
                                                 help_text="The linked text that will be visible to the reader",
                                                 max_length=255,
                                                 required=True,
@@ -47,7 +47,7 @@ class Migration(migrations.Migration):
                                         ),
                                         (
                                             "link_url",
-                                            wagtail.core.blocks.URLBlock(
+                                            wagtail.blocks.URLBlock(
                                                 help_text="The URL to link to",
                                                 max_length=255,
                                                 required=True,
@@ -55,7 +55,7 @@ class Migration(migrations.Migration):
                                         ),
                                         (
                                             "text",
-                                            wagtail.core.blocks.CharBlock(
+                                            wagtail.blocks.CharBlock(
                                                 help_text="Text below the title ",
                                                 max_length=255,
                                                 required=True,
@@ -68,7 +68,7 @@ class Migration(migrations.Migration):
                         blank=True,
                     ),
                 ),
-                ("about", wagtail.core.fields.RichTextField(blank=True)),
+                ("about", wagtail.fields.RichTextField(blank=True)),
             ],
             options={
                 "abstract": False,

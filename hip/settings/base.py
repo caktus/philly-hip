@@ -53,7 +53,6 @@ INSTALLED_APPS = [
 
 INSTALLED_APPS += [
     "wagtail.contrib.forms",
-    "wagtail.contrib.postgres_search",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
     "wagtail.sites",
@@ -63,7 +62,7 @@ INSTALLED_APPS += [
     "wagtail.images",
     "wagtail.search",
     "wagtail.admin",
-    "wagtail.core",
+    "wagtail",
     "modelcluster",
     # Full list of icons available @ https://fontawesome.com/v4.7.0/icons/
     "wagtailfontawesome",
@@ -282,9 +281,16 @@ LOGIN_REDIRECT_URL = "auth_view_router"
 WAGTAIL_SITE_NAME = "hip"
 WAGTAIL_FRONTEND_LOGIN_URL = "login"
 
+# These changes enable automatic changes to the Wagtail page preview feature in the Wagtail Admin page. These are the default values that are set when creating new Wagtail projects.
+WAGTAIL_AUTO_UPDATE_PREVIEW = True
+WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL = 500
+
+# This setting prevents the iframe in the live preview panel in Wagtail Admin from breaking when clicking on links.
+X_FRAME_OPTIONS = "SAMEORIGIN"
+
 WAGTAILSEARCH_BACKENDS = {
     "default": {
-        "BACKEND": "wagtail.contrib.postgres_search.backend",
+        "BACKEND": "wagtail.search.backends.database",
         "SEARCH_CONFIG": "english",
     },
 }
@@ -305,7 +311,7 @@ LOGOUT_REDIRECT_URL = "/"
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = os.getenv("DOMAIN", "http://hip.caktus-built.com")
+WAGTAILADMIN_BASE_URL = os.getenv("DOMAIN", "http://hip.caktus-built.com")
 
 VIDEOJS_HERO_ID = "video-hero"
 
