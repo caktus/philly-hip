@@ -2,15 +2,54 @@ version: "3.4"
 
 volumes:
   dev_hip_data: {}
+  dev_media: {}
+  dev_node_modules: {}
+  dev_venv: {}
+  dev_cache: {}
 
 services:
   db:
     environment:
       POSTGRES_HOST_AUTH_METHOD: trust
       POSTGRES_DB: hip
-      DATABASE_URL: postgres://postgres@127.0.01:5433/hip
     image: postgres:12-alpine
     ports:
       - "5433:5432"
     volumes:
       - dev_hip_data:/var/lib/postgresql/data
+
+  django:
+    environment:
+      DJANGO_SETTINGS_MODULE: hip.settings.dev
+      DATABASE_URL: postgres://postgres@db:5432/hip
+      PGHOST: db
+      PGPORT: 5432
+      PGUSER: postgres
+      PGDATABASE: hip
+      ENVIRONMENT: local
+      DJANGO_SECRET_KEY: dummy
+      DOMAIN: localhost
+      SESSION_COOKIE_SECURE: "False"
+      DJANGO_SECURE_SSL_REDIRECT: "False"
+      AWS_PROFILE: philly-hip
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+      args:
+        USER_UID: ${USER_UID:-1000}
+        USER_GID: ${USER_GID:-1000}
+    command: ["sleep", "infinity"]
+    links:
+      - db:db
+    ports:
+      - "9040:8000"
+      - "9041:3000"
+    volumes:
+      - ~/.ssh:/home/appuser/.ssh:delegated
+      - ~/.aws:/home/appuser/.aws/
+      - .:/code/
+      - dev_media:/code/media
+      - dev_node_modules:/code/node_modules
+      - dev_venv:/code/venv
+      - dev_cache:/home/appuser/.cache/

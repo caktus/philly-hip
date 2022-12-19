@@ -15,7 +15,7 @@ Once you have that access, you can use invoke tools to pull historical backups.
 To download the latest `daily` backup:
 
 ```sh
-inv utils.get-db-backup --profile philly-hip
+inv utils.get-db-backup
 ```
 
 ## Logging
