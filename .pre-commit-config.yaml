@@ -1,12 +1,12 @@
 repos:
   - repo: https://github.com/psf/black
-    rev: 20.8b1
+    rev: 22.3.0
     hooks:
       - id: black
-        language_version: python3.8
+        language_version: python3.10
         exclude: migrations
-  - repo: https://gitlab.com/PyCQA/flake8
-    rev: 3.8.4
+  - repo: https://github.com/PyCQA/flake8
+    rev: 4.0.1
     hooks:
       - id: flake8
         exclude: settings|migrations
@@ -20,7 +20,7 @@ repos:
       - id: check-docstring-first
       - id: check-merge-conflict
       - id: check-json
-        exclude: docs/dev
+        exclude: docs/dev|.devcontainer/devcontainer.json|.vscode/launch.json
       - id: check-yaml
         exclude: (deploy/host_vars|deploy/stack|deploy)
       - id: check-xml

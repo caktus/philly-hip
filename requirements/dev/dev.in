@@ -9,7 +9,7 @@ jupyterlab
 
 # deploy
 ansible==5.9.0
-invoke-kubesae==0.0.16
+invoke-kubesae==0.1.0
 
 # AWS tools
 awscli

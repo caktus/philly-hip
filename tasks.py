@@ -71,12 +71,14 @@ ns.add_task(production)
 ns.configure(
     {
         "app": "hip",
+        "app_build_target": "deploy",
         "aws": {
             "region": "us-east-1",
             "profile_name": "philly-hip",
         },
         "cluster": "philly-hip-stack-cluster",
         "container_name": "app",
+        "hosting_services_backup_profile": "philly-hip",
         "hosting_services_backup_bucket": "hip-production-philly-backups",
         "hosting_services_backup_folder": "hip",
         "repository": "061553509755.dkr.ecr.us-east-1.amazonaws.com/philly-hip-stack-applicationrepository-kk92mehevd86",
