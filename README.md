@@ -59,7 +59,38 @@ When styling, keep the following conventions in mind:
 - Is there a variable for that?
 - REM is set up to change size based on screen width. Keep this in mind. You might actually want pixels!
 
+### 🐳 **Development Container**
 
+This project supports using a [Caktus Development Container](https://caktus.github.io/developer-documentation/developer-onboarding/dev-containers/). Make sure you have installed the [prerequisites](https://caktus.github.io/developer-documentation/developer-onboarding/dev-containers/#prerequisites), including the Remote Development extension pack for VS Code.
+
+1. **Build and start dev container:** Using the [VS Code Command Pallete (`⇧⌘P`)](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette), select `Dev Containers: Reopen in Container`.
+2. **Install Python and Node requirements:** 
+   ```sh
+   python3 -m venv /code/venv
+   make setup
+   npm install
+   ```
+2. **Setup pre-commit:** Install pre-commit to enforce a variety of community standards:
+   ```sh
+   pre-commit clean
+   pre-commit install
+   ```
+3. **Reset local database:** Download copy of staging database and restore it locally:
+   ```sh
+   inv aws.configure-eks-kubeconfig
+   inv staging pod.get-db-dump
+   dropdb --if-exists hip && createdb hip
+   pg_restore -Ox -d $DATABASE_URL < hip-staging_database.dump
+   rm hip-staging_database.dump
+   ```
+4. **Reset local media:** Download copy of staging media:
+   ```sh
+   inv staging aws.sync-media --sync-to local --bucket-path="media/"
+   ```
+5. **Start Python dev server:** Start the Django development server:
+   ```sh
+   python manage.py runserver 0.0.0.0:8000
+   ```
 
 ### 💪 **Setup Manually**
 
