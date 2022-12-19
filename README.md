@@ -80,7 +80,7 @@ This project supports using a [Caktus Development Container](https://caktus.gith
    inv aws.configure-eks-kubeconfig
    inv staging pod.get-db-dump
    dropdb --if-exists hip && createdb hip
-   pg_restore -Ox -d $DATABASE_URL < hip-staging_database.dump
+   pg_restore -Ox -d $DATABASE_URL < *.dump
    rm hip-staging_database.dump
    ```
 4. **Reset local media:** Download copy of staging media:
