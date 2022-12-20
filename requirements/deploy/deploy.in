@@ -3,4 +3,4 @@
 
 pymemcache
 newrelic
-uwsgi
+uwsgi==2.0.21
