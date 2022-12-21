@@ -9,3 +9,4 @@ htmlcov
 node_modules
 .pytest_cache
 venv
+media
