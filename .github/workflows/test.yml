@@ -58,7 +58,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip wheel pip-tools
           pip-sync requirements/base/base.txt requirements/dev/dev.txt
-      - uses: pre-commit/action@v2.0.0
+      - uses: pre-commit/action@v3
       - name: Run Tests
         run: make run-tests
         env:
