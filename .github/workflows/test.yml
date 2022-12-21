@@ -70,3 +70,5 @@ jobs:
         run: make run-tests
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/hip_ci
+      - name: Test build deploy image
+        run: inv image.build
