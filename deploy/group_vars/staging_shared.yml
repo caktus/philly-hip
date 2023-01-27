@@ -8,7 +8,7 @@ DatabaseAddress: pd13w6wwn2hbn7f.cp7c2yqiusbp.us-east-1.rds.amazonaws.com
 # ----------------------------------------------------------------------------
 
 k8s_auth_ssl_ca_cert: staging_k8s_auth_ssl_ca_cert.txt # hard-coded env_name for sharing 
-k8s_namespace: hip-staging # hard-coded env_name for sharing 
+k8s_cluster_name: hip-staging # hard-coded env_name for sharing 
 
 # aws eks describe-cluster --name=philly-hip-stack-cluster --query 'cluster.arn'
 k8s_context: "arn:aws:eks:us-east-1:061553509755:cluster/philly-hip-stack-cluster" 
