@@ -11,6 +11,12 @@ init(autoreset=True)
 
 
 @invoke.task
+def dr(c):
+    c.config.env = "dr"
+    c.config.namespace = "hip-dr"
+
+
+@invoke.task
 def staging(c):
     c.config.env = "staging"
     c.config.namespace = "hip-staging"
@@ -65,6 +71,7 @@ ns.add_collection(kubesae.pod)
 ns.add_collection(kubesae.info)
 ns.add_collection(kubesae.utils)
 ns.add_collection(project)
+ns.add_task(dr)
 ns.add_task(staging)
 ns.add_task(production)
 
