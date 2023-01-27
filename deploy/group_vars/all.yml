@@ -85,8 +85,8 @@ k8s_aws_fluent_bit_chart_version: "0.1.18"
 # ----------------------------------------------------------------------------
 
 k8s_auth_host: "{{ ClusterEndpoint }}"
-k8s_auth_ssl_ca_cert: staging_k8s_auth_ssl_ca_cert.txt
-k8s_namespace: hip-staging
+k8s_auth_ssl_ca_cert: "k8s_auth_ssl_ca_cert.txt"
+k8s_cluster_name: "{{ app_name }}-{{ env_name }}"
 k8s_memcached_enabled: true
 
 # App pod configuration:
