@@ -1,0 +1,35 @@
+# aws eks describe-cluster --name=philly-hip-stack-cluster | grep endpoint
+ClusterEndpoint: https://C3219F3CB49E4B1C82CFE8C82A846345.sk1.us-east-1.eks.amazonaws.com
+# aws rds describe-db-instances
+DatabaseAddress: pd13w6wwn2hbn7f.cp7c2yqiusbp.us-east-1.rds.amazonaws.com
+
+# ----------------------------------------------------------------------------
+# caktus.django-k8s
+# ----------------------------------------------------------------------------
+
+k8s_auth_ssl_ca_cert: "k8s_auth_ssl_ca_cert.txt" # hard-coded env_name for sharing 
+k8s_cluster_name: philly-hip-stack-cluster  # hard-coded env_name for sharing 
+
+# aws eks describe-cluster --name=philly-hip-stack-cluster --query 'cluster.arn'
+k8s_context: "arn:aws:eks:us-east-1:061553509755:cluster/philly-hip-stack-cluster" 
+
+env_database_url: "postgres://{{ app_name }}_staging:{{ database_password }}@{{ DatabaseAddress }}:5432/{{ app_name }}_{{ env_name }}"
+# pwgen -s 40 1|tr -d '\n'|ansible-vault encrypt_string
+database_password: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  38363331373138346434373539346334383464613239383233616534333365386334626563643362
+  3463373731653734393761303235626230623833316161660a666232376136663338303435623638
+  62623630383437396562393432313565316663363961396565656438336333393866313234663365
+  3830653833633431640a636333366134383934346632396263363430346539306436383031316436
+  38653066646362323434626564333166653433663261643465356538386265353239336131633061
+  3236316135343961646363316531383661623336623564336637
+
+# Disaster Recovery: DB restore configuration
+k8s_restore_namespace: "{{ k8s_namespace }}"
+k8s_restore_target_db_url: "{{ env_database_url }}"
+k8s_restore_maint_user: hip-philly
+k8s_restore_maint_host: "{{ DatabaseAddress }}"
+k8s_restore_maint_port: "5432"
+k8s_restore_maint_name: hip-philly
+
+k8s_restore_maint_pass: # Need pass

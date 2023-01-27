@@ -1,6 +1,11 @@
 [k8s]
+dr
 staging
 production
+
+[staging_shared]
+dr
+staging
 
 [cluster]
 production

@@ -14,8 +14,8 @@ cluster_name: "{{ stack_name }}-cluster"
 
 # CloudFormation Outputs
 # These values are taken from the CF 'Output' tab
-ClusterEndpoint: https://C3219F3CB49E4B1C82CFE8C82A846345.sk1.us-east-1.eks.amazonaws.com
-DatabaseAddress: pd13w6wwn2hbn7f.cp7c2yqiusbp.us-east-1.rds.amazonaws.com
+
+
 RepositoryURL: 061553509755.dkr.ecr.us-east-1.amazonaws.com/philly-hip-stack-applicationrepository-kk92mehevd86
 
 # The RDS superuser password
@@ -85,8 +85,8 @@ k8s_aws_fluent_bit_chart_version: "0.1.18"
 # ----------------------------------------------------------------------------
 
 k8s_auth_host: "{{ ClusterEndpoint }}"
-k8s_auth_ssl_ca_cert: "k8s_auth_ssl_ca_cert.txt"
-k8s_namespace: "{{ app_name }}-{{ env_name }}"
+k8s_auth_ssl_ca_cert: staging_k8s_auth_ssl_ca_cert.txt
+k8s_namespace: hip-staging
 k8s_memcached_enabled: true
 
 # App pod configuration:
@@ -95,6 +95,15 @@ k8s_container_port: 8000
 k8s_container_image: "{{ RepositoryURL }}"
 k8s_container_image_pull_policy: Always
 k8s_container_replicas: 2
+
+# Lower resources to preserve Node resources
+k8s_container_resources:
+    requests:
+        memory: "256Mi"
+        cpu: "50m"
+    limits:
+        cpu: "250m"
+
 k8s_migrations_enabled: true
 k8s_collectstatic_enabled: false
 k8s_container_ingress_annotations:

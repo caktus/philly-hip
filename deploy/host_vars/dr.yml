@@ -1,0 +1,29 @@
+env_name: dr
+
+# ----------------------------------------------------------------------------
+# caktus.django-k8s
+# ----------------------------------------------------------------------------
+
+k8s_domain_names:
+  -  dr.phila.gov # Waiting on confirmation from Philly team
+
+k8s_container_replicas: 1
+k8s_migrations_enabled: false
+
+k8s_worker_enabled: false
+k8s_worker_beat_enabled: false
+
+# Basic auth
+k8s_container_htpasswd: "hip-dr:{SHA}Y2fEjdGT1W6nsLqtJbGUVeUp9e4="
+
+# pwgen -s 64 1|tr -d '\n'|ansible-vault encrypt_string 
+env_django_secret_key: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  63323239653538366637613837333237633038383531396663616236663436363431306234623962
+  6230313632646239653933366636643537663762306630660a383135656336336362363364343765
+  38313838303233616437633462353965393563393937323332613333643461323963333831336536
+  6165306163363938320a653864333161326437613438616533383364386636373734613539336565
+  64386133396266636230663137383031383939396431623637643764353832386538386361666531
+  3238323337313164306432323331363636353437346335333435
+
+k8s_auth_api_key: 
