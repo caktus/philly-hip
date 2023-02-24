@@ -128,3 +128,18 @@ k8s_s3_private_bucket: "{{ k8s_s3_namespace }}-philly-private-assets"
 k8s_ci_username: hip-ci-user
 k8s_ci_repository_arn: "arn:aws:ecr:us-east-1:061553509755:repository/philly-hip-stack-applicationrepository-kk92mehevd86"
 k8s_ci_vault_password_arn: "arn:aws:secretsmanager:us-east-1:061553509755:secret:hip-ansible-vault-password-JYhbao"
+
+# Install Descheduler to attempt to spread out pods again after node failures
+k8s_install_descheduler: yes
+# You must set the k8s_descheduler_chart_version to match the Kubernetes
+# node version (0.23.x -> K8s 1.23.x); see:
+# https://github.com/kubernetes-sigs/descheduler#compatibility-matrix
+k8s_descheduler_chart_version: v0.22.1
+# See values.yaml for options:
+# https://github.com/kubernetes-sigs/descheduler/blob/master/charts/descheduler/values.yaml#L63
+k8s_descheduler_release_values:
+  deschedulerPolicy:
+    strategies:
+      # During upgrades or reboots, don't pre-emptively drain a node.
+      RemovePodsViolatingNodeTaints:
+        enabled: false
