@@ -5,7 +5,7 @@ env_name: dr
 # ----------------------------------------------------------------------------
 
 k8s_domain_names:
-  -  dr.phila.gov # Waiting on confirmation from Philly team
+  -  dr-hip.caktus-built.com
 
 k8s_container_replicas: 1
 k8s_migrations_enabled: false
