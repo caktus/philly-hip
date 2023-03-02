@@ -1,8 +1,12 @@
 ---
-
 # ----------------------------------------------------------------------------
 # Global: Common configuration variables for all inventory groups
 # ----------------------------------------------------------------------------
+
+# aws eks describe-cluster --name=philly-hip-stack-cluster | grep endpoint
+ClusterEndpoint: https://C3219F3CB49E4B1C82CFE8C82A846345.sk1.us-east-1.eks.amazonaws.com
+# aws rds describe-db-instances
+DatabaseAddress: pd13w6wwn2hbn7f.cp7c2yqiusbp.us-east-1.rds.amazonaws.com
 
 app_name: hip
 # we use hip in some places and philly-hip in some places, so let's create a variable
@@ -11,6 +15,12 @@ aws_region: us-east-1
 stack_name: "{{ long_app_name }}-stack"
 aws_profile: "{{ long_app_name }}"
 cluster_name: "{{ stack_name }}-cluster"
+
+k8s_auth_ssl_ca_cert: staging_k8s_auth_ssl_ca_cert.txt
+k8s_cluster_name: "philly-hip-stack-cluster" 
+
+# aws eks describe-cluster --name=philly-hip-stack-cluster --query 'cluster.arn'
+k8s_context: "arn:aws:eks:us-east-1:061553509755:cluster/philly-hip-stack-cluster" 
 
 # CloudFormation Outputs
 # These values are taken from the CF 'Output' tab
@@ -101,8 +111,6 @@ k8s_container_resources:
     requests:
         memory: "256Mi"
         cpu: "50m"
-    limits:
-        cpu: "250m"
 
 k8s_migrations_enabled: true
 k8s_collectstatic_enabled: false
