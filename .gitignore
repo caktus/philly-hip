@@ -16,6 +16,7 @@ env-local.sh
 .vsls.json
 .envrc
 .direnv
+venv
 webpack-stats.json
 
 # Project Static Files

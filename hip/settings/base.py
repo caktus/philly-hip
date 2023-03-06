@@ -302,6 +302,11 @@ WAGTAILDOCS_DOCUMENT_FORM_BASE = "apps.hip.forms.ValidateFileTypeForm"
 WAGTAILDOCS_EXTENSIONS = ["pdf", "png", "jpg", "jpeg"]
 WAGTAILDOCS_DOCUMENT_MODEL = "hip.HIPDocument"
 
+# Increase the default maximum number (from 1000) of GET/POST parameters that will be read before a
+# SuspiciousOperation (TooManyFieldsSent) is raised.  Allows for pages with a large number of fields added through Wagtail.
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 2000
+
+
 # Explicitly set the file upload handler to be django.core.files.uploadhandler.TemporaryFileUploadHandler,
 # so that all uploaded files are written to a temporary file. Writing to a file
 # is required for the ValidateFileTypeForm.clean_file() method to scan PDF files.
