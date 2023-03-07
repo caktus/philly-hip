@@ -16,11 +16,11 @@ database_password: !vault |
 # Disaster Recovery: DB restore configuration
 k8s_restore_namespace: "{{ k8s_namespace }}"
 k8s_restore_target_db_url: "{{ env_database_url }}"
+k8s_restore_sql_commands: [CREATE EXTENSION IF NOT EXISTS citext;]
 k8s_restore_maint_user: hip_admin
 k8s_restore_maint_host: "{{ DatabaseAddress }}"
 k8s_restore_maint_port: "5432"
 k8s_restore_maint_name: hip
-
 k8s_restore_maint_pass: !vault |
   $ANSIBLE_VAULT;1.1;AES256
   63666133363834643339373132356631656633343463313761376363613138383035353532346236
