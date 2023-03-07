@@ -5,8 +5,8 @@ Recovery](https://caktus.github.io/developer-documentation/reference/disaster-re
 for more information.
 
 The services configured for this project are:
-* **PostgreSQL database backups:** Backups are stored in the `hip-production-assets` (us-east-2) S3 bucket.
-* **Uploaded media backups:** S3 objects are replicated from `hip-production-philly-assets` (us-east-1) to `hip-dr-assets` (us-east-2). 
+* **PostgreSQL database backups:** Backups are stored in the `hip-production-philly-backups` (us-east-2) S3 bucket.
+* **Uploaded media backups:** S3 objects are replicated from `hip-production-philly-private-assets` (us-east-1) to `hip-dr-philly-private-assets` (us-east-2). 
 
 ## Production backup configuration
 
