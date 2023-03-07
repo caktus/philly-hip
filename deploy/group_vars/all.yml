@@ -17,7 +17,8 @@ aws_profile: "{{ long_app_name }}"
 cluster_name: "{{ stack_name }}-cluster"
 
 k8s_auth_ssl_ca_cert: staging_k8s_auth_ssl_ca_cert.txt
-k8s_cluster_name: "philly-hip-stack-cluster" 
+k8s_cluster_name: "philly-hip-stack-cluster"
+k8s_namespace: "{{ app_name }}-{{ env_name }}" 
 
 # aws eks describe-cluster --name=philly-hip-stack-cluster --query 'cluster.arn'
 k8s_context: "arn:aws:eks:us-east-1:061553509755:cluster/philly-hip-stack-cluster" 
