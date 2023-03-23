@@ -78,8 +78,8 @@ cloudformation_stack:
 k8s_cluster_type: aws
 # aws eks describe-cluster --name=philly-hip-stack-cluster --query 'cluster.arn'
 k8s_context: "arn:aws:eks:us-east-1:061553509755:cluster/{{ cluster_name }}"
-k8s_ingress_nginx_chart_version: "4.0.19"
-k8s_cert_manager_chart_version: "v1.7.2"
+k8s_ingress_nginx_chart_version: "4.4.2"
+k8s_cert_manager_chart_version: "v1.11.0"
 k8s_letsencrypt_email: admin@caktusgroup.com
 k8s_iam_users: [noop]  # https://github.com/caktus/ansible-role-k8s-web-cluster/issues/17
 # aws-for-fluent-bit
@@ -200,3 +200,18 @@ k8s_environment_variables:
   AZURE_CLIENT_ID: "{{ azure_client_id }}"
   AZURE_TENANT_ID: "{{ azure_tenant_id }}"
   AZURE_CLIENT_SECRET: "{{ azure_client_secret }}"
+
+# Install Descheduler to attempt to spread out pods again after node failures
+k8s_install_descheduler: yes
+# You must set the k8s_descheduler_chart_version to match the Kubernetes
+# node version (0.23.x -> K8s 1.23.x); see:
+# https://github.com/kubernetes-sigs/descheduler#compatibility-matrix
+k8s_descheduler_chart_version: v0.22.1
+# See values.yaml for options:
+# https://github.com/kubernetes-sigs/descheduler/blob/master/charts/descheduler/values.yaml#L63
+k8s_descheduler_release_values:
+  deschedulerPolicy:
+    strategies:
+      # During upgrades or reboots, don't pre-emptively drain a node.
+      RemovePodsViolatingNodeTaints:
+        enabled: false
