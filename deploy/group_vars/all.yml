@@ -1,5 +1,4 @@
 ---
-
 # ----------------------------------------------------------------------------
 # Global: Common configuration variables for all inventory groups
 # ----------------------------------------------------------------------------
@@ -12,9 +11,17 @@ stack_name: "{{ long_app_name }}-stack"
 aws_profile: "{{ long_app_name }}"
 cluster_name: "{{ stack_name }}-cluster"
 
+ansible_connection: local
+ansible_python_interpreter: "{{ ansible_playbook_python }}"
+
+k8s_cluster_name: "{{ cluster_name }}"
+k8s_namespace: "{{ app_name }}-{{ env_name }}" 
+
 # CloudFormation Outputs
 # These values are taken from the CF 'Output' tab
+# aws eks describe-cluster --name=philly-hip-stack-cluster | grep endpoint
 ClusterEndpoint: https://C3219F3CB49E4B1C82CFE8C82A846345.sk1.us-east-1.eks.amazonaws.com
+# aws rds describe-db-instances
 DatabaseAddress: pd13w6wwn2hbn7f.cp7c2yqiusbp.us-east-1.rds.amazonaws.com
 RepositoryURL: 061553509755.dkr.ecr.us-east-1.amazonaws.com/philly-hip-stack-applicationrepository-kk92mehevd86
 
@@ -69,6 +76,7 @@ cloudformation_stack:
 # --------------------------------------------------------------------------
 
 k8s_cluster_type: aws
+# aws eks describe-cluster --name=philly-hip-stack-cluster --query 'cluster.arn'
 k8s_context: "arn:aws:eks:us-east-1:061553509755:cluster/{{ cluster_name }}"
 k8s_ingress_nginx_chart_version: "4.4.2"
 k8s_cert_manager_chart_version: "v1.11.0"
@@ -86,7 +94,6 @@ k8s_aws_fluent_bit_chart_version: "0.1.18"
 
 k8s_auth_host: "{{ ClusterEndpoint }}"
 k8s_auth_ssl_ca_cert: "k8s_auth_ssl_ca_cert.txt"
-k8s_namespace: "{{ app_name }}-{{ env_name }}"
 k8s_memcached_enabled: true
 
 # App pod configuration:
@@ -95,6 +102,13 @@ k8s_container_port: 8000
 k8s_container_image: "{{ RepositoryURL }}"
 k8s_container_image_pull_policy: Always
 k8s_container_replicas: 2
+
+# Lower resources to preserve Node resources
+k8s_container_resources:
+    requests:
+        memory: "256Mi"
+        cpu: "50m"
+
 k8s_migrations_enabled: true
 k8s_collectstatic_enabled: false
 k8s_container_ingress_annotations:
@@ -128,6 +142,64 @@ k8s_s3_private_bucket: "{{ k8s_s3_namespace }}-philly-private-assets"
 k8s_ci_username: hip-ci-user
 k8s_ci_repository_arn: "arn:aws:ecr:us-east-1:061553509755:repository/philly-hip-stack-applicationrepository-kk92mehevd86"
 k8s_ci_vault_password_arn: "arn:aws:secretsmanager:us-east-1:061553509755:secret:hip-ansible-vault-password-JYhbao"
+
+# Email: 
+env_email_host: email-smtp.us-east-1.amazonaws.com
+env_email_use_tls: "true"
+env_email_host_user: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  30613761343565386331633239623831303665313461356663393563346633373533316134633031
+  3766633834376434363137646333666266353865343937360a613838306134663961333237393030
+  39356265383036633765363635633232373066633639323763363935373934313632303830323964
+  3265383761653137350a366134306338383537336336353266353439303539316334346330313439
+  31666161613437643239373566303238353663653931343637353866303435666364
+env_email_host_pass: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  62303635346364383964393536613631623730363337333337343930653030333865373539643736
+  6138643665383165383863346239323066636233623937620a306137363539356362653935343338
+  30366561316361633936613731333639373136323732616638313837633438343135323530623134
+  6339646533356361340a633535323165653935376136303135353866353762663366663032376536
+  32636365613634373961353564626336343930393866393130656666316634316431353431386330
+  3561616461636134373033316665613035303736646133613630
+
+# Azure SSO settings
+azure_client_id: "f0629cf8-f6f4-4142-94c3-11b8beaaa510"
+azure_tenant_id: "2046864f-68ea-497d-af34-a6629a6cd700"
+azure_client_secret: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  34653665623939373232343266393962386662373738363135313965636461303362656235353739
+  3833373532646436326463663233616238316431306633330a333664363061313630646565613465
+  34393634623231333964346166306639613438623330343865663066643239383634633538613130
+  3234326436376638370a353262656662656334653234666565313032333237353135336132636136
+  33613062323365303165663261356138616634656331373037363031326161383832333662333266
+  6339636266626239303165666261353362626564363636346665
+
+k8s_environment_variables:
+  DATABASE_URL: "{{ env_database_url }}"
+  DJANGO_SETTINGS_MODULE: "{{ env_django_settings }}"
+  DJANGO_DEBUG: "False"
+  # DOMAIN is the ALLOWED_HOST
+  DOMAIN: "{{ k8s_domain_names[0] }}"
+  # join ALLOWED_HOSTS with a colon, because they are split by colon in deploy.py
+  ALLOWED_HOSTS: "{{ k8s_domain_names|join(':') }}"
+  ENVIRONMENT: "{{ env_name }}"
+  CACHE_HOST: "{{ env_cache_host }}"
+  # *** Uploaded media
+  DEFAULT_FILE_STORAGE: "{{ env_default_file_storage }}"
+  MEDIA_STORAGE_BUCKET_NAME: "{{ env_media_storage_bucket_name }}"
+  AWS_DEFAULT_ACL: "{{ env_aws_default_acl }}"
+  AWS_DEFAULT_REGION: "{{ aws_region }}"
+  MEDIA_LOCATION: "{{ env_media_location }}"
+  # *** Email
+  EMAIL_HOST: "{{ env_email_host }}"
+  EMAIL_HOST_USER: "{{ env_email_host_user }}"
+  EMAIL_HOST_PASSWORD: "{{ env_email_host_pass }}"
+  EMAIL_USE_TLS: "{{ env_email_use_tls }}"
+  DJANGO_SECRET_KEY: "{{ env_django_secret_key }}"
+  # Azure SSO settings
+  AZURE_CLIENT_ID: "{{ azure_client_id }}"
+  AZURE_TENANT_ID: "{{ azure_tenant_id }}"
+  AZURE_CLIENT_SECRET: "{{ azure_client_secret }}"
 
 # Install Descheduler to attempt to spread out pods again after node failures
 k8s_install_descheduler: yes
