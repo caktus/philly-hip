@@ -95,7 +95,6 @@ defusedxml==0.7.1
     # via
     #   -c requirements/dev/../base/base.txt
     #   nbconvert
-    #   odfpy
 distlib==0.3.6
     # via virtualenv
 django==3.2.18
@@ -196,10 +195,6 @@ ipython-genutils==0.2.0
     #   traitlets
 isort==5.7.0
     # via -r requirements/dev/dev.in
-jdcal==1.4.1
-    # via
-    #   -c requirements/dev/../base/base.txt
-    #   openpyxl
 jedi==0.18.0
     # via ipython
 jinja2==3.0.3
@@ -260,10 +255,6 @@ l18n==2020.6.1
     # via
     #   -c requirements/dev/../base/base.txt
     #   wagtail
-markuppy==1.14
-    # via
-    #   -c requirements/dev/../base/base.txt
-    #   tablib
 markupsafe==2.1.1
     # via jinja2
 mccabe==0.7.0
@@ -296,14 +287,10 @@ oauthlib==3.1.0
     # via
     #   -c requirements/dev/../base/base.txt
     #   requests-oauthlib
-odfpy==1.4.1
+openpyxl==3.1.2
     # via
     #   -c requirements/dev/../base/base.txt
-    #   tablib
-openpyxl==3.0.6
-    # via
-    #   -c requirements/dev/../base/base.txt
-    #   tablib
+    #   wagtail
 openshift==0.12
     # via -r requirements/dev/dev.in
 packaging==20.9
@@ -414,7 +401,6 @@ pyyaml==5.4.1
     #   kubernetes
     #   kubernetes-validate
     #   pre-commit
-    #   tablib
 pyzmq==22.0.3
     # via
     #   jupyter-client
@@ -472,10 +458,6 @@ sqlparse==0.4.1
     #   -c requirements/dev/../base/base.txt
     #   django
     #   django-debug-toolbar
-tablib[html,ods,xls,xlsx,yaml]==3.0.0
-    # via
-    #   -c requirements/dev/../base/base.txt
-    #   wagtail
 telepath==0.2
     # via
     #   -c requirements/dev/../base/base.txt
@@ -523,7 +505,7 @@ urwid==2.1.2
     # via pudb
 virtualenv==20.17.1
     # via pre-commit
-wagtail==4.0.4
+wagtail==4.2.2
     # via
     #   -c requirements/dev/../base/base.txt
     #   wagtail-factories
@@ -542,18 +524,6 @@ willow==1.4
     # via
     #   -c requirements/dev/../base/base.txt
     #   wagtail
-xlrd==2.0.1
-    # via
-    #   -c requirements/dev/../base/base.txt
-    #   tablib
-xlsxwriter==1.3.7
-    # via
-    #   -c requirements/dev/../base/base.txt
-    #   wagtail
-xlwt==1.3.0
-    # via
-    #   -c requirements/dev/../base/base.txt
-    #   tablib
 zipp==3.4.0
     # via importlib-metadata
 
