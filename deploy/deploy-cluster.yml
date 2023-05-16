@@ -50,3 +50,29 @@
         release_values:
           clusterName: philly-hip-stack-cluster
         wait: yes
+    - name: Create alarms
+      tags: cloudwatch
+      amazon.aws.cloudwatch_metric_alarm:
+        state: present
+        region: us-east-1
+        name: "{{ item.name }}"
+        description: "{{ item.description }}"
+        metric: "{{ item.metric }}"
+        namespace: "ContainerInsights"
+        dimensions:
+          ClusterName: philly-hip-stack-cluster
+        statistic: Average
+        comparison: "{{ item.comparison }}"
+        threshold: "{{ item.threshold }}"
+        period: "{{ item.period }}"
+        evaluation_periods: "{{ item.evaluation_periods }}"
+        alarm_actions:
+          - arn:aws:sns:us-east-1:061553509755:HIP_Errors_CloudWatch_Alarms_Topic
+      loop:
+        - name: node-cpu-high
+          description: This will alarm when a instance's CPU usage average is greater than 50% for 15 minutes.
+          metric: node_cpu_utilization
+          comparison: GreaterThanOrEqualToThreshold
+          threshold: 50
+          period: 300
+          evaluation_periods: 3
