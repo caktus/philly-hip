@@ -28,7 +28,7 @@ Helm chart. To view metrics, login to the AWS account (via the Caktus AssumeRole
 - Click "ContainerInsights"
 - Drill down as needed
 
-Alerts can be created based on the metrics if needed, e.g., to provide an alert on high CPU utilization.
+CloudWatch Alarms can be created via Ansible, e.g., to provide an alert on high CPU utilization. See `deploy/deploy-cluster.yml` and add to the "Create alarms" task, as needed.
 
 ## Logging
 
