@@ -9,6 +9,7 @@
     - role: caktus.k8s-web-cluster
   tasks:
     - name: Add AWS for fluent bit helm chart (centralized logging)
+      tags: fluentbit
       community.kubernetes.helm:
         context: "{{ k8s_context|mandatory }}"
         kubeconfig: "{{ k8s_kubeconfig }}"
@@ -25,4 +26,27 @@
             enabled: false
           elasticsearch:
             enabled: false
+        wait: yes
+    - name: Create Amazon CloudWatch Metrics namespace
+      tags: cloudwatch
+      community.kubernetes.k8s:
+        context: "{{ k8s_context|mandatory }}"
+        kubeconfig: "{{ k8s_kubeconfig }}"
+        name: "{{ k8s_aws_cloudwatch_metrics_namespace }}"
+        api_version: v1
+        kind: Namespace
+        state: present
+    - name: Add AWS CloudWatch Metrics helm chart (monitoring)
+      tags: cloudwatch
+      community.kubernetes.helm:
+        context: "{{ k8s_context|mandatory }}"
+        kubeconfig: "{{ k8s_kubeconfig }}"
+        chart_repo_url: "https://aws.github.io/eks-charts"
+        chart_ref: aws-cloudwatch-metrics
+        # https://artifacthub.io/packages/helm/aws/aws-cloudwatch-metrics
+        chart_version: "{{ k8s_aws_cloudwatch_metrics_chart_version }}"
+        release_name: aws-cloudwatch-metrics
+        release_namespace: "{{ k8s_aws_cloudwatch_metrics_namespace }}"
+        release_values:
+          clusterName: philly-hip-stack-cluster
         wait: yes

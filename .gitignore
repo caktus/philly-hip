@@ -28,6 +28,7 @@ media/*
 hip/static/bundles/main.js
 
 # Ansible
+bin/
 deploy/roles/*
 .vault_pass
 *.retry
