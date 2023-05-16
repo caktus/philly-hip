@@ -76,3 +76,10 @@
           threshold: 50
           period: 300
           evaluation_periods: 3
+        - name: node-count-low
+          description: This will alarm when a cluster's node count drops below 2 for 15 minutes.
+          metric: cluster_node_count
+          comparison: LessThanThreshold
+          threshold: 2
+          period: 300
+          evaluation_periods: 3
