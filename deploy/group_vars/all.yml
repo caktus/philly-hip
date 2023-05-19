@@ -86,6 +86,11 @@ k8s_iam_users: [noop]  # https://github.com/caktus/ansible-role-k8s-web-cluster/
 # - https://github.com/aws/eks-charts/tree/master/stable/aws-for-fluent-bit
 # - https://artifacthub.io/packages/helm/aws/aws-for-fluent-bit
 k8s_aws_fluent_bit_chart_version: "0.1.18"
+# aws-cloudwatch-metrics:
+# - https://github.com/aws/eks-charts/tree/master/stable/aws-cloudwatch-metrics
+# - https://artifacthub.io/packages/helm/aws/aws-cloudwatch-metrics
+k8s_aws_cloudwatch_metrics_chart_version: "0.0.9"
+k8s_aws_cloudwatch_metrics_namespace: amazon-cloudwatch
 
 # ----------------------------------------------------------------------------
 # caktus.django-k8s: Shared configuration variables for staging and production
