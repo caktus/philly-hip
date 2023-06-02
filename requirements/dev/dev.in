@@ -8,16 +8,16 @@ ipython
 jupyterlab
 
 # deploy
-ansible==5.9.0
+ansible==7.6.0
 invoke-kubesae==0.1.0
 
 # AWS tools
-awscli
+awscli==1.27.87
 awslogs
 Jinja2==3.0.3
 openshift==0.12
 kubernetes==12.0.0
-kubernetes-validate
+kubernetes-validate~=1.25.0
 
 pre-commit
 coverage
