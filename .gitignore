@@ -18,6 +18,8 @@ env-local.sh
 .direnv
 venv
 webpack-stats.json
+bin
+.kube
 
 # Project Static Files
 node_modules/*
