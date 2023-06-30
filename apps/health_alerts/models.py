@@ -1,6 +1,7 @@
 import datetime
 
 from django.db import models
+from django.http import Http404
 from django.shortcuts import redirect
 
 from phonenumber_field.modelfields import PhoneNumberField
@@ -108,6 +109,10 @@ class HealthAlertDetailPage(HipBasePage):
         return ""
 
     def serve(self, request):
+        """Return the URL for the HealthAlertDetailPage's alert_file (or a 404 page)."""
+        # If the HealthAlertDetailPage does not have an alert_file, then return a 404 page.
+        if not self.alert_file:
+            raise Http404()
         return redirect(self.alert_file.url)
 
     # Because we have overridden the serve() method of this model, we also need to
