@@ -1,7 +1,7 @@
 # Dev requirements
 -c ../base/base.txt
 
-pyyaml
+pyyaml==6.0.1
 black==22.6.0
 isort
 ipython
@@ -12,7 +12,7 @@ ansible==7.6.0
 invoke-kubesae==0.1.0
 
 # AWS tools
-awscli==1.27.87
+awscli==1.29.4
 awslogs
 Jinja2==3.0.3
 openshift==0.12
