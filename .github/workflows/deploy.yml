@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - develop
+      - pyyaml-fix
 
 jobs:
   deploy:
