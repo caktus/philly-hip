@@ -10,9 +10,9 @@ asgiref==3.3.4
     # via django
 beautifulsoup4==4.8.2
     # via wagtail
-boto3==1.26.87
+boto3==1.28.4
     # via -r requirements/base/base.in
-botocore==1.29.87
+botocore==1.31.4
     # via
     #   -r requirements/base/base.in
     #   boto3
@@ -137,8 +137,10 @@ pytz==2021.1
     #   django
     #   django-modelcluster
     #   l18n
-pyyaml==5.4.1
-    # via tablib
+pyyaml==6.0.1
+    # via
+    #   -r requirements/base/base.in
+    #   tablib
 rcssmin==1.0.6
     # via django-compressor
 requests==2.25.1
