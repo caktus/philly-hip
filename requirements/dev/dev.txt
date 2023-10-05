@@ -100,7 +100,7 @@ defusedxml==0.7.1
     #   nbconvert
 distlib==0.3.6
     # via virtualenv
-django==3.2.21
+django==3.2.22
     # via
     #   -c requirements/dev/../base/base.txt
     #   django-debug-toolbar
