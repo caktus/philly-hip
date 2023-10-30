@@ -183,3 +183,6 @@ ENV PATH=/code/venv/bin:$PATH
 WORKDIR /code
 
 CMD ["python", "/code/manage.py", "runserver", "0.0.0.0:8000"]
+
+# Reload workers after the specified amount of managed requests (avoid memory leaks)
+ENV UWSGI_MAX_REQUESTS=1000
