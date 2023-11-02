@@ -17,10 +17,7 @@ anyascii==0.1.7
 anyio==2.1.0
     # via jupyter-server
 appnope==0.1.2
-    # via
-    #   -r requirements/dev/dev.in
-    #   ipykernel
-    #   ipython
+    # via -r requirements/dev/dev.in
 argon2-cffi==20.1.0
     # via notebook
 asgiref==3.3.4
@@ -100,7 +97,7 @@ defusedxml==0.7.1
     #   nbconvert
 distlib==0.3.6
     # via virtualenv
-django==3.2.20
+django==3.2.23
     # via
     #   -c requirements/dev/../base/base.txt
     #   django-debug-toolbar
