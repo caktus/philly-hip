@@ -9,6 +9,7 @@
     - role: caktus.k8s-web-cluster
   tasks:
     - name: Add AWS for fluent bit helm chart (centralized logging)
+      tags: fluentbit
       community.kubernetes.helm:
         context: "{{ k8s_context|mandatory }}"
         kubeconfig: "{{ k8s_kubeconfig }}"
@@ -26,3 +27,59 @@
           elasticsearch:
             enabled: false
         wait: yes
+    - name: Create Amazon CloudWatch Metrics namespace
+      tags: cloudwatch
+      community.kubernetes.k8s:
+        context: "{{ k8s_context|mandatory }}"
+        kubeconfig: "{{ k8s_kubeconfig }}"
+        name: "{{ k8s_aws_cloudwatch_metrics_namespace }}"
+        api_version: v1
+        kind: Namespace
+        state: present
+    - name: Add AWS CloudWatch Metrics helm chart (monitoring)
+      tags: cloudwatch
+      community.kubernetes.helm:
+        context: "{{ k8s_context|mandatory }}"
+        kubeconfig: "{{ k8s_kubeconfig }}"
+        chart_repo_url: "https://aws.github.io/eks-charts"
+        chart_ref: aws-cloudwatch-metrics
+        # https://artifacthub.io/packages/helm/aws/aws-cloudwatch-metrics
+        chart_version: "{{ k8s_aws_cloudwatch_metrics_chart_version }}"
+        release_name: aws-cloudwatch-metrics
+        release_namespace: "{{ k8s_aws_cloudwatch_metrics_namespace }}"
+        release_values:
+          clusterName: philly-hip-stack-cluster
+        wait: yes
+    - name: Create alarms
+      tags: cloudwatch
+      amazon.aws.cloudwatch_metric_alarm:
+        state: present
+        region: us-east-1
+        name: "{{ item.name }}"
+        description: "{{ item.description }}"
+        metric: "{{ item.metric }}"
+        namespace: "ContainerInsights"
+        dimensions:
+          ClusterName: philly-hip-stack-cluster
+        statistic: Average
+        comparison: "{{ item.comparison }}"
+        threshold: "{{ item.threshold }}"
+        period: "{{ item.period }}"
+        evaluation_periods: "{{ item.evaluation_periods }}"
+        alarm_actions:
+          - arn:aws:sns:us-east-1:061553509755:HIP_Errors_CloudWatch_Alarms_Topic
+      loop:
+        - name: node-cpu-high
+          description: This will alarm when a instance's CPU usage average is greater than 50% for 15 minutes.
+          metric: node_cpu_utilization
+          comparison: GreaterThanOrEqualToThreshold
+          threshold: 50
+          period: 300
+          evaluation_periods: 3
+        - name: node-count-low
+          description: This will alarm when a cluster's node count drops below 2 for 15 minutes.
+          metric: cluster_node_count
+          comparison: LessThanThreshold
+          threshold: 2
+          period: 300
+          evaluation_periods: 3

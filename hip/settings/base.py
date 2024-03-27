@@ -336,3 +336,7 @@ GENERAL_INQUIRY_EMAIL_RECIPIENTS = [e[1] for e in ADMINS]
 EVENT_SIGNUP_FORM_SUBMISSION_RECIPIENTS = GENERAL_INQUIRY_EMAIL_RECIPIENTS
 
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "no-reply@hip.caktus-built.com")
+
+# Notifies user in Wagtail Admin only of LTS versions
+# https://docs.wagtail.org/en/stable/reference/settings.html#wagtail-enable-update-check
+WAGTAIL_ENABLE_UPDATE_CHECK = "lts"

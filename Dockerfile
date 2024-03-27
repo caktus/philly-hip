@@ -121,8 +121,8 @@ RUN groupadd --gid $USER_GID $USERNAME \
 #   openssh-client -- for git over SSH
 #   sudo -- to run commands as superuser
 #   vim -- enhanced vi editor for commits
-ENV KUBE_CLIENT_VERSION="v1.22.15"
-ENV HELM_VERSION="3.8.2"
+ENV KUBE_CLIENT_VERSION="v1.25.10"
+ENV HELM_VERSION="3.12.0"
 RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/apt \
     --mount=type=cache,mode=0755,target=/root/.cache/pip \
     set -ex \
@@ -132,6 +132,7 @@ RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/
     docker-compose-plugin \
     git-core \
     gnupg2 \
+    jq \
     libpcre3 \
     libpq-dev \
     libpng-dev \

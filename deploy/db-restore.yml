@@ -1,0 +1,5 @@
+- hosts: k8s
+  tasks:
+  - import_role:
+      name: caktus.k8s-hosting-services
+      tasks_from: restore

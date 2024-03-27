@@ -18,6 +18,8 @@ env-local.sh
 .direnv
 venv
 webpack-stats.json
+bin
+.kube
 
 # Project Static Files
 node_modules/*
@@ -28,6 +30,7 @@ media/*
 hip/static/bundles/main.js
 
 # Ansible
+bin/
 deploy/roles/*
 .vault_pass
 *.retry
