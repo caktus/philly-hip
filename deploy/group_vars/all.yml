@@ -211,7 +211,7 @@ k8s_install_descheduler: yes
 # You must set the k8s_descheduler_chart_version to match the Kubernetes
 # node version (0.23.x -> K8s 1.23.x); see:
 # https://github.com/kubernetes-sigs/descheduler#compatibility-matrix
-k8s_descheduler_chart_version: v0.25.2
+k8s_descheduler_chart_version: v0.29.0
 # See values.yaml for options:
 # https://github.com/kubernetes-sigs/descheduler/blob/master/charts/descheduler/values.yaml#L63
 k8s_descheduler_release_values:
