@@ -85,7 +85,7 @@ k8s_iam_users: [noop]  # https://github.com/caktus/ansible-role-k8s-web-cluster/
 # aws-for-fluent-bit
 # - https://github.com/aws/eks-charts/tree/master/stable/aws-for-fluent-bit
 # - https://artifacthub.io/packages/helm/aws/aws-for-fluent-bit
-k8s_aws_fluent_bit_chart_version: "0.1.18"
+k8s_aws_fluent_bit_chart_version: "0.1.32"
 # aws-cloudwatch-metrics:
 # - https://github.com/aws/eks-charts/tree/master/stable/aws-cloudwatch-metrics
 # - https://artifacthub.io/packages/helm/aws/aws-cloudwatch-metrics
