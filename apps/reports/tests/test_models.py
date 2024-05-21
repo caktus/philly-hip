@@ -84,23 +84,28 @@ def test_datareportslistpage_context_only_external_reports(db, rf):
         "last_updated": date(year=2021, month=1, day=1),
         "external": True,
     }
+    external_reports_data = [
+        {
+            "type": "external_reports",  # Block type
+            "value": {
+                "title": external_report_hiv["title"],
+                "url": external_report_hiv["url"],
+                "update_frequency": external_report_hiv["update_frequency"],
+                "last_updated": external_report_hiv["last_updated"],
+            },
+        },
+        {
+            "type": "external_reports",
+            "value": {
+                "title": external_report_hep_a["title"],
+                "url": external_report_hep_a["url"],
+                "update_frequency": external_report_hep_a["update_frequency"],
+                "last_updated": external_report_hep_a["last_updated"],
+            },
+        },
+    ]
     reports_list_page = DataReportListPageFactory(
-        external_reports__0__external_reports__title=external_report_hiv["title"],
-        external_reports__0__external_reports__url=external_report_hiv["url"],
-        external_reports__0__external_reports__update_frequency=external_report_hiv[
-            "update_frequency"
-        ],
-        external_reports__0__external_reports__last_updated=external_report_hiv[
-            "last_updated"
-        ],
-        external_reports__1__external_reports__title=external_report_hep_a["title"],
-        external_reports__1__external_reports__url=external_report_hep_a["url"],
-        external_reports__1__external_reports__update_frequency=external_report_hep_a[
-            "update_frequency"
-        ],
-        external_reports__1__external_reports__last_updated=external_report_hep_a[
-            "last_updated"
-        ],
+        external_reports=external_reports_data
     )
 
     context = reports_list_page.get_context(rf.get("/someurl/"))
@@ -127,15 +132,19 @@ def test_datareportslistpage_context_internal_and_external_reports(db, rf):
         "last_updated": "2021-01-01",
         "external": True,
     }
+    external_reports_data = [
+        {
+            "type": "external_reports",
+            "value": {
+                "title": external_report_hiv["title"],
+                "url": external_report_hiv["url"],
+                "update_frequency": external_report_hiv["update_frequency"],
+                "last_updated": external_report_hiv["last_updated"],
+            },
+        },
+    ]
     reports_list_page = DataReportListPageFactory(
-        external_reports__0__external_reports__title=external_report_hiv["title"],
-        external_reports__0__external_reports__url=external_report_hiv["url"],
-        external_reports__0__external_reports__update_frequency=external_report_hiv[
-            "update_frequency"
-        ],
-        external_reports__0__external_reports__last_updated=external_report_hiv[
-            "last_updated"
-        ],
+        external_reports=external_reports_data
     )
     # Create  some internal reports (DataReportDetailPages) for the DataReportListPage.
     tuberculosis = DiseaseAndConditionDetailPageFactory(title="Tuberculosis")
