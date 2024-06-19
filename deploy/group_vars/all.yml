@@ -78,18 +78,18 @@ cloudformation_stack:
 k8s_cluster_type: aws
 # aws eks describe-cluster --name=philly-hip-stack-cluster --query 'cluster.arn'
 k8s_context: "arn:aws:eks:us-east-1:061553509755:cluster/{{ cluster_name }}"
-k8s_ingress_nginx_chart_version: "4.6.0"
-k8s_cert_manager_chart_version: "v1.11.1"
+k8s_ingress_nginx_chart_version: "4.9.1"
+k8s_cert_manager_chart_version: "v1.14.3"
 k8s_letsencrypt_email: admin@caktusgroup.com
 k8s_iam_users: [noop]  # https://github.com/caktus/ansible-role-k8s-web-cluster/issues/17
 # aws-for-fluent-bit
 # - https://github.com/aws/eks-charts/tree/master/stable/aws-for-fluent-bit
 # - https://artifacthub.io/packages/helm/aws/aws-for-fluent-bit
-k8s_aws_fluent_bit_chart_version: "0.1.18"
+k8s_aws_fluent_bit_chart_version: "0.1.32"
 # aws-cloudwatch-metrics:
 # - https://github.com/aws/eks-charts/tree/master/stable/aws-cloudwatch-metrics
 # - https://artifacthub.io/packages/helm/aws/aws-cloudwatch-metrics
-k8s_aws_cloudwatch_metrics_chart_version: "0.0.9"
+k8s_aws_cloudwatch_metrics_chart_version: "0.0.11"
 k8s_aws_cloudwatch_metrics_namespace: amazon-cloudwatch
 
 # ----------------------------------------------------------------------------
@@ -211,7 +211,7 @@ k8s_install_descheduler: yes
 # You must set the k8s_descheduler_chart_version to match the Kubernetes
 # node version (0.23.x -> K8s 1.23.x); see:
 # https://github.com/kubernetes-sigs/descheduler#compatibility-matrix
-k8s_descheduler_chart_version: v0.25.2
+k8s_descheduler_chart_version: v0.29.0
 # See values.yaml for options:
 # https://github.com/kubernetes-sigs/descheduler/blob/master/charts/descheduler/values.yaml#L63
 k8s_descheduler_release_values:

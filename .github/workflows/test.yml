@@ -2,9 +2,8 @@ name: Lint and Test code
 
 on:
   pull_request:
-  schedule:
-    # run once a week on early monday mornings
-    - cron: '22 2 * * 1'
+  push:
+    branches: [main, develop]
 
 jobs:
   test:
