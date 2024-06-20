@@ -45,7 +45,7 @@ cloudformation_stack:
   region: "{{ aws_region }}"
   stack_name: "{{ stack_name }}"
   template_bucket: "aws-web-stacks-{{ app_name }}"
-  template_local_path: '{{ playbook_dir + "/stack/eks-no-nat.yml" }}'
+  template_local_path: '{{ playbook_dir + "/stack/eks-nat.yml" }}'
   create_changeset: true
   termination_protection: true
 
