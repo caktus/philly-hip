@@ -6,7 +6,7 @@ RUN npm install --silent
 COPY . /code/
 RUN npm run build
 
-FROM python:3.10-slim-bullseye as base
+FROM python:3.11-slim-bookworm as base
 
 # Install packages needed to run your application (not build deps):
 #   mime-support -- for mime types when serving static files
@@ -101,7 +101,7 @@ ENTRYPOINT ["/code/docker-entrypoint.sh"]
 CMD ["newrelic-admin", "run-program", "uwsgi", "--single-interpreter", "--enable-threads", "--show-config"]
 
 
-FROM python:3.10-slim-bullseye AS dev
+FROM python:3.11-slim-bookworm AS dev
 
 ARG USERNAME=appuser
 ARG USER_UID=1000

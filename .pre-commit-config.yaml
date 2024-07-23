@@ -3,7 +3,7 @@ repos:
     rev: 22.3.0
     hooks:
       - id: black
-        language_version: python3.10
+        language_version: python3.11
         exclude: migrations
   - repo: https://github.com/PyCQA/flake8
     rev: 4.0.1
