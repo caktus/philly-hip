@@ -2,13 +2,13 @@
 -c ../base/base.txt
 
 pyyaml==6.0.1
-black==22.6.0
+black==24.4.2
 isort
 ipython
 jupyterlab
 
 # deploy
-ansible==7.6.0
+ansible==10.2.0
 invoke-kubesae==0.1.0
 
 # AWS tools

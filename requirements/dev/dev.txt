@@ -4,11 +4,11 @@
 #
 #    pip-compile --output-file=requirements/dev/dev.txt requirements/dev/dev.in
 #
-ansible==7.6.0
+ansible==10.2.0
     # via
     #   -r requirements/dev/dev.in
     #   invoke-kubesae
-ansible-core==2.14.6
+ansible-core==2.17.2
     # via ansible
 anyascii==0.1.7
     # via
@@ -40,7 +40,7 @@ beautifulsoup4==4.8.2
     # via
     #   -c requirements/dev/../base/base.txt
     #   wagtail
-black==22.6.0
+black==24.4.2
     # via -r requirements/dev/dev.in
 bleach==3.3.0
     # via nbconvert
@@ -174,7 +174,7 @@ inflection==0.5.1
     # via pytest-factoryboy
 iniconfig==1.1.1
     # via pytest
-invoke==1.5.0
+invoke==2.2.0
     # via invoke-kubesae
 invoke-kubesae==0.1.0
     # via -r requirements/dev/dev.in
@@ -291,9 +291,10 @@ openpyxl==3.1.2
     #   wagtail
 openshift==0.12.0
     # via -r requirements/dev/dev.in
-packaging==20.9
+packaging==24.1
     # via
     #   ansible-core
+    #   black
     #   bleach
     #   jupyterlab
     #   jupyterlab-server
@@ -352,8 +353,6 @@ pygments==2.8.0
     #   jupyterlab-pygments
     #   nbconvert
     #   pudb
-pyparsing==2.4.7
-    # via packaging
 pyrsistent==0.17.3
     # via jsonschema
 pytest==8.3.1
