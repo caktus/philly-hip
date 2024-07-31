@@ -1,6 +1,6 @@
 # base.in
 
-django
+django==4.2.14
 django-dotenv
 django_extensions
 django_model_utils
@@ -31,6 +31,5 @@ psycopg2-binary==2.9.9
 
 
 # Wagtail
-wagtail
-wagtailfontawesome
+wagtail==5.2.6
 wagtailmenus

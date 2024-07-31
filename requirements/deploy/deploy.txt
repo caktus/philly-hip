@@ -12,5 +12,5 @@ six==1.15.0
     # via
     #   -c requirements/deploy/../base/base.txt
     #   pymemcache
-uwsgi==2.0.21
+uwsgi==2.0.26
     # via -r requirements/deploy/deploy.in

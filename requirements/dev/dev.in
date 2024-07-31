@@ -33,7 +33,7 @@ django-debug-toolbar
 factory_boy
 
 
-pytest==8.3.1
+pytest
 pytest-cov
 pytest-django
 pytest-factoryboy

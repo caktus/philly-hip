@@ -65,7 +65,6 @@ INSTALLED_APPS += [
     "wagtail",
     "modelcluster",
     # Full list of icons available @ https://fontawesome.com/v4.7.0/icons/
-    "wagtailfontawesome",
     "wagtail.contrib.modeladmin",
     "wagtailmenus",
 ]
@@ -120,7 +119,7 @@ WSGI_APPLICATION = "hip.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": "hip",
         "USER": "",
         "PASSWORD": "",
@@ -185,7 +184,6 @@ TIME_ZONE = "America/New_York"
 
 USE_I18N = True
 
-USE_L10N = True
 
 USE_TZ = True
 
