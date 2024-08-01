@@ -68,6 +68,8 @@ cloudformation_stack:
     DatabaseUser: "{{ app_name }}_admin"
     DatabasePassword: "{{ admin_database_password }}"
     DatabaseMultiAZ: "true"
+    EksClusterName: "philly-hip-stack-cluster"
+    EksPublicAccessCidrs: "107.15.45.253/32,47.230.11.28/32"
   tags:
     Environment: "{{ app_name }}"
 
