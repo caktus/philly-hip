@@ -799,6 +799,9 @@ Parameters:
       - postgres10
       - postgres11
       - postgres12
+      - postgres13
+      - postgres14
+      - postgres15
       - sqlserver-ee-11.0
       - sqlserver-ee-12.0
       - sqlserver-ee-13.0
@@ -1085,6 +1088,7 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       AccessControl: !Ref 'AssetsBucketAccessControl'
+      AllowMajorVersionUpgrade: 'true'
       BucketEncryption: !If
         - UseAES256EncryptionCond
         - ServerSideEncryptionConfiguration:
