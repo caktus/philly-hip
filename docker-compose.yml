@@ -12,7 +12,7 @@ services:
     environment:
       POSTGRES_HOST_AUTH_METHOD: trust
       POSTGRES_DB: hip
-    image: postgres:12-alpine
+    image: postgres:15-alpine
     ports:
       - "5433:5432"
     volumes:
@@ -39,7 +39,7 @@ services:
       args:
         USER_UID: ${USER_UID:-1000}
         USER_GID: ${USER_GID:-1000}
-    command: ["sleep", "infinity"]
+    command: [ "sleep", "infinity" ]
     links:
       - db:db
     ports:

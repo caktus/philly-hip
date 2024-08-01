@@ -101,6 +101,12 @@ k8s_auth_host: "{{ ClusterEndpoint }}"
 k8s_auth_ssl_ca_cert: "k8s_auth_ssl_ca_cert.txt"
 k8s_memcached_enabled: true
 
+# Use a SelfSigned issuer to create a Certificate to enable TLS mode to use for
+# connections from clients (client_tls_sslmode)
+# https://cert-manager.io/docs/configuration/selfsigned/
+k8s_pgbouncer_selfsigned_certificate_cluster_issuer: cluster-selfsigned-ca-issuer
+k8s_pgbouncer_selfsigned_certificate_name: pgbouncer-client-tls
+
 # App pod configuration:
 k8s_container_name: app
 k8s_container_port: 8000
@@ -136,6 +142,7 @@ env_default_file_storage: "{{ app_name }}.storages.MediaBoto3Storage"
 env_media_storage_bucket_name: "{{ app_name }}-{{ env_name }}-philly-private-assets"
 env_aws_default_acl: ""
 env_media_location: media/
+env_database_ssl_require: true
 
 # S3 bucket configuration:
 k8s_s3_cluster_name: "{{ cluster_name }}"
@@ -180,6 +187,10 @@ azure_client_secret: !vault |
   6339636266626239303165666261353362626564363636346665
 
 k8s_environment_variables:
+  CLIENT_TLS_SSLMODE: require
+  CLIENT_TLS_CERT_FILE: /etc/pgbouncer/ssl/tls.crt
+  CLIENT_TLS_KEY_FILE: /etc/pgbouncer/ssl/tls.key
+  SERVER_TLS_SSLMODE: require
   DATABASE_URL: "{{ env_database_url }}"
   DJANGO_SETTINGS_MODULE: "{{ env_django_settings }}"
   DJANGO_DEBUG: "False"
@@ -220,3 +231,7 @@ k8s_descheduler_release_values:
       # During upgrades or reboots, don't pre-emptively drain a node.
       RemovePodsViolatingNodeTaints:
         enabled: false
+  
+  
+# Must be PostgreSQL v12 for DB restore
+k8s_hosting_services_image_tag: 0.5.0-postgres15

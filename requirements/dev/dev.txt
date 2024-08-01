@@ -17,7 +17,10 @@ anyascii==0.1.7
 anyio==2.1.0
     # via jupyter-server
 appnope==0.1.2
-    # via -r requirements/dev/dev.in
+    # via
+    #   -r requirements/dev/dev.in
+    #   ipykernel
+    #   ipython
 argon2-cffi==20.1.0
     # via notebook
 asgiref==3.3.4

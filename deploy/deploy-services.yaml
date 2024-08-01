@@ -1,0 +1,29 @@
+- name: Deploy project-related K8s services
+  hosts: k8s
+  gather_facts: no
+  tasks:
+    - name: Create/update pgBouncer SelfSigned Certificate
+      kubernetes.core.k8s:
+        host: "{{ k8s_auth_host }}"
+        ca_cert: "{{ k8s_auth_ssl_ca_cert }}"
+        state: present
+        wait: yes
+        validate:
+          fail_on_error: yes
+          strict: yes
+        definition:
+          apiVersion: cert-manager.io/v1
+          kind: Certificate
+          metadata:
+            name: "{{ k8s_pgbouncer_selfsigned_certificate_name }}"
+            namespace: "{{ k8s_namespace }}"
+          spec:
+            commonName: "{{ k8s_pgbouncer_selfsigned_certificate_name }}"
+            secretName: "{{ k8s_pgbouncer_selfsigned_certificate_name }}"
+            privateKey:
+              algorithm: ECDSA
+              size: 256
+            issuerRef:
+              name: "{{ k8s_pgbouncer_selfsigned_certificate_cluster_issuer }}"
+              kind: ClusterIssuer
+              group: cert-manager.io
