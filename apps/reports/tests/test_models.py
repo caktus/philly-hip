@@ -68,41 +68,26 @@ def test_datareportslistpage_context_only_internal_reports(db, rf):
 def test_datareportslistpage_context_only_external_reports(db, rf):
     """Test the context for a DataReportListPage with no children, but with external_reports."""
     # Create a DataReportListPage with some external reports.
-    external_report_hep_a = {
-        "title": "Hepatitis A",
-        "url": "example.com/report-hepatitis-a",
-        "update_frequency": "Annually",
-        # The context should handle if last_updated is a string
-        "last_updated": "2020-01-01",
-        "external": True,
-    }
     external_report_hiv = {
-        "title": "HIV/AIDS",
-        "url": "example.com/report-hiv-aids",
-        "update_frequency": "Sometime",
-        # The context should handle if last_updated is a date object
-        "last_updated": date(year=2021, month=1, day=1),
-        "external": True,
+        "title": "HIV Report",
+        "url": "https://example.com/hiv",
+        "update_frequency": "Monthly",
+        "last_updated": "2023-07-01",
     }
-    reports_list_page = DataReportListPageFactory(
-        external_reports__0__external_reports__title=external_report_hiv["title"],
-        external_reports__0__external_reports__url=external_report_hiv["url"],
-        external_reports__0__external_reports__update_frequency=external_report_hiv[
-            "update_frequency"
-        ],
-        external_reports__0__external_reports__last_updated=external_report_hiv[
-            "last_updated"
-        ],
-        external_reports__1__external_reports__title=external_report_hep_a["title"],
-        external_reports__1__external_reports__url=external_report_hep_a["url"],
-        external_reports__1__external_reports__update_frequency=external_report_hep_a[
-            "update_frequency"
-        ],
-        external_reports__1__external_reports__last_updated=external_report_hep_a[
-            "last_updated"
-        ],
-    )
 
+    external_report_hep_a = {
+        "title": "Hepatitis A Report",
+        "url": "https://example.com/hep-a",
+        "update_frequency": "Annually",
+        "last_updated": "2023-06-01",
+    }
+
+    reports_list_page = DataReportListPageFactory(
+        external_reports=[
+            ("external_reports", external_report_hiv),
+            ("external_reports", external_report_hep_a),
+        ]
+    )
     context = reports_list_page.get_context(rf.get("/someurl/"))
 
     expected_result_hep_a = external_report_hep_a.copy()
