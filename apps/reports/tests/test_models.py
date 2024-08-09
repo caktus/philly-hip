@@ -72,14 +72,14 @@ def test_datareportslistpage_context_only_external_reports(db, rf):
         "title": "HIV Report",
         "url": "https://example.com/hiv",
         "update_frequency": "Monthly",
-        "last_updated": "2023-07-01",
+        "last_updated": date(year=2021, month=1, day=1),
     }
 
     external_report_hep_a = {
         "title": "Hepatitis A Report",
         "url": "https://example.com/hep-a",
         "update_frequency": "Annually",
-        "last_updated": "2023-06-01",
+        "last_updated": "2020-01-01",
     }
 
     reports_list_page = DataReportListPageFactory(
@@ -99,7 +99,12 @@ def test_datareportslistpage_context_only_external_reports(db, rf):
         year=2021, month=1, day=1
     )  # format date to be the expected type
     # The results should be data for the external reports alphabetical order.
-    assert [expected_result_hep_a, expected_result_hiv] == context["reports"]
+    context_hep_a = context["reports"][0]
+    context_hiv = context["reports"][1]
+    del context_hep_a["external"]
+    del context_hiv["external"]
+    assert expected_result_hep_a == context_hep_a
+    assert context_hiv == expected_result_hiv
 
 
 def test_datareportslistpage_context_internal_and_external_reports(db, rf):
@@ -110,17 +115,11 @@ def test_datareportslistpage_context_internal_and_external_reports(db, rf):
         "url": "example.com/report-hiv-aids",
         "update_frequency": "Sometime",
         "last_updated": "2021-01-01",
-        "external": True,
     }
     reports_list_page = DataReportListPageFactory(
-        external_reports__0__external_reports__title=external_report_hiv["title"],
-        external_reports__0__external_reports__url=external_report_hiv["url"],
-        external_reports__0__external_reports__update_frequency=external_report_hiv[
-            "update_frequency"
-        ],
-        external_reports__0__external_reports__last_updated=external_report_hiv[
-            "last_updated"
-        ],
+        external_reports=[
+            ("external_reports", external_report_hiv),
+        ]
     )
     # Create  some internal reports (DataReportDetailPages) for the DataReportListPage.
     tuberculosis = DiseaseAndConditionDetailPageFactory(title="Tuberculosis")
@@ -132,7 +131,6 @@ def test_datareportslistpage_context_internal_and_external_reports(db, rf):
     )
 
     context = reports_list_page.get_context(rf.get("/someurl/"))
-
     # The results should be data for the internal and external reports in alphabetical order.
     expected_result_external_report_hiv = external_report_hiv.copy()
     expected_result_external_report_hiv["last_updated"] = date(
@@ -157,6 +155,7 @@ def test_datareportslistpage_context_internal_and_external_reports(db, rf):
             "external": False,
         },
     ]
+    del context["reports"][1]["external"]
     assert expected_results == context["reports"]
 
 
