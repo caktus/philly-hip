@@ -45,7 +45,7 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-          cache: 'pip'
+          # cache: 'pip'
           cache-dependency-path: 'requirements/*/**.txt'
       - name: Cache pre-commit
         uses: actions/cache@v3
