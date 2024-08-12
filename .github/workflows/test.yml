@@ -56,10 +56,9 @@ jobs:
       #       ${{ runner.os }}-precommit-
       - name: Install dependencies
         run: |
-          python3 -m venv env
+          python3.11 -m venv env
           . env/bin/activate
-          python -m pip install --upgrade pip wheel pip-tools
-          pip-sync requirements/base/base.txt requirements/dev/dev.txt
+          make setup
       - uses: pre-commit/action@v3.0.0
       - name: Run Tests
         run: make run-tests
