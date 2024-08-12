@@ -43,19 +43,21 @@ jobs:
       - run: npm install
       - run: npm run build
       - uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
+        # with:
+          # python-version: '3.11'
           # cache: 'pip'
-          cache-dependency-path: 'requirements/*/**.txt'
-      - name: Cache pre-commit
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pre-commit
-          key: ${{ runner.os }}-precommit-${{ hashFiles('.pre-commit-config.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-precommit-
+          # cache-dependency-path: 'requirements/*/**.txt'
+      # - name: Cache pre-commit
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: ~/.cache/pre-commit
+      #     key: ${{ runner.os }}-precommit-${{ hashFiles('.pre-commit-config.yaml') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-precommit-
       - name: Install dependencies
         run: |
+          python3 -m venv env
+          . env/bin/activate
           python -m pip install --upgrade pip wheel pip-tools
           pip-sync requirements/base/base.txt requirements/dev/dev.txt
       - uses: pre-commit/action@v3.0.0
