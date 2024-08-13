@@ -94,7 +94,7 @@ k8s_hosting_services_project_name: "{{ app_name }}"
 k8s_hosting_services_healthcheck_url: https://hc-ping.com/7d334762-8f35-453e-85b7-55e0b3147723
 k8s_hosting_services_database_url: "{{ env_database_url }}"
 k8s_hosting_services_backup_base_bucket: hip-production-philly-backups
-k8s_hosting_services_image_tag: 0.5.0-postgres15
+k8s_hosting_services_image_tag: "{{ k8s_hosting_services_image_tag }}"
 k8s_hosting_services_aws_region: us-east-1
 k8s_hosting_services_aws_access_key: AKIAQ4VHAAV5UM2FBDUB
 k8s_hosting_services_aws_secret_access_key: !vault |
