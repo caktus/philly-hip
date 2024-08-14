@@ -24,7 +24,7 @@ libsass
 phonenumberslite
 pdfid
 
-social-auth-app-django
+social-auth-app-django==5.4.2
 
 # Postgres
 psycopg2-binary==2.9.9

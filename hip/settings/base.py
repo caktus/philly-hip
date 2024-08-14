@@ -338,3 +338,9 @@ DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "no-reply@hip.caktus-built.
 # Notifies user in Wagtail Admin only of LTS versions
 # https://docs.wagtail.org/en/stable/reference/settings.html#wagtail-enable-update-check
 WAGTAIL_ENABLE_UPDATE_CHECK = "lts"
+
+# Patches a known bug with wagtailmenus, whereby a series
+# of warnings are displayed. Once this bug is fixed, the var
+# SILENCED_SYSTEM_CHECKS should be removed.
+# https://github.com/jazzband/wagtailmenus/issues/464#issuecomment-1839097355
+SILENCED_SYSTEM_CHECKS = ["wagtailadmin.W002"]

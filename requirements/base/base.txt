@@ -49,6 +49,7 @@ django==4.2.14
     #   django-taggit
     #   django-treebeard
     #   djangorestframework
+    #   social-auth-app-django
     #   wagtail
 django-appconf==1.0.4
     # via django-compressor
@@ -157,10 +158,9 @@ six==1.15.0
     #   l18n
     #   libsass
     #   python-dateutil
-    #   social-auth-app-django
-social-auth-app-django==4.0.0
+social-auth-app-django==5.4.2
     # via -r requirements/base/base.in
-social-auth-core==4.1.0
+social-auth-core==4.4.2
     # via social-auth-app-django
 soupsieve==2.2
     # via beautifulsoup4
