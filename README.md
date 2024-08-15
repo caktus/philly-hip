@@ -193,7 +193,7 @@ These instructions assume that you will be working with dockerized services.
 First add the following line to your `.env` file:
 
 ```sh
-(hip)$ echo "DATABASE_URL=postgres://postgres@127.0.0.1:5433/hip" >> .env
+(hip)$ echo "DATABASE_URL=postgres://postgres@127.0.0.1:5432/hip" >> .env
 ```
 
 The `docker-compose.yml` sets up environment variables in a file, ``.postgres``.
