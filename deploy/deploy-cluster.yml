@@ -10,7 +10,7 @@
   tasks:
     - name: Add AWS for fluent bit helm chart (centralized logging)
       tags: fluentbit
-      community.kubernetes.helm:
+      kubernetes.core.helm:
         context: "{{ k8s_context|mandatory }}"
         kubeconfig: "{{ k8s_kubeconfig }}"
         chart_repo_url: "https://aws.github.io/eks-charts"
@@ -29,7 +29,7 @@
         wait: yes
     - name: Create Amazon CloudWatch Metrics namespace
       tags: cloudwatch
-      community.kubernetes.k8s:
+      kubernetes.core.k8s:
         context: "{{ k8s_context|mandatory }}"
         kubeconfig: "{{ k8s_kubeconfig }}"
         name: "{{ k8s_aws_cloudwatch_metrics_namespace }}"
@@ -38,7 +38,7 @@
         state: present
     - name: Add AWS CloudWatch Metrics helm chart (monitoring)
       tags: cloudwatch
-      community.kubernetes.helm:
+      kubernetes.core.helm:
         context: "{{ k8s_context|mandatory }}"
         kubeconfig: "{{ k8s_kubeconfig }}"
         chart_repo_url: "https://aws.github.io/eks-charts"
@@ -54,6 +54,7 @@
       tags: cloudwatch
       amazon.aws.cloudwatch_metric_alarm:
         state: present
+        aws_profile: "{{ aws_profile }}"
         region: us-east-1
         name: "{{ item.name }}"
         description: "{{ item.description }}"
