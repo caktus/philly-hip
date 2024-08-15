@@ -11,7 +11,7 @@ To begin you should have the following applications installed on your local deve
 - [pip](http://www.pip-installer.org/) >= 20
 - [virtualenv](http://www.virtualenv.org/) >= 1.10
 - [virtualenvwrapper](http://pypi.python.org/pypi/virtualenvwrapper) >= 3.0
-- Postgres >= 11
+- Postgres >= 15
 - git >= 2.26
 
 
