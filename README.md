@@ -294,3 +294,32 @@ To reset your local database from a deployed environment:
 As mentioned in the Database setup instructions, you may need to visit 
 [/cms/sites](http://localhost:8000/cms/sites/) and change the first entry's 
 `Hostname` field to `localhost` to enable page previews in the Wagtail admin.
+
+### GitHub Actions Runner
+
+There are [GitHub Actions self-hosted runners](https://docs.github.com/en/actions/hosting-your-own-runners/about-self-hosted-runners) deployed on a virtual machine within the same VPC. Other runners may be added in the future, if needed.
+
+Setup instructions:
+
+* Obtain a [GitHub PAT](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with the `admin:org` scope that's valid for one week (it needs to be active only for the initial deployment). Add this to a local environment variable `RUNNER_CFG_PAT`:
+
+```sh
+export RUNNER_CFG_PAT="gh......"
+```
+
+* Run the playbook to deploy the runner:
+
+```sh
+ansible-playbook deploy-runner.yml
+```
+
+* The runner can be forcibly reinstalled by passing `-e force_reinstall=yes` or removed by passing `-e force_removal=yes`.
+
+Run OS updates:
+
+```sh
+cd deploy/
+ansible-playbook run-os-updates.yml
+# You may need to specify your username
+ansible-playbook -u myusername run-os-updates.yaml
+```
