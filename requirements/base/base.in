@@ -34,3 +34,5 @@ psycopg2-binary==2.9.9
 wagtail
 wagtailfontawesome
 wagtailmenus
+
+cffi==1.17.0

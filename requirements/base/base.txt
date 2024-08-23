@@ -19,8 +19,10 @@ botocore==1.34.104
     #   s3transfer
 certifi==2020.12.5
     # via requests
-cffi==1.14.5
-    # via cryptography
+cffi==1.17.0
+    # via
+    #   -r requirements/base/base.in
+    #   cryptography
 chardet==4.0.0
     # via requests
 cryptography==3.4.7
