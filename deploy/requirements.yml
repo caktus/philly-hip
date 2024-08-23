@@ -12,3 +12,6 @@
 - src: https://github.com/caktus/ansible-role-k8s-hosting-services
   name: caktus.k8s-hosting-services
   version: v0.12.0
+
+- src: weareinteractive.users
+  version: 1.17.0

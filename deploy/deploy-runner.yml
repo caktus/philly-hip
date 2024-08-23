@@ -107,36 +107,6 @@
       ansible.builtin.service:
         name: docker
         state: restarted
-    # Poetry
-    - name: Install Poetry dependencies
-      ansible.builtin.package:
-        name:
-          - acl
-          - python3-pip
-          - python3-venv
-    - name: Install pipx Python package
-      ansible.builtin.pip:
-        name: pipx
-    - name: Install poetry
-      community.general.pipx:
-        name: poetry
-        state: present
-      environment:
-        PIPX_HOME: /opt/pipx
-        PIPX_BIN_DIR: /usr/local/bin
-    - name: Install pipx
-      ansible.builtin.shell:
-        cmd: |
-          python3 -m pip install --user pipx
-          python3 -m pipx ensurepath
-        chdir: /home/{{ github_runner_user }}
-      become_user: "{{ github_runner_user }}"
-    - name: Install Poetry
-      ansible.builtin.shell:
-        cmd: |
-          pipx install poetry
-        chdir: /home/{{ github_runner_user }}
-      become_user: "{{ github_runner_user }}"
     - name: Install the runner [If error, RUNNER_CFG_PAT might be missing or expired! See README.md]
       ansible.builtin.shell:
         cmd: >
