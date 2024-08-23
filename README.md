@@ -310,6 +310,10 @@ export RUNNER_CFG_PAT="gh......"
 * Run the playbook to deploy the runner:
 
 ```sh
+cd deploy/
+# first time: connect as ubuntu user
+ansible-playbook -u ubuntu deploy-runner.yml
+# second time and beyond
 ansible-playbook deploy-runner.yml
 ```
 
