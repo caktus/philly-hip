@@ -38,6 +38,9 @@
           - curl
           - gnupg
           - lsb-release
+          - libpq-dev
+          - python3.10
+          - python3.10-dev
     - name: Add Docker's official GPG key
       ansible.builtin.apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
