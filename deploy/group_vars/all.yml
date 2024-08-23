@@ -11,11 +11,18 @@ stack_name: "{{ long_app_name }}-stack"
 aws_profile: "{{ long_app_name }}"
 cluster_name: "{{ stack_name }}-cluster"
 
-ansible_connection: local
-ansible_python_interpreter: "{{ ansible_playbook_python }}"
+# ansible_connection: local
+# ansible_python_interpreter: "{{ ansible_playbook_python }}"
 
 k8s_cluster_name: "{{ cluster_name }}"
 k8s_namespace: "{{ app_name }}-{{ env_name }}" 
+
+# IP addresses
+administrator_ip_cidrs:
+  - 70.62.97.170/32  # Caktus office
+  - 107.15.45.253/32  # Tobias
+  - 47.230.11.28/32  # Ronard
+  - 107.223.185.195/32  # Colin
 
 # CloudFormation Outputs
 # These values are taken from the CF 'Output' tab
@@ -45,12 +52,17 @@ cloudformation_stack:
   region: "{{ aws_region }}"
   stack_name: "{{ stack_name }}"
   template_bucket: "aws-web-stacks-{{ app_name }}"
-  template_local_path: '{{ playbook_dir + "/stack/eks-no-nat.yml" }}'
+  template_local_path: '{{ playbook_dir + "/stack/eks-nat.yml" }}'
   create_changeset: true
   termination_protection: true
 
   template_parameters:
     UseAES256Encryption: "true"
+    AdministratorIPAddress: "{{ administrator_ip_cidrs[0] }}"  # Stack allows only single IP here to SSH to bastion
+    BastionAMI: "ami-0ad554caf874569d2" # https://cloud-images.ubuntu.com/locator/ec2/ [us-east-1 amd64]
+    BastionKeyName: rluna_hip
+    BastionInstanceType: t3.small # Is this a proper size?
+    BastionType: SSH
     CustomerManagedCmkArn: ""
     DomainName: "{{ app_name }}-prod.caktus-built.com"
     DomainNameAlternates: ""
@@ -68,6 +80,8 @@ cloudformation_stack:
     DatabaseUser: "{{ app_name }}_admin"
     DatabasePassword: "{{ admin_database_password }}"
     DatabaseMultiAZ: "true"
+    EksClusterName: "philly-hip-stack-cluster"
+    EksPublicAccessCidrs: " {{ administrator_ip_cidrs | join(',') }}"
   tags:
     Environment: "{{ app_name }}"
 
