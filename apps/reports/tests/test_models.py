@@ -74,14 +74,12 @@ def test_datareportslistpage_context_only_external_reports(db, rf):
         "update_frequency": "Monthly",
         "last_updated": date(year=2021, month=1, day=1),
     }
-
     external_report_hep_a = {
         "title": "Hepatitis A Report",
         "url": "https://example.com/hep-a",
         "update_frequency": "Annually",
         "last_updated": "2020-01-01",
     }
-
     reports_list_page = DataReportListPageFactory(
         external_reports=[
             ("external_reports", external_report_hiv),
@@ -91,14 +89,9 @@ def test_datareportslistpage_context_only_external_reports(db, rf):
     context = reports_list_page.get_context(rf.get("/someurl/"))
 
     expected_result_hep_a = external_report_hep_a.copy()
-    expected_result_hep_a["last_updated"] = date(
-        year=2020, month=1, day=1
-    )  # format date to be the expected type
+    expected_result_hep_a["last_updated"] = date(year=2020, month=1, day=1)
     expected_result_hiv = external_report_hiv.copy()
-    expected_result_hiv["last_updated"] = date(
-        year=2021, month=1, day=1
-    )  # format date to be the expected type
-    # The results should be data for the external reports alphabetical order.
+    expected_result_hiv["last_updated"] = date(year=2021, month=1, day=1)
     context_hep_a = context["reports"][0]
     context_hiv = context["reports"][1]
     del context_hep_a["external"]
@@ -116,10 +109,19 @@ def test_datareportslistpage_context_internal_and_external_reports(db, rf):
         "update_frequency": "Sometime",
         "last_updated": "2021-01-01",
     }
+    external_reports_data = [
+        {
+            "type": "external_reports",
+            "value": {
+                "title": external_report_hiv["title"],
+                "url": external_report_hiv["url"],
+                "update_frequency": external_report_hiv["update_frequency"],
+                "last_updated": external_report_hiv["last_updated"],
+            },
+        },
+    ]
     reports_list_page = DataReportListPageFactory(
-        external_reports=[
-            ("external_reports", external_report_hiv),
-        ]
+        external_reports=external_reports_data
     )
     # Create  some internal reports (DataReportDetailPages) for the DataReportListPage.
     tuberculosis = DiseaseAndConditionDetailPageFactory(title="Tuberculosis")

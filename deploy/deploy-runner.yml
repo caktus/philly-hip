@@ -1,0 +1,125 @@
+---
+- hosts: runner
+  become: yes
+  tags: base
+  roles:
+    - caktus.hosting_services.users
+  tasks:
+    - name: Set hostname
+      hostname:
+        name: "{{ inventory_hostname_short }}"
+      when: inventory_hostname_short is defined and inventory_hostname_short
+    - name: Add new hostname to /etc/hosts
+      lineinfile:
+        path: /etc/hosts
+        regexp: '^127\.0\.1\.1'
+        line: '127.0.1.1 {{ inventory_hostname_short }}'
+        owner: root
+        group: root
+        mode: 0644
+      when: inventory_hostname_short is defined and inventory_hostname_short
+
+- name: Install GitHub Actions Runner
+  hosts: runner
+  tags: runner
+  become: yes
+  tasks:
+    - name: Create runner user
+      ansible.builtin.user:
+        name: "{{ github_runner_user }}"
+        comment: Github Actions Runner
+    # Install Docker
+    # https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
+    - name: Install dependencies
+      ansible.builtin.package:
+        name:
+          - jq
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+          - libpq-dev
+          - python3.10
+          - python3.10-dev
+    - name: Add Docker's official GPG key
+      ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+    - name: Add Docker repository
+      ansible.builtin.apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+        state: present
+    - name: Install Docker Engine
+      ansible.builtin.package:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        update_cache: yes
+    - name: Task name
+      stat:
+        path: /home/{{ github_runner_user }}/runner
+      register: runner_dir
+    - name: Set vars
+      set_fact:
+        run_removal_tasks: >-
+          {{
+            runner_dir.stat.exists
+            and (
+              (force_reinstall is defined and force_reinstall == "yes")
+              or (force_removal is defined and force_removal == "yes")
+            )
+          }}
+    # Various complicated Ansible roles exist, but this just works:
+    # https://github.com/actions/runner/blob/main/docs/automate.md
+    - name: Remove the runner
+      ansible.builtin.shell:
+        cmd: >
+          curl -s https://raw.githubusercontent.com/actions/runner/main/scripts/remove-svc.sh
+          | bash -s {{ github_scope }}
+        chdir: /home/{{ github_runner_user }}
+      environment:
+        RUNNER_CFG_PAT: "{{ github_pat }}"
+      when: run_removal_tasks
+      ignore_errors: True
+    - name: Delete the runner
+      ansible.builtin.shell:
+        cmd: >
+          curl -s https://raw.githubusercontent.com/actions/runner/main/scripts/delete.sh
+          | bash -s {{ github_scope }} {{ github_runner_name }}
+        chdir: /home/{{ github_runner_user }}
+      environment:
+        RUNNER_CFG_PAT: "{{ github_pat }}"
+      when: run_removal_tasks
+      ignore_errors: True
+    - name: Remove old runner directory and files
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /home/{{ github_runner_user }}/runner
+      when: run_removal_tasks
+    - name: Add user '{{ github_runner_user }}' to group docker
+      user:
+        name: "{{ github_runner_user }}"
+        groups: docker
+        append: yes
+    - name: Restart docker service
+      ansible.builtin.service:
+        name: docker
+        state: restarted
+    - name: Install the runner [If error, RUNNER_CFG_PAT might be missing or expired! See README.md]
+      ansible.builtin.shell:
+        cmd: >
+          curl -s https://raw.githubusercontent.com/actions/runner/main/scripts/create-latest-svc.sh
+          | bash -s --
+          -s {{ github_scope }}
+          -n {{ github_runner_name }}
+          -l {{ github_runner_location }},self-hosted
+          -u {{ github_runner_user }}
+        chdir: /home/{{ github_runner_user }}
+      environment:
+        RUNNER_CFG_PAT: "{{ github_pat }}"
+      when: (not runner_dir.stat.exists) or (force_reinstall is defined and force_reinstall=="yes")
