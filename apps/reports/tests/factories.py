@@ -8,7 +8,6 @@ from .. import models
 
 class ExternalReportBlockFactory(wagtail_factories.StructBlockFactory):
     title = "title here"
-    # title = factory.faker.Faker("word")
     url = factory.faker.Faker("url")
     update_frequency = random.choice(
         ["Annually", "Warterly", "Monthly", "Weekly", "all the time!!!"]

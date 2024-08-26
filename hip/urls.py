@@ -1,8 +1,7 @@
 from django.conf import settings
-from django.conf.urls import include
 from django.contrib import admin
 from django.contrib.auth import views as django_auth_views
-from django.urls import path
+from django.urls import include, path
 
 from social_django import urls as social_django_urls
 from wagtail import urls as wagtail_urls

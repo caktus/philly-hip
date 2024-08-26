@@ -7,7 +7,9 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-20.04
+    runs-on:
+      - self-hosted
+      - philly-hip
     env:
       DJANGO_SETTINGS_MODULE: hip.settings.dev
     services:
