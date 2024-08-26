@@ -7,7 +7,7 @@ django_model_utils
 dj-database-url
 django-model-utils
 django-storages
-django-compressor
+django-compressor==4.5.1
 django-taggit
 django-ipware
 django-import-export
@@ -34,4 +34,6 @@ psycopg2-binary==2.9.9
 wagtail==5.2.6
 wagtailmenus
 
+# Delete once deploy is successful
 cffi==1.17.0
+rcssmin==1.1.2

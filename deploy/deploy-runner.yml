@@ -39,6 +39,7 @@
           - gnupg
           - lsb-release
           - libpq-dev
+          - libffi-dev
           - python3.10
           - python3.10-dev
     - name: Add Docker's official GPG key
