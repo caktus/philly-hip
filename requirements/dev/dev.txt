@@ -16,9 +16,11 @@ anyascii==0.1.7
     #   wagtail
 anyio==3.7.1
     # via jupyter-server
-appnope==0.1.2
-    # via -r requirements/dev/dev.in
-argon2-cffi==20.1.0
+appnope==0.1.4
+    # via
+    #   -r requirements/dev/dev.in
+    #   ipykernel
+argon2-cffi==23.1.0
     # via
     #   jupyter-server
     #   nbclassic
