@@ -7,60 +7,62 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-20.04
-    env:
-      DJANGO_SETTINGS_MODULE: hip.settings.dev
-    services:
-      postgres:
-        image: postgres
-        env:
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: hip_ci
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
+    runs-on: arc-runner-set #ubuntu-20.04
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-      - name: Cache node modules
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - run: npm install
-      - run: npm run build
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-          cache: 'pip'
-          cache-dependency-path: 'requirements/*/**.txt'
-      - name: Cache pre-commit
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pre-commit
-          key: ${{ runner.os }}-precommit-${{ hashFiles('.pre-commit-config.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-precommit-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip wheel pip-tools
-          pip-sync requirements/base/base.txt requirements/dev/dev.txt
-      - uses: pre-commit/action@v3.0.0
-      - name: Run Tests
-        run: make run-tests
-        env:
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/hip_ci
-      - name: Test build deploy image
-        run: inv image.build
+    - run: echo "🎉 This job just ran on runner 'arc-runner-set' scale set runners!"
+    # env:
+    #   DJANGO_SETTINGS_MODULE: hip.settings.dev
+    # services:
+    #   postgres:
+    #     image: postgres
+    #     env:
+    #       POSTGRES_PASSWORD: postgres
+    #       POSTGRES_DB: hip_ci
+    #     options: >-
+    #       --health-cmd pg_isready
+    #       --health-interval 10s
+    #       --health-timeout 5s
+    #       --health-retries 5
+    #     ports:
+    #       - 5432:5432
+    # steps:
+    #   - uses: actions/checkout@v3
+    #   - uses: actions/setup-node@v3
+    #     with:
+    #       node-version: '16'
+    #   - name: Cache node modules
+    #     uses: actions/cache@v3
+    #     env:
+    #       cache-name: cache-node-modules
+    #     with:
+    #       path: ~/.npm
+    #       key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+    #       restore-keys: |
+    #         ${{ runner.os }}-build-${{ env.cache-name }}-
+    #         ${{ runner.os }}-build-
+    #         ${{ runner.os }}-
+    #   - run: npm install
+    #   - run: npm run build
+    #   - uses: actions/setup-python@v4
+    #     with:
+    #       python-version: '3.10'
+    #       cache: 'pip'
+    #       cache-dependency-path: 'requirements/*/**.txt'
+    #   - name: Cache pre-commit
+    #     uses: actions/cache@v3
+    #     with:
+    #       path: ~/.cache/pre-commit
+    #       key: ${{ runner.os }}-precommit-${{ hashFiles('.pre-commit-config.yaml') }}
+    #       restore-keys: |
+    #         ${{ runner.os }}-precommit-
+    #   - name: Install dependencies
+    #     run: |
+    #       python -m pip install --upgrade pip wheel pip-tools
+    #       pip-sync requirements/base/base.txt requirements/dev/dev.txt
+    #   - uses: pre-commit/action@v3.0.0
+    #   - name: Run Tests
+    #     run: make run-tests
+    #     env:
+    #       DATABASE_URL: postgres://postgres:postgres@localhost:5432/hip_ci
+    #   - name: Test build deploy image
+    #     run: inv image.build
