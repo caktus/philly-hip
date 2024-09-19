@@ -39,7 +39,7 @@ jobs:
             ENV="production" ||
             ENV="staging"
           echo "env is $ENV"
-          inv $ENV image push --verbosity=0
+          inv $ENV image.push --verbosity=0
       - uses: act10ns/slack@v1
         with:
           status: ${{ job.status }}
@@ -48,6 +48,7 @@ jobs:
         if: always()
   deploy:
     runs-on: arc-runner-set # K8s self-hosted runner
+    needs: [build-push]
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
