@@ -9,7 +9,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: arc-runner-set
+    runs-on: arc-runner-set # K8s self hosted runner
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -27,7 +27,7 @@ jobs:
         id: pip-install
         run: |
           python -m pip install --upgrade pip wheel pip-tools
-          pip-sync requirements/base/base.txt requirements/dev/dev.txt
+          pip-sync requirements/dev/dev.txt
       - name: Login to Docker
         id: docker-login
         run: |

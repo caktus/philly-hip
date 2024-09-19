@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    runs-on: arc-runner-set
+    runs-on: arc-runner-set # K8s self hosted runner
     env:
       DJANGO_SETTINGS_MODULE: hip.settings.dev
     services:
