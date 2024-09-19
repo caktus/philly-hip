@@ -33,7 +33,9 @@ jobs:
         run: |
           inv aws.docker-login
       - shell: bash
+        # https://github.com/caktus/invoke-kubesae/blob/main/kubesae/image.py#L24C24-L24C42
         run: |
+          git status --short
           inv image.tag | grep 'Set config.tag to' | cut -d' ' -f4 > docker-tag.txt
       - name: Set variables
         run: |
