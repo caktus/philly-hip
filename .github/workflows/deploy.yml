@@ -32,7 +32,7 @@ jobs:
         id: docker-login
         run: |
           inv aws.docker-login
-      - name: Build, tag, push, and deploy image
+      - name: Build, tag, and push image
         id: build-tag-push
         run: |
           [ "$GITHUB_REF" = refs/heads/main ] &&
@@ -40,12 +40,17 @@ jobs:
             ENV="staging"
           echo "env is $ENV"
           inv $ENV image.push
-      - uses: act10ns/slack@v1
+      - shell: bash
+        run: |
+          inv image.tag | grep 'Set config.tag to' | cut -d' ' -f4 > docker-tag.txt
+      - name: Upload docker tag from build-push job
+        uses: actions/upload-artifact@v4
         with:
-          status: ${{ job.status }}
-          steps: ${{ toJson(steps) }}
-        # always() means to notify regardless of status
-        if: always()
+          name: docker_tag
+          path: docker-tag.txt
+
+  # The deploy needs to run from within the cluster, since the cluster
+  # is not exposed to the public internet
   deploy:
     runs-on: arc-runner-set # K8s self-hosted runner
     needs: [build-push]
@@ -57,6 +62,14 @@ jobs:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
       - uses: actions/checkout@v3
+      - name: Download docker tag from build-push job
+        uses: actions/download-artifact@v4
+        with:
+          name: docker_tag
+      - name: Set variables
+        run: |
+          DOCKER_TAG=$(cat docker-tag.txt)
+          echo "DOCKER_TAG=$DOCKER_TAG" >> $GITHUB_ENV
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
@@ -67,3 +80,17 @@ jobs:
         run: |
           python -m pip install --upgrade pip wheel pip-tools
           pip-sync requirements/dev/dev.txt
+      - name: Deploy the image
+        id: deploy
+        run: |
+          [ "$GITHUB_REF" = refs/heads/main ] &&
+            ENV="production" ||
+            ENV="staging"
+          echo "env is $ENV"
+          inv $ENV deploy --tag=${{ env.DOCKER_TAG }}
+      - uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status }}
+          steps: ${{ toJson(steps) }}
+        # always() means to notify regardless of status
+        if: always()
