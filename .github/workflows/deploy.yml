@@ -32,7 +32,7 @@ jobs:
         id: docker-login
         run: |
           inv aws.docker-login
-      - name: Set variables
+      - name: Set DOCKER_TAG and save to file for artifact upload
         run: |
           DOCKER_TAG=$(inv image.tag | grep 'Set config.tag to' | cut -d' ' -f4)
           echo "DOCKER_TAG=$DOCKER_TAG" >> $GITHUB_ENV
@@ -44,7 +44,7 @@ jobs:
             ENV="production" ||
             ENV="staging"
           echo "env is $ENV"
-          inv $ENV image.push --tag=${{ env.DOCKER_TAG }}
+          inv $ENV image.build --tag=${{ env.DOCKER_TAG }} image.push --tag=${{ env.DOCKER_TAG }}
       - name: Upload docker tag from build-push job
         uses: actions/upload-artifact@v4
         with:
