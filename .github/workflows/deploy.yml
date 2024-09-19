@@ -32,15 +32,11 @@ jobs:
         id: docker-login
         run: |
           inv aws.docker-login
-      - shell: bash
-        # https://github.com/caktus/invoke-kubesae/blob/main/kubesae/image.py#L24C24-L24C42
-        run: |
-          git status --short
-          inv image.tag | grep 'Set config.tag to' | cut -d' ' -f4 > docker-tag.txt
       - name: Set variables
         run: |
-          DOCKER_TAG=$(cat docker-tag.txt)
+          DOCKER_TAG=$(inv image.tag | grep 'Set config.tag to' | cut -d' ' -f4)
           echo "DOCKER_TAG=$DOCKER_TAG" >> $GITHUB_ENV
+          echo "$DOCKER_TAG" > docker-tag.txt
       - name: Build, tag, and push image
         id: build-tag-push
         run: |
