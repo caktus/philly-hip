@@ -32,6 +32,13 @@ jobs:
         id: docker-login
         run: |
           inv aws.docker-login
+      - shell: bash
+        run: |
+          inv image.tag | grep 'Set config.tag to' | cut -d' ' -f4 > docker-tag.txt
+      - name: Set variables
+        run: |
+          DOCKER_TAG=$(cat docker-tag.txt)
+          echo "DOCKER_TAG=$DOCKER_TAG" >> $GITHUB_ENV
       - name: Build, tag, and push image
         id: build-tag-push
         run: |
@@ -39,10 +46,7 @@ jobs:
             ENV="production" ||
             ENV="staging"
           echo "env is $ENV"
-          inv $ENV image.push
-      - shell: bash
-        run: |
-          inv image.tag | grep 'Set config.tag to' | cut -d' ' -f4 > docker-tag.txt
+          inv $ENV image.push --tag=${{ env.DOCKER_TAG }}
       - name: Upload docker tag from build-push job
         uses: actions/upload-artifact@v4
         with:
