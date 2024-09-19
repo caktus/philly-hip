@@ -8,8 +8,8 @@ on:
       - CU-8689pdzrr-k8s-self-hosted-runner
 
 jobs:
-  deploy:
-    runs-on: arc-runner-set # K8s self hosted runner
+  build-push:
+    runs-on: ubuntu-22.04 # standard (not self-hosted) runner
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -23,10 +23,6 @@ jobs:
           python-version: '3.10'
           cache: 'pip'
           cache-dependency-path: 'requirements/*/dev.txt'
-      - name: Install apt packages
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y git
       - name: Install dependencies
         id: pip-install
         run: |
@@ -37,16 +33,36 @@ jobs:
         run: |
           inv aws.docker-login
       - name: Build, tag, push, and deploy image
-        id: build-tag-push-deploy
+        id: build-tag-push
         run: |
           [ "$GITHUB_REF" = refs/heads/main ] &&
             ENV="production" ||
             ENV="staging"
           echo "env is $ENV"
-          inv $ENV image deploy --verbosity=0
+          inv $ENV image push --verbosity=0
       - uses: act10ns/slack@v1
         with:
           status: ${{ job.status }}
           steps: ${{ toJson(steps) }}
         # always() means to notify regardless of status
         if: always()
+  deploy:
+    runs-on: arc-runner-set # K8s self-hosted runner
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+      # https://github.com/marketplace/actions/slack-github-actions-slack-integration
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+          cache-dependency-path: 'requirements/*/dev.txt'
+      - name: Install dependencies
+        id: pip-install
+        run: |
+          python -m pip install --upgrade pip wheel pip-tools
+          pip-sync requirements/dev/dev.txt
