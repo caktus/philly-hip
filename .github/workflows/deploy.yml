@@ -50,7 +50,10 @@ jobs:
           path: docker-tag.txt
 
   # The deploy needs to run from within the cluster, since the cluster
-  # is not exposed to the public internet
+  # is not exposed to the public internet. This step is split out into
+  # its own job to reduce the amount of work done on the self-hosted runner
+  # and avoid the need to run a privileged docker container (with the
+  # capability of building a docker container itself).
   deploy:
     runs-on: arc-runner-set # K8s self-hosted runner
     needs: [build-push]
@@ -70,6 +73,10 @@ jobs:
         run: |
           DOCKER_TAG=$(cat docker-tag.txt)
           echo "DOCKER_TAG=$DOCKER_TAG" >> $GITHUB_ENV
+      - name: Install apt packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
