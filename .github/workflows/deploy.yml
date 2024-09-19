@@ -39,7 +39,7 @@ jobs:
             ENV="production" ||
             ENV="staging"
           echo "env is $ENV"
-          inv $ENV image.push --verbosity=0
+          inv $ENV image.push
       - uses: act10ns/slack@v1
         with:
           status: ${{ job.status }}
