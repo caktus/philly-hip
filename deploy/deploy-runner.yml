@@ -28,6 +28,8 @@
       ansible.builtin.user:
         name: "{{ github_runner_user }}"
         comment: Github Actions Runner
+        state: absent 
+
     # Install Docker
     # https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
     - name: Install dependencies
@@ -58,6 +60,8 @@
           - docker-buildx-plugin
           - docker-compose-plugin
         update_cache: yes
+        state: absent
+
     - name: Task name
       stat:
         path: /home/{{ github_runner_user }}/runner
@@ -106,10 +110,13 @@
         name: "{{ github_runner_user }}"
         groups: docker
         append: yes
+        state: absent 
+
     - name: Restart docker service
       ansible.builtin.service:
         name: docker
-        state: restarted
+        state: stopped
+
     - name: Install the runner [If error, RUNNER_CFG_PAT might be missing or expired! See README.md]
       ansible.builtin.shell:
         cmd: >

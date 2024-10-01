@@ -1,0 +1,66 @@
+---
+- name: Remove GitHub Actions Runner
+  hosts: runner
+  become: yes
+  tags: runner_removal
+  tasks:
+    - name: Stop the runner service
+      ansible.builtin.shell:
+        cmd: >
+          curl -s https://raw.githubusercontent.com/actions/runner/main/scripts/remove-svc.sh
+          | bash -s {{ github_scope }}
+        chdir: /home/{{ github_runner_user }}
+      environment:
+        RUNNER_CFG_PAT: "{{ github_pat }}"
+      ignore_errors: True
+
+    - name: Delete the runner from GitHub (Unregister)
+      ansible.builtin.shell:
+        cmd: >
+          curl -s https://raw.githubusercontent.com/actions/runner/main/scripts/delete.sh
+          | bash -s {{ github_scope }} {{ github_runner_name }}
+        chdir: /home/{{ github_runner_user }}
+      environment:
+        RUNNER_CFG_PAT: "{{ github_pat }}"
+      ignore_errors: True
+
+    - name: Remove runner directory and files
+      ansible.builtin.file:
+        path: "/home/{{ github_runner_user }}/runner"
+        state: absent
+      ignore_errors: True
+
+    - name: Uninstall Docker packages
+      ansible.builtin.package:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        state: absent
+      ignore_errors: True
+
+    - name: Remove Docker GPG key
+      ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: absent
+      ignore_errors: True
+
+    - name: Remove Docker repository
+      ansible.builtin.apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+        state: absent
+      ignore_errors: True
+
+    - name: Remove GitHub runner user
+      ansible.builtin.user:
+        name: "{{ github_runner_user }}"
+        state: absent
+      ignore_errors: True
+
+    - name: Remove docker group
+      ansible.builtin.group:
+        name: docker
+        state: absent
+      ignore_errors: True
