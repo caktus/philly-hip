@@ -1,0 +1,31 @@
+---
+- name: Install Actions Runner Controller and configure runner scale set
+  hosts: cluster
+  vars:
+    ansible_connection: local
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+  gather_facts: false
+  tasks:
+    - name: Installing Actions Runner Controller
+      kubernetes.core.helm:
+        context: "{{ k8s_context|mandatory }}"
+        kubeconfig: "{{ k8s_kubeconfig }}"
+        chart_ref: oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set-controller
+        release_name: arc
+        release_namespace: arc-systems
+        create_namespace: true
+        wait: yes
+
+    - name: Configuring a runner scale set
+      kubernetes.core.helm:
+        context: "{{ k8s_context|mandatory }}"
+        kubeconfig: "{{ k8s_kubeconfig }}"
+        chart_ref: oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set
+        release_name: arc-runner-set
+        release_namespace: arc-runners
+        create_namespace: true
+        release_values:
+          githubConfigUrl: "https://github.com/<your_enterprise/org/repo>"
+          githubConfigSecret:
+            github_token: "<PAT>"
+        wait: yes
