@@ -168,7 +168,7 @@ env_email_host_pass: !vault |
   3561616461636134373033316665613035303736646133613630
 
 # Azure SSO settings
-azure_client_id: "f0629cf8-f6f4-4142-94c3-11b8beaaa510"
+azure_client_id: "39459c9f-77b3-4fae-942c-7ef9fbf1332c"
 azure_tenant_id: "2046864f-68ea-497d-af34-a6629a6cd700"
 azure_client_secret: !vault |
   $ANSIBLE_VAULT;1.1;AES256
