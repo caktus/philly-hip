@@ -4,28 +4,44 @@
   vars:
     ansible_connection: local
     ansible_python_interpreter: "{{ ansible_playbook_python }}"
+    runner_namespace: github-runner
+    chart_version: "0.9.3"
   gather_facts: false
   tasks:
+    # https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/quickstart-for-actions-runner-controller
+    #
+    # Ansible task to automate:
+    # helm install arc \                      
+    # --namespace "${NAMESPACE}" \
+    # --create-namespace \
+    # oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set-controller
     - name: Installing Actions Runner Controller
       kubernetes.core.helm:
         context: "{{ k8s_context|mandatory }}"
-        kubeconfig: "{{ k8s_kubeconfig }}"
         chart_ref: oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set-controller
+        chart_version: "{{ chart_version }}"
         release_name: arc
-        release_namespace: arc-systems
+        release_namespace: "{{ runner_namespace }}"
         create_namespace: true
         wait: yes
 
+    # Ansible task to automate:
+    # helm install "${INSTALLATION_NAME}" \
+    # --namespace "${NAMESPACE}" \
+    # --create-namespace \
+    # --set githubConfigUrl="https://github.com/caktus/philly-hip" \
+    # --set githubConfigSecret.github_token="${RUNNER_CFG_PAT}" \
+    # oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set
     - name: Configuring a runner scale set
       kubernetes.core.helm:
         context: "{{ k8s_context|mandatory }}"
-        kubeconfig: "{{ k8s_kubeconfig }}"
         chart_ref: oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set
+        chart_version: "{{ chart_version }}"
         release_name: arc-runner-set
-        release_namespace: arc-runners
+        release_namespace: "{{ runner_namespace }}"
         create_namespace: true
         release_values:
-          githubConfigUrl: "https://github.com/<your_enterprise/org/repo>"
+          githubConfigUrl: "https://github.com/caktus/philly-hip"
           githubConfigSecret:
-            github_token: "<PAT>"
+            github_token: "{{ lookup('env', 'RUNNER_CFG_PAT') }}"
         wait: yes
