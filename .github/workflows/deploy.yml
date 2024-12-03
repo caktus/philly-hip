@@ -96,8 +96,8 @@ jobs:
           [ "$GITHUB_REF" = refs/heads/main ] &&
             ENV="production" ||
             ENV="staging"
-          echo "env is $ENV"
-          inv $ENV deploy --tag=${{ env.DOCKER_TAG }}
+          echo "env is $ENV" --verbosity=0
+          inv $ENV deploy --tag=${{ env.DOCKER_TAG }} --verbosity=0
       - uses: act10ns/slack@v1
         with:
           status: ${{ job.status }}
