@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - develop
+      - CU-8689pdzrr-k8s-self-hosted-runner
 
 jobs:
   build-push:
