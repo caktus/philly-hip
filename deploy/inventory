@@ -1,3 +1,5 @@
+runner ansible_host=100.29.176.240
+
 [k8s]
 dr
 staging

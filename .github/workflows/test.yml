@@ -2,13 +2,12 @@ name: Lint and Test code
 
 on:
   pull_request:
-  schedule:
-    # run once a week on early monday mornings
-    - cron: '22 2 * * 1'
+  push:
+    branches: [main, develop]
 
 jobs:
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04 # standard (not self-hosted) runner
     env:
       DJANGO_SETTINGS_MODULE: hip.settings.dev
     services:

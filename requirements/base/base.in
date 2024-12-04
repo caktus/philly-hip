@@ -18,8 +18,8 @@ django-sass-processor
 django-phonenumber-field
 django-honeypot
 whitenoise
-boto3==1.28.4
-botocore==1.31.4
+boto3==1.34.104
+botocore==1.34.104
 libsass
 phonenumberslite
 pdfid
@@ -27,10 +27,12 @@ pdfid
 social-auth-app-django
 
 # Postgres
-psycopg2-binary
+psycopg2-binary==2.9.9
 
 
 # Wagtail
 wagtail
 wagtailfontawesome
 wagtailmenus
+
+cffi==1.17.0

@@ -7,8 +7,8 @@ on:
       - develop
 
 jobs:
-  deploy:
-    runs-on: ubuntu-20.04
+  build-push:
+    runs-on: ubuntu-22.04 # standard (not self-hosted) runner
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -21,24 +21,82 @@ jobs:
         with:
           python-version: '3.10'
           cache: 'pip'
-          cache-dependency-path: 'requirements/*/**.txt'
+          cache-dependency-path: 'requirements/*/dev.txt'
       - name: Install dependencies
         id: pip-install
         run: |
           python -m pip install --upgrade pip wheel pip-tools
-          pip-sync requirements/base/base.txt requirements/dev/dev.txt
+          pip-sync requirements/dev/dev.txt
       - name: Login to Docker
         id: docker-login
         run: |
           inv aws.docker-login
-      - name: Build, tag, push, and deploy image
-        id: build-tag-push-deploy
+      - name: Set DOCKER_TAG and save to file for artifact upload
+        run: |
+          DOCKER_TAG=$(inv image.tag | grep 'Set config.tag to' | cut -d' ' -f4)
+          echo "DOCKER_TAG=$DOCKER_TAG" >> $GITHUB_ENV
+          echo "$DOCKER_TAG" > docker-tag.txt
+      - name: Build, tag, and push image
+        id: build-tag-push
         run: |
           [ "$GITHUB_REF" = refs/heads/main ] &&
             ENV="production" ||
             ENV="staging"
           echo "env is $ENV"
-          inv $ENV image deploy --verbosity=0
+          export BUILDKIT_PROGRESS=plain
+          inv $ENV image.build --tag=${{ env.DOCKER_TAG }} image.push --tag=${{ env.DOCKER_TAG }}
+      - name: Upload docker tag from build-push job
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker_tag
+          path: docker-tag.txt
+
+  # The deploy needs to run from within the cluster, since the cluster
+  # is not exposed to the public internet. This step is split out into
+  # its own job to reduce the amount of work done on the self-hosted runner
+  # and avoid the need to run a privileged docker container (with the
+  # capability of building a docker container itself).
+  deploy:
+    runs-on: arc-runner-set # K8s self-hosted runner
+    needs: [build-push]
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+      # https://github.com/marketplace/actions/slack-github-actions-slack-integration
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download docker tag from build-push job
+        uses: actions/download-artifact@v4
+        with:
+          name: docker_tag
+      - name: Set variables
+        run: |
+          DOCKER_TAG=$(cat docker-tag.txt)
+          echo "DOCKER_TAG=$DOCKER_TAG" >> $GITHUB_ENV
+      - name: Install apt packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+          cache-dependency-path: 'requirements/*/dev.txt'
+      - name: Install dependencies
+        id: pip-install
+        run: |
+          python -m pip install --upgrade pip wheel pip-tools
+          pip-sync requirements/dev/dev.txt
+      - name: Deploy the image
+        id: deploy
+        run: |
+          [ "$GITHUB_REF" = refs/heads/main ] &&
+            ENV="production" ||
+            ENV="staging"
+          echo "env is $ENV" --verbosity=0
+          inv $ENV deploy --tag=${{ env.DOCKER_TAG }} --verbosity=0
       - uses: act10ns/slack@v1
         with:
           status: ${{ job.status }}
