@@ -8,7 +8,7 @@ ipython
 jupyterlab
 
 # deploy
-ansible==9.5.1
+ansible==10.2.0
 invoke-kubesae==0.1.0
 
 # AWS tools
@@ -33,7 +33,7 @@ django-debug-toolbar
 factory_boy
 
 
-pytest
+pytest==8.3.1
 pytest-cov
 pytest-django
 pytest-factoryboy
