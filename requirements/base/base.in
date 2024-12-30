@@ -34,6 +34,4 @@ psycopg2-binary==2.9.9
 wagtail==5.2.6
 wagtailmenus
 
-# Delete once deploy is successful
 cffi==1.17.0
-rcssmin==1.1.2

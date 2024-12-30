@@ -120,11 +120,7 @@ pdfid==1.0.4
 phonenumberslite==8.12.18
     # via -r requirements/base/base.in
 pillow==9.3.0
-    # via
-    #   pillow-heif
-    #   wagtail
-pillow-heif==0.15.0
-    # via willow
+    # via wagtail
 psycopg2-binary==2.9.9
     # via -r requirements/base/base.in
 pycparser==2.20
