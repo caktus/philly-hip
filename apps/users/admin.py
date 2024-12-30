@@ -18,6 +18,7 @@ class UserResourceBlackList(ModelResource):
         exclude = ("password",)
 
 
+@admin.register(User)
 class CustomUserAdmin(ExportMixin, UserAdmin):
     resource_class = UserResourceBlackList
 
@@ -48,6 +49,3 @@ class CustomUserAdmin(ExportMixin, UserAdmin):
     add_fieldsets = (
         (None, {"classes": ("wide",), "fields": ("email", "password1", "password2")}),
     )
-
-
-admin.site.register(User, CustomUserAdmin)

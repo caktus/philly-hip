@@ -1,13 +1,13 @@
 # base.in
 
-django
+django==4.2.14
 django-dotenv
 django_extensions
 django_model_utils
 dj-database-url
 django-model-utils
 django-storages
-django-compressor
+django-compressor==4.5.1
 django-taggit
 django-ipware
 django-import-export
@@ -24,15 +24,14 @@ libsass
 phonenumberslite
 pdfid
 
-social-auth-app-django
+social-auth-app-django==5.4.2
 
 # Postgres
 psycopg2-binary==2.9.9
 
 
 # Wagtail
-wagtail
-wagtailfontawesome
+wagtail==5.2.6
 wagtailmenus
 
 cffi==1.17.0

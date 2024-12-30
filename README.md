@@ -4,9 +4,9 @@
 ## ✏️ **Develop**
 To begin you should have the following applications installed on your local development system:
 
-- Python >= 3.10
-- NodeJS == 16.13.x
-- npm == 8.1.x (comes with node 16)
+- Python >= 3.11
+- NodeJS == 20.5.x
+- npm == 9.8.x (comes with node 16)
 - [nvm](https://github.com/nvm-sh/nvm/blob/master/README.md) is not strictly _required_, but will almost certainly be necessary unless you just happen to have Node.js 16.x installed on your machine.
 - [pip](http://www.pip-installer.org/) >= 20
 - [virtualenv](http://www.virtualenv.org/) >= 1.10

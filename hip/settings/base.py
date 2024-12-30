@@ -65,7 +65,6 @@ INSTALLED_APPS += [
     "wagtail",
     "modelcluster",
     # Full list of icons available @ https://fontawesome.com/v4.7.0/icons/
-    "wagtailfontawesome",
     "wagtail.contrib.modeladmin",
     "wagtailmenus",
 ]
@@ -120,7 +119,7 @@ WSGI_APPLICATION = "hip.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": "hip",
         "USER": "",
         "PASSWORD": "",
@@ -185,7 +184,6 @@ TIME_ZONE = "America/New_York"
 
 USE_I18N = True
 
-USE_L10N = True
 
 USE_TZ = True
 
@@ -340,3 +338,9 @@ DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "no-reply@hip.caktus-built.
 # Notifies user in Wagtail Admin only of LTS versions
 # https://docs.wagtail.org/en/stable/reference/settings.html#wagtail-enable-update-check
 WAGTAIL_ENABLE_UPDATE_CHECK = "lts"
+
+# Patches a known bug with wagtailmenus, whereby a series
+# of warnings are displayed. Once this bug is fixed, the var
+# SILENCED_SYSTEM_CHECKS should be removed.
+# https://github.com/jazzband/wagtailmenus/issues/464#issuecomment-1839097355
+SILENCED_SYSTEM_CHECKS = ["wagtailadmin.W002"]
