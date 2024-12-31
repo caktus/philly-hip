@@ -92,7 +92,17 @@ class CommunityResponseSubscriberForm(ModelForm):
 
     class Meta:
         model = CommunityResponseSubscriber
-        fields = "__all__"
+        fields = [
+            "first_name",
+            "last_name",
+            "email_address",
+            "cell_phone",
+            "organization_name",
+            "organization_type",
+            "organization_zip_code",
+            "organization_community_members_served",
+            "organization_mission_statement",
+        ]
 
     def about_you_fields(self):
         about_you_field_names = [

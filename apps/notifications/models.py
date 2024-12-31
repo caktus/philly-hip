@@ -341,81 +341,119 @@ class CommunityResponseSubscriber(models.Model):
 
     class ORGANIZATION_TYPE_CHOICES(models.TextChoices):
         ARTS_CULTURE = (
-            "Arts and Culture",
-            "Arts and Culture",
-        ),
+            (
+                "Arts and Culture",
+                "Arts and Culture",
+            ),
+        )
         BLOCK_CAPTAIN = (
-            "Block Captain",
-            "Block Captain",
-        ),
+            (
+                "Block Captain",
+                "Block Captain",
+            ),
+        )
         CIVIC_ENGAGEMENT_ELECTED_OFFICIAL = (
-            "Civic Engagement/Elected Official",
-            "Civic Engagement/Elected Official",
-        ),
+            (
+                "Civic Engagement/Elected Official",
+                "Civic Engagement/Elected Official",
+            ),
+        )
         DISABILITIES_ACCESS_FUNCTIONAL_NEEDS = (
-            "Disabilities and Access and Functional Needs",
-            "Disabilities and Access and Functional Needs",
-        ),
+            (
+                "Disabilities and Access and Functional Needs",
+                "Disabilities and Access and Functional Needs",
+            ),
+        )
         EDUCATION = (
-            "Education (Schools/Colleges/Universities)",
-            "Education (Schools/Colleges/Universities)",
-        ),
+            (
+                "Education (Schools/Colleges/Universities)",
+                "Education (Schools/Colleges/Universities)",
+            ),
+        )
         FREE_LIBRARY_OF_PHILADELPHIA = (
-            "Free Library of Philadelphia",
-            "Free Library of Philadelphia",
-        ),
+            (
+                "Free Library of Philadelphia",
+                "Free Library of Philadelphia",
+            ),
+        )
         GENERAL_COMMUNITY_SERVICES = (
-            "General Community Services",
-            "General Community Services",
-        ),
+            (
+                "General Community Services",
+                "General Community Services",
+            ),
+        )
         HEALTHCARE = (
-            "Healthcare",
-            "Healthcare",
-        ),
+            (
+                "Healthcare",
+                "Healthcare",
+            ),
+        )
         IMMIGRANT_REFUGEE_COMMUNITIES = (
-            "Immigrante/Refugee/Communities that speak languages other than English",
-            "Immigrante/Refugee/Communities that speak languages other than English",
-        ),
+            (
+                "Immigrante/Refugee/Communities that speak languages other than English",
+                "Immigrante/Refugee/Communities that speak languages other than English",
+            ),
+        )
         LIVE_BIRD_MARKET = (
-            "Live Bird Market",
-            "Live Bird Market",
-        ),
+            (
+                "Live Bird Market",
+                "Live Bird Market",
+            ),
+        )
         MENTAL_BEHAVIORAL_HEALTH = (
-            "Mental/Behavioral Health",
-            "Mental/Behavioral Health",
-        ),
+            (
+                "Mental/Behavioral Health",
+                "Mental/Behavioral Health",
+            ),
+        )
         OLDER_ADULTS = (
-            "Older Adults",
-            "Older Adults",
-        ),
+            (
+                "Older Adults",
+                "Older Adults",
+            ),
+        )
         HOUSING_HOMELESS_SERVICES = (
-            "Housing/Homeless Services",
-            "Housing/Homeless Services",
-        ),
+            (
+                "Housing/Homeless Services",
+                "Housing/Homeless Services",
+            ),
+        )
         RCO_CDC_NAC = (
-            "RCO/CDC/NAC",
-            "RCO/CDC/NAC",
-        ),
+            (
+                "RCO/CDC/NAC",
+                "RCO/CDC/NAC",
+            ),
+        )
         RECREATIONAL = (
-            "Recreational",
-            "Recreational",
-        ),
+            (
+                "Recreational",
+                "Recreational",
+            ),
+        )
         RELIGIOUS_FAITH_BASED = (
-            "Religious/Faith-based",
-            "Religious/Faith-based",
-        ),
+            (
+                "Religious/Faith-based",
+                "Religious/Faith-based",
+            ),
+        )
         WORKERS = (
-            "Workers",
-            "Workers",
-        ),
+            (
+                "Workers",
+                "Workers",
+            ),
+        )
         YOUTH = (
-            "Youth",
-            "Youth",
-        ),
+            (
+                "Youth",
+                "Youth",
+            ),
+        )
         UNAFFILIATED_COMMUNITY_LEADER = (
-            "Unaffiliated Community Leader",
-            "Unaffiliated Community Leader",
-        ),
+            (
+                "Unaffiliated Community Leader",
+                "Unaffiliated Community Leader",
+            ),
+        )
 
     first_name = models.CharField(
         "First Name",
@@ -432,11 +470,11 @@ class CommunityResponseSubscriber(models.Model):
         max_length=255,
         default="",
     )
-    title = models.CharField(
-        "Title/Position*",
-        max_length=255,
-        default="",
-    )
+    # title = models.CharField(
+    #     "Title/Position*",
+    #     max_length=255,
+    #     default="",
+    # )
 
     email_address = models.EmailField("Email Address*")
     cell_phone = PhoneNumberField("Cell Phone")
