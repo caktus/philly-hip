@@ -30,7 +30,13 @@
             <h6 class="is-size-6 py-2"><strong>{{ form_section.header }}</strong></h6>
             {% for field in form_section.fields %}
               <div class="py-2 field form-sections-hip">
-                <label class="label is-block is-size-7" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                <label class="label is-block is-size-7" for="{{ field.id_for_label }}">
+                  {% if "*" in field.label %}
+                    {{ field.label|slice:":-1" }}<span class="required">*</span>
+                  {% else %}
+                    {{ field.label }}
+                  {% endif %}
+                </label>
                 <div class="control">
                   {% if field|widget_class == "Select" %}
                     <div class="select is-small">

@@ -31,18 +31,17 @@ class CommunityResponseSubscriberFactory(factory.django.DjangoModelFactory):
     first_name = factory.faker.Faker("first_name")
     last_name = factory.faker.Faker("last_name")
     organization_name = factory.faker.Faker("company")
+    organization_type = random.choice(
+        [str(l) for l in CommunityResponseSubscriber.ORGANIZATION_TYPE_CHOICES]
+    )
     title = factory.faker.Faker("job")
     email_address = factory.faker.Faker("email")
     cell_phone = factory.faker.Faker("phone_number")
-    organization_street_address = factory.faker.Faker("street_address")
-    organization_po_box = random.randint(0, 9999)
     organization_zip_code = factory.faker.Faker("postcode")
-    organization_zip_codes_served = ", ".join(
-        [str(random.randint(11111, 99999)) for i in range(0, random.randint(0, 5))]
-    )
     organization_community_members_served = random.choice(
         [str(l) for l in CommunityResponseSubscriber.COMMUNITY_MEMBERS_CHOICES]
     )
+    organization_mission_statement = factory.faker.Faker("text")
 
 
 class InternalEmployeeAlertSubscriberFactory(factory.django.DjangoModelFactory):
