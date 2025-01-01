@@ -171,12 +171,12 @@ def test_community_response_notification_signup_invalid_data(
 ):
     """POSTting invalid data shows errors to the user."""
     data = community_response_notification_data.copy()
-    data.pop("first_name")
+    data.pop("email_address")
 
     response = client.post(reverse("community_notifications_signup"), data)
 
     assert HTTPStatus.OK == response.status_code
-    assert {"first_name": ["This field is required."]} == response.context[
+    assert {"email_address": ["This field is required."]} == response.context[
         "form"
     ].errors
 
