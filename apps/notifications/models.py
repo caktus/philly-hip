@@ -370,8 +370,8 @@ class CommunityResponseSubscriber(models.Model):
             "Healthcare",
         )
         IMMIGRANT_REFUGEE_COMMUNITIES = (
-            "Immigrante/Refugee/Communities that speak languages other than English",
-            "Immigrante/Refugee/Communities that speak languages other than English",
+            "Immigrant/Refugee/Communities that speak languages other than English",
+            "Immigrant/Refugee/Communities that speak languages other than English",
         )
         LIVE_BIRD_MARKET = (
             "Live Bird Market",
