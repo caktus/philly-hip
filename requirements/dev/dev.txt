@@ -25,6 +25,8 @@ argon2-cffi==23.1.0
     #   jupyter-server
     #   nbclassic
     #   notebook
+argon2-cffi-bindings==21.2.0
+    # via argon2-cffi
 asgiref==3.8.1
     # via
     #   -c requirements/dev/../base/base.txt
@@ -35,7 +37,7 @@ attrs==24.2.0
     # via
     #   jsonschema
     #   referencing
-awscli==1.32.104
+awscli==1.36.17
     # via -r requirements/dev/dev.in
 awslogs==0.14.0
     # via -r requirements/dev/dev.in
@@ -50,12 +52,12 @@ black==24.4.2
     # via -r requirements/dev/dev.in
 bleach==6.1.0
     # via nbconvert
-boto3==1.34.104
+boto3==1.35.76
     # via
     #   -c requirements/dev/../base/base.txt
     #   awslogs
     #   invoke-kubesae
-botocore==1.34.104
+botocore==1.35.76
     # via
     #   -c requirements/dev/../base/base.txt
     #   awscli
@@ -71,7 +73,7 @@ certifi==2020.12.5
 cffi==1.17.0
     # via
     #   -c requirements/dev/../base/base.txt
-    #   argon2-cffi
+    #   argon2-cffi-bindings
     #   cryptography
 cfgv==3.4.0
     # via pre-commit
@@ -277,7 +279,7 @@ kubernetes==12.0.0
     # via
     #   -r requirements/dev/dev.in
     #   openshift
-kubernetes-validate==1.29.1
+kubernetes-validate==1.30.0
     # via -r requirements/dev/dev.in
 l18n==2020.6.1
     # via
@@ -412,7 +414,7 @@ pygments==2.18.0
     #   ipython
     #   nbconvert
     #   pudb
-pytest==8.3.2
+pytest==8.3.1
     # via
     #   -r requirements/dev/dev.in
     #   pytest-cov
@@ -497,7 +499,6 @@ send2trash==1.8.3
 six==1.15.0
     # via
     #   -c requirements/dev/../base/base.txt
-    #   argon2-cffi
     #   asttokens
     #   bleach
     #   html5lib
@@ -602,7 +603,6 @@ willow[heif]==1.6.3
     # via
     #   -c requirements/dev/../base/base.txt
     #   wagtail
-    #   willow
 zipp==3.18.2
     # via importlib-metadata
 
