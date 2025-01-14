@@ -58,8 +58,8 @@ cloudformation_stack:
 
   template_parameters:
     UseAES256Encryption: "true"
-    AdministratorIPAddress: "{{ administrator_ip_cidrs[0] }}"  # Stack allows only single IP here to SSH to bastion
-    BastionAMI: "ami-0ad554caf874569d2" # https://cloud-images.ubuntu.com/locator/ec2/ [us-east-1 amd64]
+    AdministratorIPAddress: ""  # Stack allows only single IP here to SSH to bastion
+    BastionAMI: "" # https://cloud-images.ubuntu.com/locator/ec2/ [us-east-1 amd64]
     BastionKeyName: rluna_hip
     BastionInstanceType: t3.small # Is this a proper size?
     BastionType: SSH
@@ -68,9 +68,9 @@ cloudformation_stack:
     DomainNameAlternates: ""
     PrimaryAZ: "{{ aws_region }}a"
     SecondaryAZ: "{{ aws_region }}b"
-    DesiredScale: 2
+    DesiredScale: 3
     MaxScale: 4
-    ContainerInstanceType: t3a.medium
+    ContainerInstanceType: t3a.large
     AssetsBucketAccessControl: Private
     AssetsUseCloudFront: "false"
     DatabaseClass: db.t3.small

@@ -2,5 +2,5 @@
 -c ../base/base.txt
 
 pymemcache
-newrelic
+newrelic==10.4.0
 uwsgi==2.0.26 # Pinned version to work with Python 3.11
