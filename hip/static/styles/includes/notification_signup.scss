@@ -5,3 +5,7 @@
   @include headers;
   @include paragraphs;
 }
+
+.required {
+  color: red;
+}
