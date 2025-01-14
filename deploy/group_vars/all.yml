@@ -68,9 +68,9 @@ cloudformation_stack:
     DomainNameAlternates: ""
     PrimaryAZ: "{{ aws_region }}a"
     SecondaryAZ: "{{ aws_region }}b"
-    DesiredScale: 2
+    DesiredScale: 3
     MaxScale: 4
-    ContainerInstanceType: t3a.medium
+    ContainerInstanceType: t3a.large
     AssetsBucketAccessControl: Private
     AssetsUseCloudFront: "false"
     DatabaseClass: db.t3.small
