@@ -39,14 +39,12 @@ class CommunityResponseSubscriberAdmin(ExportMixin, admin.ModelAdmin):
     list_display = (
         "full_name",
         "organization_name",
-        "title",
     )
     list_filter = ("organization_community_members_served",)
     search_fields = (
         "first_name",
         "last_name",
         "organization_name",
-        "title",
         "email_address",
     )
 

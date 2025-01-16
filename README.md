@@ -4,9 +4,9 @@
 ## ✏️ **Develop**
 To begin you should have the following applications installed on your local development system:
 
-- Python >= 3.10
-- NodeJS == 16.13.x
-- npm == 8.1.x (comes with node 16)
+- Python >= 3.11
+- NodeJS == 20.5.x
+- npm == 9.8.x (comes with node 16)
 - [nvm](https://github.com/nvm-sh/nvm/blob/master/README.md) is not strictly _required_, but will almost certainly be necessary unless you just happen to have Node.js 16.x installed on your machine.
 - [pip](http://www.pip-installer.org/) >= 20
 - [virtualenv](http://www.virtualenv.org/) >= 1.10
@@ -294,3 +294,22 @@ To reset your local database from a deployed environment:
 As mentioned in the Database setup instructions, you may need to visit 
 [/cms/sites](http://localhost:8000/cms/sites/) and change the first entry's 
 `Hostname` field to `localhost` to enable page previews in the Wagtail admin.
+
+### GitHub Actions Runner
+
+There are [GitHub Actions self-hosted runners](https://docs.github.com/en/actions/hosting-your-own-runners/about-self-hosted-runners) deployed in the Kubernetes cluster along side the application.
+
+Setup instructions:
+
+* Obtain a [GitHub PAT](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with the `repo` scope that's valid for one week (it needs to be active only for the initial deployment). Add this to a local environment variable `RUNNER_CFG_PAT`:
+
+```sh
+export RUNNER_CFG_PAT="gh......"
+```
+
+* Run the playbook to deploy the runner:
+
+```sh
+cd deploy/
+ansible-playbook deploy-runner.yml
+```

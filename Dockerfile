@@ -1,4 +1,4 @@
-FROM node:16-alpine as static_files
+FROM node:20-bookworm-slim as static_files
 WORKDIR /code
 ENV PATH /code/node_modules/.bin:$PATH
 COPY package.json package-lock.json webpack.config.js /code/
@@ -6,7 +6,7 @@ RUN npm install --silent
 COPY . /code/
 RUN npm run build
 
-FROM python:3.10-slim-bullseye as base
+FROM python:3.11-slim-bookworm as base
 
 # Install packages needed to run your application (not build deps):
 #   mime-support -- for mime types when serving static files
@@ -102,7 +102,7 @@ ENTRYPOINT ["/code/docker-entrypoint.sh"]
 CMD ["newrelic-admin", "run-program", "uwsgi", "--single-interpreter", "--enable-threads", "--show-config"]
 
 
-FROM python:3.10-slim-bullseye AS dev
+FROM python:3.11-slim-bookworm AS dev
 
 ARG USERNAME=appuser
 ARG USER_UID=1000
@@ -122,8 +122,8 @@ RUN groupadd --gid $USER_GID $USERNAME \
 #   openssh-client -- for git over SSH
 #   sudo -- to run commands as superuser
 #   vim -- enhanced vi editor for commits
-ENV KUBE_CLIENT_VERSION="v1.29.3"
-ENV HELM_VERSION="3.14.4"
+ENV KUBE_CLIENT_VERSION="v1.30.7"
+ENV HELM_VERSION="3.16.3"
 ENV POSTGRESQL_CLIENT_VERSION="15"
 RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/apt \
     --mount=type=cache,mode=0755,target=/root/.cache/pip \
@@ -163,7 +163,7 @@ RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/
     && curl https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor | tee /etc/apt/trusted.gpg.d/docker.gpg >/dev/null \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/docker.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null \
     # nodejs
-    && sh -c 'echo "deb https://deb.nodesource.com/node_16.x $(lsb_release -cs) main" > /etc/apt/sources.list.d/nodesource.list' \
+    && sh -c 'echo "deb https://deb.nodesource.com/node_20.x $(lsb_release -cs) main" > /etc/apt/sources.list.d/nodesource.list' \
     && wget --quiet -O- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
     # PostgreSQL
     && sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' \

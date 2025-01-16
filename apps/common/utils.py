@@ -89,7 +89,7 @@ def get_next_url_from_request(request):
     if next_parameter:
         return next_parameter
     else:
-        return request.META.get("HTTP_REFERER", None) or None
+        return request.headers.get("referer", None) or None
 
 
 def closedpod_user_check(user):

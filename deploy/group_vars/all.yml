@@ -11,11 +11,18 @@ stack_name: "{{ long_app_name }}-stack"
 aws_profile: "{{ long_app_name }}"
 cluster_name: "{{ stack_name }}-cluster"
 
-ansible_connection: local
-ansible_python_interpreter: "{{ ansible_playbook_python }}"
+# ansible_connection: local
+# ansible_python_interpreter: "{{ ansible_playbook_python }}"
 
 k8s_cluster_name: "{{ cluster_name }}"
 k8s_namespace: "{{ app_name }}-{{ env_name }}" 
+
+# IP addresses
+administrator_ip_cidrs:
+  - 70.62.97.170/32  # Caktus office
+  - 107.15.45.253/32  # Tobias
+  - 47.230.11.28/32  # Ronard
+  - 107.223.185.195/32  # Colin
 
 # CloudFormation Outputs
 # These values are taken from the CF 'Output' tab
@@ -48,20 +55,25 @@ cloudformation_stack:
   region: "{{ aws_region }}"
   stack_name: "{{ stack_name }}"
   template_bucket: "aws-web-stacks-{{ app_name }}"
-  template_local_path: '{{ playbook_dir + "/stack/eks-no-nat.yml" }}'
+  template_local_path: '{{ playbook_dir + "/stack/eks-nat.yml" }}'
   create_changeset: true
   termination_protection: true
 
   template_parameters:
     UseAES256Encryption: "true"
+    AdministratorIPAddress: "{{ administrator_ip_cidrs[0] }}"  # Stack allows only single IP here to SSH to bastion
+    BastionAMI: "ami-0ad554caf874569d2" # https://cloud-images.ubuntu.com/locator/ec2/ [us-east-1 amd64]
+    BastionKeyName: rluna_hip
+    BastionInstanceType: t3.small # Is this a proper size?
+    BastionType: SSH
     CustomerManagedCmkArn: ""
     DomainName: "{{ app_name }}-prod.caktus-built.com"
     DomainNameAlternates: ""
     PrimaryAZ: "{{ aws_region }}a"
     SecondaryAZ: "{{ aws_region }}b"
-    DesiredScale: 2
+    DesiredScale: 3
     MaxScale: 4
-    ContainerInstanceType: t3a.medium
+    ContainerInstanceType: t3a.large
     AssetsBucketAccessControl: Private
     AssetsUseCloudFront: "false"
     DatabaseClass: db.t3.small
@@ -71,6 +83,8 @@ cloudformation_stack:
     DatabaseUser: "{{ app_name }}_admin"
     DatabasePassword: "{{ admin_database_password }}"
     DatabaseMultiAZ: "true"
+    EksClusterName: "philly-hip-stack-cluster"
+    EksPublicAccessCidrs: " {{ administrator_ip_cidrs | join(',') }}"
   tags:
     Environment: "{{ app_name }}"
 
@@ -81,8 +95,8 @@ cloudformation_stack:
 k8s_cluster_type: aws
 # aws eks describe-cluster --name=philly-hip-stack-cluster --query 'cluster.arn'
 k8s_context: "arn:aws:eks:us-east-1:061553509755:cluster/{{ cluster_name }}"
-k8s_ingress_nginx_chart_version: "4.9.1"
-k8s_cert_manager_chart_version: "v1.14.3"
+k8s_ingress_nginx_chart_version: "4.11.3"
+k8s_cert_manager_chart_version: "v1.16.2"
 k8s_letsencrypt_email: admin@caktusgroup.com
 k8s_iam_users: [noop]  # https://github.com/caktus/ansible-role-k8s-web-cluster/issues/17
 # aws-for-fluent-bit
@@ -171,16 +185,16 @@ env_email_host_pass: !vault |
   3561616461636134373033316665613035303736646133613630
 
 # Azure SSO settings
-azure_client_id: "f0629cf8-f6f4-4142-94c3-11b8beaaa510"
+azure_client_id: "39459c9f-77b3-4fae-942c-7ef9fbf1332c"
 azure_tenant_id: "2046864f-68ea-497d-af34-a6629a6cd700"
 azure_client_secret: !vault |
   $ANSIBLE_VAULT;1.1;AES256
-  34653665623939373232343266393962386662373738363135313965636461303362656235353739
-  3833373532646436326463663233616238316431306633330a333664363061313630646565613465
-  34393634623231333964346166306639613438623330343865663066643239383634633538613130
-  3234326436376638370a353262656662656334653234666565313032333237353135336132636136
-  33613062323365303165663261356138616634656331373037363031326161383832333662333266
-  6339636266626239303165666261353362626564363636346665
+  66326536666564323330643461346239313738623566666633303934376132393739373862313463
+  6331336437353664366661316631626262643031343736300a313963366537353861633330646463
+  34396633643138313063326434323732343934383535636530646164323930356433666431396362
+  3638303539323239380a333865663734336261343066313361343435376163326661366630633463
+  31343965633836653436653465323438626262333565303034336237646665393661626362333766
+  3130326232336638373737356261616530373138666465653137
 
 k8s_environment_variables:
   DATABASE_URL: "{{ env_database_url }}"
@@ -214,7 +228,7 @@ k8s_install_descheduler: yes
 # You must set the k8s_descheduler_chart_version to match the Kubernetes
 # node version (0.23.x -> K8s 1.23.x); see:
 # https://github.com/kubernetes-sigs/descheduler#compatibility-matrix
-k8s_descheduler_chart_version: v0.29.0
+k8s_descheduler_chart_version: v0.30.2
 # See values.yaml for options:
 # https://github.com/kubernetes-sigs/descheduler/blob/master/charts/descheduler/values.yaml#L63
 k8s_descheduler_release_values:

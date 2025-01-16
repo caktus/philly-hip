@@ -8,16 +8,16 @@ ipython
 jupyterlab
 
 # deploy
-ansible==9.5.1
+ansible==10.2.0
 invoke-kubesae==0.1.0
 
 # AWS tools
-awscli==1.32.104
+awscli==1.36.17
 awslogs
 Jinja2==3.0.3
 openshift==0.13.2
 kubernetes==12.0.0
-kubernetes-validate~=1.29.1
+kubernetes-validate==1.30
 
 pre-commit
 coverage
@@ -33,7 +33,7 @@ django-debug-toolbar
 factory_boy
 
 
-pytest
+pytest==8.3.1
 pytest-cov
 pytest-django
 pytest-factoryboy

@@ -98,25 +98,18 @@ class CommunityResponseSubscriberForm(ModelForm):
         about_you_field_names = [
             "first_name",
             "last_name",
-            "organization_name",
-            "title",
-        ]
-        return [self[name] for name in self.fields if name in about_you_field_names]
-
-    def contact_information_fields(self):
-        contact_info_field_names = [
             "email_address",
             "cell_phone",
         ]
-        return [self[name] for name in self.fields if name in contact_info_field_names]
+        return [self[name] for name in self.fields if name in about_you_field_names]
 
     def organization_info_fields(self):
         organization_info_field_names = [
-            "organization_street_address",
-            "organization_po_box",
+            "organization_name",
+            "organization_type",
             "organization_zip_code",
-            "organization_zip_codes_served",
             "organization_community_members_served",
+            "organization_mission_statement",
         ]
         return [
             self[name] for name in self.fields if name in organization_info_field_names
@@ -126,10 +119,6 @@ class CommunityResponseSubscriberForm(ModelForm):
         """Return the sections of this form, including a header, and the fields in the section."""
         return [
             {"header": "About You", "fields": self.about_you_fields()},
-            {
-                "header": "Contact Information",
-                "fields": self.contact_information_fields(),
-            },
             {
                 "header": "Organization Information",
                 "fields": self.organization_info_fields(),

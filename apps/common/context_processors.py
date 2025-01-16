@@ -32,7 +32,7 @@ def previous_url(request):
     # Note: we use the try/except logic here (rather than request.META.get...)
     # in order to avoid calling get_home_page_url() every time.
     try:
-        return {"previous_url": request.META["HTTP_REFERER"]}
+        return {"previous_url": request.headers["referer"]}
     except KeyError:
         return {"previous_url": get_home_page_url()}
 
