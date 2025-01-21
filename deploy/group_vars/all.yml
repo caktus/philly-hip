@@ -47,7 +47,7 @@ admin_database_password: !vault |
 #                        provisioning with aws-web-stacks.
 # ----------------------------------------------------------------------------
 # Parameters
-cloudformation_stack_database_engine_version: "15.4"
+cloudformation_stack_database_engine_version: "15.5"
 cloudformation_stack_database_parameter_group_family: postgres15
 
 cloudformation_stack:
@@ -240,4 +240,4 @@ k8s_descheduler_release_values:
   
 
 # Must be PostgreSQL v15 for DB restore
-k8s_hosting_services_image_tag: 0.5.0-postgres15
+k8s_hosting_services_image_tag: 0.6.0-postgres15

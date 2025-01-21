@@ -1253,7 +1253,6 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       AccessControl: !Ref 'AssetsBucketAccessControl'
-      AllowMajorVersionUpgrade: 'true'
       BucketEncryption: !If
         - UseAES256EncryptionCond
         - ServerSideEncryptionConfiguration:
@@ -1696,6 +1695,7 @@ Resources:
     DeletionPolicy: Snapshot
     Properties:
       AllocatedStorage: !Ref 'DatabaseAllocatedStorage'
+      AllowMajorVersionUpgrade: 'true'
       BackupRetentionPeriod: !Ref 'DatabaseBackupRetentionDays'
       DBInstanceClass: !Ref 'DatabaseClass'
       DBName: !Ref 'DatabaseName'
