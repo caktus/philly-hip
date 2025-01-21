@@ -46,6 +46,9 @@ admin_database_password: !vault |
 # caktus.aws-web-stacks: Ansible role to automate AWS CloudFormation stack
 #                        provisioning with aws-web-stacks.
 # ----------------------------------------------------------------------------
+# Parameters
+cloudformation_stack_database_engine_version: "15.5"
+cloudformation_stack_database_parameter_group_family: postgres15
 
 cloudformation_stack:
   profile: "{{ aws_profile }}"
@@ -74,8 +77,8 @@ cloudformation_stack:
     AssetsBucketAccessControl: Private
     AssetsUseCloudFront: "false"
     DatabaseClass: db.t3.small
-    DatabaseEngineVersion: "11"
-    DatabaseParameterGroupFamily: postgres11
+    DatabaseEngineVersion: "{{ cloudformation_stack_database_engine_version }}"
+    DatabaseParameterGroupFamily: "{{ cloudformation_stack_database_parameter_group_family }}"
     DatabaseName: "{{ app_name }}"
     DatabaseUser: "{{ app_name }}_admin"
     DatabasePassword: "{{ admin_database_password }}"
@@ -234,3 +237,7 @@ k8s_descheduler_release_values:
       # During upgrades or reboots, don't pre-emptively drain a node.
       RemovePodsViolatingNodeTaints:
         enabled: false
+  
+
+# Must be PostgreSQL v15 for DB restore
+k8s_hosting_services_image_tag: 0.6.0-postgres15

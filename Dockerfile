@@ -13,11 +13,12 @@ FROM python:3.11-slim-bookworm as base
 #   postgresql-client -- for running database commands
 # We need to recreate the /usr/share/man/man{1..8} directories first because
 # they were clobbered by a parent image.
+ENV POSTGRESQL_CLIENT_VERSION="15"
 RUN set -ex \
     && RUN_DEPS=" \
     libpcre3 \
     mime-support \
-    postgresql-client-12 \
+    postgresql-client-${POSTGRESQL_CLIENT_VERSION} \
     vim \
     " \
     && seq 1 8 | xargs -I{} mkdir -p /usr/share/man/man{} \
@@ -143,7 +144,7 @@ RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/
     mime-support \
     nodejs \
     openssh-client \
-    postgresql-client-14 \
+    postgresql-client-${POSTGRESQL_CLIENT_VERSION} \
     sudo \
     vim \
     zlib1g-dev \
