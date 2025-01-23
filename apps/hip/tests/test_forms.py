@@ -84,7 +84,7 @@ def test_only_pdfs_are_scaned(db, mocker):
     mock_scan_function = mocker.patch("apps.hip.forms.scan_pdf_for_malicious_content")
 
     # Uploading a non-PDF file does not call scan_pdf_for_malicious_content()
-    for (extension, content_type) in [
+    for extension, content_type in [
         ("png", "image/png"),
         ("jpg", "image/jpeg"),
         ("jpeg", "image/jpeg"),

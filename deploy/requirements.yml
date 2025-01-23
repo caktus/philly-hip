@@ -1,8 +1,9 @@
 ---
 - src: https://github.com/caktus/ansible-role-aws-web-stacks
   name: caktus.aws-web-stacks
+  version: v0.3.0
 - src: https://github.com/caktus/ansible-role-k8s-web-cluster
-  version: v1.6.0
+  version: v1.7.0
   name: caktus.k8s-web-cluster
 # Note: caktus.django-k8s version 1.4.0 has been released, but deploys fail due to issue:
 # msg: Failed to find exact match for rabbitmq.com/v1beta1.RabbitmqCluster by [kind, name, singularName, shortNames]
@@ -11,7 +12,7 @@
   version: v1.9.0
 - src: https://github.com/caktus/ansible-role-k8s-hosting-services
   name: caktus.k8s-hosting-services
-  version: v0.12.0
+  version: v0.13.0
 
 - src: weareinteractive.users
   version: 1.17.0

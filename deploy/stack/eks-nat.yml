@@ -1695,6 +1695,7 @@ Resources:
     DeletionPolicy: Snapshot
     Properties:
       AllocatedStorage: !Ref 'DatabaseAllocatedStorage'
+      AllowMajorVersionUpgrade: 'true'
       BackupRetentionPeriod: !Ref 'DatabaseBackupRetentionDays'
       DBInstanceClass: !Ref 'DatabaseClass'
       DBName: !Ref 'DatabaseName'

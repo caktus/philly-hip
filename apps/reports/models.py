@@ -66,9 +66,11 @@ class DataReportListPage(HipBasePage):
                 "title": r.title,
                 "url": r.url,
                 "update_frequency": r.staticpage.datareportdetailpage.update_frequency,
-                "last_updated": r.latest_revision_created_at.date()
-                if r.latest_revision_created_at
-                else None,
+                "last_updated": (
+                    r.latest_revision_created_at.date()
+                    if r.latest_revision_created_at
+                    else None
+                ),
                 "associated_disease": r.staticpage.datareportdetailpage.associated_disease,
                 "external": False,
             }
@@ -135,9 +137,9 @@ class DataReportDetailArchiveListPage(HipBasePage):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context[
-            "archived_reports"
-        ] = DataReportDetailArchiveDetailPage.objects.child_of(self).order_by("-year")
+        context["archived_reports"] = (
+            DataReportDetailArchiveDetailPage.objects.child_of(self).order_by("-year")
+        )
         return context
 
 

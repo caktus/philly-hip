@@ -1,5 +1,3 @@
-version: "3.4"
-
 volumes:
   dev_hip_data: {}
   dev_media: {}
@@ -12,7 +10,7 @@ services:
     environment:
       POSTGRES_HOST_AUTH_METHOD: trust
       POSTGRES_DB: hip
-    image: postgres:12-alpine
+    image: postgres:15-alpine
     ports:
       - "5433:5432"
     volumes:

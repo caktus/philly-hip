@@ -339,35 +339,104 @@ class CommunityResponseSubscriber(models.Model):
             "All of these",
         )
 
+    class ORGANIZATION_TYPE_CHOICES(models.TextChoices):
+        ARTS_CULTURE = (
+            "Arts and Culture",
+            "Arts and Culture",
+        )
+        BLOCK_CAPTAIN = ("Block Captain",)
+        CIVIC_ENGAGEMENT_ELECTED_OFFICIAL = (
+            "Civic Engagement/Elected Official",
+            "Civic Engagement/Elected Official",
+        )
+        DISABILITIES_ACCESS_FUNCTIONAL_NEEDS = (
+            "Disabilities and Access and Functional Needs",
+            "Disabilities and Access and Functional Needs",
+        )
+        EDUCATION = (
+            "Education (Schools/Colleges/Universities)",
+            "Education (Schools/Colleges/Universities)",
+        )
+        FREE_LIBRARY_OF_PHILADELPHIA = (
+            "Free Library of Philadelphia",
+            "Free Library of Philadelphia",
+        )
+        GENERAL_COMMUNITY_SERVICES = (
+            "General Community Services",
+            "General Community Services",
+        )
+        HEALTHCARE = (
+            "Healthcare",
+            "Healthcare",
+        )
+        IMMIGRANT_REFUGEE_COMMUNITIES = (
+            "Immigrant/Refugee/Communities that speak languages other than English",
+            "Immigrant/Refugee/Communities that speak languages other than English",
+        )
+        LIVE_BIRD_MARKET = (
+            "Live Bird Market",
+            "Live Bird Market",
+        )
+        MENTAL_BEHAVIORAL_HEALTH = (
+            "Mental/Behavioral Health",
+            "Mental/Behavioral Health",
+        )
+        OLDER_ADULTS = (
+            "Older Adults",
+            "Older Adults",
+        )
+        HOUSING_HOMELESS_SERVICES = (
+            "Housing/Homeless Services",
+            "Housing/Homeless Services",
+        )
+        RCO_CDC_NAC = (
+            "RCO/CDC/NAC",
+            "RCO/CDC/NAC",
+        )
+        RECREATIONAL = (
+            "Recreational",
+            "Recreational",
+        )
+        RELIGIOUS_FAITH_BASED = (
+            "Religious/Faith-based",
+            "Religious/Faith-based",
+        )
+        WORKERS = (
+            "Workers",
+            "Workers",
+        )
+        YOUTH = (
+            "Youth",
+            "Youth",
+        )
+        UNAFFILIATED_COMMUNITY_LEADER = (
+            "Unaffiliated Community Leader",
+            "Unaffiliated Community Leader",
+        )
+
     first_name = models.CharField(
-        "First Name*",
+        "First Name",
         max_length=255,
-        default="",
+        blank=True,
     )
     last_name = models.CharField(
-        "Last Name*",
+        "Last Name",
         max_length=255,
-        default="",
+        blank=True,
     )
     organization_name = models.CharField(
         "Organization Name*",
         max_length=255,
         default="",
     )
-    title = models.CharField(
-        "Title/Position*",
-        max_length=255,
-        default="",
-    )
 
     email_address = models.EmailField("Email Address*")
-    cell_phone = PhoneNumberField("Cell Phone*")
-
-    organization_street_address = models.CharField(
-        "Street Address of Organization*", max_length=255
-    )
-    organization_po_box = models.CharField(
-        "Organization PO Box", max_length=255, blank=True
+    cell_phone = PhoneNumberField("Cell Phone", blank=True)
+    organization_type = models.CharField(
+        "Organization Type*",
+        max_length=255,
+        choices=ORGANIZATION_TYPE_CHOICES.choices,
+        default="",
     )
     organization_zip_code = models.CharField(
         "Zip Code of Organization*",
@@ -375,13 +444,15 @@ class CommunityResponseSubscriber(models.Model):
         default="",
         validators=[zipcode_validator],
     )
-    organization_zip_codes_served = models.CharField(
-        "Zip Codes Served by Your Organization*", max_length=255, default=""
-    )
     organization_community_members_served = models.CharField(
         "Community Members Served by Your Organization*",
         max_length=100,
         choices=COMMUNITY_MEMBERS_CHOICES.choices,
+    )
+    organization_mission_statement = models.CharField(
+        "Mission Statement",
+        max_length=255,
+        blank=True,
     )
 
     class Meta:

@@ -46,6 +46,9 @@ admin_database_password: !vault |
 # caktus.aws-web-stacks: Ansible role to automate AWS CloudFormation stack
 #                        provisioning with aws-web-stacks.
 # ----------------------------------------------------------------------------
+# Parameters
+cloudformation_stack_database_engine_version: "15.5"
+cloudformation_stack_database_parameter_group_family: postgres15
 
 cloudformation_stack:
   profile: "{{ aws_profile }}"
@@ -58,19 +61,24 @@ cloudformation_stack:
 
   template_parameters:
     UseAES256Encryption: "true"
+    AdministratorIPAddress: "{{ administrator_ip_cidrs[0] }}"  # Stack allows only single IP here to SSH to bastion
+    BastionAMI: "ami-0ad554caf874569d2" # https://cloud-images.ubuntu.com/locator/ec2/ [us-east-1 amd64]
+    BastionKeyName: rluna_hip
+    BastionInstanceType: t3.small # Is this a proper size?
+    BastionType: SSH
     CustomerManagedCmkArn: ""
     DomainName: "{{ app_name }}-prod.caktus-built.com"
     DomainNameAlternates: ""
     PrimaryAZ: "{{ aws_region }}a"
     SecondaryAZ: "{{ aws_region }}b"
-    DesiredScale: 2
+    DesiredScale: 3
     MaxScale: 4
-    ContainerInstanceType: t3a.medium
+    ContainerInstanceType: t3a.large
     AssetsBucketAccessControl: Private
     AssetsUseCloudFront: "false"
     DatabaseClass: db.t3.small
-    DatabaseEngineVersion: "11"
-    DatabaseParameterGroupFamily: postgres11
+    DatabaseEngineVersion: "{{ cloudformation_stack_database_engine_version }}"
+    DatabaseParameterGroupFamily: "{{ cloudformation_stack_database_parameter_group_family }}"
     DatabaseName: "{{ app_name }}"
     DatabaseUser: "{{ app_name }}_admin"
     DatabasePassword: "{{ admin_database_password }}"
@@ -87,8 +95,8 @@ cloudformation_stack:
 k8s_cluster_type: aws
 # aws eks describe-cluster --name=philly-hip-stack-cluster --query 'cluster.arn'
 k8s_context: "arn:aws:eks:us-east-1:061553509755:cluster/{{ cluster_name }}"
-k8s_ingress_nginx_chart_version: "4.9.1"
-k8s_cert_manager_chart_version: "v1.14.3"
+k8s_ingress_nginx_chart_version: "4.11.3"
+k8s_cert_manager_chart_version: "v1.16.2"
 k8s_letsencrypt_email: admin@caktusgroup.com
 k8s_iam_users: [noop]  # https://github.com/caktus/ansible-role-k8s-web-cluster/issues/17
 # aws-for-fluent-bit
@@ -220,7 +228,7 @@ k8s_install_descheduler: yes
 # You must set the k8s_descheduler_chart_version to match the Kubernetes
 # node version (0.23.x -> K8s 1.23.x); see:
 # https://github.com/kubernetes-sigs/descheduler#compatibility-matrix
-k8s_descheduler_chart_version: v0.29.0
+k8s_descheduler_chart_version: v0.30.2
 # See values.yaml for options:
 # https://github.com/kubernetes-sigs/descheduler/blob/master/charts/descheduler/values.yaml#L63
 k8s_descheduler_release_values:
@@ -229,3 +237,7 @@ k8s_descheduler_release_values:
       # During upgrades or reboots, don't pre-emptively drain a node.
       RemovePodsViolatingNodeTaints:
         enabled: false
+  
+
+# Must be PostgreSQL v15 for DB restore
+k8s_hosting_services_image_tag: 0.6.0-postgres15
