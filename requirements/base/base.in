@@ -1,6 +1,6 @@
 # base.in
 
-django==4.2.14
+django==5.1.7
 django-dotenv
 django_extensions
 django_model_utils
@@ -24,14 +24,15 @@ libsass
 phonenumberslite
 pdfid
 
-social-auth-app-django==5.4.2
+social-auth-app-django==5.4.3
 
 # Postgres
-psycopg2-binary==2.9.9
+psycopg2-binary==2.9.10
 
 
 # Wagtail
-wagtail==5.2.6
+wagtail==6.3.3
 wagtailmenus
+wagtail-modeladmin
 
-cffi==1.17.0
+cffi==1.17.1

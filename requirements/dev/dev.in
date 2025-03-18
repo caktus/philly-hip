@@ -1,7 +1,6 @@
 # Dev requirements
 -c ../base/base.txt
 
-pyyaml==6.0.1
 black==24.4.2
 isort
 ipython
@@ -14,7 +13,7 @@ invoke-kubesae==0.1.0
 # AWS tools
 awscli==1.36.17
 awslogs
-Jinja2==3.0.3
+Jinja2==3.1.6
 openshift==0.13.2
 kubernetes==12.0.0
 kubernetes-validate==1.30

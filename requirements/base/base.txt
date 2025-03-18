@@ -19,7 +19,7 @@ botocore==1.35.76
     #   s3transfer
 certifi==2020.12.5
     # via requests
-cffi==1.17.0
+cffi==1.17.1
     # via
     #   -r requirements/base/base.in
     #   cryptography
@@ -36,7 +36,7 @@ diff-match-patch==20200713
     # via django-import-export
 dj-database-url==0.5.0
     # via -r requirements/base/base.in
-django==4.2.14
+django==5.1.7
     # via
     #   -r requirements/base/base.in
     #   django-appconf
@@ -51,6 +51,7 @@ django==4.2.14
     #   django-taggit
     #   django-treebeard
     #   djangorestframework
+    #   laces
     #   social-auth-app-django
     #   wagtail
 django-appconf==1.0.4
@@ -79,11 +80,11 @@ django-permissionedforms==0.1
     # via wagtail
 django-phonenumber-field==8.0.0
     # via -r requirements/base/base.in
-django-sass-processor==0.8.2
+django-sass-processor==1.4.1
     # via -r requirements/base/base.in
 django-storages==1.14.4
     # via -r requirements/base/base.in
-django-taggit==4.0.0
+django-taggit==6.1.0
     # via
     #   -r requirements/base/base.in
     #   wagtail
@@ -97,8 +98,6 @@ et-xmlfile==1.0.1
     # via openpyxl
 filetype==1.2.0
     # via willow
-html5lib==1.1
-    # via wagtail
 idna==2.10
     # via requests
 jmespath==0.10.0
@@ -106,6 +105,8 @@ jmespath==0.10.0
     #   boto3
     #   botocore
 l18n==2020.6.1
+    # via wagtail
+laces==0.1.2
     # via wagtail
 libsass==0.20.1
     # via -r requirements/base/base.in
@@ -125,7 +126,7 @@ pillow==9.3.0
     #   wagtail
 pillow-heif==0.15.0
     # via willow
-psycopg2-binary==2.9.9
+psycopg2-binary==2.9.10
     # via -r requirements/base/base.in
 pycparser==2.20
     # via cffi
@@ -156,11 +157,10 @@ s3transfer==0.10.1
     # via boto3
 six==1.15.0
     # via
-    #   html5lib
     #   l18n
     #   libsass
     #   python-dateutil
-social-auth-app-django==5.4.2
+social-auth-app-django==5.4.3
     # via -r requirements/base/base.in
 social-auth-core==4.4.2
     # via social-auth-app-django
@@ -176,18 +176,21 @@ urllib3==1.26.4
     # via
     #   botocore
     #   requests
-wagtail==5.2.6
+wagtail==6.3.3
     # via
     #   -r requirements/base/base.in
+    #   wagtail-modeladmin
     #   wagtailmenus
+wagtail-modeladmin==2.1.0
+    # via -r requirements/base/base.in
 wagtailmenus==4.0
     # via -r requirements/base/base.in
-webencodings==0.5.1
-    # via html5lib
 whitenoise==5.2.0
     # via -r requirements/base/base.in
-willow[heif]==1.6.3
-    # via wagtail
+willow[heif]==1.9.0
+    # via
+    #   wagtail
+    #   willow
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

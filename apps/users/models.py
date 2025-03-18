@@ -1,5 +1,4 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-from django.contrib.postgres.fields import CIEmailField
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -13,7 +12,7 @@ class User(AbstractBaseUser, PermissionsMixin, IndexedTimeStampedModel):
     # creating a non-deterministic collation. Can't migrate yet because it requires
     # Postgres 12 or higher. Currently Hip Philly is running Postgres 11.
     # https://adamj.eu/tech/2023/02/23/migrate-django-postgresql-ci-fields-case-insensitive-collation/
-    email = CIEmailField(max_length=255, unique=True)
+    email = models.EmailField(max_length=255, unique=True)
     first_name = models.CharField(_("first name"), max_length=150, blank=True)
     last_name = models.CharField(_("last name"), max_length=150, blank=True)
     is_staff = models.BooleanField(
