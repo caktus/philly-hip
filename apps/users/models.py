@@ -7,12 +7,9 @@ from apps.users.managers import UserManager
 
 
 class User(AbstractBaseUser, PermissionsMixin, IndexedTimeStampedModel):
-    # Support for CIEmailField will be depreacated after Django 4.2 in favor
-    # of EmailField. Below is how to migrate to the vanilla EmailField Whilst
-    # creating a non-deterministic collation. Can't migrate yet because it requires
-    # Postgres 12 or higher. Currently Hip Philly is running Postgres 11.
-    # https://adamj.eu/tech/2023/02/23/migrate-django-postgresql-ci-fields-case-insensitive-collation/
-    email = models.EmailField(max_length=255, unique=True)
+    email = models.EmailField(
+        max_length=255, db_collation="case_insensitive", unique=True
+    )
     first_name = models.CharField(_("first name"), max_length=150, blank=True)
     last_name = models.CharField(_("last name"), max_length=150, blank=True)
     is_staff = models.BooleanField(

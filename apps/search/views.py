@@ -29,7 +29,7 @@ def search(request):
     if search_query:
         pages_for_request_user = get_all_pages_visible_to_request(request)
         search_results = pages_for_request_user.live().search(
-            search_query, partial_match=False
+            search_query,
         )
 
         # Log the query so Wagtail can suggest promoted results
