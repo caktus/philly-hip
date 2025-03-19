@@ -49,7 +49,7 @@ def test_unsuccessful_login_logs(db, client, mocker):
 def test_admin_logout_clears_session(db, client, mocker):
     """Logging out via GET request clears the user's session."""
     # This test had to be modified because Django now uses a GET request for
-    # admin logout, threfore a log message is no longer produced. See:
+    # admin logout, therefore a log message is no longer produced. See:
     # https://forum.djangoproject.com/t/deprecation-of-get-method-for-logoutview/25533
     # https://code.djangoproject.com/ticket/15619
 
