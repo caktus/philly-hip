@@ -24,14 +24,14 @@ libsass
 phonenumberslite
 pdfid
 
-social-auth-app-django==5.4.3
+social-auth-app-django==5.4.2
 
 # Postgres
-psycopg2-binary==2.9.10
+psycopg2-binary==2.9.9
 
 
 # Wagtail
-wagtail==6.3.3
+wagtail==6.3.4
 wagtailmenus
 wagtail-modeladmin
 
