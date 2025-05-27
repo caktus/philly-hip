@@ -29,12 +29,12 @@ pudb
 django-debug-toolbar
 
 # For testing
-factory_boy
+factory_boy==3.3.3
 
 
-pytest==8.3.1
-pytest-cov
-pytest-django
-pytest-factoryboy
-pytest-mock
-wagtail-factories
+pytest==8.3.5
+pytest-cov==6.1.1
+pytest-django==4.11.1
+pytest-factoryboy==2.7.0
+pytest-mock==3.14.1
+wagtail-factories==4.2.1

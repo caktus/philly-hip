@@ -1,6 +1,6 @@
 # base.in
 
-django==5.1.7
+django==5.2.1
 django-dotenv
 django_extensions
 django_model_utils
@@ -20,7 +20,7 @@ django-honeypot
 whitenoise
 boto3==1.35.76
 botocore==1.35.76
-libsass
+libsass==0.23.0
 phonenumberslite
 pdfid
 
@@ -31,8 +31,8 @@ psycopg2-binary==2.9.9
 
 
 # Wagtail
-wagtail==6.3.4
-wagtailmenus
-wagtail-modeladmin
+wagtail==7.0
+wagtailmenus==4.0.2
+wagtail-modeladmin==2.2.0
 
 cffi==1.17.1
