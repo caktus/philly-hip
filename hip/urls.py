@@ -15,6 +15,11 @@ from apps.notifications import views as notifications_views
 from apps.search import views as search_views
 
 
+# Explicitly define our handlers for 404-status-code and 500-status-code responses.
+handler404 = "apps.hip.views.handler404"
+handler500 = "apps.hip.views.handler500"
+
+
 urlpatterns = [
     path("search/", search_views.search, name="search"),
     path(
