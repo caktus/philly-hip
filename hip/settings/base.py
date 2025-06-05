@@ -54,6 +54,7 @@ INSTALLED_APPS = [
 INSTALLED_APPS += [
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
+    "wagtail.contrib.search_promotions",
     "wagtail.embeds",
     "wagtail.sites",
     "wagtail.users",
@@ -65,8 +66,8 @@ INSTALLED_APPS += [
     "wagtail",
     "modelcluster",
     # Full list of icons available @ https://fontawesome.com/v4.7.0/icons/
-    "wagtail.contrib.modeladmin",
     "wagtailmenus",
+    "wagtail_modeladmin",
 ]
 
 

@@ -29,7 +29,7 @@ elif EMAIL_USE_SSL:
 else:
     default_smtp_port = 25
 EMAIL_PORT = os.getenv("EMAIL_PORT", default_smtp_port)
-EMAIL_SUBJECT_PREFIX = "[hip %s] " % ENVIRONMENT.title()
+EMAIL_SUBJECT_PREFIX = f"[hip {ENVIRONMENT.title()}] "
 DEFAULT_FROM_EMAIL = "healthresponse@phila.gov"
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 

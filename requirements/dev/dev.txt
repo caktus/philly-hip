@@ -70,7 +70,7 @@ certifi==2020.12.5
     #   -c requirements/dev/../base/base.txt
     #   kubernetes
     #   requests
-cffi==1.17.0
+cffi==1.17.1
     # via
     #   -c requirements/dev/../base/base.txt
     #   argon2-cffi-bindings
@@ -89,7 +89,7 @@ colorama==0.4.6
     #   invoke-kubesae
 comm==0.2.2
     # via ipykernel
-coverage[toml]==5.4
+coverage[toml]==7.8.2
     # via
     #   -r requirements/dev/dev.in
     #   pytest-cov
@@ -108,16 +108,19 @@ defusedxml==0.7.1
     #   willow
 distlib==0.3.8
     # via virtualenv
-django==4.2.14
+django==5.2.1
     # via
     #   -c requirements/dev/../base/base.txt
     #   django-debug-toolbar
     #   django-filter
     #   django-modelcluster
     #   django-permissionedforms
+    #   django-stubs-ext
     #   django-taggit
+    #   django-tasks
     #   django-treebeard
     #   djangorestframework
+    #   laces
     #   wagtail
 django-debug-toolbar==4.3.0
     # via -r requirements/dev/dev.in
@@ -133,7 +136,15 @@ django-permissionedforms==0.1
     # via
     #   -c requirements/dev/../base/base.txt
     #   wagtail
-django-taggit==4.0.0
+django-stubs-ext==5.2.0
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   django-tasks
+django-taggit==6.1.0
+    # via
+    #   -c requirements/dev/../base/base.txt
+    #   wagtail
+django-tasks==0.7.0
     # via
     #   -c requirements/dev/../base/base.txt
     #   wagtail
@@ -159,7 +170,7 @@ et-xmlfile==1.0.1
     #   openpyxl
 executing==2.0.1
     # via stack-data
-factory-boy==3.3.0
+factory-boy==3.3.3
     # via
     #   -r requirements/dev/dev.in
     #   pytest-factoryboy
@@ -178,10 +189,6 @@ flake8==6.0.0
     # via -r requirements/dev/dev.in
 google-auth==2.29.0
     # via kubernetes
-html5lib==1.1
-    # via
-    #   -c requirements/dev/../base/base.txt
-    #   wagtail
 identify==2.5.36
     # via pre-commit
 idna==2.10
@@ -189,7 +196,7 @@ idna==2.10
     #   -c requirements/dev/../base/base.txt
     #   anyio
     #   requests
-importlib-metadata==7.1.0
+importlib-metadata==8.6.1
     # via -r requirements/dev/dev.in
 importlib-resources==6.4.0
     # via kubernetes-validate
@@ -220,7 +227,7 @@ jedi==0.19.1
     # via
     #   ipython
     #   pudb
-jinja2==3.0.3
+jinja2==3.1.6
     # via
     #   -r requirements/dev/dev.in
     #   ansible-core
@@ -281,7 +288,7 @@ kubernetes==12.0.0
     #   openshift
 kubernetes-validate==1.30.0
     # via -r requirements/dev/dev.in
-l18n==2020.6.1
+laces==0.1.2
     # via
     #   -c requirements/dev/../base/base.txt
     #   wagtail
@@ -414,20 +421,20 @@ pygments==2.18.0
     #   ipython
     #   nbconvert
     #   pudb
-pytest==8.3.1
+pytest==8.3.5
     # via
     #   -r requirements/dev/dev.in
     #   pytest-cov
     #   pytest-django
     #   pytest-factoryboy
     #   pytest-mock
-pytest-cov==5.0.0
+pytest-cov==6.1.1
     # via -r requirements/dev/dev.in
-pytest-django==4.8.0
+pytest-django==4.11.1
     # via -r requirements/dev/dev.in
 pytest-factoryboy==2.7.0
     # via -r requirements/dev/dev.in
-pytest-mock==3.14.0
+pytest-mock==3.14.1
     # via -r requirements/dev/dev.in
 python-dateutil==2.8.1
     # via
@@ -443,11 +450,9 @@ pytz==2024.1
     # via
     #   -c requirements/dev/../base/base.txt
     #   django-modelcluster
-    #   l18n
 pyyaml==6.0.1
     # via
     #   -c requirements/dev/../base/base.txt
-    #   -r requirements/dev/dev.in
     #   ansible-core
     #   awscli
     #   kubernetes
@@ -501,9 +506,7 @@ six==1.15.0
     #   -c requirements/dev/../base/base.txt
     #   asttokens
     #   bleach
-    #   html5lib
     #   kubernetes
-    #   l18n
     #   openshift
     #   python-dateutil
 sniffio==1.3.1
@@ -532,8 +535,6 @@ terminado==0.18.1
     #   notebook
 tinycss2==1.3.0
     # via nbconvert
-toml==0.10.2
-    # via coverage
 tomli==2.0.1
     # via jupyterlab
 tornado==6.4
@@ -559,8 +560,11 @@ traitlets==5.14.3
     #   nbconvert
     #   nbformat
     #   notebook
-typing-extensions==4.12.2
+typing-extensions==4.13.2
     # via
+    #   -c requirements/dev/../base/base.txt
+    #   django-stubs-ext
+    #   django-tasks
     #   ipython
     #   kubernetes-validate
     #   pytest-factoryboy
@@ -579,7 +583,7 @@ urwid-readline==0.14
     # via pudb
 virtualenv==20.26.2
     # via pre-commit
-wagtail==5.2.6
+wagtail==7.0
     # via
     #   -c requirements/dev/../base/base.txt
     #   wagtail-factories
@@ -591,19 +595,18 @@ wcwidth==0.2.13
     #   urwid
 webencodings==0.5.1
     # via
-    #   -c requirements/dev/../base/base.txt
     #   bleach
-    #   html5lib
     #   tinycss2
 websocket-client==1.8.0
     # via
     #   jupyter-server
     #   kubernetes
-willow[heif]==1.6.3
+willow[heif]==1.10.0
     # via
     #   -c requirements/dev/../base/base.txt
     #   wagtail
-zipp==3.18.2
+    #   willow
+zipp==3.21.0
     # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:

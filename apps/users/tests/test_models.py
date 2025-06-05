@@ -1,3 +1,6 @@
+from django.db import IntegrityError
+
+import pytest
 from pytest_factoryboy import register
 
 from apps.users.tests.factories import DEFAULT_PASSWORD, UserFactory
@@ -51,3 +54,12 @@ def test_case_insensitive_login(client, db, user):
     user.save()
     # lowercase the email and they should be able to login
     assert client.login(email=mixed_case_email.lower(), password=DEFAULT_PASSWORD)
+
+
+@pytest.mark.django_db
+def test_email_case_insensitive_unique():
+    UserFactory(email="Caktus@example.com")
+    msg = 'duplicate key value violates unique constraint "users_user_email_key"'
+
+    with pytest.raises(IntegrityError, match=msg):
+        UserFactory(email="caktus@example.com")

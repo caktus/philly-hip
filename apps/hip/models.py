@@ -561,7 +561,6 @@ class HIPDocumentQuerySet(DocumentQuerySet):
         fields=None,
         operator=None,
         order_by_relevance=True,
-        partial_match=True,
         backend="default",
     ):
         """
