@@ -196,7 +196,7 @@ First add the following line to your `.env` file:
 (hip)$ echo "DATABASE_URL=postgres://postgres@127.0.0.1:5432/hip" >> .env
 ```
 
-The `docker-compose.yml` sets up environment variables in a file, ``.postgres``.
+The `docker compose.yml` sets up environment variables in a file, ``.postgres``.
 To use the Docker setup, add these lines to that file:
 
 ```sh
@@ -224,7 +224,7 @@ and change the first entry's `Hostname` field to `localhost`.
 **7. Migrate and create a superuser**
 
 ```linux
-    (hip)$ docker-compose up -d
+    (hip)$ docker compose up -d
     (hip)$ python manage.py migrate
     (hip)$ python manage.py createsuperuser
 ```
@@ -232,7 +232,7 @@ and change the first entry's `Hostname` field to `localhost`.
 **8. Run the server**
 
 ```linux
-    (hip)$ docker-compose up -d
+    (hip)$ docker compose up -d
     (hip)$ make run-dev
 ```
 

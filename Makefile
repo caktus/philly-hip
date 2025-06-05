@@ -23,7 +23,7 @@ setup:
 
 run-dev:
 	@echo 'Running local development'
-	docker-compose up -d --remove-orphans
+	docker compose up -d --remove-orphans
 	npm run dev &
 	python manage.py runserver
 
