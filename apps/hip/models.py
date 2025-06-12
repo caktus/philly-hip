@@ -2,9 +2,13 @@ from django.db import models
 from django.shortcuts import reverse
 from django.utils.timezone import localtime
 
+from django_extensions.db.fields import AutoSlugField
+from modelcluster.fields import ParentalKey
+from modelcluster.models import ClusterableModel
 from phonenumber_field.modelfields import PhoneNumberField
 from wagtail import blocks
-from wagtail.admin.panels import FieldPanel
+from wagtail import models as wagtail_models
+from wagtail.admin.panels import FieldPanel, InlinePanel, PageChooserPanel
 from wagtail.documents.models import Document, DocumentQuerySet
 from wagtail.fields import RichTextField, StreamField
 from wagtail.search import index
@@ -68,6 +72,36 @@ class ButtonSnippet(IndexedTimeStampedModel):
 
     def __str__(self):
         return f"Button '{self.button_text}' to {self.relative_url}"
+
+
+class PageLink(wagtail_models.Orderable):
+    link_page = models.ForeignKey(
+        "wagtailcore.Page",
+        null=True,
+        related_name="+",
+        on_delete=models.CASCADE,
+    )
+
+    page = ParentalKey("Menu", related_name="page_links")
+
+    panels = [PageChooserPanel("link_page")]
+
+    def __str__(self):
+        return f"{self.link_page.title} Link"
+
+
+@register_snippet
+class Menu(ClusterableModel):
+    title = models.CharField(max_length=255)
+    slug = AutoSlugField(populate_from="title", editable=True)
+
+    panels = [
+        FieldPanel("title"),
+        InlinePanel("page_links", label="Page Link"),
+    ]
+
+    def __str__(self):
+        return f"{self.title}"
 
 
 class TableRow(blocks.StructBlock):
