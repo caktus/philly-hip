@@ -75,6 +75,7 @@ class ButtonSnippet(IndexedTimeStampedModel):
 
 
 class PageLink(wagtail_models.Orderable):
+    title = models.CharField(max_length=255)
     link_page = models.ForeignKey(
         "wagtailcore.Page",
         null=True,
@@ -84,10 +85,13 @@ class PageLink(wagtail_models.Orderable):
 
     page = ParentalKey("Menu", related_name="page_links")
 
-    panels = [PageChooserPanel("link_page")]
+    panels = [
+        FieldPanel("title"),
+        PageChooserPanel("link_page"),
+    ]
 
     def __str__(self):
-        return f"{self.link_page.title} Link"
+        return f"{self.title} Link"
 
 
 @register_snippet

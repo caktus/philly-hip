@@ -2,6 +2,8 @@ from django.conf import settings
 
 from wagtail.documents import get_document_model
 
+from apps.hip.models import Menu
+
 from .utils import (
     get_bigcities_home_page_url,
     get_closedpod_home_page_url,
@@ -91,3 +93,17 @@ def right_to_know_pdf_url(request):
     document = get_document_model().objects.filter(title__iexact="right_to_know.pdf")
     url = document.first().url if document.exists() else ""
     return {"right_to_know_pdf_url": url}
+
+
+def menus(request):
+    menu_data = {
+        "main_menu": [],
+        "resources_menu": [],
+    }
+    if main_menu := Menu.objects.filter(slug="main-menu").first():
+        menu_data["main_menu"] = {"page_links": main_menu.page_links.all()}
+
+    if resources_menu := Menu.objects.filter(slug="resources-menu").first():
+        menu_data["resources_menu"] = {"page_links": resources_menu.page_links.all()}
+
+    return menu_data
