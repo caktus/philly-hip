@@ -75,12 +75,15 @@ class ButtonSnippet(IndexedTimeStampedModel):
 
 
 class PageLink(wagtail_models.Orderable):
-    title = models.CharField(max_length=255)
+    title = models.CharField(
+        max_length=255,
+    )
     link_page = models.ForeignKey(
         "wagtailcore.Page",
         null=True,
         related_name="+",
         on_delete=models.CASCADE,
+        help_text="Title is changed to page title when using this page chooser, but can be altered afterwards.",
     )
 
     page = ParentalKey("Menu", related_name="page_links")

@@ -138,6 +138,7 @@ class Migration(migrations.Migration):
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="+",
                         to="wagtailcore.page",
+                        help_text="Title is changed to page title when using this page chooser, but can be altered afterwards.",
                     ),
                 ),
                 (
