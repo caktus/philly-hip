@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - develop
+      - CU-868ehfnd2-missing-images
 
 jobs:
   build-push:
