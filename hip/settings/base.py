@@ -107,6 +107,7 @@ TEMPLATES = [
                 "apps.common.context_processors.previous_url",
                 "apps.common.context_processors.authenticated_home_pages",
                 "apps.common.context_processors.right_to_know_pdf_url",
+                "apps.common.context_processors.menus",
             ],
         },
     },
