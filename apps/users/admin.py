@@ -31,6 +31,26 @@ class CustomUserAdmin(ExportMixin, UserAdmin):
         "user_permissions",
     )
 
+    def get_search_results(self, request, queryset, search_term):
+        if not search_term:
+            return queryset, False
+
+        email_results = queryset.filter(email__iexact=search_term)
+        original_search_fields = self.search_fields
+        other_fields = [f for f in original_search_fields if f != "email"]
+
+        if not other_fields:
+            return email_results, False
+
+        self.search_fields = other_fields
+        other_results, may_have_duplicates = super().get_search_results(
+            request, queryset, search_term
+        )
+        self.search_fields = original_search_fields  # Restore
+        queryset = email_results | other_results
+
+        return queryset, may_have_duplicates
+
     fieldsets = (
         (None, {"fields": ("email", "password")}),
         (
