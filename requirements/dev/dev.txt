@@ -37,7 +37,7 @@ attrs==24.2.0
     # via
     #   jsonschema
     #   referencing
-awscli==1.36.17
+awscli==1.41.2
     # via -r requirements/dev/dev.in
 awslogs==0.14.0
     # via -r requirements/dev/dev.in
@@ -52,12 +52,12 @@ black==24.4.2
     # via -r requirements/dev/dev.in
 bleach==6.1.0
     # via nbconvert
-boto3==1.35.76
+boto3==1.39.2
     # via
     #   -c requirements/dev/../base/base.txt
     #   awslogs
     #   invoke-kubesae
-botocore==1.35.76
+botocore==1.39.2
     # via
     #   -c requirements/dev/../base/base.txt
     #   awscli
@@ -156,12 +156,14 @@ djangorestframework==3.15.2
     # via
     #   -c requirements/dev/../base/base.txt
     #   wagtail
-docutils==0.16
+docutils==0.19
     # via awscli
 draftjs-exporter==2.1.7
     # via
     #   -c requirements/dev/../base/base.txt
     #   wagtail
+durationpy==0.10
+    # via kubernetes
 entrypoints==0.4
     # via jupyter-client
 et-xmlfile==1.0.1
@@ -282,11 +284,11 @@ jupyterlab-pygments==0.3.0
     # via nbconvert
 jupyterlab-server==2.16.3
     # via jupyterlab
-kubernetes==12.0.0
+kubernetes==32.0.1
     # via
     #   -r requirements/dev/dev.in
     #   openshift
-kubernetes-validate==1.30.0
+kubernetes-validate==1.32.0
     # via -r requirements/dev/dev.in
 laces==0.1.2
     # via
@@ -336,9 +338,10 @@ notebook==6.5.7
     # via jupyterlab
 notebook-shim==0.2.4
     # via nbclassic
-oauthlib==3.1.0
+oauthlib==3.3.1
     # via
     #   -c requirements/dev/../base/base.txt
+    #   kubernetes
     #   requests-oauthlib
 openpyxl==3.1.2
     # via
@@ -491,7 +494,7 @@ rsa==4.7.2
     # via
     #   awscli
     #   google-auth
-s3transfer==0.10.1
+s3transfer==0.13.0
     # via
     #   -c requirements/dev/../base/base.txt
     #   awscli

@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - develop
+      - CU-868e6zr55-k8s-132
 
 jobs:
   build-push:
