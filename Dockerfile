@@ -122,8 +122,8 @@ RUN groupadd --gid $USER_GID $USERNAME \
 #   openssh-client -- for git over SSH
 #   sudo -- to run commands as superuser
 #   vim -- enhanced vi editor for commits
-ENV KUBE_CLIENT_VERSION="v1.30.7"
-ENV HELM_VERSION="3.16.3"
+ENV KUBE_CLIENT_VERSION="v1.32.6"
+ENV HELM_VERSION="3.18.3"
 ENV POSTGRESQL_CLIENT_VERSION="15"
 RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/apt \
     --mount=type=cache,mode=0755,target=/root/.cache/pip \
