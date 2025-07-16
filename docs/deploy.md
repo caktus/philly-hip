@@ -205,8 +205,9 @@ There are [GitHub Actions self-hosted runners](https://docs.github.com/en/action
 
 Setup instructions:
 
-* Obtain a [GitHub PAT](https://docs.github.com/en/rest/actions/self-hosted-runners?apiVersion=2022-11-28#list-self-hosted-runners-for-an-organization) with the `repo` and `org:admin` scope that's valid for one week (it needs to be active only for the initial deployment). Add this to a local environment variable `RUNNER_CFG_PAT`:
+* Obtain a [GitHub PAT](https://docs.github.com/en/rest/actions/self-hosted-runners?apiVersion=2022-11-28#list-self-hosted-runners-for-an-organization) with the `repo` and `org:admin` scope that's valid 90 days. When the token expires, deployments will hang and subsequently fail due to timeout. 
 
+Add this to a local environment variable `RUNNER_CFG_PAT`:
 ```sh
 export RUNNER_CFG_PAT="gh......"
 ```
