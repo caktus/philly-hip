@@ -196,7 +196,7 @@ First add the following line to your `.env` file:
 (hip)$ echo "DATABASE_URL=postgres://postgres@127.0.0.1:5432/hip" >> .env
 ```
 
-The `docker-compose.yml` sets up environment variables in a file, ``.postgres``.
+The `docker compose.yml` sets up environment variables in a file, ``.postgres``.
 To use the Docker setup, add these lines to that file:
 
 ```sh
@@ -224,7 +224,7 @@ and change the first entry's `Hostname` field to `localhost`.
 **7. Migrate and create a superuser**
 
 ```linux
-    (hip)$ docker-compose up -d
+    (hip)$ docker compose up -d
     (hip)$ python manage.py migrate
     (hip)$ python manage.py createsuperuser
 ```
@@ -232,7 +232,7 @@ and change the first entry's `Hostname` field to `localhost`.
 **8. Run the server**
 
 ```linux
-    (hip)$ docker-compose up -d
+    (hip)$ docker compose up -d
     (hip)$ make run-dev
 ```
 
@@ -294,22 +294,3 @@ To reset your local database from a deployed environment:
 As mentioned in the Database setup instructions, you may need to visit 
 [/cms/sites](http://localhost:8000/cms/sites/) and change the first entry's 
 `Hostname` field to `localhost` to enable page previews in the Wagtail admin.
-
-### GitHub Actions Runner
-
-There are [GitHub Actions self-hosted runners](https://docs.github.com/en/actions/hosting-your-own-runners/about-self-hosted-runners) deployed in the Kubernetes cluster along side the application.
-
-Setup instructions:
-
-* Obtain a [GitHub PAT](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with the `repo` scope that's valid for one week (it needs to be active only for the initial deployment). Add this to a local environment variable `RUNNER_CFG_PAT`:
-
-```sh
-export RUNNER_CFG_PAT="gh......"
-```
-
-* Run the playbook to deploy the runner:
-
-```sh
-cd deploy/
-ansible-playbook deploy-runner.yml
-```

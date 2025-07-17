@@ -54,6 +54,7 @@ INSTALLED_APPS = [
 INSTALLED_APPS += [
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
+    "wagtail.contrib.search_promotions",
     "wagtail.embeds",
     "wagtail.sites",
     "wagtail.users",
@@ -65,8 +66,8 @@ INSTALLED_APPS += [
     "wagtail",
     "modelcluster",
     # Full list of icons available @ https://fontawesome.com/v4.7.0/icons/
-    "wagtail.contrib.modeladmin",
     "wagtailmenus",
+    "wagtail_modeladmin",
 ]
 
 
@@ -106,6 +107,7 @@ TEMPLATES = [
                 "apps.common.context_processors.previous_url",
                 "apps.common.context_processors.authenticated_home_pages",
                 "apps.common.context_processors.right_to_know_pdf_url",
+                "apps.common.context_processors.menus",
             ],
         },
     },
@@ -205,17 +207,21 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
-
+STORAGES = {
+    "default": {
+        "BACKEND": os.getenv(
+            "DEFAULT_FILE_STORAGE", "django.core.files.storage.FileSystemStorage"
+        )
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 MEDIA_STORAGE_BUCKET_NAME = os.getenv("MEDIA_STORAGE_BUCKET_NAME", "")
 MEDIA_LOCATION = os.getenv("MEDIA_LOCATION", "")
 MEDIA_S3_CUSTOM_DOMAIN = os.getenv("MEDIA_S3_CUSTOM_DOMAIN", "")
-DEFAULT_FILE_STORAGE = os.getenv(
-    "DEFAULT_FILE_STORAGE", "django.core.files.storage.FileSystemStorage"
-)
 AWS_DEFAULT_ACL = os.getenv("AWS_DEFAULT_ACL") or None
 AWS_S3_SIGNATURE_VERSION = os.getenv("AWS_S3_SIGNATURE_VERSION", "s3v4")
 AWS_S3_REGION_NAME = os.getenv("AWS_S3_REGION_NAME", "us-east-1")

@@ -25,7 +25,10 @@ def test_file_is_required(db):
     form = DocumentForm(data=data, files={})
     assert not form.is_valid()
     assert "file" in form.errors
-    assert form.errors["file"] == ["This field is required."]
+    assert form.errors["file"] == [
+        "This field is required.",
+        "File extension “” is not allowed. Allowed extensions are: pdf, png, jpg, jpeg.",
+    ]
 
 
 def test_pdf_success(db):

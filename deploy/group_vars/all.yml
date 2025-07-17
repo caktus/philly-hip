@@ -95,8 +95,8 @@ cloudformation_stack:
 k8s_cluster_type: aws
 # aws eks describe-cluster --name=philly-hip-stack-cluster --query 'cluster.arn'
 k8s_context: "arn:aws:eks:us-east-1:061553509755:cluster/{{ cluster_name }}"
-k8s_ingress_nginx_chart_version: "4.11.3"
-k8s_cert_manager_chart_version: "v1.16.2"
+k8s_ingress_nginx_chart_version: "4.12.3"
+k8s_cert_manager_chart_version: "v1.17.2"
 k8s_letsencrypt_email: admin@caktusgroup.com
 k8s_iam_users: [noop]  # https://github.com/caktus/ansible-role-k8s-web-cluster/issues/17
 # aws-for-fluent-bit
@@ -140,11 +140,6 @@ k8s_container_ingress_annotations:
   nginx.ingress.kubernetes.io/proxy-connect-timeout: 1800
   nginx.ingress.kubernetes.io/proxy-send-timeout: 1800
   nginx.ingress.kubernetes.io/proxy-read-timeout: 1800
-  # Workaround for lack of annotation for send_timeout parameter:
-  # https://github.com/kubernetes/ingress-nginx/issues/2441#issuecomment-419714384
-  nginx.ingress.kubernetes.io/configuration-snippet: |
-    send_timeout 1800s;
-
 # Shared environment variables:
 env_database_url: "postgres://{{ app_name }}_{{ env_name }}:{{ database_password }}@{{ DatabaseAddress }}:5432/{{ app_name }}_{{ env_name }}"
 env_django_settings: "{{ app_name }}.settings.deploy"
@@ -228,7 +223,7 @@ k8s_install_descheduler: yes
 # You must set the k8s_descheduler_chart_version to match the Kubernetes
 # node version (0.23.x -> K8s 1.23.x); see:
 # https://github.com/kubernetes-sigs/descheduler#compatibility-matrix
-k8s_descheduler_chart_version: v0.30.2
+k8s_descheduler_chart_version: v0.32.2
 # See values.yaml for options:
 # https://github.com/kubernetes-sigs/descheduler/blob/master/charts/descheduler/values.yaml#L63
 k8s_descheduler_release_values:

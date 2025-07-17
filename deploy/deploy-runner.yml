@@ -5,7 +5,7 @@
     ansible_connection: local
     ansible_python_interpreter: "{{ ansible_playbook_python }}"
     runner_namespace: github-runner
-    chart_version: "0.9.3"
+    chart_version: "0.11.0"
   gather_facts: false
   tasks:
     # https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/quickstart-for-actions-runner-controller
