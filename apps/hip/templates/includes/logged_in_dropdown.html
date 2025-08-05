@@ -1,11 +1,7 @@
 <div id="logged-in-dropdown" class="dropdown">
   <div class="dropdown-trigger">
-    <button
-      id="logged-in-dropdown-btn"
-      class="button is-size-7-touch alt-header-btn-hip ml-0"
-      aria-haspopup="true"
-      aria-controls="dropdown-menu"
-    >
+    <button id="logged-in-dropdown-btn" class="button is-size-7-touch alt-header-btn-hip ml-0" aria-haspopup="true"
+      aria-controls="dropdown-menu">
       <span>
         <strong>Logged In</strong>
       </span>
@@ -17,7 +13,8 @@
   <div class="dropdown-menu" id="dropdown-menu" role="menu">
     <div class="dropdown-content">
       {% if authenticated_home_pages %}
-      <div class="pl-2 pb-4 is-flex is-justify-content-flex-start is-align-items-center {% if hidden_desktop %}is-hidden-desktop{% endif %}">
+      <div
+        class="pl-2 pb-4 is-flex is-justify-content-flex-start is-align-items-center {% if hidden_desktop %}is-hidden-desktop{% endif %}">
         <h5 class="is-size-7">Authenticated&nbsp;Content</h5>
       </div>
       {% for page in authenticated_home_pages %}
@@ -26,13 +23,18 @@
       </a>
       {% endfor %}
       {% endif %}
-      <div class="pl-2 py-4 is-flex is-justify-content-flex-start is-align-items-center {% if hidden_desktop %}is-hidden-desktop{% endif %}">
+      <div
+        class="pl-2 py-4 is-flex is-justify-content-flex-start is-align-items-center {% if hidden_desktop %}is-hidden-desktop{% endif %}">
         <h5 class="is-size-7">Log&nbsp;Out</h5>
       </div>
-      <a href="{% url 'logout' %}" class="dropdown-item">
-        <span class="signout-icon-red-hip"></span>
-        <span class="alert-hip">Log out</span>
-      </a>
+      <form action="{% url 'logout' %}" method="post" class="d-inline">
+        {% csrf_token %}
+        <button type="submit" class="dropdown-item"
+          style="border: none; background-color: transparent; cursor: pointer;">
+          <span class="signout-icon-red-hip"></span>
+          <span class="alert-hip">Log out</span>
+        </button>
+      </form>
     </div>
   </div>
 </div>
