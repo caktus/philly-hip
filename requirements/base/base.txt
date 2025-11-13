@@ -116,7 +116,6 @@ libsass==0.23.0
     # via -r requirements/base/base.in
 oauthlib==3.3.1
     # via
-    #   -r requirements/base/base.in
     #   requests-oauthlib
     #   social-auth-core
 openpyxl==3.1.2
@@ -192,7 +191,9 @@ wagtailmenus==4.0.2
 whitenoise==5.2.0
     # via -r requirements/base/base.in
 willow[heif]==1.10.0
-    # via wagtail
+    # via
+    #   wagtail
+    #   willow
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
