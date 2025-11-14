@@ -16,7 +16,7 @@ awslogs
 Jinja2==3.1.6
 openshift==0.13.2
 kubernetes==32.0.1
-kubernetes-validate~=1.32.0
+kubernetes-validate~=1.33.0
 
 pre-commit
 coverage

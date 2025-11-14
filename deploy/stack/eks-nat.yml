@@ -71,6 +71,14 @@ Conditions:
     - !Equals
       - !Ref 'DatabaseReplication'
       - 'true'
+  UseCustomAMI: !Not
+    - !Equals
+      - !Ref 'CustomEKSAMI'
+      - ''
+  UseCustomAMIType: !Not
+    - !Equals
+      - !Ref 'CustomAMIImageType'
+      - ''
   EitherCacheCondition: !Or
     - !Condition 'UsingMemcached'
     - !Condition 'UsingRedis'
@@ -234,6 +242,15 @@ Metadata:
           - EnableEksEncryptionConfig
           - EksPublicAccessCidrs
           - EksClusterName
+          - CustomEKSAMI
+          - CustomAMIImageType
+          - EksClusterVersion
+      - Label:
+          default: Elastic Kubernetes Service (EKS)
+        Parameters:
+          - EnableEksEncryptionConfig
+          - EksPublicAccessCidrs
+          - EksClusterName
       - Label:
           default: Bastion Server
         Parameters:
@@ -266,6 +283,10 @@ Metadata:
         default: Instance Type
       ContainerVolumeSize:
         default: Root Volume Size
+      CustomAMIImageType:
+        default: Custom AMI Image Type
+      CustomEKSAMI:
+        default: Custom EKS AMI
       CustomerManagedCmkArn:
         default: Customer managed key ARN
       DatabaseAllocatedStorage:
@@ -786,6 +807,14 @@ Parameters:
     Default: '20'
     Description: Size of instance EBS root volume (in GB)
     Type: Number
+  CustomAMIImageType:
+    Default: ''
+    Description: The image type to match the custom AMI. E.g., AL2023_x86_64_STANDARD, AL2_x86_64
+    Type: String
+  CustomEKSAMI:
+    Default: ''
+    Description: Custom AMI ID for EKS node group
+    Type: String
   CustomerManagedCmkArn:
     Default: ''
     Description: KMS CMK ARN to encrypt stack resources (except for public buckets).
@@ -1954,9 +1983,14 @@ Resources:
     DependsOn:
       - EksCluster
     Properties:
+      AmiType: !If
+        - UseCustomAMIType
+        - !Ref 'CustomAMIImageType'
+        - !Ref 'AWS::NoValue'
       ClusterName: !Ref 'EksCluster'
       LaunchTemplate:
         Id: !Ref 'NodegroupLaunchTemplate'
+        Version: !GetAtt 'NodegroupLaunchTemplate.LatestVersionNumber'
       NodeRole: !GetAtt 'ContainerInstanceRole.Arn'
       ScalingConfig:
         DesiredSize: !Ref 'DesiredScale'
@@ -1981,7 +2015,11 @@ Resources:
                 - !Ref 'CustomerManagedCmkArn'
                 - !Ref 'AWS::NoValue'
               VolumeSize: !Ref 'ContainerVolumeSize'
-              VolumeType: gp2
+              VolumeType: gp3
+        ImageId: !If
+          - UseCustomAMI
+          - !Ref 'CustomEKSAMI'
+          - !Ref 'AWS::NoValue'
         InstanceType: !Ref 'ContainerInstanceType'
         MetadataOptions:
           HttpPutResponseHopLimit: 3

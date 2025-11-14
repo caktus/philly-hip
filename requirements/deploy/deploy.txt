@@ -10,7 +10,7 @@ pymemcache==3.4.4
     # via -r requirements/deploy/deploy.in
 six==1.15.0
     # via
-    #   -c requirements/deploy/../base/base.txt
+    #   -c requirements/base/base.txt
     #   pymemcache
 uwsgi==2.0.26
     # via -r requirements/deploy/deploy.in
