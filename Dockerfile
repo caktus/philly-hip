@@ -1,4 +1,4 @@
-FROM node:20-bookworm-slim as static_files
+FROM node:20-bookworm-slim AS static_files
 WORKDIR /code
 ENV PATH /code/node_modules/.bin:$PATH
 COPY package.json package-lock.json webpack.config.js /code/
@@ -6,7 +6,7 @@ RUN npm install --silent
 COPY . /code/
 RUN npm run build
 
-FROM python:3.11-slim-bookworm as base
+FROM python:3.11-slim-bookworm AS base
 
 # Install packages needed to run your application (not build deps):
 #   mime-support -- for mime types when serving static files
@@ -42,6 +42,7 @@ RUN set -ex \
     libpcre3-dev \
     libpq-dev \
     libffi-dev \
+    libssl-dev \
     " \
     && apt-get update && apt-get install -y --no-install-recommends $BUILD_DEPS \
     && pip install -U -q pip-tools \
@@ -163,8 +164,7 @@ RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/
     && curl https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor | tee /etc/apt/trusted.gpg.d/docker.gpg >/dev/null \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/docker.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null \
     # nodejs
-    && sh -c 'echo "deb https://deb.nodesource.com/node_20.x $(lsb_release -cs) main" > /etc/apt/sources.list.d/nodesource.list' \
-    && wget --quiet -O- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     # PostgreSQL
     && sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' \
     && curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | tee /etc/apt/trusted.gpg.d/apt.postgresql.org.gpg >/dev/null \
