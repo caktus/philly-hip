@@ -350,3 +350,7 @@ WAGTAIL_ENABLE_UPDATE_CHECK = "lts"
 # SILENCED_SYSTEM_CHECKS should be removed.
 # https://github.com/jazzband/wagtailmenus/issues/464#issuecomment-1839097355
 SILENCED_SYSTEM_CHECKS = ["wagtailadmin.W002"]
+
+# Iframe URL Height & Width
+IFRAME_WIDTH = "100%"
+IFRAME_HEIGHT = "800"

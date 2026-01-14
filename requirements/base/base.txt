@@ -179,7 +179,7 @@ urllib3==1.26.4
     # via
     #   botocore
     #   requests
-wagtail==7.0.1
+wagtail==7.0.3
     # via
     #   -r requirements/base/base.in
     #   wagtail-modeladmin
@@ -190,10 +190,8 @@ wagtailmenus==4.0.2
     # via -r requirements/base/base.in
 whitenoise==5.2.0
     # via -r requirements/base/base.in
-willow[heif]==1.10.0
-    # via
-    #   wagtail
-    #   willow
+willow[heif]==1.11.0
+    # via wagtail
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

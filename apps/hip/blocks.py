@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core import validators
 from django.forms.fields import URLField
 
@@ -45,6 +46,15 @@ class ExternalContentEmbedBlock(blocks.StructBlock):
         label="URL",
     )
     description = blocks.RichTextBlock(required=False)
+
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+
+        # Block width/height settings
+        context["iframe_width"] = settings.IFRAME_WIDTH
+        context["iframe_height"] = settings.IFRAME_HEIGHT
+
+        return context
 
     class Meta:
         template = "hip/code_embed.html"

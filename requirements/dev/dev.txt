@@ -586,7 +586,7 @@ urwid-readline==0.14
     # via pudb
 virtualenv==20.26.2
     # via pre-commit
-wagtail==7.0.1
+wagtail==7.0.3
     # via
     #   -c requirements/base/base.txt
     #   wagtail-factories
@@ -604,7 +604,7 @@ websocket-client==1.8.0
     # via
     #   jupyter-server
     #   kubernetes
-willow[heif]==1.10.0
+willow[heif]==1.11.0
     # via
     #   -c requirements/base/base.txt
     #   wagtail
