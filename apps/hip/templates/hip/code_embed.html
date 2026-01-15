@@ -1,11 +1,13 @@
 <div>
+    {% if self.heading %}
     <h2>{{ self.heading }}</h2>
-    <div class="has-text-centered">
-        <iframe src="{{ self.url }}" style="width: {{ iframe_width }}; height: {{ iframe_height }}px; border: none;"
-            title="{{ self.heading }}" allowfullscreen>
-        </iframe>
+    {% endif %}
+    <div class="is-flex is-justify-content-center">
+        {{ self.code }}
     </div>
+    {% if self.description %}
     <div class="has-text-centered mt-4">
         {{ self.description }}
     </div>
+    {% endif %}
 </div>
