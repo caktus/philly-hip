@@ -84,6 +84,9 @@ ENV UWSGI_WSGI_FILE=hip/wsgi.py
 # Base uWSGI configuration (you shouldn't need to change these):
 ENV UWSGI_HTTP=:8000 UWSGI_MASTER=1 UWSGI_HTTP_AUTO_CHUNKED=1 UWSGI_HTTP_KEEPALIVE=1 UWSGI_LAZY_APPS=1 UWSGI_WSGI_ENV_BEHAVIOR=holy UWSGI_IGNORE_SIGPIPE=true UWSGI_IGNORE_WRITE_ERRORS=true UWSGI_DISABLE_WRITE_EXCEPTION=true
 
+# uWSGI buffer size
+ENV UWSGI_BUFFER_SIZE=32768
+
 # Number of uWSGI workers and threads per worker (customize as needed):
 ENV UWSGI_WORKERS=2 UWSGI_THREADS=4
 
@@ -101,7 +104,6 @@ ENTRYPOINT ["/code/docker-entrypoint.sh"]
 
 # Start uWSGI
 CMD ["newrelic-admin", "run-program", "uwsgi", "--single-interpreter", "--enable-threads", "--show-config"]
-
 
 FROM python:3.11-slim-bookworm AS dev
 
@@ -183,6 +185,7 @@ RUN set -ex \
     && echo 'eval "$(starship init bash)"' >> ~/.bashrc
 
 ENV DJANGO_SETTINGS_MODULE=hip.settings.dev
+ENV UWSGI_BUFFER_SIZE=32768
 ENV PATH=/code/venv/bin:$PATH
 
 WORKDIR /code
