@@ -1,6 +1,8 @@
 from wagtail import blocks
 
 
+# We are creating new blocks in this file. In the future,
+# let's migrate blocks from models.py to here.
 class ExternalContentEmbedBlock(blocks.StructBlock):
     """
     Wagtail admin users can use this block to embed HTTP content using an iframe.
