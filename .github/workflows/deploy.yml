@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - develop
-      - CU-868e6zr55-k8s-132
+      - uwsgi-buffer-size
 
 jobs:
   build-push:
