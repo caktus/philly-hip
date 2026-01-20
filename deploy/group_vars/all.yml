@@ -64,6 +64,8 @@ cloudformation_stack:
     AdministratorIPAddress: "{{ administrator_ip_cidrs[0] }}"  # Stack allows only single IP here to SSH to bastion
     BastionAMI: "ami-0ad554caf874569d2" # https://cloud-images.ubuntu.com/locator/ec2/ [us-east-1 amd64]
     BastionKeyName: rluna_hip
+    CustomEKSAMI: "" # Optional when CustomAMIImageType is set. Preferrably do not set as AWS will select best optimized image if CustomAMIImageType is set.
+    CustomAMIImageType: AL2023_x86_64_STANDARD
     BastionInstanceType: t3.small # Is this a proper size?
     BastionType: SSH
     CustomerManagedCmkArn: ""
@@ -95,8 +97,8 @@ cloudformation_stack:
 k8s_cluster_type: aws
 # aws eks describe-cluster --name=philly-hip-stack-cluster --query 'cluster.arn'
 k8s_context: "arn:aws:eks:us-east-1:061553509755:cluster/{{ cluster_name }}"
-k8s_ingress_nginx_chart_version: "4.12.3"
-k8s_cert_manager_chart_version: "v1.17.2"
+k8s_ingress_nginx_chart_version: "4.14.1"
+k8s_cert_manager_chart_version: "v1.18"
 k8s_letsencrypt_email: admin@caktusgroup.com
 k8s_iam_users: [noop]  # https://github.com/caktus/ansible-role-k8s-web-cluster/issues/17
 # aws-for-fluent-bit
@@ -223,7 +225,7 @@ k8s_install_descheduler: yes
 # You must set the k8s_descheduler_chart_version to match the Kubernetes
 # node version (0.23.x -> K8s 1.23.x); see:
 # https://github.com/kubernetes-sigs/descheduler#compatibility-matrix
-k8s_descheduler_chart_version: v0.32.2
+k8s_descheduler_chart_version: v0.33.0
 # See values.yaml for options:
 # https://github.com/kubernetes-sigs/descheduler/blob/master/charts/descheduler/values.yaml#L63
 k8s_descheduler_release_values:

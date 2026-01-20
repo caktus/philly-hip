@@ -1,4 +1,4 @@
-FROM node:20-bookworm-slim as static_files
+FROM node:20-bookworm-slim AS static_files
 WORKDIR /code
 ENV PATH /code/node_modules/.bin:$PATH
 COPY package.json package-lock.json webpack.config.js /code/
@@ -6,7 +6,7 @@ RUN npm install --silent
 COPY . /code/
 RUN npm run build
 
-FROM python:3.11-slim-bookworm as base
+FROM python:3.11-slim-bookworm AS base
 
 # Install packages needed to run your application (not build deps):
 #   mime-support -- for mime types when serving static files
@@ -42,6 +42,7 @@ RUN set -ex \
     libpcre3-dev \
     libpq-dev \
     libffi-dev \
+    libssl-dev \
     " \
     && apt-get update && apt-get install -y --no-install-recommends $BUILD_DEPS \
     && pip install -U -q pip-tools \
@@ -83,6 +84,9 @@ ENV UWSGI_WSGI_FILE=hip/wsgi.py
 # Base uWSGI configuration (you shouldn't need to change these):
 ENV UWSGI_HTTP=:8000 UWSGI_MASTER=1 UWSGI_HTTP_AUTO_CHUNKED=1 UWSGI_HTTP_KEEPALIVE=1 UWSGI_LAZY_APPS=1 UWSGI_WSGI_ENV_BEHAVIOR=holy UWSGI_IGNORE_SIGPIPE=true UWSGI_IGNORE_WRITE_ERRORS=true UWSGI_DISABLE_WRITE_EXCEPTION=true
 
+# uWSGI buffer size
+ENV UWSGI_BUFFER_SIZE=32768
+
 # Number of uWSGI workers and threads per worker (customize as needed):
 ENV UWSGI_WORKERS=2 UWSGI_THREADS=4
 
@@ -100,7 +104,6 @@ ENTRYPOINT ["/code/docker-entrypoint.sh"]
 
 # Start uWSGI
 CMD ["newrelic-admin", "run-program", "uwsgi", "--single-interpreter", "--enable-threads", "--show-config"]
-
 
 FROM python:3.11-slim-bookworm AS dev
 
@@ -122,7 +125,7 @@ RUN groupadd --gid $USER_GID $USERNAME \
 #   openssh-client -- for git over SSH
 #   sudo -- to run commands as superuser
 #   vim -- enhanced vi editor for commits
-ENV KUBE_CLIENT_VERSION="v1.32.6"
+ENV KUBE_CLIENT_VERSION="v1.33.0"
 ENV HELM_VERSION="3.18.3"
 ENV POSTGRESQL_CLIENT_VERSION="15"
 RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/apt \
@@ -163,8 +166,7 @@ RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/
     && curl https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor | tee /etc/apt/trusted.gpg.d/docker.gpg >/dev/null \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/docker.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null \
     # nodejs
-    && sh -c 'echo "deb https://deb.nodesource.com/node_20.x $(lsb_release -cs) main" > /etc/apt/sources.list.d/nodesource.list' \
-    && wget --quiet -O- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     # PostgreSQL
     && sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' \
     && curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | tee /etc/apt/trusted.gpg.d/apt.postgresql.org.gpg >/dev/null \
@@ -183,6 +185,7 @@ RUN set -ex \
     && echo 'eval "$(starship init bash)"' >> ~/.bashrc
 
 ENV DJANGO_SETTINGS_MODULE=hip.settings.dev
+ENV UWSGI_BUFFER_SIZE=32768
 ENV PATH=/code/venv/bin:$PATH
 
 WORKDIR /code
