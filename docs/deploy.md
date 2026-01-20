@@ -205,14 +205,20 @@ There are [GitHub Actions self-hosted runners](https://docs.github.com/en/action
 
 Setup instructions:
 
-* Obtain a [GitHub PAT](https://docs.github.com/en/rest/actions/self-hosted-runners?apiVersion=2022-11-28#list-self-hosted-runners-for-an-organization) with the `repo` and `org:admin` scope that's valid 90 days. When the token expires, deployments will hang and subsequently fail due to timeout. 
+* Generate a [GitHub PAT](https://docs.github.com/en/rest/actions/self-hosted-runners?apiVersion=2022-11-28#list-self-hosted-runners-for-an-organization) with the `repo` and `admin:org` scope that's valid 90 days. When the token expires, deployments will hang and subsequently fail due to timeout. 
 
 Add this to a local environment variable `RUNNER_CFG_PAT`:
 ```sh
 export RUNNER_CFG_PAT="gh......"
 ```
 
-* Run the playbook to deploy the runner:
+1. Uninstall the Runner Set release using Helm:
+
+```sh
+helm uninstall arc-runner-set -n github-runner
+```
+
+2. Run the playbook to deploy the runner:
 
 ```sh
 cd deploy/
