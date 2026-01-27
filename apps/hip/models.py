@@ -16,6 +16,7 @@ from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import register_snippet
 
 from apps.common.models import HipBasePage, IndexedTimeStampedModel
+from apps.hip.blocks import ExternalContentEmbedBlock
 
 
 @register_snippet
@@ -335,6 +336,7 @@ class TextOrTableStreamBlock(blocks.StreamBlock):
     three_column_table = ThreeColumnBlock()
     four_column_table = FourColumnBlock()
     five_column_table = FiveColumnBlock()
+    code_embed = ExternalContentEmbedBlock()
 
 
 class StreamAndNavHeadingBlock(blocks.StructBlock):
