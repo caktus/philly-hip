@@ -19,9 +19,9 @@ k8s_namespace: "{{ app_name }}-{{ env_name }}"
 
 # IP addresses
 administrator_ip_cidrs:
-  - 70.62.97.170/32  # Caktus office
+  - 45.53.178.153/32  # Caktus office (Frontier)
   - 107.15.45.253/32  # Tobias
-  - 47.230.11.28/32  # Ronard
+  - 184.152.165.117/32  # Ronard
   - 107.223.185.195/32  # Colin
 
 # CloudFormation Outputs
