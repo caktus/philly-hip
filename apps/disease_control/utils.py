@@ -14,16 +14,11 @@ def get_disease_control_services_qs():
 
 
 def get_visible_section_headers():
-    return [
-        "Topic-specific Guidance" if get_topic_specific_guidance_qs().exists() else "",
-        (
-            "Facility-specific Guidance"
-            if get_facility_specific_guidance_qs().exists()
-            else ""
-        ),
-        (
-            "Disease Control Services"
-            if get_disease_control_services_qs().exists()
-            else ""
-        ),
-    ]
+    headers = []
+    if get_topic_specific_guidance_qs().exists():
+        headers.append("Topic-specific Guidance")
+    if get_facility_specific_guidance_qs().exists():
+        headers.append("Facility-specific Guidance")
+    if get_disease_control_services_qs().exists():
+        headers.append("Disease Control Services")
+    return headers
