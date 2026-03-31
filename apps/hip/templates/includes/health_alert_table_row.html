@@ -3,8 +3,8 @@
 >
   <td class="topic">
     <!-- Only link to alert file if the alert has a file -->
-    {% if alert.specific.alert_file %}
-      <a href="{{ alert.specific.alert_file.url }}">{{ alert.title }}</a>
+    {% if alert.alert_file %}
+      <a href="{{ alert.alert_file.url }}">{{ alert.title }}</a>
     {% else %}
       <span>{{ alert.title }}</span>
     {% endif %}
@@ -14,5 +14,5 @@
     <i class="fa {{ alert.get_priority_icon }}" aria-hidden="true"></i>
     {{ alert.get_priority_display }}
   </td>
-  <td class="alert-date">{{ alert.specific.alert_date | date:"M j, Y" }}</td>
+  <td class="alert-date">{{ alert.alert_date | date:"M j, Y" }}</td>
 </tr>

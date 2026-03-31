@@ -27,8 +27,13 @@ class HealthAlertListPage(HipBasePage):
         context = super().get_context(request)
 
         # Get all live HealthAlerts, ordered date descending.
+        # select_related pre-fetches the disease and alert_file FKs in a single JOIN
+        # query, eliminating N+1 queries when the template accesses those fields.
         health_alerts = (
-            HealthAlertDetailPage.objects.child_of(self).order_by("-alert_date").live()
+            HealthAlertDetailPage.objects.child_of(self)
+            .order_by("-alert_date")
+            .live()
+            .select_related("disease", "alert_file")
         )
         context["health_alerts"] = health_alerts
 
