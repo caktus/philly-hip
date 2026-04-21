@@ -94,3 +94,13 @@ k8s_hosting_services_aws_secret_access_key: !vault |
   3431333864623432390a393331633934386332396462356638376234353863346337396239396535
   30646330363034393534313430633662643336393233316465623663323962623766343766323665
   3664326363623562343463383130383761343862306639346666
+
+# django-k8s app traefik ingress resources
+k8s_traefik_ingress_resources:
+  - name: "server-transport"
+    type: "root-spec"
+    resourceKind: "ServersTransport"
+    config:
+      forwardingTimeouts:
+        dialTimeout: "1800s"
+        idleTimeout: "1800s"
