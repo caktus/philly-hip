@@ -81,7 +81,7 @@ ns.configure(
         "app_build_target": "deploy",
         "aws": {
             "region": "us-east-1",
-            "profile_name": "philly-hip",
+            "profile_name": "",
         },
         "cluster": "philly-hip-stack-cluster",
         "container_name": "app",
