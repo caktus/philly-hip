@@ -11,7 +11,7 @@ ansible==10.2.0
 invoke-kubesae==0.1.0
 
 # AWS tools
-awscli==1.41.2
+# awscli==1.41.2
 awslogs
 Jinja2==3.1.6
 openshift==0.13.2
