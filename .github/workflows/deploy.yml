@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - develop
+      - 330-style-site-improvements
 
 jobs:
   build-push:

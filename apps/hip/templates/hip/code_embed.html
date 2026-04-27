@@ -1,8 +1,15 @@
 {% if self.heading %}
 <h2 class="is-flex is-justify-content-center">{{ self.heading }}</h2>
 {% endif %}
-<div class="is-flex is-justify-content-center">
-    {{ self.code }}
+<div class="code-embed-hip js-code-embed-hip">
+    <div class="code-embed-scroll-hip is-flex is-justify-content-center js-code-embed-scroll-hip">
+        <div class="code-embed-content-hip">
+            {{ self.code }}
+        </div>
+        <div class="code-embed-pinch-hint-hip js-code-embed-hint-hip" aria-hidden="true">
+            Pinch to zoom. Swipe to scroll.
+        </div>
+    </div>
 </div>
 {% if self.description %}
 <div class="has-text-centered mt-4">
