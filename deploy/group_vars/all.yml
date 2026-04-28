@@ -251,7 +251,7 @@ k8s_traefik_dashboard_password: ""
 
 # AWS Load Balancer Controller
 # https://github.com/kubernetes-sigs/aws-load-balancer-controller/tree/main/helm/aws-load-balancer-controller
-# https://github.com/kubernetes-sigs/aws-load-balancer-controller/releases 
+# https://github.com/kubernetes-sigs/aws-load-balancer-controller/releases
 k8s_aws_load_balancer_controller_chart_version: v3.1.0
 
 
