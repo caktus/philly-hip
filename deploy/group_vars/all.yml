@@ -238,3 +238,26 @@ k8s_descheduler_release_values:
 
 # Must be PostgreSQL v15 for DB restore
 k8s_hosting_services_image_tag: 0.6.0-postgres15
+
+# Traefik Service
+k8s_traefik_replica_count: 2
+k8s_traefik_ingress_is_default: true
+
+# Traefik dashboard
+k8s_enable_traefik_dashboard: false
+k8s_traefik_dashboard_hostname: ""
+k8s_traefik_dashboard_password: ""
+
+
+# AWS Load Balancer Controller
+# https://github.com/kubernetes-sigs/aws-load-balancer-controller/tree/main/helm/aws-load-balancer-controller
+# https://github.com/kubernetes-sigs/aws-load-balancer-controller/releases
+k8s_aws_load_balancer_controller_chart_version: v3.1.0
+
+
+# Traefik ingress
+# django-k8s app traefik ingress resources
+k8s_traefik_enable: true
+k8s_nginx_enable: true
+k8s_enable_asgi: false
+k8s_traefik_ingress_class: traefik
