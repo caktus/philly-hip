@@ -4,7 +4,7 @@ roles:
     name: caktus.aws-web-stacks
     version: v0.3.0
   - src: https://github.com/caktus/ansible-role-k8s-web-cluster
-    version: v1.10.1
+    version: v1.11.0
     name: caktus.k8s-web-cluster
   - src: https://github.com/caktus/ansible-role-django-k8s
     name: caktus.django-k8s
