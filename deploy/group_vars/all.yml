@@ -255,7 +255,7 @@ k8s_traefik_dashboard_password: ""
 k8s_aws_load_balancer_controller_chart_version: v3.1.0
 
 # Cluster migrated to Traefik and consequently the ingress-nginx controller was purged
-# k8s_purge_ingress_controller: yes
+k8s_purge_ingress_controller: yes
 k8s_install_ingress_controller: no
 
 # Traefik ingress
