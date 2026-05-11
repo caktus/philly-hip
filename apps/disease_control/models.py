@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
@@ -7,6 +9,34 @@ from wagtail.search import index
 
 from apps.common.models import HipBasePage
 from apps.hip.models import ListSectionBlock, StreamAndNavHeadingBlock
+
+from .blocks import (
+    AtAGlanceBlock,
+    CurrentRecommendationsBlock,
+    DescriptionBlock,
+    DiagnosisInfoBlock,
+    ProviderResourcesBlock,
+    SurveillanceBlock,
+    VaccineInfoBlock,
+)
+
+
+CONTENT_SECTION_BLOCK_TYPES = (
+    "description",
+    "at_a_glance",
+    "current_recommendations",
+    "surveillance",
+    "vaccine_info",
+    "diagnosis_info",
+    "provider_resources",
+)
+
+
+def default_disease_detail_content_sections():
+    return [
+        {"type": block_type, "value": "", "id": str(uuid.uuid4())}
+        for block_type in CONTENT_SECTION_BLOCK_TYPES
+    ]
 
 
 class DiseaseControlListPage(HipBasePage):
@@ -177,18 +207,19 @@ class DiseaseAndConditionDetailPage(HipBasePage):
     parent_page_types = ["disease_control.DiseaseAndConditionListPage"]
     subpage_types = []
 
-    description = RichTextField(
+    content_sections = StreamField(
+        [
+            ("description", DescriptionBlock()),
+            ("at_a_glance", AtAGlanceBlock()),
+            ("current_recommendations", CurrentRecommendationsBlock()),
+            ("surveillance", SurveillanceBlock()),
+            ("vaccine_info", VaccineInfoBlock()),
+            ("diagnosis_info", DiagnosisInfoBlock()),
+            ("provider_resources", ProviderResourcesBlock()),
+        ],
         blank=True,
-        help_text="Enter a short description which will be shown on the page listing diseases and conditions.",
-    )
-    at_a_glance = RichTextField(blank=True)
-    current_recommendations = RichTextField(blank=True)
-    surveillance = RichTextField(blank=True)
-    vaccine_info = RichTextField(blank=True)
-    diagnosis_info = RichTextField(blank=True)
-    provider_resources = RichTextField(
-        blank=True,
-        help_text="List resources that will be useful for healthcare providers. Resources for patients and community will be pulled automatically by including any documents that are tagged with the title of this disease/condition.",
+        default=default_disease_detail_content_sections,
+        use_json_field=True,
     )
 
     is_emergent = models.BooleanField(
@@ -210,13 +241,7 @@ class DiseaseAndConditionDetailPage(HipBasePage):
     )
 
     content_panels = HipBasePage.content_panels + [
-        FieldPanel("description"),
-        FieldPanel("at_a_glance"),
-        FieldPanel("current_recommendations"),
-        FieldPanel("surveillance"),
-        FieldPanel("vaccine_info"),
-        FieldPanel("diagnosis_info"),
-        FieldPanel("provider_resources"),
+        FieldPanel("content_sections"),
         MultiFieldPanel(
             [
                 FieldPanel("is_emergent"),
@@ -228,14 +253,45 @@ class DiseaseAndConditionDetailPage(HipBasePage):
     ]
 
     search_fields = HipBasePage.search_fields + [
-        index.SearchField("description"),
-        index.SearchField("at_a_glance"),
-        index.SearchField("current_recommendations"),
-        index.SearchField("surveillance"),
-        index.SearchField("vaccine_info"),
-        index.SearchField("diagnosis_info"),
-        index.SearchField("provider_resources"),
+        index.SearchField("content_sections"),
     ]
+
+    class Media:
+        js = ["js/disease_detail_page_admin.js"]
+
+    def _get_content_section_value(self, block_type):
+        for block in self.content_sections:
+            if block.block_type == block_type:
+                return str(block.value)
+        return ""
+
+    @property
+    def description(self):
+        return self._get_content_section_value("description")
+
+    @property
+    def at_a_glance(self):
+        return self._get_content_section_value("at_a_glance")
+
+    @property
+    def current_recommendations(self):
+        return self._get_content_section_value("current_recommendations")
+
+    @property
+    def surveillance(self):
+        return self._get_content_section_value("surveillance")
+
+    @property
+    def vaccine_info(self):
+        return self._get_content_section_value("vaccine_info")
+
+    @property
+    def diagnosis_info(self):
+        return self._get_content_section_value("diagnosis_info")
+
+    @property
+    def provider_resources(self):
+        return self._get_content_section_value("provider_resources")
 
     def get_context(self, request):
         """
@@ -244,14 +300,14 @@ class DiseaseAndConditionDetailPage(HipBasePage):
         """
         context = super().get_context(request)
 
-        context["right_nav_headings"] = [
-            self.title,
-            "Health Alerts",
-            "Surveillance",
-            "Vaccine Info",
-            "Diagnosis & Management",
-            "Resources",
-        ]
+        context["right_nav_headings"] = [self.title, "Health Alerts"]
+        if self.surveillance:
+            context["right_nav_headings"].append("Surveillance")
+        if self.vaccine_info:
+            context["right_nav_headings"].append("Vaccine Info")
+        if self.diagnosis_info:
+            context["right_nav_headings"].append("Diagnosis & Management")
+        context["right_nav_headings"].append("Resources")
 
         # prepare health alerts
         HEALTH_ALERT_MAX = 5
