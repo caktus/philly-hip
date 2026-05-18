@@ -37,14 +37,46 @@ This section documents philly-hip. For other projects, run Step 0 and replace th
 | requirements/deploy/deploy.in | uwsgi pin comment mentioning Python version | update comment |
 | requirements/deploy/deploy.txt | pip-compile header | regenerate automatically |
 
-### Compiled/native dependencies to watch
-| Package | Current pin | Why it matters |
+### Native Extension Strategy
+Python upgrades break native extensions (C, C++, Rust) because pre-built wheels are version-specific. There are two categories:
+
+**Direct pins** — packages explicitly listed in `.in` files. Easy to spot and bump.
+
+**Transitive deps** — packages pulled in by other packages. These are the hard ones. pip-compile/uv lock resolves metadata successfully, but install fails because the resolved version has no wheel for the target Python and the source build fails.
+
+#### How to find all native extensions in a project
+```sh
+# List packages with C/Rust extensions in the current environment:
+pip list --format=json | python -c "
+import json, sys, importlib.metadata
+for pkg in json.load(sys.stdin):
+    dist = importlib.metadata.distribution(pkg['name'])
+    # Packages with compiled code typically have .so/.pyd files
+    if any(f.suffix in ('.so', '.pyd') for f in (dist.files or [])):
+        print(f\"{pkg['name']}=={pkg['version']}\")
+"
+```
+Or inspect the compiled .txt files for packages known to ship native code (look for keywords: binary, cffi, Cython, maturin, setuptools-rust in their build systems).
+
+#### The iterative fix loop
+Expect 1-3 rounds — this is normal, not a sign something is wrong:
+1. Recompile requirements (this may succeed even if install will fail)
+2. Attempt install
+3. If install fails: read the error, identify the package and why it failed
+4. Find the minimum version of that package with a wheel for the target Python (check PyPI files tab or `pip index versions PACKAGE`)
+5. Add a floor pin in the appropriate `.in` file (e.g. `somepackage>=X.Y.Z`)
+6. Go to step 1
+
+#### Three failure modes to expect
+| When it fails | What you see | Example cause |
 |---|---|---|
-| psycopg2-binary | 2.9.9 | C extension; confirm wheel availability |
-| libsass | 0.23.0 | C extension; can lag new Python support |
-| cffi | 1.17.1 | C extension; cryptography dependency |
-| uwsgi | 2.0.26 | C extension; deploy-only and often fragile |
-| Pillow | transitive | C extension; verify support |
+| **Compile time** | pip-compile/uv lock error | Package has no valid metadata for target Python |
+| **Install time** | `Failed building wheel` / `setup.py egg_info` error | No pre-built wheel; source build uses APIs removed in target Python |
+| **Runtime** | `ModuleNotFoundError` / `ImportError` at startup | Package installs fine but uses stdlib modules or internal APIs removed in the target Python (e.g. `six.moves`, `cgi`, `imghdr`, private CPython APIs) |
+
+For runtime failures: the package installed successfully but is too old to actually *run* on the target Python. The fix is the same — add a floor pin for a version that supports the target Python — but you won't discover these until you try to start the app or run tests.
+
+**Why this happens:** pip-compile resolves dependency metadata without building wheels. A package can report valid metadata for any Python version while its actual wheel build fails. And even installable packages can break at runtime if they use removed stdlib modules or private interpreter APIs.
 
 # EXECUTION STEPS
 
@@ -79,8 +111,9 @@ Do not proceed until the current and target versions are both confirmed.
 ## Step 2. Pre-flight Checks
 Before editing any files:
 * **Verify target Python is installed locally:** run `python3.Z --version`. If missing, tell the user to install it first (e.g. `brew install python@3.Z` or `uv python install 3.Z`) and stop.
-* **Check compiled/native dependency support:** For each package in the "Compiled/native dependencies to watch" table, verify wheels exist for the target Python on PyPI (check https://pypi.org/project/PACKAGE/#files or run `pip index versions PACKAGE`). Flag any package that lacks target-version support — these need pin bumps or replacements before proceeding.
+* **Scan for native extensions:** Use the method in the "Native Extension Strategy" section above to identify all C/Rust/compiled packages in the dependency tree. For each, check whether a wheel exists for the target Python on PyPI. Flag any that need version bumps.
 * **Confirm Docker base image exists:** verify `python:X.Z-slim-bookworm` tag is published.
+* **Ask the user:** "Would you like me to run the install commands for you, or will you run them manually?" Respect their preference for Steps 4-5.
 
 If any pre-flight check fails, report the blocker and stop. Do not partially upgrade.
 
@@ -96,7 +129,9 @@ Update the Python version in every file listed in the reference table above.
 * Note: pip-compile/uv header lines in .txt/.lock files will update automatically during recompilation — no manual edit needed.
 
 ## Step 4. Dependency Resolution
-* Bump pins in relevant .in files (or `pyproject.toml` dependencies) for any packages flagged in Step 2.
+* Bump direct pins in `.in` files (or `pyproject.toml`) for any native packages flagged in Step 2.
+* For transitive native deps without target-Python wheels: add floor pins to the appropriate `.in` file. The minimum compatible version can be found on the package's PyPI "Download files" page (look for a wheel matching `cp3Z`).
+* Follow the iterative fix loop described in the "Native Extension Strategy" section. Expect recompile → install → fix cycles.
 * Recompile/lock requirement files:
 
   **pip-tools projects:**
@@ -120,6 +155,8 @@ Update the Python version in every file listed in the reference table above.
 * If compilation/locking fails, resolve the failing package first (check error output for incompatible version constraints), then re-run.
 
 ## Step 5. Environment Rebuild and Test
+**Important:** Resolution succeeding does NOT mean install will succeed. Native extensions resolve metadata fine but fail when actually building wheels. Follow the iterative fix loop (recompile → install → read error → add floor pin → repeat) until install passes cleanly.
+
 * Recreate local environment:
 
   **pip-tools / direnv projects:**

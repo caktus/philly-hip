@@ -439,7 +439,7 @@ pytest-factoryboy==2.7.0
     # via -r requirements/dev/dev.in
 pytest-mock==3.14.1
     # via -r requirements/dev/dev.in
-python-dateutil==2.8.1
+python-dateutil==2.9.0.post0
     # via
     #   -c requirements/base/base.txt
     #   awslogs
@@ -506,7 +506,7 @@ send2trash==1.8.3
     #   jupyter-server
     #   nbclassic
     #   notebook
-six==1.15.0
+six==1.17.0
     # via
     #   -c requirements/base/base.txt
     #   asttokens
@@ -573,7 +573,7 @@ typing-extensions==4.13.2
     #   kubernetes-validate
     #   pytest-factoryboy
     #   urwid
-urllib3==1.26.4
+urllib3==1.26.20
     # via
     #   -c requirements/base/base.txt
     #   botocore
