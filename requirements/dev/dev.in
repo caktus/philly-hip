@@ -6,6 +6,10 @@ isort
 ipython
 jupyterlab
 
+# Python 3.13 compatibility - transitive deps that need newer versions
+rpds-py>=0.22.0
+pyzmq>=26.2.0
+
 # deploy
 ansible==10.2.0
 invoke-kubesae==0.1.0

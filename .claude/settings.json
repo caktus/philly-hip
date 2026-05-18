@@ -1,0 +1,8 @@
+{
+  "customCommands": {
+    "upgrade-python": {
+      "description": "Upgrades the Python version of the current Django project.",
+      "prompt": "Read the instructions in ~/.claude/skills/django_python_upgrade.md and execute the upgrade process step-by-step. Ask me for the target Python version before beginning."
+    }
+  }
+}
