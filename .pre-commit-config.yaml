@@ -6,7 +6,7 @@ repos:
         language_version: python3.13
         exclude: migrations
   - repo: https://github.com/PyCQA/flake8
-    rev: 4.0.1
+    rev: 7.3.0
     hooks:
       - id: flake8
         exclude: settings|migrations
