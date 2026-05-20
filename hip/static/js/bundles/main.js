@@ -10741,6 +10741,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _apps_health_alerts_static_js_healthAlertMessage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(11);
 /* harmony import */ var _apps_notifications_static_js_notificationSignup__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(12);
 /* harmony import */ var _apps_auth_content_static_js_contactInformationEdit__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(13);
+/* harmony import */ var _apps_hip_static_js_codeEmbed__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(14);
 
 /**
  * Javascript files must be imported here.
@@ -10770,6 +10771,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 document.addEventListener("DOMContentLoaded", function () {
   (0,_common__WEBPACK_IMPORTED_MODULE_1__["default"])();
   (0,_apps_hip_static_js_header__WEBPACK_IMPORTED_MODULE_2__["default"])();
@@ -10781,6 +10783,7 @@ document.addEventListener("DOMContentLoaded", function () {
   (0,_apps_health_alerts_static_js_healthAlertMessage__WEBPACK_IMPORTED_MODULE_8__["default"])();
   (0,_apps_notifications_static_js_notificationSignup__WEBPACK_IMPORTED_MODULE_9__["default"])();
   (0,_apps_auth_content_static_js_contactInformationEdit__WEBPACK_IMPORTED_MODULE_10__["default"])();
+  (0,_apps_hip_static_js_codeEmbed__WEBPACK_IMPORTED_MODULE_11__["default"])();
 });
 
 /***/ }),
@@ -11638,6 +11641,53 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       window.location.href = this.dataset.href;
     });
   }
+}
+
+/***/ }),
+/* 14 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__() {
+  var mobileMediaQuery = window.matchMedia("(max-width: 768px)");
+  var embedBlocks = Array.from(document.querySelectorAll(".js-code-embed-hip"));
+  if (!embedBlocks.length) {
+    return;
+  }
+  var dismissHint = function dismissHint(block) {
+    block.classList.add("code-embed-hint-dismissed-hip");
+  };
+  embedBlocks.forEach(function (block) {
+    var scrollArea = block.querySelector(".js-code-embed-scroll-hip");
+    if (!scrollArea) {
+      return;
+    }
+    var hideHintOnInteraction = function hideHintOnInteraction() {
+      if (!mobileMediaQuery.matches) {
+        return;
+      }
+      dismissHint(block);
+    };
+    scrollArea.addEventListener("touchstart", hideHintOnInteraction, {
+      passive: true
+    });
+    scrollArea.addEventListener("pointerdown", hideHintOnInteraction, {
+      passive: true
+    });
+    scrollArea.addEventListener("scroll", hideHintOnInteraction, {
+      passive: true
+    });
+    var iframe = scrollArea.querySelector("iframe");
+    if (iframe) {
+      iframe.addEventListener("load", function () {
+        iframe.style.touchAction = "auto";
+      });
+    }
+  });
 }
 
 /***/ })

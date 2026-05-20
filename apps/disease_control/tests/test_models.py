@@ -1,3 +1,4 @@
+import uuid
 from datetime import date
 
 from apps.disease_control.tests.factories import (
@@ -170,3 +171,168 @@ def test_emergent_health_topic_order_by_latest_revision_created_at(db, rf):
                 disease_3.latest_revision_created_at
                 == context["ordered_diseases"][i].latest_revision_created_at
             )
+
+
+def _make_content_sections(sections):
+    """Helper to build a content_sections list for the StreamField.
+
+    ``sections`` is a dict mapping block type names to rich text values.
+    Only included block types will appear in the StreamField.
+    """
+    return [
+        {"type": block_type, "value": value, "id": str(uuid.uuid4())}
+        for block_type, value in sections.items()
+    ]
+
+
+def test_content_section_property_returns_value(db):
+    """Property accessors return the stored rich text value from the StreamField."""
+    sections = _make_content_sections(
+        {
+            "description": "<p>Test description</p>",
+            "at_a_glance": "<p>At a glance info</p>",
+            "surveillance": "<p>Surveillance data</p>",
+            "vaccine_info": "<p>Vaccine details</p>",
+            "diagnosis_info": "<p>Diagnosis info</p>",
+            "provider_resources": "<p>Provider resources</p>",
+            "current_recommendations": "<p>Recommendations</p>",
+        }
+    )
+    page = DiseaseAndConditionDetailPageFactory(content_sections=sections)
+
+    assert "<p>Test description</p>" in page.description
+    assert "<p>At a glance info</p>" in page.at_a_glance
+    assert "<p>Surveillance data</p>" in page.surveillance
+    assert "<p>Vaccine details</p>" in page.vaccine_info
+    assert "<p>Diagnosis info</p>" in page.diagnosis_info
+    assert "<p>Provider resources</p>" in page.provider_resources
+    assert "<p>Recommendations</p>" in page.current_recommendations
+
+
+def test_content_section_property_returns_empty_when_block_missing(db):
+    """Property accessors return empty string when a block is not in the StreamField."""
+    # Only include description — all others should be empty
+    sections = _make_content_sections({"description": "<p>Only this</p>"})
+    page = DiseaseAndConditionDetailPageFactory(content_sections=sections)
+
+    assert "<p>Only this</p>" in page.description
+    assert page.at_a_glance == ""
+    assert page.surveillance == ""
+    assert page.vaccine_info == ""
+    assert page.diagnosis_info == ""
+    assert page.provider_resources == ""
+    assert page.current_recommendations == ""
+
+
+def test_content_section_property_returns_empty_when_streamfield_empty(db):
+    """Property accessors return empty string when content_sections is completely empty."""
+    page = DiseaseAndConditionDetailPageFactory(content_sections=[])
+
+    assert page.description == ""
+    assert page.at_a_glance == ""
+    assert page.surveillance == ""
+    assert page.vaccine_info == ""
+    assert page.diagnosis_info == ""
+    assert page.provider_resources == ""
+    assert page.current_recommendations == ""
+
+
+def test_right_nav_headings_all_sections_present(db, rf):
+    """Right nav includes all section headings when all content sections have content."""
+    sections = _make_content_sections(
+        {
+            "surveillance": "<p>Data</p>",
+            "vaccine_info": "<p>Vaccine</p>",
+            "diagnosis_info": "<p>Diagnosis</p>",
+        }
+    )
+    page = DiseaseAndConditionDetailPageFactory(content_sections=sections)
+
+    context = page.get_context(rf.get("/"))
+
+    assert "Surveillance" in context["right_nav_headings"]
+    assert "Vaccine Info" in context["right_nav_headings"]
+    assert "Diagnosis & Management" in context["right_nav_headings"]
+    assert "Resources" in context["right_nav_headings"]
+    assert page.title in context["right_nav_headings"]
+    assert "Health Alerts" in context["right_nav_headings"]
+
+
+def test_right_nav_headings_no_optional_sections(db, rf):
+    """Right nav omits Surveillance/Vaccine/Diagnosis headings when those blocks are missing."""
+    sections = _make_content_sections({"description": "<p>Only description</p>"})
+    page = DiseaseAndConditionDetailPageFactory(content_sections=sections)
+
+    context = page.get_context(rf.get("/"))
+
+    assert "Surveillance" not in context["right_nav_headings"]
+    assert "Vaccine Info" not in context["right_nav_headings"]
+    assert "Diagnosis & Management" not in context["right_nav_headings"]
+    # These should always be present
+    assert page.title in context["right_nav_headings"]
+    assert "Health Alerts" in context["right_nav_headings"]
+    assert "Resources" in context["right_nav_headings"]
+
+
+def test_right_nav_headings_partial_sections(db, rf):
+    """Right nav only includes headings for sections that have content."""
+    sections = _make_content_sections(
+        {
+            "surveillance": "<p>Surveillance info</p>",
+            "diagnosis_info": "<p>Diagnosis</p>",
+        }
+    )
+    page = DiseaseAndConditionDetailPageFactory(content_sections=sections)
+
+    context = page.get_context(rf.get("/"))
+
+    assert "Surveillance" in context["right_nav_headings"]
+    assert "Diagnosis & Management" in context["right_nav_headings"]
+    assert "Vaccine Info" not in context["right_nav_headings"]
+
+
+def test_content_section_block_with_empty_value_treated_as_empty(db, rf):
+    """A block present in the StreamField but with empty value is treated as no content."""
+    sections = _make_content_sections(
+        {
+            "surveillance": "",
+            "vaccine_info": "",
+            "diagnosis_info": "",
+        }
+    )
+    page = DiseaseAndConditionDetailPageFactory(content_sections=sections)
+
+    # Properties should return empty string
+    assert page.surveillance == ""
+    assert page.vaccine_info == ""
+    assert page.diagnosis_info == ""
+
+    # Right nav should not include these empty sections
+    context = page.get_context(rf.get("/"))
+    assert "Surveillance" not in context["right_nav_headings"]
+    assert "Vaccine Info" not in context["right_nav_headings"]
+    assert "Diagnosis & Management" not in context["right_nav_headings"]
+
+
+def test_default_content_sections_creates_all_blocks(db):
+    """New pages get all 7 content section blocks seeded with empty values."""
+    from apps.disease_control.models import default_disease_detail_content_sections
+
+    sections = default_disease_detail_content_sections()
+
+    assert len(sections) == 7
+    expected_types = {
+        "description",
+        "at_a_glance",
+        "current_recommendations",
+        "surveillance",
+        "vaccine_info",
+        "diagnosis_info",
+        "provider_resources",
+    }
+    actual_types = {s["type"] for s in sections}
+    assert actual_types == expected_types
+    # All values should be empty strings
+    for section in sections:
+        assert section["value"] == ""
+        assert "id" in section

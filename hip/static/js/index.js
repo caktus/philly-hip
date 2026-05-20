@@ -28,6 +28,7 @@ import HealthAlertFilter from "../../../apps/health_alerts/static/js/healthAlert
 import HealthAlertMessage from "../../../apps/health_alerts/static/js/healthAlertMessage";
 import NotificationSignup from "../../../apps/notifications/static/js/notificationSignup";
 import ContactInformationEditModal from "../../../apps/auth_content/static/js/contactInformationEdit";
+import CodeEmbed from "../../../apps/hip/static/js/codeEmbed";
 
 document.addEventListener("DOMContentLoaded", function() {
   Common();
@@ -40,4 +41,5 @@ document.addEventListener("DOMContentLoaded", function() {
   HealthAlertMessage();
   NotificationSignup();
   ContactInformationEditModal();
+  CodeEmbed();
 });
