@@ -4,11 +4,11 @@
 #
 #    pip-compile --output-file=requirements/dev/dev.txt requirements/dev/dev.in
 #
-ansible==10.2.0
+ansible==13.7.0
     # via
     #   -r requirements/dev/dev.in
     #   invoke-kubesae
-ansible-core==2.17.2
+ansible-core==2.20.6
     # via ansible
 anyascii==0.1.7
     # via
@@ -48,7 +48,7 @@ beautifulsoup4==4.8.2
     #   -c requirements/base/base.txt
     #   nbconvert
     #   wagtail
-black==24.4.2
+black==26.5.1
     # via -r requirements/dev/dev.in
 bleach==6.1.0
     # via nbconvert
@@ -89,7 +89,7 @@ colorama==0.4.6
     #   invoke-kubesae
 comm==0.2.2
     # via ipykernel
-coverage[toml]==7.8.2
+coverage[toml]==7.14.1
     # via
     #   -r requirements/dev/dev.in
     #   pytest-cov
@@ -366,7 +366,7 @@ pandocfilters==1.4.3
     # via nbconvert
 parso==0.8.4
     # via jedi
-pathspec==0.12.1
+pathspec==1.1.1
     # via black
 pexpect==4.9.0
     # via ipython
@@ -385,7 +385,9 @@ platformdirs==4.2.2
     #   jupyter-core
     #   virtualenv
 pluggy==1.5.0
-    # via pytest
+    # via
+    #   pytest
+    #   pytest-cov
 pre-commit==3.7.1
     # via -r requirements/dev/dev.in
 prometheus-client==0.20.0
@@ -424,20 +426,21 @@ pygments==2.18.0
     #   ipython
     #   nbconvert
     #   pudb
-pytest==8.3.5
+    #   pytest
+pytest==9.0.3
     # via
     #   -r requirements/dev/dev.in
     #   pytest-cov
     #   pytest-django
     #   pytest-factoryboy
     #   pytest-mock
-pytest-cov==6.1.1
+pytest-cov==7.1.0
     # via -r requirements/dev/dev.in
-pytest-django==4.11.1
+pytest-django==4.12.0
     # via -r requirements/dev/dev.in
-pytest-factoryboy==2.7.0
+pytest-factoryboy==2.8.1
     # via -r requirements/dev/dev.in
-pytest-mock==3.14.1
+pytest-mock==3.15.1
     # via -r requirements/dev/dev.in
 python-dateutil==2.9.0.post0
     # via
@@ -449,6 +452,8 @@ python-dateutil==2.9.0.post0
     #   kubernetes
 python-string-utils==1.0.0
     # via openshift
+pytokens==0.4.1
+    # via black
 pytz==2024.1
     # via
     #   -c requirements/base/base.txt
@@ -591,7 +596,7 @@ wagtail==7.0.7
     # via
     #   -c requirements/base/base.txt
     #   wagtail-factories
-wagtail-factories==4.2.1
+wagtail-factories==4.4.0
     # via -r requirements/dev/dev.in
 wcwidth==0.2.13
     # via
