@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file=requirements/deploy/deploy.txt requirements/deploy/deploy.in
 #
-newrelic==10.7.0
+newrelic==13.0.1
     # via -r requirements/deploy/deploy.in
 pymemcache==3.4.4
     # via -r requirements/deploy/deploy.in
@@ -12,5 +12,5 @@ six==1.17.0
     # via
     #   -c requirements/base/base.txt
     #   pymemcache
-uwsgi==2.0.26
+uwsgi==2.0.31
     # via -r requirements/deploy/deploy.in
