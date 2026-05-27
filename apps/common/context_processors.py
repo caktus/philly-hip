@@ -11,7 +11,6 @@ from .utils import (
     get_pcwmsa_home_page_url,
 )
 
-
 from apps.auth_content.models import (  # isort: skip
     BigCitiesHomePage,
     ClosedPODHomePage,
@@ -59,9 +58,7 @@ def authenticated_home_pages(request):
                 for pageviewrestriction in closed_pod_home_page.get_view_restrictions()
             ]
         ):
-            auth_pages.append(
-                {"name": "Closed POD Home", "url": get_closedpod_home_page_url()}
-            )
+            auth_pages.append({"name": "Closed POD Home", "url": get_closedpod_home_page_url()})
 
         pcw_msa_home_page = PCWMSAHomePage.objects.first()
         if pcw_msa_home_page and all(
@@ -70,9 +67,7 @@ def authenticated_home_pages(request):
                 for pageviewrestriction in pcw_msa_home_page.get_view_restrictions()
             ]
         ):
-            auth_pages.append(
-                {"name": "PCW-MSA Home", "url": get_pcwmsa_home_page_url()}
-            )
+            auth_pages.append({"name": "PCW-MSA Home", "url": get_pcwmsa_home_page_url()})
 
         bigcities_home_page = BigCitiesHomePage.objects.first()
         if bigcities_home_page and all(

@@ -8,7 +8,6 @@ from wagtail.models import Page
 from ..utils import get_most_recent_objects, scan_pdf_for_malicious_content
 from .factories import HomePageFactory, StaticPageFactory
 
-
 TESTDATA_DIR = os.path.join(os.path.dirname(__file__), "testdata")
 
 
@@ -86,9 +85,7 @@ def test_get_most_recent_objects_pages_correct_order(db):
         latest_revision_created_at=datetime_now - timedelta(hours=1)
     )
     static_page_today = StaticPageFactory(latest_revision_created_at=datetime_now)
-    static_page_yesterday = StaticPageFactory(
-        latest_revision_created_at=datetime_yesterday
-    )
+    static_page_yesterday = StaticPageFactory(latest_revision_created_at=datetime_yesterday)
 
     expected_results = [
         static_page_today.page_ptr,
@@ -107,9 +104,7 @@ def test_get_most_recent_objects_different_objects_correct_order(db):
         latest_revision_created_at=datetime_now - timedelta(hours=2)
     )
     static_page_now = StaticPageFactory(latest_revision_created_at=datetime_now)
-    static_page_yesterday = StaticPageFactory(
-        latest_revision_created_at=datetime_yesterday
-    )
+    static_page_yesterday = StaticPageFactory(latest_revision_created_at=datetime_yesterday)
 
     expected_results = [
         static_page_now.page_ptr,
@@ -128,9 +123,7 @@ def test_get_most_recent_objects_if_more_objects_than_our_object_count(db):
         latest_revision_created_at=datetime_now - timedelta(hours=2)
     )
     static_page_now = StaticPageFactory(latest_revision_created_at=datetime_now)
-    static_page_yesterday = StaticPageFactory(
-        latest_revision_created_at=datetime_yesterday
-    )
+    static_page_yesterday = StaticPageFactory(latest_revision_created_at=datetime_yesterday)
 
     # we're only going to ask for 1 object, so expect 1 result
     expected_results = [
@@ -170,9 +163,7 @@ def test_get_most_recent_objects_pages_parameter(db):
         latest_revision_created_at=datetime_now - timedelta(hours=2)
     )
     static_page_now = StaticPageFactory(latest_revision_created_at=datetime_now)
-    static_page_yesterday = StaticPageFactory(
-        latest_revision_created_at=datetime_yesterday
-    )
+    static_page_yesterday = StaticPageFactory(latest_revision_created_at=datetime_yesterday)
 
     # Passing a 'pages_qs' parameter only returns those Pages, in order of their
     # most recent revision.
@@ -238,9 +229,7 @@ def test_scan_pdf_for_malicious_content_not_pdf(db):
     assert "Invalid PDF" == str(error.value)
 
 
-def test_scan_pdf_for_malicious_content_zero_pages(
-    db, mocker, pdfid_scan_results_valid
-):
+def test_scan_pdf_for_malicious_content_zero_pages(db, mocker, pdfid_scan_results_valid):
     """Scanning a PDF file with 0 pages raises an error."""
     # Mock the pdfid.PDFiDMain() method to return a result with 0 pages.
     mock_scan_results = mocker.patch("apps.hip.utils.pdfid")
@@ -272,9 +261,7 @@ def test_scan_pdf_for_malicious_content_open_or_auto_action_no_js(
     scan_pdf_for_malicious_content(pdf_file_path)
 
 
-@pytest.mark.parametrize(
-    "scan_results_js_javascript", [(1, 0), (0, 1), (1, 1), (2, 25)]
-)
+@pytest.mark.parametrize("scan_results_js_javascript", [(1, 0), (0, 1), (1, 1), (2, 25)])
 def test_scan_pdf_for_malicious_content_open_or_auto_action_with_js(
     db, mocker, pdfid_scan_results_valid, scan_results_js_javascript
 ):

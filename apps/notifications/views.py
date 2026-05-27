@@ -9,7 +9,6 @@ from .forms import (
     PublicHealthPreparednessSubscriberForm,
 )
 
-
 from apps.common.utils import (  # isort: skip
     get_emergency_communications_page_url,
     get_next_url_from_request,

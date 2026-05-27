@@ -25,9 +25,7 @@ def editor_css():
 
 @hooks.register("insert_editor_js")
 def editor_js():
-    return format_html(
-        '<script src="/static/js/menu_page_chooser_listener.js"></script>'
-    )
+    return format_html('<script src="/static/js/menu_page_chooser_listener.js"></script>')
 
 
 @hooks.register("register_rich_text_features")

@@ -13,7 +13,6 @@ from apps.users.tests.factories import GroupFactory, UserFactory
 
 from ..forms import HIPAuthenticationForm
 
-
 TESTDATA_DIR = os.path.join(os.path.dirname(__file__), "testdata")
 
 
@@ -148,23 +147,17 @@ def test_authenticated_view_router_authenticated(
     mock_get_home_page_url.return_value = mock_homepage_url
     # Mock the apps.common.utils.get_closedpod_home_page_url function, since it
     # is used to determine the Closed POD homepage URL.
-    mock_get_closedpod_home_page_url = mocker.patch(
-        "apps.hip.views.get_closedpod_home_page_url"
-    )
+    mock_get_closedpod_home_page_url = mocker.patch("apps.hip.views.get_closedpod_home_page_url")
     mock_closedpod_homepage_url = "/the_closedpod_home_page_url/"
     mock_get_closedpod_home_page_url.return_value = mock_closedpod_homepage_url
     # Mock the apps.common.utils.get_pcwmsa_home_page_url function, since it
     # is used to determine the PCW MSA homepage URL.
-    mock_get_pcwmsa_home_page_url = mocker.patch(
-        "apps.hip.views.get_pcwmsa_home_page_url"
-    )
+    mock_get_pcwmsa_home_page_url = mocker.patch("apps.hip.views.get_pcwmsa_home_page_url")
     mock_pcwmsa_homepage_url = "/the_pcwmsa_home_page_url/"
     mock_get_pcwmsa_home_page_url.return_value = mock_pcwmsa_homepage_url
     # Mock the apps.common.utils.get_bigcities_home_page_url function, since it
     # is used to determine the Big Cities homepage URL.
-    mock_get_bigcities_home_page_url = mocker.patch(
-        "apps.hip.views.get_bigcities_home_page_url"
-    )
+    mock_get_bigcities_home_page_url = mocker.patch("apps.hip.views.get_bigcities_home_page_url")
     mock_bigcities_homepage_url = "/the_bigcities_home_page_url/"
     mock_get_bigcities_home_page_url.return_value = mock_bigcities_homepage_url
 
@@ -236,9 +229,7 @@ def test_upload_document_post(db, client):
 
     with open(pdf_file_path, "rb") as pdf_file:
         url = reverse("wagtaildocs:add_multiple")
-        uploaded_file = TemporaryUploadedFile(
-            pdf_file_path, "application/pdf", 1, "utf-8"
-        )
+        uploaded_file = TemporaryUploadedFile(pdf_file_path, "application/pdf", 1, "utf-8")
         uploaded_file.write(pdf_file.read())
         uploaded_file.seek(0)
 
@@ -331,10 +322,7 @@ def test_get_document_success(db, client):
     )
     response = client.get(url)
     assert response.status_code == 200
-    assert (
-        response.headers.get("Content-Disposition")
-        == f'inline; filename="{document.filename}"'
-    )
+    assert response.headers.get("Content-Disposition") == f'inline; filename="{document.filename}"'
 
 
 def test_get_document_no_parameters(db, client):

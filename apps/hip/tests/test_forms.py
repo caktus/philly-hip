@@ -10,7 +10,6 @@ from apps.hip.forms import HIPAuthenticationForm
 from apps.hip.tests.factories import DocumentFactory
 from apps.users.tests.factories import UserFactory
 
-
 TESTDATA_DIR = os.path.join(os.path.dirname(__file__), "testdata")
 
 
@@ -34,9 +33,7 @@ def test_file_is_required(db):
 def test_pdf_success(db):
     pdf_file_path = os.path.join(TESTDATA_DIR, "test.pdf")
     with open(pdf_file_path, "rb") as pdf_file:
-        uploaded_file = TemporaryUploadedFile(
-            pdf_file_path, "application/pdf", 1, "utf-8"
-        )
+        uploaded_file = TemporaryUploadedFile(pdf_file_path, "application/pdf", 1, "utf-8")
         uploaded_file.write(pdf_file.read())
         pdf_file.seek(0)
         data = {"title": "Test Document"}
@@ -92,9 +89,7 @@ def test_only_pdfs_are_scaned(db, mocker):
         ("jpg", "image/jpeg"),
         ("jpeg", "image/jpeg"),
     ]:
-        uploaded_file = TemporaryUploadedFile(
-            f"fake.{extension}", content_type, 1, "utf-8"
-        )
+        uploaded_file = TemporaryUploadedFile(f"fake.{extension}", content_type, 1, "utf-8")
         data = {"title": "fake document"}
         form = DocumentForm(data=data, files={"file": uploaded_file})
         assert form.is_valid()
@@ -104,9 +99,7 @@ def test_only_pdfs_are_scaned(db, mocker):
     # Uploading a PDF file calls the apps.hip.forms.scan_pdf_for_malicious_content() function.
     pdf_file_path = os.path.join(TESTDATA_DIR, "test.pdf")
     with open(pdf_file_path, "rb") as pdf_file:
-        uploaded_file = TemporaryUploadedFile(
-            pdf_file_path, "application/pdf", 1, "utf-8"
-        )
+        uploaded_file = TemporaryUploadedFile(pdf_file_path, "application/pdf", 1, "utf-8")
         uploaded_file.write(pdf_file.read())
         pdf_file.seek(0)
         data = {"title": "Test Document"}
@@ -151,18 +144,14 @@ def test_hip_authentication_form_sso_user(db, mocker, is_sso_user, expected_vali
 
     # Instantiate the HIPAuthenticationForm form.
     user = UserFactory(password="testpassword1")
-    form = HIPAuthenticationForm(
-        data={"username": user.email, "password": "testpassword1"}
-    )
+    form = HIPAuthenticationForm(data={"username": user.email, "password": "testpassword1"})
 
     # If the user is an SSO user, then the user is not allowed to login.
     if expected_validity:
         assert form.is_valid() is True
     else:
         assert form.is_valid() is False
-        expected_error = (
-            "Users with a Single Sign On (SSO) account must log in via SSO."
-        )
+        expected_error = "Users with a Single Sign On (SSO) account must log in via SSO."
         assert [expected_error] == [error for error in form.errors["__all__"]]
     # The mock_is_sso_user was called.
     assert mock_is_sso_user.called is True

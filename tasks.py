@@ -4,7 +4,6 @@ import invoke
 import kubesae
 from colorama import Fore, init
 
-
 PROJECT_BASE = Path(__file__).resolve().parent
 
 init(autoreset=True)
@@ -51,13 +50,8 @@ def reset_local_db(c, dump_file=None):
     if not database_url:
         print(Fore.RED + "Your environment is missing a DATABASE_URL definition.")
         exit(1)
-    c.run(
-        f"pg_restore --no-owner --no-acl --clean --if-exists --dbname {database_url} {dump_file}"
-    )
-    print(
-        Fore.GREEN
-        + f"Local DB reset. Be sure to delete {dump_file} if you are done with it."
-    )
+    c.run(f"pg_restore --no-owner --no-acl --clean --if-exists --dbname {database_url} {dump_file}")
+    print(Fore.GREEN + f"Local DB reset. Be sure to delete {dump_file} if you are done with it.")
 
 
 project = invoke.Collection("project")

@@ -23,15 +23,11 @@ from apps.hip.tests.factories import StaticPageFactory
 def bigcities_homepage():
     """Create a BigCitiesHomePage as a child of the homepage."""
     # The current home page of the site.
-    homepage = (
-        Page.objects.all().filter(title="Welcome to your new Wagtail site!").first()
-    )
+    homepage = Page.objects.all().filter(title="Welcome to your new Wagtail site!").first()
     homepage.url_path = "/"
     homepage.save()
     # Create a BigCitiesHomePage
-    bigcities_home_page = BigCitiesHomePageFactory(
-        parent=homepage, title="Big Cities Home Page"
-    )
+    bigcities_home_page = BigCitiesHomePageFactory(parent=homepage, title="Big Cities Home Page")
     # The BigCitiesHomePage is restricted to users in the "Big Cities" Group.
     page_view_restriction = PageViewRestriction.objects.create(
         page=bigcities_home_page, restriction_type="groups"
@@ -46,15 +42,11 @@ def bigcities_homepage():
 def closedpod_homepage():
     """Create a ClosedPODHomePage as a child of the homepage."""
     # The current home page of the site.
-    homepage = (
-        Page.objects.all().filter(title="Welcome to your new Wagtail site!").first()
-    )
+    homepage = Page.objects.all().filter(title="Welcome to your new Wagtail site!").first()
     homepage.url_path = "/"
     homepage.save()
     # Create a ClosedPODHomePage
-    closedpodhomepage = ClosedPODHomePageFactory(
-        parent=homepage, title="Closed POD Home Page"
-    )
+    closedpodhomepage = ClosedPODHomePageFactory(parent=homepage, title="Closed POD Home Page")
     # The ClosedPODHomePage is restricted to users in the "Closed POD" Group.
     page_view_restriction = PageViewRestriction.objects.create(
         page=closedpodhomepage, restriction_type="groups"
@@ -69,15 +61,11 @@ def closedpod_homepage():
 def pcwmsa_homepage():
     """Create a PCWMSAHomePage as a child of the homepage."""
     # The current home page of the site.
-    homepage = (
-        Page.objects.all().filter(title="Welcome to your new Wagtail site!").first()
-    )
+    homepage = Page.objects.all().filter(title="Welcome to your new Wagtail site!").first()
     homepage.url_path = "/"
     homepage.save()
     # Create a PCWMSAHomePage
-    pcw_msa_home_page = PCWMSAHomePageFactory(
-        parent=homepage, title="PCW MSA Home Page"
-    )
+    pcw_msa_home_page = PCWMSAHomePageFactory(parent=homepage, title="PCW MSA Home Page")
     # The PCWMSAHomePage is restricted to users in the "PCW MSA" Group.
     page_view_restriction = PageViewRestriction.objects.create(
         page=pcw_msa_home_page, restriction_type="groups"
@@ -98,22 +86,12 @@ def closedpod_homepage_with_descendants(closedpod_homepage):
     ClosedPODHomePage in Wagtail.
     """
     # Create some children of the ClosedPODHomePage.
-    planning_page = ClosedPODChildPageFactory(
-        parent=closedpod_homepage, title="Planning"
-    )
-    response_page = ClosedPODChildPageFactory(
-        parent=closedpod_homepage, title="Response"
-    )
+    planning_page = ClosedPODChildPageFactory(parent=closedpod_homepage, title="Planning")
+    response_page = ClosedPODChildPageFactory(parent=closedpod_homepage, title="Response")
     # Create some grandchildren of the ClosedPODHomePage.
-    grandchild1 = StaticPageFactory(
-        parent=planning_page, title="ClosedPOD Grandchild 1"
-    )
-    grandchild2 = StaticPageFactory(
-        parent=planning_page, title="ClosedPOD Grandchild 2"
-    )
-    grandchild3 = StaticPageFactory(
-        parent=response_page, title="ClosedPOD Grandchild 3"
-    )
+    grandchild1 = StaticPageFactory(parent=planning_page, title="ClosedPOD Grandchild 1")
+    grandchild2 = StaticPageFactory(parent=planning_page, title="ClosedPOD Grandchild 2")
+    grandchild3 = StaticPageFactory(parent=response_page, title="ClosedPOD Grandchild 3")
 
     return [
         closedpod_homepage.page_ptr,
@@ -136,9 +114,7 @@ def pcwmsa_homepage_with_descendants(pcwmsa_homepage):
     """
     # Create some children of the PCWMSAHomePage.
     leadagency_page = StaticPageFactory(parent=pcwmsa_homepage, title="Lead Agency")
-    excerices_page = StaticPageFactory(
-        parent=pcwmsa_homepage, title="Full Scale Exercices"
-    )
+    excerices_page = StaticPageFactory(parent=pcwmsa_homepage, title="Full Scale Exercices")
     # Create some grandchildren of the PCWMSAHomePage.
     grandchild1 = StaticPageFactory(parent=leadagency_page, title="PCWMSA Grandchild 1")
     grandchild2 = StaticPageFactory(parent=excerices_page, title="PCWMSA Grandchild 2")
@@ -165,19 +141,11 @@ def bigcities_homepage_with_descendants(bigcities_homepage):
     """
     # Create some children of the BigCitiesHomePage.
     meetings_page = StaticPageFactory(parent=bigcities_homepage, title="Meetings")
-    extreme_heat_page = StaticPageFactory(
-        parent=bigcities_homepage, title="Extreme Heat"
-    )
+    extreme_heat_page = StaticPageFactory(parent=bigcities_homepage, title="Extreme Heat")
     # Create some grandchildren of the BigCitiesHomePage.
-    grandchild1 = StaticPageFactory(
-        parent=meetings_page, title="BigCities Grandchild 1"
-    )
-    grandchild2 = StaticPageFactory(
-        parent=meetings_page, title="BigCities Grandchild 2"
-    )
-    grandchild3 = StaticPageFactory(
-        parent=extreme_heat_page, title="BigCities Grandchild 3"
-    )
+    grandchild1 = StaticPageFactory(parent=meetings_page, title="BigCities Grandchild 1")
+    grandchild2 = StaticPageFactory(parent=meetings_page, title="BigCities Grandchild 2")
+    grandchild3 = StaticPageFactory(parent=extreme_heat_page, title="BigCities Grandchild 3")
 
     return [
         bigcities_homepage.page_ptr,

@@ -56,6 +56,4 @@ class CustomUserAdmin(ExportMixin, UserAdmin):
             },
         ),
     )
-    add_fieldsets = (
-        (None, {"classes": ("wide",), "fields": ("email", "password1", "password2")}),
-    )
+    add_fieldsets = ((None, {"classes": ("wide",), "fields": ("email", "password1", "password2")}),)

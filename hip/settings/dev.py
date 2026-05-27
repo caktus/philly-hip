@@ -3,7 +3,6 @@ import sys
 
 from .base import *  # noqa
 
-
 if "pytest" in sys.modules:
     STORAGES["staticfiles"] = {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",

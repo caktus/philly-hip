@@ -138,9 +138,7 @@ def test_get_bigcities_home_page_url_with_bigcities_homepage(db, mocker):
     assert bigcities_home_page.url == get_bigcities_home_page_url()
 
 
-def test_get_emergency_communications_page_url_no_emergency_communications_page(
-    db, mocker
-):
+def test_get_emergency_communications_page_url_no_emergency_communications_page(db, mocker):
     """If no "Emergency Communications" Page exists, then function returns get_home_page_url()."""
     # Mock the apps.common.utils.get_home_page_url function, since it is used
     # to determine the homepage URL.
@@ -151,9 +149,7 @@ def test_get_emergency_communications_page_url_no_emergency_communications_page(
     assert mock_homepage_url == get_emergency_communications_page_url()
 
 
-def test_get_emergency_communications_page_url_no_live_emergency_communications_page(
-    db, mocker
-):
+def test_get_emergency_communications_page_url_no_live_emergency_communications_page(db, mocker):
     """
     If no live "Emergency Communications" Page exists, then function returns get_home_page_url().
     """
@@ -163,21 +159,15 @@ def test_get_emergency_communications_page_url_no_live_emergency_communications_
     mock_homepage_url = "/the_home_page_url/"
     mock_get_home_page_url.return_value = mock_homepage_url
     # Create an "Emergency Communications" page that is not live.
-    emergency_communications_page = StaticPageFactory(
-        title="Emergency Communications", live=False
-    )
+    emergency_communications_page = StaticPageFactory(title="Emergency Communications", live=False)
 
     assert mock_homepage_url == get_emergency_communications_page_url()
     assert emergency_communications_page.url != get_emergency_communications_page_url()
 
 
-def test_get_emergency_communications_page_url_with_emergency_communications_page(
-    db, mocker
-):
+def test_get_emergency_communications_page_url_with_emergency_communications_page(db, mocker):
     """If a live "Emergency Communications" Page exists, then the function returns its URL."""
-    emergency_communications_page = StaticPageFactory(
-        title="Emergency Communications", live=True
-    )
+    emergency_communications_page = StaticPageFactory(title="Emergency Communications", live=True)
     assert emergency_communications_page.url == get_emergency_communications_page_url()
 
 
@@ -463,9 +453,7 @@ def test_is_sso_user(
         ("/the_next_url/", "/the_http_referer_header/", "/the_next_url/"),
     ],
 )
-def test_get_next_url_from_request(
-    db, rf, next_url, http_referrer_header, expected_url
-):
+def test_get_next_url_from_request(db, rf, next_url, http_referrer_header, expected_url):
     """Test the get_next_url_from_request() utility function."""
     request_url = "/test_url/"
     if next_url is not None:
