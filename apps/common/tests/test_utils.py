@@ -430,7 +430,11 @@ def test_is_sso_user(
     # Set up the test user.
     user = UserFactory()
     if social_auth_exists:
-        social_auth_for_user = UserSocialAuth.objects.create(user=user)
+        UserSocialAuth.objects.create(
+            user=user,
+            provider="azuread-oauth2",
+            uid=f"test-sso-{user.pk}",
+        )
     if philagov_email:
         user.email = f"{random.random()}@phila.gov"
     if is_superuser:
