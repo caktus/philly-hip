@@ -58,61 +58,51 @@
           {% endfor %}
         </table>
 
-        <div class="nav-heading-hip" id="section-{{ "Surveillance"|slugify }}"></div>
-        <h2>Surveillance</h2>
         {% if page.surveillance %}
+          <div class="nav-heading-hip" id="section-{{ "Surveillance"|slugify }}"></div>
+          <h2>Surveillance</h2>
           {{ page.surveillance|richtext }}
-        {% else %}
-          There is no surveillance information available for {{ page.title }}.
         {% endif %}
 
-        <div class="nav-heading-hip" id="section-{{ "Vaccine info"|slugify }}"></div>
-        <h2>Vaccine Information</h2>
         {% if page.vaccine_info %}
+          <div class="nav-heading-hip" id="section-{{ "Vaccine info"|slugify }}"></div>
+          <h2>Vaccine Information</h2>
           {{ page.vaccine_info|richtext }}
-        {% else %}
-          There is no vaccine information available for {{ page.title }}.
         {% endif %}
 
-        <div class="nav-heading-hip" id="section-{{ "Diagnosis & Management"|slugify }}"></div>
-        <h2>Diagnosis & Management</h2>
         {% if page.diagnosis_info %}
+          <div class="nav-heading-hip" id="section-{{ "Diagnosis & Management"|slugify }}"></div>
+          <h2>Diagnosis & Management</h2>
           {{ page.diagnosis_info|richtext }}
-        {% else %}
-          There is no diagnosis and management information available for {{ page.title }}.
         {% endif %}
 
         <div class="nav-heading-hip" id="section-{{ "Resources"|slugify }}"></div>
         <h2>Resources</h2>
-        <h3>For Healthcare Providers:</h3>
         {% if page.provider_resources %}
+          <h3>For Healthcare Providers:</h3>
           {{ page.provider_resources|richtext }}
-        {% else %}
-          There are no healthcare provider resources available for {{ page.title }}.
         {% endif %}
-        <h3>For Patients and Community Members:</h3>
-        <div>
+        {% if documents %}
+          <h3>For Patients and Community Members:</h3>
           <div>
-            {% for document in documents %}
-              <p>
-                <a href="{{ document.url }}"><strong>{{ document.title }}</strong>
-                  <span class="pdf-icon-hip pl-2 is-size-6"></span>
-                </a>
-              </p>
-            {% empty %}
-              <p>There are no patient or community resources for {{ page.title }}.<p>
-            {% endfor %}
+            <div>
+              {% for document in documents %}
+                <p>
+                  <a href="{{ document.url }}"><strong>{{ document.title }}</strong>
+                    <span class="pdf-icon-hip pl-2 is-size-6"></span>
+                  </a>
+                </p>
+              {% endfor %}
+            </div>
           </div>
-        </div>
-        <h3>Posters:</h3>
+        {% endif %}
         {% if page.posters.all %}
+          <h3>Posters:</h3>
           <div class="columns is-multiline">
             {% for poster in page.posters.all %}
               {% include "includes/poster_card.html" %}
             {% endfor %}
           </div>
-        {% else %}
-          <p>There are no posters for {{ page.title }}.</p>
         {% endif %}
       </div>
     </div>

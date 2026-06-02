@@ -224,3 +224,13 @@ helm uninstall arc-runner-set -n github-runner
 cd deploy/
 ansible-playbook deploy-runner.yml
 ```
+
+3. Ensure that everything is running in the `github-runner` namespace
+
+```sh
+> kubectl -n github-runner get pod                      
+NAME                                     READY   STATUS    RESTARTS   AGE
+arc-gha-rs-controller-5fd5c6b567-vwgqb   1/1     Running   0          64s
+arc-runner-set-f577755c-listener         1/1     Running   0          32s
+arc-runner-set-wnpss-runner-vq9ns        1/1     Running   0          28s
+```

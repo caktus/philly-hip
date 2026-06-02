@@ -1,3 +1,5 @@
+import uuid
+
 import pytest
 from wagtail.models import Page
 
@@ -8,6 +10,23 @@ from .factories import (
     DiseaseControlPageFactory,
     EmergentHealthTopicListPageFactory,
 )
+
+
+def _content_sections_with(block_type, value):
+    """Build a content_sections list with a single block containing the given value."""
+    return [{"type": block_type, "value": value, "id": str(uuid.uuid4())}]
+
+
+@pytest.fixture
+def disease_detail_with_content(disease_control_instances):
+    """Factory fixture that creates a DiseaseAndConditionDetailPage with a single content block."""
+
+    def _create(block_type, value="needle"):
+        return DiseaseAndConditionDetailPageFactory(
+            content_sections=_content_sections_with(block_type, value)
+        )
+
+    return _create
 
 
 @pytest.fixture
@@ -66,54 +85,54 @@ def test_disease_and_condition_detail_page_title(disease_control_instances):
     assert results[0].specific == obj
 
 
-def test_disease_and_condition_detail_page_description(disease_control_instances):
-    obj = DiseaseAndConditionDetailPageFactory(description="needle")
+def test_disease_and_condition_detail_page_description(disease_detail_with_content):
+    obj = disease_detail_with_content("description")
     results = Page.objects.live().search("needle")
     assert len(results) == 1
     assert results[0].specific == obj
 
 
-def test_disease_and_condition_detail_page_at_a_glance(disease_control_instances):
-    obj = DiseaseAndConditionDetailPageFactory(at_a_glance="needle")
+def test_disease_and_condition_detail_page_at_a_glance(disease_detail_with_content):
+    obj = disease_detail_with_content("at_a_glance")
     results = Page.objects.live().search("needle")
     assert len(results) == 1
     assert results[0].specific == obj
 
 
 def test_disease_and_condition_detail_page_current_recommendations(
-    disease_control_instances,
+    disease_detail_with_content,
 ):
-    obj = DiseaseAndConditionDetailPageFactory(current_recommendations="needle")
+    obj = disease_detail_with_content("current_recommendations")
     results = Page.objects.live().search("needle")
     assert len(results) == 1
     assert results[0].specific == obj
 
 
-def test_disease_and_condition_detail_page_surveillance(disease_control_instances):
-    obj = DiseaseAndConditionDetailPageFactory(surveillance="needle")
+def test_disease_and_condition_detail_page_surveillance(disease_detail_with_content):
+    obj = disease_detail_with_content("surveillance")
     results = Page.objects.live().search("needle")
     assert len(results) == 1
     assert results[0].specific == obj
 
 
-def test_disease_and_condition_detail_page_vaccine_info(disease_control_instances):
-    obj = DiseaseAndConditionDetailPageFactory(vaccine_info="needle")
+def test_disease_and_condition_detail_page_vaccine_info(disease_detail_with_content):
+    obj = disease_detail_with_content("vaccine_info")
     results = Page.objects.live().search("needle")
     assert len(results) == 1
     assert results[0].specific == obj
 
 
-def test_disease_and_condition_detail_page_diagnosis_info(disease_control_instances):
-    obj = DiseaseAndConditionDetailPageFactory(diagnosis_info="needle")
+def test_disease_and_condition_detail_page_diagnosis_info(disease_detail_with_content):
+    obj = disease_detail_with_content("diagnosis_info")
     results = Page.objects.live().search("needle")
     assert len(results) == 1
     assert results[0].specific == obj
 
 
 def test_disease_and_condition_detail_page_provider_resources(
-    disease_control_instances,
+    disease_detail_with_content,
 ):
-    obj = DiseaseAndConditionDetailPageFactory(provider_resources="needle")
+    obj = disease_detail_with_content("provider_resources")
     results = Page.objects.live().search("needle")
     assert len(results) == 1
     assert results[0].specific == obj
