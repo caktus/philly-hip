@@ -15,12 +15,12 @@ ansible==13.7.0
 invoke-kubesae==0.1.0
 
 # AWS tools
-awscli==1.41.2
+awscli==1.45.11
 awslogs
 Jinja2==3.1.6
 openshift==0.13.2
-kubernetes==32.0.1
-kubernetes-validate~=1.33.0
+kubernetes==35.0.0
+kubernetes-validate~=1.35.0
 
 pre-commit
 coverage
