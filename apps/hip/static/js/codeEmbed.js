@@ -1,13 +1,111 @@
 export default function () {
-  const mobileMediaQuery = window.matchMedia("(max-width: 768px)");
   const embedBlocks = Array.from(document.querySelectorAll(".js-code-embed-hip"));
 
   if (!embedBlocks.length) {
     return;
   }
 
+  const firstBlockStyle = window.getComputedStyle(embedBlocks[0]);
+  const mobileBreakpoint =
+    firstBlockStyle.getPropertyValue("--code-embed-mobile-breakpoint-hip").trim() || "768px";
+  const mobileMediaQuery = window.matchMedia(`(max-width: ${mobileBreakpoint})`);
+
   const dismissHint = function (block) {
     block.classList.add("code-embed-hint-dismissed-hip");
+  };
+
+  const getIntrinsicContentWidth = function (content) {
+    let widest = content.scrollWidth;
+
+    const iframes = content.querySelectorAll("iframe");
+    iframes.forEach(function (iframe) {
+      const iframeWidth = Number.parseFloat(iframe.getAttribute("width"));
+      if (Number.isFinite(iframeWidth) && iframeWidth > 0) {
+        iframe.style.width = `${iframeWidth}px`;
+        widest = Math.max(widest, iframeWidth);
+      }
+    });
+
+    const descendants = content.querySelectorAll("*");
+    descendants.forEach(function (element) {
+      widest = Math.max(widest, element.scrollWidth);
+      widest = Math.max(widest, element.getBoundingClientRect().width);
+    });
+
+    return Math.ceil(widest);
+  };
+
+  const getIntrinsicContentMetrics = function (content) {
+    const contentRect = content.getBoundingClientRect();
+    let minLeft = 0;
+    let maxRight = getIntrinsicContentWidth(content);
+    let maxBottom = content.scrollHeight;
+
+    const descendants = content.querySelectorAll("*");
+    descendants.forEach(function (element) {
+      const rect = element.getBoundingClientRect();
+      if (!rect.width && !rect.height) {
+        return;
+      }
+
+      const relativeLeft = rect.left - contentRect.left;
+      const relativeRight = rect.right - contentRect.left;
+      const relativeBottom = rect.bottom - contentRect.top;
+
+      minLeft = Math.min(minLeft, relativeLeft);
+      maxRight = Math.max(maxRight, relativeRight);
+      maxBottom = Math.max(maxBottom, relativeBottom);
+    });
+
+    return {
+      width: Math.ceil(maxRight - minLeft),
+      height: Math.ceil(maxBottom),
+    };
+  };
+
+  const clearMobileScale = function (scrollArea, content) {
+    content.style.zoom = "";
+    content.style.transform = "";
+    content.style.transformOrigin = "";
+    content.style.display = "";
+    content.style.width = "";
+    scrollArea.style.minHeight = "";
+  };
+
+  const applyMobileScale = function (scrollArea, content) {
+    if (!mobileMediaQuery.matches) {
+      clearMobileScale(scrollArea, content);
+      return;
+    }
+
+    clearMobileScale(scrollArea, content);
+
+    const contentMetrics = getIntrinsicContentMetrics(content);
+    const contentWidth = contentMetrics.width;
+    const contentHeight = contentMetrics.height;
+    const viewportWidth = scrollArea.clientWidth;
+
+    if (!contentWidth || !viewportWidth) {
+      return;
+    }
+
+    const fitWidth = Math.max(1, viewportWidth - 8);
+    const viewportTop = Math.max(0, scrollArea.getBoundingClientRect().top);
+    const fitHeight = Math.max(1, window.innerHeight - viewportTop - 12);
+    const widthScale = fitWidth / contentWidth;
+    const heightScale = fitHeight / Math.max(1, contentHeight);
+    const scale = Math.min(1, widthScale, heightScale);
+
+    content.style.display = "block";
+    content.style.width = `${contentWidth}px`;
+    content.style.transformOrigin = "top left";
+    content.style.transform = `scale(${scale.toFixed(4)})`;
+
+    if (contentHeight) {
+      scrollArea.style.minHeight = `${Math.ceil(contentHeight * scale)}px`;
+    }
+
+    scrollArea.scrollLeft = 0;
   };
 
   embedBlocks.forEach(function (block) {
@@ -15,6 +113,31 @@ export default function () {
     if (!scrollArea) {
       return;
     }
+
+    const content = scrollArea.querySelector(".code-embed-content-hip");
+    if (!content) {
+      return;
+    }
+
+    const scaleToViewport = function () {
+      applyMobileScale(scrollArea, content);
+    };
+
+    let hasPendingScale = false;
+
+    const scheduleScaleToViewport = function () {
+      if (hasPendingScale) {
+        return;
+      }
+
+      hasPendingScale = true;
+      window.requestAnimationFrame(function () {
+        hasPendingScale = false;
+        scaleToViewport();
+      });
+    };
+
+    scheduleScaleToViewport();
 
     const hideHintOnInteraction = function () {
       if (!mobileMediaQuery.matches) {
@@ -30,8 +153,28 @@ export default function () {
     const iframe = scrollArea.querySelector("iframe");
     if (iframe) {
       iframe.addEventListener("load", function () {
+        scheduleScaleToViewport();
         iframe.style.touchAction = "auto";
       });
     }
+
+    if (window.ResizeObserver) {
+      const resizeObserver = new window.ResizeObserver(scheduleScaleToViewport);
+      resizeObserver.observe(scrollArea);
+      resizeObserver.observe(content);
+    }
+
+    if (window.MutationObserver) {
+      const mutationObserver = new window.MutationObserver(scheduleScaleToViewport);
+      mutationObserver.observe(content, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+      });
+    }
+
+    mobileMediaQuery.addEventListener("change", scheduleScaleToViewport);
+    window.addEventListener("resize", scheduleScaleToViewport, { passive: true });
+    window.addEventListener("orientationchange", scheduleScaleToViewport, { passive: true });
   });
 }
