@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - develop
+      - 337-zoom-out-dashboard
 
 jobs:
   build-push:
