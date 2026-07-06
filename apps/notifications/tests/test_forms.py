@@ -133,9 +133,7 @@ def test_form_valid_community_response_form(db, community_response_notification_
     assert form.is_valid()
 
 
-def test_invalid_phone_number_community_response_form(
-    db, community_response_notification_data
-):
+def test_invalid_phone_number_community_response_form(db, community_response_notification_data):
     """Having invalid data means the form is not valid."""
     # The 'cell_phone' field value is not valid.
     community_response_notification_data["cell_phone"] = "0"
@@ -150,9 +148,7 @@ def test_invalid_phone_number_community_response_form(
     assert {"cell_phone": [expected_error]} == form.errors
 
 
-def test_invalid_zip_code_community_response_form(
-    db, community_response_notification_data
-):
+def test_invalid_zip_code_community_response_form(db, community_response_notification_data):
     """Having invalid data means the form is not valid."""
     # The 'zip_code' field value is not valid.
     community_response_notification_data["organization_zip_code"] = "1234"
@@ -191,9 +187,7 @@ def test_form_valid_codered_codeblue_form(db, codered_codeblue_notification_data
     assert form.is_valid()
 
 
-def test_invalid_phone_number_codered_codeblue_form(
-    db, codered_codeblue_notification_data
-):
+def test_invalid_phone_number_codered_codeblue_form(db, codered_codeblue_notification_data):
     """Having invalid data means the form is not valid."""
     # The 'work_phone' field value is not valid.
     codered_codeblue_notification_data["work_phone"] = "0"
@@ -226,9 +220,7 @@ def test_form_valid_public_health_preparedness_form(db, php_notification_data):
     assert form.is_valid()
 
 
-def test_invalid_phone_number_public_health_preparedness_form(
-    db, php_notification_data
-):
+def test_invalid_phone_number_public_health_preparedness_form(db, php_notification_data):
     """Having invalid data means the form is not valid."""
     # The 'cell_phone' field value is not valid.
     php_notification_data["phone_number"] = "0"

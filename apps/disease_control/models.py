@@ -20,7 +20,6 @@ from .blocks import (
     VaccineInfoBlock,
 )
 
-
 CONTENT_SECTION_BLOCK_TYPES = (
     "description",
     "at_a_glance",
@@ -328,15 +327,9 @@ class DiseaseAndConditionDetailPage(HipBasePage):
     def emergent_date_range(self):
         """Return a string representing the date range that this disease was emergent."""
         begin_date = (
-            self.emergent_begin_date.strftime("%b %-d, %Y")
-            if self.emergent_begin_date
-            else None
+            self.emergent_begin_date.strftime("%b %-d, %Y") if self.emergent_begin_date else None
         )
-        end_date = (
-            self.emergent_end_date.strftime("%b %-d, %Y")
-            if self.emergent_end_date
-            else None
-        )
+        end_date = self.emergent_end_date.strftime("%b %-d, %Y") if self.emergent_end_date else None
 
         if begin_date and end_date:
             return f"{begin_date} - {end_date}"

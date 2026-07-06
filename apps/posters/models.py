@@ -22,9 +22,7 @@ class PosterListPage(HipBasePage):
         context = super().get_context(request)
 
         # Get all live Posters, ordered by category, then by title
-        posters = (
-            PosterDetailPage.objects.child_of(self).order_by("category", "title").live()
-        )
+        posters = PosterDetailPage.objects.child_of(self).order_by("category", "title").live()
         context["posters"] = posters
 
         # Get list of categories that we have posters for, to create the right scroll
@@ -77,9 +75,7 @@ class PosterDetailPage(HipBasePage):
         "wagtailimages.Image", null=True, blank=False, on_delete=models.SET_NULL
     )
 
-    category = models.ForeignKey(
-        PosterCategory, null=True, blank=True, on_delete=models.SET_NULL
-    )
+    category = models.ForeignKey(PosterCategory, null=True, blank=True, on_delete=models.SET_NULL)
 
     disease = models.ForeignKey(
         DiseaseAndConditionDetailPage,
@@ -109,9 +105,7 @@ class PosterDocumentVersion(Orderable):
     page = ParentalKey(
         PosterDetailPage, on_delete=models.CASCADE, related_name="additional_versions"
     )
-    document = models.ForeignKey(
-        "hip.HIPDocument", on_delete=models.CASCADE, related_name="+"
-    )
+    document = models.ForeignKey("hip.HIPDocument", on_delete=models.CASCADE, related_name="+")
     label = models.CharField(
         blank=False,
         max_length=30,

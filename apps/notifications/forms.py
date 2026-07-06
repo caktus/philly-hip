@@ -111,9 +111,7 @@ class CommunityResponseSubscriberForm(ModelForm):
             "organization_community_members_served",
             "organization_mission_statement",
         ]
-        return [
-            self[name] for name in self.fields if name in organization_info_field_names
-        ]
+        return [self[name] for name in self.fields if name in organization_info_field_names]
 
     def form_sections(self):
         """Return the sections of this form, including a header, and the fields in the section."""
@@ -144,9 +142,7 @@ class DrugOverdoseSubscriberForm(ModelForm):
 
     def notification_group_fields(self):
         notification_group_field_names = ["notification_group"]
-        return [
-            self[name] for name in self.fields if name in notification_group_field_names
-        ]
+        return [self[name] for name in self.fields if name in notification_group_field_names]
 
     def contact_info_fields(self):
         contact_info_field_names = ["email_address", "mobile_phone"]
@@ -215,9 +211,7 @@ class PublicHealthPreparednessSubscriberForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Give the 'outreach_request_additional_info' field a CSS class.
-        self.fields["outreach_request_additional_info"].widget.attrs.update(
-            {"class": "textarea"}
-        )
+        self.fields["outreach_request_additional_info"].widget.attrs.update({"class": "textarea"})
 
     class Meta:
         model = PublicHealthPreparednessSubscriber
@@ -234,18 +228,14 @@ class PublicHealthPreparednessSubscriberForm(ModelForm):
 
     def organization_info_fields(self):
         organization_info_field_names = ["organization_name", "organization_zip_code"]
-        return [
-            self[name] for name in self.fields if name in organization_info_field_names
-        ]
+        return [self[name] for name in self.fields if name in organization_info_field_names]
 
     def outreach_request_fields(self):
         outreach_request_field_names = [
             "outreach_request_choice",
             "outreach_request_additional_info",
         ]
-        return [
-            self[name] for name in self.fields if name in outreach_request_field_names
-        ]
+        return [self[name] for name in self.fields if name in outreach_request_field_names]
 
     def form_sections(self):
         """Return the sections of this form, including a header, and the fields in the section."""

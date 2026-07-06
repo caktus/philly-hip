@@ -1,21 +1,23 @@
 repos:
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        args: [--profile=black, --line-length=100]
   - repo: https://github.com/psf/black
-    rev: 24.4.2
+    rev: 26.5.1
     hooks:
       - id: black
-        language_version: python3.11
+        language_version: python3.13
+        args: [--line-length=100]
         exclude: migrations
   - repo: https://github.com/PyCQA/flake8
-    rev: 4.0.1
+    rev: 7.3.0
     hooks:
       - id: flake8
         exclude: settings|migrations
-  - repo: https://github.com/pre-commit/mirrors-isort
-    rev: v5.7.0
-    hooks:
-      - id: isort
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.4.0
+    rev: v6.0.0
     hooks:
       - id: check-docstring-first
       - id: check-merge-conflict

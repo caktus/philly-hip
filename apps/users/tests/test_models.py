@@ -5,7 +5,6 @@ from pytest_factoryboy import register
 
 from apps.users.tests.factories import DEFAULT_PASSWORD, UserFactory
 
-
 # This registers User as a fixture (defaults to lowercase-underscored representation of
 # the factory's Meta.model attribute). It also registers user_factory as a fixture, but
 # we currently don't use that in this test file.

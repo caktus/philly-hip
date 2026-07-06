@@ -5,7 +5,6 @@
 
 from troposphere import GetAtt, Join, Output, Parameter, Ref, Template, s3
 
-
 template = Template()
 
 bucket_name = template.add_parameter(

@@ -7,9 +7,7 @@ from apps.users.managers import UserManager
 
 
 class User(AbstractBaseUser, PermissionsMixin, IndexedTimeStampedModel):
-    email = models.EmailField(
-        max_length=255, db_collation="case_insensitive", unique=True
-    )
+    email = models.EmailField(max_length=255, db_collation="case_insensitive", unique=True)
     first_name = models.CharField(_("first name"), max_length=150, blank=True)
     last_name = models.CharField(_("last name"), max_length=150, blank=True)
     is_staff = models.BooleanField(

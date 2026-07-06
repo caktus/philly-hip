@@ -3,7 +3,6 @@ from django.contrib.auth.models import Group
 
 import factory
 
-
 DEFAULT_PASSWORD = "mypasswordisbad"
 
 

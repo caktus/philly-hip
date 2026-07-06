@@ -32,6 +32,7 @@ hip/static/bundles/main.js
 # Ansible
 bin/
 deploy/roles/*
+deploy/collections/*
 .vault_pass
 *.retry
 deploy.log

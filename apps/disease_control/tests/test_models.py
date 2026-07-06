@@ -14,12 +14,10 @@ def test_disease_and_condition_detail_page_emergent_date_range_no_dates(db):
         emergent_begin_date=None,
         emergent_end_date=None,
     )
-    disease_and_condition_detail_page_nonemergent = (
-        DiseaseAndConditionDetailPageFactory(
-            is_emergent=False,
-            emergent_begin_date=None,
-            emergent_end_date=None,
-        )
+    disease_and_condition_detail_page_nonemergent = DiseaseAndConditionDetailPageFactory(
+        is_emergent=False,
+        emergent_begin_date=None,
+        emergent_end_date=None,
     )
 
     assert "" == disease_and_condition_detail_page_emergent.emergent_date_range
@@ -35,21 +33,15 @@ def test_disease_and_condition_detail_page_emergent_date_range_only_begin_date(d
         emergent_begin_date=date_2020_01_01,
         emergent_end_date=None,
     )
-    disease_and_condition_detail_page_nonemergent = (
-        DiseaseAndConditionDetailPageFactory(
-            is_emergent=False,
-            emergent_begin_date=date_2020_01_01,
-            emergent_end_date=None,
-        )
+    disease_and_condition_detail_page_nonemergent = DiseaseAndConditionDetailPageFactory(
+        is_emergent=False,
+        emergent_begin_date=date_2020_01_01,
+        emergent_end_date=None,
     )
 
+    assert "Jan 1, 2020 - Present" == disease_and_condition_detail_page_emergent.emergent_date_range
     assert (
-        "Jan 1, 2020 - Present"
-        == disease_and_condition_detail_page_emergent.emergent_date_range
-    )
-    assert (
-        "Jan 1, 2020 - Present"
-        == disease_and_condition_detail_page_nonemergent.emergent_date_range
+        "Jan 1, 2020 - Present" == disease_and_condition_detail_page_nonemergent.emergent_date_range
     )
 
 
@@ -62,22 +54,14 @@ def test_disease_and_condition_detail_page_emergent_date_range_only_end_date(db)
         emergent_begin_date=None,
         emergent_end_date=date_2020_01_01,
     )
-    disease_and_condition_detail_page_nonemergent = (
-        DiseaseAndConditionDetailPageFactory(
-            is_emergent=False,
-            emergent_begin_date=None,
-            emergent_end_date=date_2020_01_01,
-        )
+    disease_and_condition_detail_page_nonemergent = DiseaseAndConditionDetailPageFactory(
+        is_emergent=False,
+        emergent_begin_date=None,
+        emergent_end_date=date_2020_01_01,
     )
 
-    assert (
-        "Until Jan 1, 2020"
-        == disease_and_condition_detail_page_emergent.emergent_date_range
-    )
-    assert (
-        "Until Jan 1, 2020"
-        == disease_and_condition_detail_page_nonemergent.emergent_date_range
-    )
+    assert "Until Jan 1, 2020" == disease_and_condition_detail_page_emergent.emergent_date_range
+    assert "Until Jan 1, 2020" == disease_and_condition_detail_page_nonemergent.emergent_date_range
 
 
 def test_disease_and_condition_detail_page_emergent_date_range_start_and_end_date(db):
@@ -90,22 +74,15 @@ def test_disease_and_condition_detail_page_emergent_date_range_start_and_end_dat
         emergent_begin_date=date_2019_12_12,
         emergent_end_date=date_2021_09_09,
     )
-    disease_and_condition_detail_page_nonemergent = (
-        DiseaseAndConditionDetailPageFactory(
-            is_emergent=False,
-            emergent_begin_date=date_2019_12_12,
-            emergent_end_date=date_2021_09_09,
-        )
+    disease_and_condition_detail_page_nonemergent = DiseaseAndConditionDetailPageFactory(
+        is_emergent=False,
+        emergent_begin_date=date_2019_12_12,
+        emergent_end_date=date_2021_09_09,
     )
 
     expected_str = "Dec 12, 2019 - Sep 9, 2021"
-    assert (
-        expected_str == disease_and_condition_detail_page_emergent.emergent_date_range
-    )
-    assert (
-        expected_str
-        == disease_and_condition_detail_page_nonemergent.emergent_date_range
-    )
+    assert expected_str == disease_and_condition_detail_page_emergent.emergent_date_range
+    assert expected_str == disease_and_condition_detail_page_nonemergent.emergent_date_range
 
 
 def test_emergent_health_topic_list_page_only_emergent(db, rf):

@@ -18,8 +18,7 @@ def closedpod_contact_information(request):
     if not home_page:
         return HttpResponseBadRequest(
             content=(
-                "Closed-Pod home page must be created and "
-                "made live before accessing this page."
+                "Closed-Pod home page must be created and " "made live before accessing this page."
             )
         )
 
