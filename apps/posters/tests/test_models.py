@@ -1,6 +1,5 @@
 from ..models import PosterDetailPage
 
-
 from .factories import (  # isort: skip
     PosterCategoryFactory,
     PosterDetailPageFactory,
@@ -73,6 +72,4 @@ def test_posterlistpage_context_posters_with_and_withoug_categories(db, rf):
         .live()
     )
     assert list(expected_posters) == list(context["posters"])
-    assert ["Infection Control", "Handwashing", "Other"] == context[
-        "right_nav_headings"
-    ]
+    assert ["Infection Control", "Handwashing", "Other"] == context["right_nav_headings"]

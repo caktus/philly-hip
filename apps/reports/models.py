@@ -67,9 +67,7 @@ class DataReportListPage(HipBasePage):
                 "url": r.url,
                 "update_frequency": r.staticpage.datareportdetailpage.update_frequency,
                 "last_updated": (
-                    r.latest_revision_created_at.date()
-                    if r.latest_revision_created_at
-                    else None
+                    r.latest_revision_created_at.date() if r.latest_revision_created_at else None
                 ),
                 "associated_disease": r.staticpage.datareportdetailpage.associated_disease,
                 "external": False,
@@ -107,9 +105,7 @@ class DataReportDetailPage(StaticPage):
 
     content_panels = StaticPage.content_panels + [
         FieldPanel("update_frequency"),
-        PageChooserPanel(
-            "associated_disease", "disease_control.DiseaseAndConditionDetailPage"
-        ),
+        PageChooserPanel("associated_disease", "disease_control.DiseaseAndConditionDetailPage"),
     ]
 
     search_fields = HipBasePage.search_fields + [
@@ -119,9 +115,7 @@ class DataReportDetailPage(StaticPage):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context["archive"] = DataReportDetailArchiveListPage.objects.child_of(
-            self
-        ).first()
+        context["archive"] = DataReportDetailArchiveListPage.objects.child_of(self).first()
         return context
 
 
@@ -137,9 +131,9 @@ class DataReportDetailArchiveListPage(HipBasePage):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context["archived_reports"] = (
-            DataReportDetailArchiveDetailPage.objects.child_of(self).order_by("-year")
-        )
+        context["archived_reports"] = DataReportDetailArchiveDetailPage.objects.child_of(
+            self
+        ).order_by("-year")
         return context
 
 

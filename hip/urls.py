@@ -14,7 +14,6 @@ from apps.hip import views as hip_views
 from apps.notifications import views as notifications_views
 from apps.search import views as search_views
 
-
 # Explicitly define our handlers for 404-status-code and 500-status-code responses.
 handler404 = "apps.hip.views.handler404"
 handler500 = "apps.hip.views.handler500"
@@ -102,9 +101,7 @@ urlpatterns += [
         django_auth_views.PasswordResetCompleteView.as_view(),
         name="password_reset_complete",
     ),
-    path(
-        "accounts/router/", hip_views.authenticated_view_router, name="auth_view_router"
-    ),
+    path("accounts/router/", hip_views.authenticated_view_router, name="auth_view_router"),
 ]
 
 

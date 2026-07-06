@@ -3,7 +3,6 @@ from django.contrib.auth.models import AnonymousUser, Group
 from apps.hip.tests.factories import DocumentFactory
 from apps.users.tests.factories import UserFactory
 
-
 from ..context_processors import (  # isort: skip
     authenticated_home_pages,
     previous_url,
@@ -48,9 +47,7 @@ def test_previous_url_with_empty_http_referrer(db, rf, mocker):
 def test_previous_url_no_http_referrer(db, rf, mocker):
     """If the request has no HTTP_REFERER, previous_url is value of get_home_page_url()."""
     # Mock the apps.common.utils.get_home_page_url() function.
-    mock_get_home_page_url = mocker.patch(
-        "apps.common.context_processors.get_home_page_url"
-    )
+    mock_get_home_page_url = mocker.patch("apps.common.context_processors.get_home_page_url")
     mock_url = "/the_home_page_url/"
     mock_get_home_page_url.return_value = mock_url
 

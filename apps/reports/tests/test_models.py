@@ -120,9 +120,7 @@ def test_datareportslistpage_context_internal_and_external_reports(db, rf):
             },
         },
     ]
-    reports_list_page = DataReportListPageFactory(
-        external_reports=external_reports_data
-    )
+    reports_list_page = DataReportListPageFactory(external_reports=external_reports_data)
     # Create  some internal reports (DataReportDetailPages) for the DataReportListPage.
     tuberculosis = DiseaseAndConditionDetailPageFactory(title="Tuberculosis")
     report_tuberculosis = DataReportDetailPageFactory(
@@ -203,15 +201,9 @@ def test_datareportarchivelistpage_context_no_archived_reports(db, rf):
 def test_datareportarchivelistpage_context_with_archived_reports(db, rf):
     """A DataReportDetailArchiveListPage with children has them in the context."""
     archive_page = DataReportDetailArchiveListPageFactory()
-    archived_report_2019 = DataReportDetailArchiveDetailPageFactory(
-        parent=archive_page, year=2019
-    )
-    archived_report_2020 = DataReportDetailArchiveDetailPageFactory(
-        parent=archive_page, year=2020
-    )
-    archived_report_2018 = DataReportDetailArchiveDetailPageFactory(
-        parent=archive_page, year=2018
-    )
+    archived_report_2019 = DataReportDetailArchiveDetailPageFactory(parent=archive_page, year=2019)
+    archived_report_2020 = DataReportDetailArchiveDetailPageFactory(parent=archive_page, year=2020)
+    archived_report_2018 = DataReportDetailArchiveDetailPageFactory(parent=archive_page, year=2018)
     # An archived report for a different archive page (which should not show up
     # in the context for archive_page).
     DataReportDetailArchiveDetailPageFactory(

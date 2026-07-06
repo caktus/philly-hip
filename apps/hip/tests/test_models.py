@@ -9,9 +9,7 @@ from apps.hip.tests.factories import DocumentFactory, HomePageFactory, StaticPag
 def assert_document_match(expected_documents, search_term):
     """Assert that searching HIPDocuments by the search_term returns expected results."""
     assert list(
-        HIPDocument.objects.filter(
-            id__in=[document.id for document in expected_documents]
-        )
+        HIPDocument.objects.filter(id__in=[document.id for document in expected_documents])
     ) == list(HIPDocument.objects.search(search_term))
 
 
@@ -29,9 +27,7 @@ def test_homepage_context_recent_updates(db, rf, mocker):
     mock_get_all_pages_visible_to_request.return_value = pages_visible_to_user
     # Mock the apps.hip.utils.get_most_recent_objects function, since it should
     # be used to get the most recent Pages.
-    mock_get_most_recent_objects = mocker.patch(
-        "apps.hip.utils.get_most_recent_objects"
-    )
+    mock_get_most_recent_objects = mocker.patch("apps.hip.utils.get_most_recent_objects")
 
     request = rf.get("/someurl/")
 
@@ -92,9 +88,7 @@ def test_hipdocument_search_partial_term_partial_matches(db):
     document_another = DocumentFactory(title="Another Document")
 
     assert_document_match([document_smallpox, document_small_chance], "small")
-    assert_document_match(
-        [document_small_chance, document_smallpox, document_another], "a"
-    )
+    assert_document_match([document_small_chance, document_smallpox, document_another], "a")
 
 
 def test_hipdocument_url_with_file(db):

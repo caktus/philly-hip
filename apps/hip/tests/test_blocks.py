@@ -83,9 +83,7 @@ class TestExternalContentEmbedBlock:
         assert iframe["width"] == "800"
         assert iframe["title"] == "Tableau Dashboard"
 
-        hint = scroll_area.select_one(
-            ".code-embed-pinch-hint-hip.js-code-embed-hint-hip"
-        )
+        hint = scroll_area.select_one(".code-embed-pinch-hint-hip.js-code-embed-hint-hip")
         assert hint is not None
         assert hint["aria-hidden"] == "true"
         assert hint.get_text(" ", strip=True) == "Pinch to zoom. Swipe to scroll."

@@ -5,7 +5,6 @@ from django.dispatch import receiver
 
 from ipware import get_client_ip
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -26,6 +25,4 @@ def log_successful_logout(sender, **kwargs):
     if user:
         request = kwargs.get("request")
         ip_address, is_routable = get_client_ip(request)
-        logger.info(
-            f"user '{user.email}' has logged out from IP address '{ip_address}'."
-        )
+        logger.info(f"user '{user.email}' has logged out from IP address '{ip_address}'.")

@@ -193,9 +193,7 @@ class InternalEmployeeAlertSubscriber(models.Model):
         verbose_name_plural = "Internal Employee Alerts Subscribers"
 
     def __str__(self):
-        return (
-            f"Internal Employee Alerts Subscriber: {self.first_name} {self.last_name}"
-        )
+        return f"Internal Employee Alerts Subscriber: {self.first_name} {self.last_name}"
 
 
 class CommunityResponseSubscriber(models.Model):
@@ -459,9 +457,7 @@ class CommunityResponseSubscriber(models.Model):
         verbose_name_plural = "Community Response Subscribers"
 
     def __str__(self):
-        return (
-            f"Community Response Network Subscriber: {self.first_name} {self.last_name}"
-        )
+        return f"Community Response Network Subscriber: {self.first_name} {self.last_name}"
 
 
 class DrugOverdoseSubscriber(models.Model):
@@ -514,9 +510,7 @@ class DrugOverdoseSubscriber(models.Model):
         verbose_name_plural = "Drug Overdose Subscribers"
 
     def __str__(self):
-        return (
-            f"Drug Overdose Notification Subscriber: {self.first_name} {self.last_name}"
-        )
+        return f"Drug Overdose Notification Subscriber: {self.first_name} {self.last_name}"
 
 
 class CodeRedCodeBlueSubscriber(models.Model):
@@ -597,6 +591,4 @@ class PublicHealthPreparednessSubscriber(models.Model):
         verbose_name_plural = "Public Health Preparedness Subscribers"
 
     def __str__(self):
-        return (
-            f"Public Health Preparedness Subscriber: {self.first_name} {self.last_name}"
-        )
+        return f"Public Health Preparedness Subscriber: {self.first_name} {self.last_name}"

@@ -78,9 +78,7 @@ def test_get_closepod_contact_information_no_closepodhomepage_raises_400(db, cli
     assert HTTPStatus.BAD_REQUEST == response.status_code
 
 
-def test_get_closepod_contact_information_non_live_closepodhomepage_raises_400(
-    db, client
-):
+def test_get_closepod_contact_information_non_live_closepodhomepage_raises_400(db, client):
     """Closed-Pod Contact Information GET raises 400 Bad Request response if
     Closed Pod HomePage has not been made live
     """
@@ -146,9 +144,7 @@ def test_get_closepod_contact_information_live_closepodhomepage_with_children(
     assert closedpod_homepage.url == response.context["closedpod_home_url"]
 
 
-def test_get_closedpod_contact_information_authenticated_in_closedpod_group_no_info(
-    db, client
-):
+def test_get_closedpod_contact_information_authenticated_in_closedpod_group_no_info(db, client):
     """
     GET closedpod_contact_information view for an authenticated user in the "Closed POD" Group.
 
@@ -171,9 +167,7 @@ def test_get_closedpod_contact_information_authenticated_in_closedpod_group_no_i
     assert "" == response.context["contact_info"].facility_name
 
 
-def test_get_closedpod_contact_information_authenticated_in_closedpod_group_with_info(
-    db, client
-):
+def test_get_closedpod_contact_information_authenticated_in_closedpod_group_with_info(db, client):
     """
     GET closedpod_contact_information view for an authenticated user in the "Closed POD" Group.
 
@@ -225,9 +219,7 @@ def test_closedpod_contact_information_edit_unauthenticated(db, client, method_n
 
 
 @pytest.mark.parametrize("method_name", ["GET", "POST"])
-def test_closedpod_contact_information_edit_authenticated_not_in_any_group(
-    db, client, method_name
-):
+def test_closedpod_contact_information_edit_authenticated_not_in_any_group(db, client, method_name):
     """An authenticated user who is not in any Groups is redirected to log in."""
     url = reverse("closedpod_contact_information_edit")
     user = UserFactory()
@@ -242,9 +234,7 @@ def test_closedpod_contact_information_edit_authenticated_not_in_any_group(
 
 
 @pytest.mark.parametrize("method_name", ["GET", "POST"])
-def test_closedpod_contact_information_edit_authenticated_in_other_group(
-    db, client, method_name
-):
+def test_closedpod_contact_information_edit_authenticated_in_other_group(db, client, method_name):
     """An authenticated user who is not in the "Closed POD" Group is redirected to log in."""
     url = reverse("closedpod_contact_information_edit")
     user = UserFactory()
@@ -391,14 +381,11 @@ def test_post_closedpod_contact_information_edit_authenticated_in_closedpod_grou
     assert ["Contact information has been updated"] == messages
     user.refresh_from_db()
     assert (
-        user.closedpodcontactinformation.facility_name
-        == contact_information_data["facility_name"]
+        user.closedpodcontactinformation.facility_name == contact_information_data["facility_name"]
     )
 
 
-def test_valid_post_trying_update_other_user_fails(
-    db, client, contact_information_data
-):
+def test_valid_post_trying_update_other_user_fails(db, client, contact_information_data):
     """
     An authenticated user is not allowed to change the information for other users.
     """
@@ -419,8 +406,7 @@ def test_valid_post_trying_update_other_user_fails(
 
     user.refresh_from_db()
     assert (
-        user.closedpodcontactinformation.facility_name
-        == contact_information_data["facility_name"]
+        user.closedpodcontactinformation.facility_name == contact_information_data["facility_name"]
     )
     other_user.refresh_from_db()
     assert (
@@ -459,9 +445,7 @@ def test_post_closedpod_contact_information_edit_authenticated_in_closedpod_grou
 
 
 @pytest.mark.parametrize("method_name", ["PATCH", "PUT", "DELETE"])
-def test_closedpod_contact_information_edit_unsupported_methods(
-    db, client, method_name
-):
+def test_closedpod_contact_information_edit_unsupported_methods(db, client, method_name):
     """The closedpod_contact_information_edit view supports only GET and POST methods."""
     url = reverse("closedpod_contact_information_edit")
     user = UserFactory()

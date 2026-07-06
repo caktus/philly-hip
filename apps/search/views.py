@@ -6,7 +6,6 @@ from wagtail.models import Page
 
 from apps.common.utils import get_all_pages_visible_to_request, get_home_page_url
 
-
 SEARCH_RESULTS_PER_PAGE = 25
 
 

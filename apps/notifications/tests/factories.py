@@ -53,9 +53,7 @@ class InternalEmployeeAlertSubscriberFactory(factory.django.DjangoModelFactory):
         [str(l) for l in InternalEmployeeAlertSubscriber.PROFESSIONAL_LICENSE_CHOICES]
     )
     languages_spoken = factory.faker.Faker("word")
-    division = random.choice(
-        [str(d) for d in InternalEmployeeAlertSubscriber.DIVISION_CHOICES]
-    )
+    division = random.choice([str(d) for d in InternalEmployeeAlertSubscriber.DIVISION_CHOICES])
     work_phone = factory.faker.Faker("phone_number")
     work_email = factory.faker.Faker("email")
     cell_phone = factory.faker.Faker("phone_number")
