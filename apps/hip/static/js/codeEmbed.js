@@ -8,7 +8,10 @@ export default function () {
   const firstBlockStyle = window.getComputedStyle(embedBlocks[0]);
   const mobileBreakpoint =
     firstBlockStyle.getPropertyValue("--code-embed-mobile-breakpoint-hip").trim() || "768px";
+  const landscapeHeightBreakpoint =
+    firstBlockStyle.getPropertyValue("--code-embed-landscape-height-breakpoint-hip").trim() || "500px";
   const mobileMediaQuery = window.matchMedia(`(max-width: ${mobileBreakpoint})`);
+  const landscapeMediaQuery = window.matchMedia(`(orientation: landscape) and (max-height: ${landscapeHeightBreakpoint})`);
 
   const dismissHint = function (block) {
     block.classList.add("code-embed-hint-dismissed-hip");
@@ -73,7 +76,8 @@ export default function () {
   };
 
   const applyMobileScale = function (scrollArea, content) {
-    if (!mobileMediaQuery.matches) {
+    const isLandscapeMobile = landscapeMediaQuery.matches;
+    if (!mobileMediaQuery.matches && !isLandscapeMobile) {
       clearMobileScale(scrollArea, content);
       return;
     }
@@ -90,7 +94,9 @@ export default function () {
     }
 
     const fitWidth = Math.max(1, viewportWidth - 8);
-    const viewportTop = Math.max(0, scrollArea.getBoundingClientRect().top);
+    // In landscape, use the full viewport height so the embed is correctly sized
+    // regardless of where it sits on the page (avoids tiny-then-grows-on-scroll).
+    const viewportTop = isLandscapeMobile ? 0 : Math.max(0, scrollArea.getBoundingClientRect().top);
     const fitHeight = Math.max(1, window.innerHeight - viewportTop - 12);
     const widthScale = fitWidth / contentWidth;
     const heightScale = fitHeight / Math.max(1, contentHeight);
@@ -140,7 +146,7 @@ export default function () {
     scheduleScaleToViewport();
 
     const hideHintOnInteraction = function () {
-      if (!mobileMediaQuery.matches) {
+      if (!mobileMediaQuery.matches && !landscapeMediaQuery.matches) {
         return;
       }
       dismissHint(block);
@@ -174,6 +180,7 @@ export default function () {
     }
 
     mobileMediaQuery.addEventListener("change", scheduleScaleToViewport);
+    landscapeMediaQuery.addEventListener("change", scheduleScaleToViewport);
     window.addEventListener("resize", scheduleScaleToViewport, { passive: true });
     window.addEventListener("orientationchange", scheduleScaleToViewport, { passive: true });
   });

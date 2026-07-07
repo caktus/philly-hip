@@ -11659,7 +11659,9 @@ __webpack_require__.r(__webpack_exports__);
   }
   var firstBlockStyle = window.getComputedStyle(embedBlocks[0]);
   var mobileBreakpoint = firstBlockStyle.getPropertyValue("--code-embed-mobile-breakpoint-hip").trim() || "768px";
+  var landscapeHeightBreakpoint = firstBlockStyle.getPropertyValue("--code-embed-landscape-height-breakpoint-hip").trim() || "500px";
   var mobileMediaQuery = window.matchMedia("(max-width: ".concat(mobileBreakpoint, ")"));
+  var landscapeMediaQuery = window.matchMedia("(orientation: landscape) and (max-height: ".concat(landscapeHeightBreakpoint, ")"));
   var dismissHint = function dismissHint(block) {
     block.classList.add("code-embed-hint-dismissed-hip");
   };
@@ -11712,7 +11714,8 @@ __webpack_require__.r(__webpack_exports__);
     scrollArea.style.minHeight = "";
   };
   var applyMobileScale = function applyMobileScale(scrollArea, content) {
-    if (!mobileMediaQuery.matches) {
+    var isLandscapeMobile = landscapeMediaQuery.matches;
+    if (!mobileMediaQuery.matches && !isLandscapeMobile) {
       clearMobileScale(scrollArea, content);
       return;
     }
@@ -11725,7 +11728,9 @@ __webpack_require__.r(__webpack_exports__);
       return;
     }
     var fitWidth = Math.max(1, viewportWidth - 8);
-    var viewportTop = Math.max(0, scrollArea.getBoundingClientRect().top);
+    // In landscape, use the full viewport height so the embed is correctly sized
+    // regardless of where it sits on the page (avoids tiny-then-grows-on-scroll).
+    var viewportTop = isLandscapeMobile ? 0 : Math.max(0, scrollArea.getBoundingClientRect().top);
     var fitHeight = Math.max(1, window.innerHeight - viewportTop - 12);
     var widthScale = fitWidth / contentWidth;
     var heightScale = fitHeight / Math.max(1, contentHeight);
@@ -11764,7 +11769,7 @@ __webpack_require__.r(__webpack_exports__);
     };
     scheduleScaleToViewport();
     var hideHintOnInteraction = function hideHintOnInteraction() {
-      if (!mobileMediaQuery.matches) {
+      if (!mobileMediaQuery.matches && !landscapeMediaQuery.matches) {
         return;
       }
       dismissHint(block);
@@ -11799,6 +11804,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
     mobileMediaQuery.addEventListener("change", scheduleScaleToViewport);
+    landscapeMediaQuery.addEventListener("change", scheduleScaleToViewport);
     window.addEventListener("resize", scheduleScaleToViewport, {
       passive: true
     });
