@@ -11734,13 +11734,18 @@ __webpack_require__.r(__webpack_exports__);
     var fitHeight = Math.max(1, window.innerHeight - viewportTop - 12);
     var widthScale = fitWidth / contentWidth;
     var heightScale = fitHeight / Math.max(1, contentHeight);
-    var scale = Math.min(1, widthScale, heightScale);
+    // In landscape: scale to fill the width; height overflow is handled by the scroll container.
+    // In portrait: scale to fit both dimensions, capped at 1 to avoid upscaling.
+    var scale = isLandscapeMobile ? widthScale : Math.min(1, widthScale, heightScale);
     content.style.display = "block";
     content.style.width = "".concat(contentWidth, "px");
     content.style.transformOrigin = "top left";
     content.style.transform = "scale(".concat(scale.toFixed(4), ")");
     if (contentHeight) {
-      scrollArea.style.minHeight = "".concat(Math.ceil(contentHeight * scale), "px");
+      var scaledHeight = Math.ceil(contentHeight * scale);
+      // In landscape, cap the container to the viewport height so the page doesn't grow
+      // taller than the screen; the scroll area's overflow:auto handles the rest.
+      scrollArea.style.minHeight = isLandscapeMobile ? "".concat(Math.min(scaledHeight, Math.ceil(window.innerHeight - 12)), "px") : "".concat(scaledHeight, "px");
     }
     scrollArea.scrollLeft = 0;
   };

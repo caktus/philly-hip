@@ -100,7 +100,11 @@ export default function () {
     const fitHeight = Math.max(1, window.innerHeight - viewportTop - 12);
     const widthScale = fitWidth / contentWidth;
     const heightScale = fitHeight / Math.max(1, contentHeight);
-    const scale = Math.min(1, widthScale, heightScale);
+    // In landscape: scale to fill the width; height overflow is handled by the scroll container.
+    // In portrait: scale to fit both dimensions, capped at 1 to avoid upscaling.
+    const scale = isLandscapeMobile
+      ? widthScale
+      : Math.min(1, widthScale, heightScale);
 
     content.style.display = "block";
     content.style.width = `${contentWidth}px`;
@@ -108,7 +112,12 @@ export default function () {
     content.style.transform = `scale(${scale.toFixed(4)})`;
 
     if (contentHeight) {
-      scrollArea.style.minHeight = `${Math.ceil(contentHeight * scale)}px`;
+      const scaledHeight = Math.ceil(contentHeight * scale);
+      // In landscape, cap the container to the viewport height so the page doesn't grow
+      // taller than the screen; the scroll area's overflow:auto handles the rest.
+      scrollArea.style.minHeight = isLandscapeMobile
+        ? `${Math.min(scaledHeight, Math.ceil(window.innerHeight - 12))}px`
+        : `${scaledHeight}px`;
     }
 
     scrollArea.scrollLeft = 0;
