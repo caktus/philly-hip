@@ -11684,25 +11684,25 @@ __webpack_require__.r(__webpack_exports__);
   };
   var getIntrinsicContentMetrics = function getIntrinsicContentMetrics(content) {
     var contentRect = content.getBoundingClientRect();
-    var minLeft = 0;
-    var maxRight = getIntrinsicContentWidth(content);
-    var maxBottom = content.scrollHeight;
-    var descendants = content.querySelectorAll("*");
-    descendants.forEach(function (element) {
-      var rect = element.getBoundingClientRect();
-      if (!rect.width && !rect.height) {
-        return;
+    var width = getIntrinsicContentWidth(content);
+
+    // Keep mobile height calculations stable. Some embed scripts inject positioned
+    // descendants that can report oversized bounding boxes and inflate whitespace.
+    var height = Math.max(content.scrollHeight, contentRect.height);
+    var iframes = content.querySelectorAll("iframe");
+    iframes.forEach(function (iframe) {
+      var iframeAttrHeight = Number.parseFloat(iframe.getAttribute("height"));
+      var iframeRectHeight = iframe.getBoundingClientRect().height;
+      if (Number.isFinite(iframeAttrHeight) && iframeAttrHeight > 0) {
+        height = Math.max(height, iframeAttrHeight);
       }
-      var relativeLeft = rect.left - contentRect.left;
-      var relativeRight = rect.right - contentRect.left;
-      var relativeBottom = rect.bottom - contentRect.top;
-      minLeft = Math.min(minLeft, relativeLeft);
-      maxRight = Math.max(maxRight, relativeRight);
-      maxBottom = Math.max(maxBottom, relativeBottom);
+      if (Number.isFinite(iframeRectHeight) && iframeRectHeight > 0) {
+        height = Math.max(height, iframeRectHeight);
+      }
     });
     return {
-      width: Math.ceil(maxRight - minLeft),
-      height: Math.ceil(maxBottom)
+      width: Math.ceil(width),
+      height: Math.ceil(height)
     };
   };
   var clearMobileScale = function clearMobileScale(scrollArea, content) {
@@ -11711,7 +11711,10 @@ __webpack_require__.r(__webpack_exports__);
     content.style.transformOrigin = "";
     content.style.display = "";
     content.style.width = "";
+    content.style.height = "";
+    content.style.overflow = "";
     scrollArea.style.minHeight = "";
+    scrollArea.style.height = "";
   };
   var applyMobileScale = function applyMobileScale(scrollArea, content) {
     var isLandscapeMobile = landscapeMediaQuery.matches;
@@ -11742,10 +11745,14 @@ __webpack_require__.r(__webpack_exports__);
     content.style.transformOrigin = "top left";
     content.style.transform = "scale(".concat(scale.toFixed(4), ")");
     if (contentHeight) {
-      var scaledHeight = Math.ceil(contentHeight * scale);
+      // Use rendered transformed height so we avoid whitespace without clipping
+      // content that extends outside the element's unscaled layout box.
+      var renderedHeight = Math.ceil(content.getBoundingClientRect().height || contentHeight * scale);
       // In landscape, cap the container to the viewport height so the page doesn't grow
       // taller than the screen; the scroll area's overflow:auto handles the rest.
-      scrollArea.style.minHeight = isLandscapeMobile ? "".concat(Math.min(scaledHeight, Math.ceil(window.innerHeight - 12)), "px") : "".concat(scaledHeight, "px");
+      var targetHeight = isLandscapeMobile ? "".concat(Math.min(renderedHeight, Math.ceil(window.innerHeight - 12)), "px") : "".concat(renderedHeight, "px");
+      scrollArea.style.minHeight = targetHeight;
+      scrollArea.style.height = targetHeight;
     }
     scrollArea.scrollLeft = 0;
   };

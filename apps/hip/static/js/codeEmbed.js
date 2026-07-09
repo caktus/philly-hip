@@ -40,29 +40,29 @@ export default function () {
 
   const getIntrinsicContentMetrics = function (content) {
     const contentRect = content.getBoundingClientRect();
-    let minLeft = 0;
-    let maxRight = getIntrinsicContentWidth(content);
-    let maxBottom = content.scrollHeight;
+    const width = getIntrinsicContentWidth(content);
 
-    const descendants = content.querySelectorAll("*");
-    descendants.forEach(function (element) {
-      const rect = element.getBoundingClientRect();
-      if (!rect.width && !rect.height) {
-        return;
+    // Keep mobile height calculations stable. Some embed scripts inject positioned
+    // descendants that can report oversized bounding boxes and inflate whitespace.
+    let height = Math.max(content.scrollHeight, contentRect.height);
+
+    const iframes = content.querySelectorAll("iframe");
+    iframes.forEach(function (iframe) {
+      const iframeAttrHeight = Number.parseFloat(iframe.getAttribute("height"));
+      const iframeRectHeight = iframe.getBoundingClientRect().height;
+
+      if (Number.isFinite(iframeAttrHeight) && iframeAttrHeight > 0) {
+        height = Math.max(height, iframeAttrHeight);
       }
 
-      const relativeLeft = rect.left - contentRect.left;
-      const relativeRight = rect.right - contentRect.left;
-      const relativeBottom = rect.bottom - contentRect.top;
-
-      minLeft = Math.min(minLeft, relativeLeft);
-      maxRight = Math.max(maxRight, relativeRight);
-      maxBottom = Math.max(maxBottom, relativeBottom);
+      if (Number.isFinite(iframeRectHeight) && iframeRectHeight > 0) {
+        height = Math.max(height, iframeRectHeight);
+      }
     });
 
     return {
-      width: Math.ceil(maxRight - minLeft),
-      height: Math.ceil(maxBottom),
+      width: Math.ceil(width),
+      height: Math.ceil(height),
     };
   };
 
@@ -72,7 +72,10 @@ export default function () {
     content.style.transformOrigin = "";
     content.style.display = "";
     content.style.width = "";
+    content.style.height = "";
+    content.style.overflow = "";
     scrollArea.style.minHeight = "";
+    scrollArea.style.height = "";
   };
 
   const applyMobileScale = function (scrollArea, content) {
@@ -112,12 +115,16 @@ export default function () {
     content.style.transform = `scale(${scale.toFixed(4)})`;
 
     if (contentHeight) {
-      const scaledHeight = Math.ceil(contentHeight * scale);
+      // Use rendered transformed height so we avoid whitespace without clipping
+      // content that extends outside the element's unscaled layout box.
+      const renderedHeight = Math.ceil(content.getBoundingClientRect().height || (contentHeight * scale));
       // In landscape, cap the container to the viewport height so the page doesn't grow
       // taller than the screen; the scroll area's overflow:auto handles the rest.
-      scrollArea.style.minHeight = isLandscapeMobile
-        ? `${Math.min(scaledHeight, Math.ceil(window.innerHeight - 12))}px`
-        : `${scaledHeight}px`;
+      const targetHeight = isLandscapeMobile
+        ? `${Math.min(renderedHeight, Math.ceil(window.innerHeight - 12))}px`
+        : `${renderedHeight}px`;
+      scrollArea.style.minHeight = targetHeight;
+      scrollArea.style.height = targetHeight;
     }
 
     scrollArea.scrollLeft = 0;
