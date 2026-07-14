@@ -11653,21 +11653,135 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__() {
-  var mobileMediaQuery = window.matchMedia("(max-width: 768px)");
   var embedBlocks = Array.from(document.querySelectorAll(".js-code-embed-hip"));
   if (!embedBlocks.length) {
     return;
   }
+  var firstBlockStyle = window.getComputedStyle(embedBlocks[0]);
+  var mobileBreakpoint = firstBlockStyle.getPropertyValue("--code-embed-mobile-breakpoint-hip").trim() || "768px";
+  var landscapeHeightBreakpoint = firstBlockStyle.getPropertyValue("--code-embed-landscape-height-breakpoint-hip").trim() || "500px";
+  var mobileMediaQuery = window.matchMedia("(max-width: ".concat(mobileBreakpoint, ")"));
+  var landscapeMediaQuery = window.matchMedia("(orientation: landscape) and (max-height: ".concat(landscapeHeightBreakpoint, ")"));
   var dismissHint = function dismissHint(block) {
     block.classList.add("code-embed-hint-dismissed-hip");
+  };
+  var getIntrinsicContentWidth = function getIntrinsicContentWidth(content) {
+    var widest = content.scrollWidth;
+    var iframes = content.querySelectorAll("iframe");
+    iframes.forEach(function (iframe) {
+      var iframeWidth = Number.parseFloat(iframe.getAttribute("width"));
+      if (Number.isFinite(iframeWidth) && iframeWidth > 0) {
+        iframe.style.width = "".concat(iframeWidth, "px");
+        widest = Math.max(widest, iframeWidth);
+      }
+    });
+    var descendants = content.querySelectorAll("*");
+    descendants.forEach(function (element) {
+      widest = Math.max(widest, element.scrollWidth);
+      widest = Math.max(widest, element.getBoundingClientRect().width);
+    });
+    return Math.ceil(widest);
+  };
+  var getIntrinsicContentMetrics = function getIntrinsicContentMetrics(content) {
+    var contentRect = content.getBoundingClientRect();
+    var width = getIntrinsicContentWidth(content);
+
+    // Keep mobile height calculations stable. Some embed scripts inject positioned
+    // descendants that can report oversized bounding boxes and inflate whitespace.
+    var height = Math.max(content.scrollHeight, contentRect.height);
+    var iframes = content.querySelectorAll("iframe");
+    iframes.forEach(function (iframe) {
+      var iframeAttrHeight = Number.parseFloat(iframe.getAttribute("height"));
+      var iframeRectHeight = iframe.getBoundingClientRect().height;
+      if (Number.isFinite(iframeAttrHeight) && iframeAttrHeight > 0) {
+        height = Math.max(height, iframeAttrHeight);
+      }
+      if (Number.isFinite(iframeRectHeight) && iframeRectHeight > 0) {
+        height = Math.max(height, iframeRectHeight);
+      }
+    });
+    return {
+      width: Math.ceil(width),
+      height: Math.ceil(height)
+    };
+  };
+  var clearMobileScale = function clearMobileScale(scrollArea, content) {
+    content.style.zoom = "";
+    content.style.transform = "";
+    content.style.transformOrigin = "";
+    content.style.display = "";
+    content.style.width = "";
+    content.style.height = "";
+    content.style.overflow = "";
+    scrollArea.style.minHeight = "";
+    scrollArea.style.height = "";
+  };
+  var applyMobileScale = function applyMobileScale(scrollArea, content) {
+    var isLandscapeMobile = landscapeMediaQuery.matches;
+    if (!mobileMediaQuery.matches && !isLandscapeMobile) {
+      clearMobileScale(scrollArea, content);
+      return;
+    }
+    clearMobileScale(scrollArea, content);
+    var contentMetrics = getIntrinsicContentMetrics(content);
+    var contentWidth = contentMetrics.width;
+    var contentHeight = contentMetrics.height;
+    var viewportWidth = scrollArea.clientWidth;
+    if (!contentWidth || !viewportWidth) {
+      return;
+    }
+    var fitWidth = Math.max(1, viewportWidth - 8);
+    // In landscape, use the full viewport height so the embed is correctly sized
+    // regardless of where it sits on the page (avoids tiny-then-grows-on-scroll).
+    var viewportTop = isLandscapeMobile ? 0 : Math.max(0, scrollArea.getBoundingClientRect().top);
+    var fitHeight = Math.max(1, window.innerHeight - viewportTop - 12);
+    var widthScale = fitWidth / contentWidth;
+    var heightScale = fitHeight / Math.max(1, contentHeight);
+    // In landscape: scale to fill the width; height overflow is handled by the scroll container.
+    // In portrait: scale to fit both dimensions, capped at 1 to avoid upscaling.
+    var scale = isLandscapeMobile ? widthScale : Math.min(1, widthScale, heightScale);
+    content.style.display = "block";
+    content.style.width = "".concat(contentWidth, "px");
+    content.style.transformOrigin = "top left";
+    content.style.transform = "scale(".concat(scale.toFixed(4), ")");
+    if (contentHeight) {
+      // Use rendered transformed height so we avoid whitespace without clipping
+      // content that extends outside the element's unscaled layout box.
+      var renderedHeight = Math.ceil(content.getBoundingClientRect().height || contentHeight * scale);
+      // In landscape, cap the container to the viewport height so the page doesn't grow
+      // taller than the screen; the scroll area's overflow:auto handles the rest.
+      var targetHeight = isLandscapeMobile ? "".concat(Math.min(renderedHeight, Math.ceil(window.innerHeight - 12)), "px") : "".concat(renderedHeight, "px");
+      scrollArea.style.minHeight = targetHeight;
+      scrollArea.style.height = targetHeight;
+    }
+    scrollArea.scrollLeft = 0;
   };
   embedBlocks.forEach(function (block) {
     var scrollArea = block.querySelector(".js-code-embed-scroll-hip");
     if (!scrollArea) {
       return;
     }
+    var content = scrollArea.querySelector(".code-embed-content-hip");
+    if (!content) {
+      return;
+    }
+    var scaleToViewport = function scaleToViewport() {
+      applyMobileScale(scrollArea, content);
+    };
+    var hasPendingScale = false;
+    var scheduleScaleToViewport = function scheduleScaleToViewport() {
+      if (hasPendingScale) {
+        return;
+      }
+      hasPendingScale = true;
+      window.requestAnimationFrame(function () {
+        hasPendingScale = false;
+        scaleToViewport();
+      });
+    };
+    scheduleScaleToViewport();
     var hideHintOnInteraction = function hideHintOnInteraction() {
-      if (!mobileMediaQuery.matches) {
+      if (!mobileMediaQuery.matches && !landscapeMediaQuery.matches) {
         return;
       }
       dismissHint(block);
@@ -11684,9 +11798,31 @@ __webpack_require__.r(__webpack_exports__);
     var iframe = scrollArea.querySelector("iframe");
     if (iframe) {
       iframe.addEventListener("load", function () {
+        scheduleScaleToViewport();
         iframe.style.touchAction = "auto";
       });
     }
+    if (window.ResizeObserver) {
+      var resizeObserver = new window.ResizeObserver(scheduleScaleToViewport);
+      resizeObserver.observe(scrollArea);
+      resizeObserver.observe(content);
+    }
+    if (window.MutationObserver) {
+      var mutationObserver = new window.MutationObserver(scheduleScaleToViewport);
+      mutationObserver.observe(content, {
+        childList: true,
+        subtree: true,
+        attributes: true
+      });
+    }
+    mobileMediaQuery.addEventListener("change", scheduleScaleToViewport);
+    landscapeMediaQuery.addEventListener("change", scheduleScaleToViewport);
+    window.addEventListener("resize", scheduleScaleToViewport, {
+      passive: true
+    });
+    window.addEventListener("orientationchange", scheduleScaleToViewport, {
+      passive: true
+    });
   });
 }
 
