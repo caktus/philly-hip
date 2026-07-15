@@ -182,6 +182,8 @@ body.modal-is-open-hip {
 
 .code-embed-hip {
   width: 100%;
+  --code-embed-mobile-breakpoint-hip: #{$breakpoint-mobile};
+  --code-embed-landscape-height-breakpoint-hip: 500px;
 }
 
 .code-embed-scroll-hip {
@@ -205,14 +207,54 @@ body.modal-is-open-hip {
 
 @media screen and (max-width: $breakpoint-mobile) {
   .code-embed-scroll-hip {
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: auto;
     -webkit-overflow-scrolling: touch;
+    touch-action: pan-x pan-y pinch-zoom;
     justify-content: flex-start !important;
   }
 
   .code-embed-content-hip {
+    display: block !important;
     min-width: max-content;
+    width: max-content;
+  }
+
+  .code-embed-pinch-hint-hip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 4px;
+    color: $white;
+    background-color: rgba(0, 0, 0, 0.7);
+    font-size: $is-size-7;
+    line-height: 1.2;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.35s ease;
+  }
+
+  .code-embed-hip.code-embed-hint-dismissed-hip .code-embed-pinch-hint-hip {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@media screen and (orientation: landscape) and (max-height: 500px) {
+  .code-embed-scroll-hip {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x pan-y pinch-zoom;
+    justify-content: flex-start !important;
+  }
+
+  .code-embed-content-hip {
+    display: block !important;
+    min-width: max-content;
+    width: max-content;
   }
 
   .code-embed-pinch-hint-hip {

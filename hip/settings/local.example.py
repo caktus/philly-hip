@@ -1,6 +1,5 @@
 from hip.settings.dev import *  # noqa
 
-
 # Override settings here
 INSTALLED_APPS += (
     # 'debug_toolbar',

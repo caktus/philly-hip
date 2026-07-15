@@ -62,9 +62,7 @@ def test_internal_alerts_signup_valid_data(
     if next_url:
         url += f"?next={next_url}"
     if http_referrer_header:
-        response = client.post(
-            url, internal_alert_data, HTTP_REFERER=http_referrer_header
-        )
+        response = client.post(url, internal_alert_data, HTTP_REFERER=http_referrer_header)
     else:
         response = client.post(url, internal_alert_data)
 
@@ -93,9 +91,7 @@ def test_internal_alerts_signup_invalid_data(db, client, internal_alert_data):
 
     assert HTTPStatus.OK == response.status_code
     assert "This field is required." in str(response.content)
-    assert {"first_name": ["This field is required."]} == response.context[
-        "form"
-    ].errors
+    assert {"first_name": ["This field is required."]} == response.context["form"].errors
 
 
 def test_get_community_response_notification_signup_page(db, client):
@@ -176,9 +172,7 @@ def test_community_response_notification_signup_invalid_data(
     response = client.post(reverse("community_notifications_signup"), data)
 
     assert HTTPStatus.OK == response.status_code
-    assert {"email_address": ["This field is required."]} == response.context[
-        "form"
-    ].errors
+    assert {"email_address": ["This field is required."]} == response.context["form"].errors
 
 
 def test_get_drug_overdose_notification_signup_page(db, client):
@@ -259,9 +253,7 @@ def test_drug_overdose_notification_signup_invalid_data(
     response = client.post(reverse("drug_notifications_signup"), data)
 
     assert HTTPStatus.OK == response.status_code
-    assert {"first_name": ["This field is required."]} == response.context[
-        "form"
-    ].errors
+    assert {"first_name": ["This field is required."]} == response.context["form"].errors
 
 
 def test_get_codeblue_codered_notifications_signup_page(db, client):
@@ -388,9 +380,7 @@ def test_public_health_preparedness_signup_valid_data(
     if next_url:
         url += f"?next={next_url}"
     if http_referrer_header:
-        response = client.post(
-            url, php_notification_data, HTTP_REFERER=http_referrer_header
-        )
+        response = client.post(url, php_notification_data, HTTP_REFERER=http_referrer_header)
     else:
         response = client.post(url, php_notification_data)
 
@@ -411,9 +401,7 @@ def test_public_health_preparedness_signup_valid_data(
         assert 0 == mock_get_emergency_communications_page_url.call_count
 
 
-def test_public_health_preparedness_signup_invalid_data(
-    db, client, php_notification_data
-):
+def test_public_health_preparedness_signup_invalid_data(db, client, php_notification_data):
     """POSTting invalid data shows errors to the user."""
     data = php_notification_data.copy()
     data.pop("first_name")
@@ -421,6 +409,4 @@ def test_public_health_preparedness_signup_invalid_data(
     response = client.post(reverse("public_health_preparedness_signup"), data)
 
     assert HTTPStatus.OK == response.status_code
-    assert {"first_name": ["This field is required."]} == response.context[
-        "form"
-    ].errors
+    assert {"first_name": ["This field is required."]} == response.context["form"].errors

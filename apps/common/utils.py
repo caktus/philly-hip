@@ -2,7 +2,6 @@ from wagtail.models import Page, PageViewRestriction
 
 from apps.hip.models import HomePage
 
-
 from apps.auth_content.models import (  # isort: skip
     BigCitiesHomePage,
     ClosedPODHomePage,
@@ -42,9 +41,7 @@ def get_emergency_communications_page_url():
         Page.objects.filter(title="Emergency Communications").live().first()
     )
     return (
-        emergency_communications_page.url
-        if emergency_communications_page
-        else get_home_page_url()
+        emergency_communications_page.url if emergency_communications_page else get_home_page_url()
     )
 
 
@@ -65,9 +62,7 @@ def get_all_pages_visible_to_request(request):
     # the request user does not have permission to see the Page, then subtract
     # that Page (and its descendants) from pages_for_user.
     for page_view_restriction in PageViewRestriction.objects.select_related("page"):
-        page_and_descendants = page_view_restriction.page.get_descendants(
-            inclusive=True
-        )
+        page_and_descendants = page_view_restriction.page.get_descendants(inclusive=True)
         if page_view_restriction.accept_request(request):
             pages_for_user = pages_for_user.union(page_and_descendants)
         else:

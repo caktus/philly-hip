@@ -2,7 +2,6 @@ import os
 
 from hip.settings.base import *  # noqa: F403
 
-
 # For more information about deploy settings, see:
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
@@ -59,16 +58,11 @@ for backend in TEMPLATES:
             backend["APP_DIRS"] = False
         loaders = backend["OPTIONS"].get("loaders", default_loaders)
         for loader in loaders:
-            if (
-                len(loader) == 2
-                and loader[0] == "django.template.loaders.cached.Loader"
-            ):
+            if len(loader) == 2 and loader[0] == "django.template.loaders.cached.Loader":
                 # We're already caching our templates
                 break
         else:
-            backend["OPTIONS"]["loaders"] = [
-                ("django.template.loaders.cached.Loader", loaders)
-            ]
+            backend["OPTIONS"]["loaders"] = [("django.template.loaders.cached.Loader", loaders)]
 
 ### ADMINS and MANAGERS
 ADMINS = []  # we use AWS CloudWatch for this

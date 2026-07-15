@@ -83,9 +83,7 @@ class TestExternalContentEmbedBlock:
         assert iframe["width"] == "800"
         assert iframe["title"] == "Tableau Dashboard"
 
-        hint = scroll_area.select_one(
-            ".code-embed-pinch-hint-hip.js-code-embed-hint-hip"
-        )
+        hint = scroll_area.select_one(".code-embed-pinch-hint-hip.js-code-embed-hint-hip")
         assert hint is not None
         assert hint["aria-hidden"] == "true"
         assert hint.get_text(" ", strip=True) == "Pinch to zoom. Swipe to scroll."
@@ -156,6 +154,35 @@ class TestExternalContentEmbedBlock:
 
         assert len(hints) == 1
         assert hints[0].get_text(" ", strip=True) == "Pinch to zoom. Swipe to scroll."
+
+    def test_embed_description_renders_outside_embed_wrapper(self):
+        """
+        Regression test: description content must stay outside embed wrappers so
+        mobile sizing logic only applies to embed content.
+        """
+        rendered_html = self.render_block(
+            {
+                "description": "<p>Longer explanatory rich text beneath the embed.</p>",
+            }
+        )
+        soup = BeautifulSoup(rendered_html, "html.parser")
+
+        wrapper = soup.select_one(".code-embed-hip.js-code-embed-hip")
+        assert wrapper is not None
+
+        scroll_area = wrapper.select_one(".js-code-embed-scroll-hip")
+        assert scroll_area is not None
+
+        description = soup.select_one(".has-text-centered.mt-4")
+        assert description is not None
+        assert "Longer explanatory rich text" in description.get_text(" ", strip=True)
+
+        # Ensure rich text lives outside the embed wrapper and scroll container.
+        assert wrapper.select_one(".has-text-centered.mt-4") is None
+        assert scroll_area.select_one(".has-text-centered.mt-4") is None
+
+        # Template order should be wrapper first, then description.
+        assert wrapper.find_next_sibling("div", class_="has-text-centered mt-4") is description
 
     def test_embed_block_unicode_support(self):
         """

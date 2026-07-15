@@ -356,9 +356,7 @@ class StreamAndNavHeadingBlock(blocks.StructBlock):
             "navigation on the side of the page."
         ),
     )
-    is_card = blocks.BooleanBlock(
-        required=False, help_text=("Is this content block a card?")
-    )
+    is_card = blocks.BooleanBlock(required=False, help_text=("Is this content block a card?"))
     body = TextOrTableStreamBlock()
     contact_info = SnippetChooserBlock(Contact, required=False)
     button = SnippetChooserBlock(ButtonSnippet, required=False)
@@ -523,9 +521,7 @@ class QuickLinkCard(blocks.StructBlock):
     title = blocks.CharBlock(
         max_length=80,
         required=True,
-        help_text=(
-            "The linked text that will be visible to the reader (maximum of 80 characters)"
-        ),
+        help_text=("The linked text that will be visible to the reader (maximum of 80 characters)"),
     )
     link_page = blocks.PageChooserBlock(
         required=False,
@@ -539,8 +535,7 @@ class QuickLinkCard(blocks.StructBlock):
     updated_on = blocks.DateBlock(
         required=False,
         help_text=(
-            "If the link is to an external URL, this will be the displayed as the "
-            "updated date"
+            "If the link is to an external URL, this will be the displayed as the " "updated date"
         ),
     )
 

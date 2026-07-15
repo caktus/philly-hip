@@ -9,7 +9,6 @@ import wagtail.fields
 
 import apps.disease_control.models
 
-
 SECTION_FIELD_NAMES = (
     "description",
     "at_a_glance",

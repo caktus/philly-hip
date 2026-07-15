@@ -63,10 +63,7 @@ class HipBasePage(Page):
         descendant of the ClosedPODHomePage.
         """
         if hasattr(self, "closedpodhomepage") or any(
-            [
-                hasattr(ancestor, "closedpodhomepage")
-                for ancestor in self.get_ancestors()
-            ]
+            [hasattr(ancestor, "closedpodhomepage") for ancestor in self.get_ancestors()]
         ):
             return True
         return False
@@ -80,10 +77,7 @@ class HipBasePage(Page):
         descendant of the PCWMSAHomePage.
         """
         if hasattr(self, "pcwmsahomepage") or any(
-            [
-                hasattr(ancestor.specific, "pcwmsahomepage")
-                for ancestor in self.get_ancestors()
-            ]
+            [hasattr(ancestor.specific, "pcwmsahomepage") for ancestor in self.get_ancestors()]
         ):
             return True
         return False
@@ -97,10 +91,7 @@ class HipBasePage(Page):
         descendant of the BigCitiesHomePage.
         """
         if hasattr(self, "bigcitieshomepage") or any(
-            [
-                hasattr(ancestor.specific, "bigcitieshomepage")
-                for ancestor in self.get_ancestors()
-            ]
+            [hasattr(ancestor.specific, "bigcitieshomepage") for ancestor in self.get_ancestors()]
         ):
             return True
         return False

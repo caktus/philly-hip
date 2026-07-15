@@ -24,9 +24,7 @@ class QuickLinkCardFactory(wagtail_factories.StructBlockFactory):
 
 
 class StaticPageFactory(wagtail_factories.PageFactory):
-    body = wagtail_factories.StreamFieldFactory(
-        {"section": StreamAndNavHeadingBlockFactory()}
-    )
+    body = wagtail_factories.StreamFieldFactory({"section": StreamAndNavHeadingBlockFactory()})
     latest_revision_created_at = now()
 
     class Meta:
