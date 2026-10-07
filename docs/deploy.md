@@ -241,17 +241,17 @@ arc-runner-set-wnpss-runner-vq9ns        1/1     Running   0          28s
 To update the EKS managed addon versions and the nodegroups to the latest Amazon EKS AMIs, run:
 
 ```sh
-inv staging/production -n eks-updates.yml
+inv production deploy.playbook eks-updates.yml
 ```
 
 You can target individual parts of the update using tags:
 
 ```sh
 # Only update EKS addon versions
-inv production -n  eks-updates.yml --extra "--tags addons"
+inv production deploy.playbook eks-updates.yml --extra "--tags addons"
 
 # Only update nodegroup AMIs
-inv production -n  eks-updates.yml --extra "--tags addons"
+inv production deploy.playbook eks-updates.yml --extra "--tags addons"
 ```
 
 Note: updating nodegroup AMIs performs a rolling update, so nodes will be
