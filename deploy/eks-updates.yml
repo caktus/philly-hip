@@ -1,0 +1,19 @@
+- name: Update EKS addons and nodegroup AMIs
+  hosts: cluster
+  gather_facts: false
+  vars:
+    eks_cluster_name: "{{ cloudformation_stack.template_parameters.EksClusterName }}"
+  tasks:
+    - name: Update EKS addons
+      caktus.hosting_services.eks_addon_update:
+        cluster_name: "{{ eks_cluster_name }}"
+        profile: "{{ aws_profile }}"
+        region: "{{ aws_region }}"
+      tags: addons
+
+    - name: Update EKS nodegroup AMIs
+      caktus.hosting_services.eks_nodegroup_ami_update:
+        cluster_name: "{{ eks_cluster_name }}"
+        profile: "{{ aws_profile }}"
+        region: "{{ aws_region }}"
+      tags: nodegroups

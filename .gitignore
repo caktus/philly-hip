@@ -20,6 +20,7 @@ venv
 webpack-stats.json
 bin
 .kube
+.venv
 
 # Project Static Files
 node_modules/*
@@ -32,6 +33,7 @@ hip/static/bundles/main.js
 # Ansible
 bin/
 deploy/roles/*
+deploy/collections/*
 .vault_pass
 *.retry
 deploy.log

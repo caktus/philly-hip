@@ -19,3 +19,6 @@ roles:
 collections:
   - name: amazon.aws
     version: 8.2.1
+  - name: https://github.com/caktus/ansible-collection-caktus-hosting-services
+    version: v0.9.0
+    type: git

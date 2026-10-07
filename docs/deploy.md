@@ -234,3 +234,25 @@ arc-gha-rs-controller-5fd5c6b567-vwgqb   1/1     Running   0          64s
 arc-runner-set-f577755c-listener         1/1     Running   0          32s
 arc-runner-set-wnpss-runner-vq9ns        1/1     Running   0          28s
 ```
+
+
+## Update EKS addons and nodegroup AMIs
+
+To update the EKS managed addon versions and the nodegroups to the latest Amazon EKS AMIs, run:
+
+```sh
+inv staging/production -n eks-updates.yml
+```
+
+You can target individual parts of the update using tags:
+
+```sh
+# Only update EKS addon versions
+inv production -n  eks-updates.yml --extra "--tags addons"
+
+# Only update nodegroup AMIs
+inv production -n  eks-updates.yml --extra "--tags addons"
+```
+
+Note: updating nodegroup AMIs performs a rolling update, so nodes will be
+drained and replaced one at a time.
