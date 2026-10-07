@@ -11,8 +11,8 @@ stack_name: "{{ long_app_name }}-stack"
 aws_profile: "{{ long_app_name }}"
 cluster_name: "{{ stack_name }}-cluster"
 
-# ansible_connection: local
-# ansible_python_interpreter: "{{ ansible_playbook_python }}"
+ansible_connection: local
+ansible_python_interpreter: "{{ ansible_playbook_python }}"
 
 k8s_cluster_name: "{{ cluster_name }}"
 k8s_namespace: "{{ app_name }}-{{ env_name }}" 

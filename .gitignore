@@ -20,6 +20,7 @@ venv
 webpack-stats.json
 bin
 .kube
+.venv
 
 # Project Static Files
 node_modules/*
